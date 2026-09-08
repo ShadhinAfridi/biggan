@@ -1,0 +1,105 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { Latex } from '../../../components/math/Latex';
+import { getLocalizedPath } from '../../../i18n/utils';
+---
+
+<ArticleLayout
+  title="Molar Mass of Hydrates and Water of Crystallization: Calculation Rules & Common Traps"
+  metaDescription="Understand the mathematical meaning of the dot (·) symbol in hydrated salt formulas, compute molecular weight of vitriols, and master mass percentage of water."
+  curriculum="NCERT Class 11 Chemistry (Chapter 1: Some Basic Concepts) / CBSE & ICSE"
+  readTime="6 min"
+  publishedDate="2026-09-08"
+  relatedTool={{
+    name: "Molar Mass & Composition Deconstructor",
+    href: getLocalizedPath("/tools/molar-mass", "en"),
+    desc: "Calculate molar masses of hydrated salts, coordination complexes, and elemental mass percentages with full isotopic precision."
+  }}
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      1. What is Water of Crystallization?
+    </h2>
+    <p>
+      When certain inorganic salts crystallize from an aqueous solution, a stoichiometric number of water molecules become incorporated directly into the crystalline lattice framework. These bound water molecules are termed <strong>water of crystallization</strong> or <strong>water of hydration</strong>.
+    </p>
+    <div class="py-2 text-center bg-slate-900 rounded-lg border border-slate-800">
+      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      2. The Most Dangerous Exam Trap: The Dot (·) Symbol!
+    </h2>
+    <div class="p-5 rounded-xl bg-rose-950/40 border border-rose-800/60 space-y-3">
+      <h3 class="text-lg font-bold text-rose-300 flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+        Crucial Rule: Mathematical Multiplication (×) vs Chemical Association (+)
+      </h3>
+      <p class="text-sm text-slate-200 leading-relaxed">
+        In standard algebra, the center dot denotes multiplication. However, in chemical nomenclature, the dot in a hydrated formula signifies <strong>chemical addition and coordination</strong>, never multiplication!
+      </p>
+      <div class="bg-slate-950 p-4 rounded-lg font-mono text-xs sm:text-sm text-center border border-rose-900/60">
+        <div class="text-rose-400 font-bold mb-1">Fatal Exam Error:</div>
+        <div class="line-through text-slate-400">Total Mass = Mass(CuSO4) × 5 × Mass(H2O)</div>
+        <div class="text-emerald-400 font-bold mt-3 mb-1">Correct Formula:</div>
+        <div class="text-emerald-300">Total Mass = Mass(CuSO4) + (5 × Mass(H2O))</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      3. Standard Exam Hydrates & Their Molar Masses
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse border border-slate-800 text-sm">
+        <thead>
+          <tr class="bg-slate-900 text-slate-200 font-mono text-xs">
+            <th class="p-3 border border-slate-800">Common Mineral Name</th>
+            <th class="p-3 border border-slate-800">Formula</th>
+            <th class="p-3 border border-slate-800">Anhydrous Mass</th>
+            <th class="p-3 border border-slate-800">Hydration Mass</th>
+            <th class="p-3 border border-slate-800 text-cyan-400">Total Molar Mass (g/mol)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+          <tr>
+            <td class="p-3 font-semibold text-white">Blue Vitriol</td>
+            <td class="p-3 font-mono text-cyan-300">CuSO4·5H2O</td>
+            <td class="p-3 font-mono">159.61</td>
+            <td class="p-3 font-mono">5 × 18.015 = 90.08</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">249.69</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-white">Green Vitriol</td>
+            <td class="p-3 font-mono text-emerald-300">FeSO4·7H2O</td>
+            <td class="p-3 font-mono">151.91</td>
+            <td class="p-3 font-mono">7 × 18.015 = 126.11</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">278.02</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-white">Epsom Salt</td>
+            <td class="p-3 font-mono text-amber-300">MgSO4·7H2O</td>
+            <td class="p-3 font-mono">120.37</td>
+            <td class="p-3 font-mono">7 × 18.015 = 126.11</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">246.48</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      4. Deriving Mass Percentage of Water of Crystallization
+    </h2>
+    <div class="py-3 text-center bg-slate-900 rounded-lg border border-slate-800">
+      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} client:visible />
+    </div>
+    <p class="text-sm text-slate-300">
+      For copper(II) sulfate pentahydrate: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} client:visible />.
+    </p>
+  </section>
+</ArticleLayout>

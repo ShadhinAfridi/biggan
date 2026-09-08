@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { GLOSSARY_TERMS } from '../../../data/glossaryTerms';
+---
+
+<BaseLayout
+  title="বিজ্ঞান পরিভাষা ও সূত্র অভিধান (Bilingual STEM Glossary) — Biggan.me"
+  description="বাংলা একাডেমি ও NCTB কারিকুলাম স্বীকৃত বৈজ্ঞানিক পরিভাষা, প্রতীক, সংজ্ঞাকারী সমীকরণ, এসআই একক ও মাত্রার পূর্ণাঙ্গ অভিধান।"
+  lang="bn"
+>
+  <div class="space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        বাংলা একাডেমি ও NCTB প্রমিত পরিভাষা
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        দ্বৈতভাষিক বিজ্ঞান পরিভাষা কোষ
+      </h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        ইংরেজি বৈজ্ঞানিক টার্মের প্রমিত বাংলা পরিভাষা, গাণিতিক সূত্র, একক, মাত্রিক বিশ্লেষণ এবং ক্লাসরুম মেমোরি হুক (নেমোনিক্স)।
+      </p>
+    </div>
+
+    <!-- Ad placeholder -->
+    <AdSlot slotType="banner" slotId="glossary-top" />
+
+    <!-- Glossary List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {GLOSSARY_TERMS.map((term) => (
+        <div class="bg-slate-900 border border-slate-800 hover:border-cyan-500/40 rounded-2xl p-6 space-y-4 transition shadow-lg">
+          <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>{term.termBn}</span>
+                <span class="text-xs text-slate-400 font-normal">({term.termEn})</span>
+              </h2>
+              <span class="text-[11px] font-mono text-cyan-400">{term.curriculum}</span>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-slate-800 text-slate-300 border border-slate-700">
+              {term.quantityType === 'scalar' ? 'স্কেলার রাশি' : term.quantityType === 'vector' ? 'ভেক্টর রাশি' : 'ভৌত ধ্রুবক'}
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed">
+            {term.definitionBn}
+          </p>
+
+          <div class="grid grid-cols-2 gap-2 p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300">
+            <div>
+              <span class="text-slate-500 block text-[10px]">সংজ্ঞাকারী সমীকরণ:</span>
+              <span class="text-cyan-300 font-bold">{term.definingEquation}</span>
+            </div>
+            <div>
+              <span class="text-slate-500 block text-[10px]">প্রমিত এসআই একক:</span>
+              <span class="text-emerald-300">{term.siUnit}</span>
+            </div>
+            <div class="col-span-2 pt-1 border-t border-slate-900">
+              <span class="text-slate-500 text-[10px]">মাত্রীয় সংকেত: </span>
+              <span class="text-amber-300 font-bold">{term.dimensionalFormula}</span>
+            </div>
+          </div>
+
+          {term.mnemonicBn && (
+            <div class="p-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
+              💡 <span class="font-bold">মনে রাখার কৌশল:</span> {term.mnemonicBn}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

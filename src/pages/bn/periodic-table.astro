@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/ads/AdSlot.astro';
+import { PeriodicTableIsland } from '../../components/periodic-table/PeriodicTableIsland';
+---
+
+<BaseLayout
+  title="দ্বৈতভাষিক পর্যায় সারণী (Bilingual Periodic Table) — Biggan.me"
+  description="IUPAC স্বীকৃত পর্যায় সারণী, খাঁটি বাংলা উচ্চারণ, NCTB ৯ম-১০ম ও একাদশ-দ্বাদশ শ্রেণি ভিত্তিক বোর্ড পরীক্ষা মোড এবং ইলেকট্রন বিন্যাসের ব্যতিক্রমসমূহ।"
+  lang="bn"
+>
+  <div class="space-y-10">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        রসায়ন রেফারেন্স হাব
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        ইন্টারেক্টিভ দ্বৈতভাষিক পর্যায় সারণী
+      </h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        NCTB কারিকুলাম ও বোর্ড পরীক্ষার উপযোগী ১ থেকে ৩০ নং মৌলের বিশেষ ফিল্টার, ইলেকট্রন বিন্যাস এবং পারমাণবিক ভরের নির্ভরযোগ্য আন্তর্জাতিক মানদণ্ড।
+      </p>
+    </div>
+
+    <!-- Interactive Island -->
+    <PeriodicTableIsland client:load lang="bn" />
+
+    <!-- Ad Placeholder -->
+    <AdSlot slotType="banner" slotId="ptable-mid" />
+
+    <!-- Pedagogical Content Section on Periodic Trends -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+        পর্যায়বৃত্ত ধর্ম ও পরীক্ষার জন্য গুরুত্বপূর্ণ ব্যতিক্রমসমূহ
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-cyan-400 text-sm">১. পারমাণবিক ব্যাসার্ধ (Atomic Radius)</h3>
+          <p>
+            একই পর্যায়ে বাম থেকে ডানে গেলে প্রোটন সংখ্যা ও কার্যকর নিউক্লিয়ার চার্জ বৃদ্ধির কারণে ব্যাসার্ধ হ্রাস পায়। একই গ্রুপে উপর থেকে নিচে গেলে নতুন শক্তিস্তর যুক্ত হওয়ায় ব্যাসার্ধ বৃদ্ধি পায়।
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-emerald-400 text-sm">২. আয়नीकरण শক্তি (Ionization Energy)</h3>
+          <p>
+            গ্যাসীয় অবস্থায় ১ মোল পরমাণুর সর্ববহিস্থ শক্তিস্তর হতে ১ মোল ইলেকট্রন অপসারণে প্রয়োজনীয় শক্তি। ব্যাসার্ধ কমলে আয়নীকরণ শক্তি বৃদ্ধি পায়।
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-amber-400 text-sm">৩. তড়িৎ ঋণাত্মকতা (Electronegativity)</h3>
+          <p>
+            সমযোজী বন্ধনের শেয়ারকৃত ইলেকট্রন যুগলকে নিজের দিকে আকর্ষণ করার আপেক্ষিক ক্ষমতা। পাউলিং স্কেলে ফ্লুরিন (F) সর্বাধিক ৪.০।
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
+        <span class="font-bold text-amber-300">পরীক্ষার ব্যতিক্রম সতর্কতা:</span> ক্রোমিয়াম ($Z=24$) এবং কপার ($Z=29$) এর ক্ষেত্রে অর্ধপূর্ণ ($d^5$) ও পূর্ণ ($d^{10}$) অরবিটালের অধিক স্থিতিশীলতার কারণে আউফবাউ নীতির ব্যতিক্রম ঘটে। ক্রোমিয়ামের সঠিক বিন্যাস $[Ar] 3d^5 4s^1$ এবং কপারের $[Ar] 3d^{10} 4s^1$।
+      </div>
+    </section>
+  </div>
+</BaseLayout>

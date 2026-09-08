@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Calculation Methodology & Numerical Standards — Biggan.me"
+  description="Technical documentation of Biggan.me's mathematical algorithms, IUPAC atomic weights, CODATA physical constants, and precision validation framework."
+  lang="en"
+>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        Scientific Integrity
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Methodology & Numerical Standards
+      </h1>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Full disclosure of algorithmic implementations, rounding conventions, and standardized scientific data sources.
+      </p>
+    </div>
+
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-white">1. Chemical Data & Stoichiometric Algorithms</h2>
+      <p>
+        Elemental weights and isotopic ratios are synchronized with the IUPAC Standard Atomic Weights (CIAAW). Hydrate parsing recognizes coordination bonds and crystal water stoichiometry without resorting to approximations.
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">2. Redox Half-Reaction Engine</h2>
+      <p>
+        Rather than employing raw matrix algebra which outputs unpedagogical fractional coefficients, our Redox balancer executes the rigorous ion-electron method: segregating oxidation and reduction couples, balancing oxygen via $H_2O$, hydrogen via $H^+$ or $OH^-$, and equalizing discrete electron transfer counts.
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">3. Floating Point Precision & Verification</h2>
+      <p>
+        All calculations are governed by strict unit testing (Vitest) validating boundary conditions, extreme sig figs, complex quadratic discriminants, and high-velocity trajectory models against peer-reviewed textbook solutions.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

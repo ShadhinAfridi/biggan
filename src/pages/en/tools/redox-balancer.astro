@@ -1,0 +1,111 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { RedoxBalancer } from '../../../tools/redox-balancer/RedoxBalancer';
+
+const exemplars = [
+  {
+    level: 'High School Examination (CBSE / State Boards / HSC)',
+    levelBadge: 'Exemplar 1 • Acidic Medium',
+    problemText: 'Balance the redox reaction between potassium permanganate (KMnO₄) and ferrous sulfate (FeSO₄) in dilute sulfuric acid medium using the ion-electron method.',
+    givenData: [
+      'Oxidizing agent: MnO₄⁻ (Mn drops from +7 to +2)',
+      'Reducing agent: Fe²⁺ (Fe rises from +2 to +3)',
+      'Medium: Dilute H₂SO₄ (Acidic)',
+    ],
+    solutionSteps: [
+      'Oxidation half-reaction: Fe²⁺ → Fe³⁺ + e⁻  (Equation 1)',
+      'Reduction half-reaction: MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O  (Equation 2)',
+      'Multiply Eq. 1 by 5 to equalize electrons: 5Fe²⁺ → 5Fe³⁺ + 5e⁻',
+      'Combine and cancel electrons: MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O',
+      'Include spectator ions (K⁺, SO₄²⁻) for molecular equation: 2KMnO₄ + 10FeSO₄ + 8H₂SO₄ → 2MnSO₄ + 5Fe₂(SO₄)₃ + K₂SO₄ + 8H₂O',
+    ],
+    finalAnswer: 'Net Ionic: MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O',
+  },
+  {
+    level: 'NEET & JEE Main Competitive Entrance',
+    levelBadge: 'Exemplar 2 • Dichromate Couple',
+    problemText: 'Derive the balanced net ionic equation for the reduction of potassium dichromate by ferrous ion in an acidic solution.',
+    givenData: [
+      'Dichromate ion: Cr₂O₇²⁻ (each Cr drops from +6 to +3)',
+      'Ferrous ion: Fe²⁺ oxidized to Fe³⁺',
+    ],
+    solutionSteps: [
+      'Reduction half: Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O',
+      'Oxidation half: (Fe²⁺ → Fe³⁺ + e⁻) × 6',
+      'Net Ionic: Cr₂O₇²⁻ + 6Fe²⁺ + 14H⁺ → 2Cr³⁺ + 6Fe³⁺ + 7H₂O',
+    ],
+    finalAnswer: 'Cr₂O₇²⁻ + 6Fe²⁺ + 14H⁺ → 2Cr³⁺ + 6Fe³⁺ + 7H₂O',
+  },
+  {
+    level: 'Board Examination • Basic Medium',
+    levelBadge: 'Exemplar 3 • Alkaline Medium',
+    problemText: 'Balance the oxidation of iodide ion (I⁻) by permanganate ion (MnO₄⁻) in weakly basic aqueous medium.',
+    givenData: [
+      'MnO₄⁻ is reduced to insoluble brown manganese dioxide (MnO₂)',
+      'I⁻ is oxidized to iodate (IO₃⁻)',
+    ],
+    solutionSteps: [
+      'Oxidation half: I⁻ + 6OH⁻ → IO₃⁻ + 3H₂O + 6e⁻',
+      'Reduction half: (MnO₄⁻ + 2H₂O + 3e⁻ → MnO₂ + 4OH⁻) × 2',
+      'Sum and simplify H₂O and OH⁻: 2MnO₄⁻ + I⁻ + H₂O → 2MnO₂ + IO₃⁻ + 2OH⁻',
+    ],
+    finalAnswer: '2MnO₄⁻ + I⁻ + H₂O → 2MnO₂ + IO₃⁻ + 2OH⁻',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Why is the Ion-Electron method preferred over the oxidation-number method on exam scripts?',
+    answer: 'The ion-electron method explicitly separates electron loss from electron gain into distinct physical steps. Examiners award distinct marking points for balancing non-oxygen atoms, balancing oxygen with water, balancing hydrogen with protons, and equalizing the electron transfer multipliers.',
+  },
+  {
+    question: 'How do you balance redox reactions in basic media?',
+    answer: 'In basic media, after balancing oxygen with water and hydrogen with H⁺, add an equal number of OH⁻ ions to both sides of the equation. Combine H⁺ and OH⁻ on one side to form H₂O, then cancel common water molecules across the arrow.',
+  },
+  {
+    question: 'How do I use this stoichiometry for laboratory titration calculations?',
+    answer: 'Use the stoichiometric ratio from the balanced net ionic equation in the volumetric formula: n₁·V₁·S₁ = n₂·V₂·S₂. For KMnO₄ and FeSO₄, the ratio is 1:5, meaning 1 mole of permanganate oxidizes exactly 5 moles of ferrous ion.',
+  },
+];
+---
+
+<ToolLayout
+  title="Ion-Electron Redox Balancer — Biggan.me"
+  metaDescription="Balance complex oxidation-reduction chemical equations in acidic and basic media using the ion-electron half-reaction method with step-by-step LaTeX proofs."
+  toolName="Ion-Electron Redox Balancing Engine"
+  toolCategory="Chemistry & Physical Reactions"
+  curriculumTags={['NCERT Class 11 Redox Reactions', 'AP Chemistry Unit 4', 'NEET & JEE Chemistry']}
+  topicId="redox"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <RedoxBalancer client:load lang="en" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      An oxidation-reduction (redox) reaction represents a fundamental chemical transformation involving simultaneous electron transfer. The core governing physical principle is <strong>charge conservation: the total number of electrons liberated during oxidation must strictly equal the total number of electrons absorbed during reduction</strong>.
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">Step-by-Step Ion-Electron Methodology</h3>
+    <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
+      <li>Assign oxidation states to identify the oxidized and reduced couples.</li>
+      <li>Formulate distinct oxidation and reduction half-reactions.</li>
+      <li>Balance all atoms other than oxygen and hydrogen.</li>
+      <li>Balance oxygen by appending $H_2O$ molecules to the oxygen-deficient side.</li>
+      <li>Balance hydrogen by adding $H^+$ ions (in acidic solutions) or using $OH^-$ buffer pairs (in basic solutions).</li>
+      <li>Balance net electrical charge by adding electrons ($e^-$).</li>
+      <li>Scale each half-reaction by the lowest common multiple of electrons transferred, then sum and cancel identical spectator species.</li>
+    </ol>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      1. <strong>Energy Storage & Battery Design:</strong> Lithium-ion cells and fuel cells generate electricity through controlled spatial separation of oxidation and reduction half-reactions across an electrolyte membrane.
+    </p>
+    <p>
+      2. <strong>Water Quality & Environmental Monitoring:</strong> Chemical Oxygen Demand (COD) and biochemical analysis rely on standardized dichromate and permanganate redox titrations to measure organic pollutants in wastewater.
+    </p>
+  </div>
+</ToolLayout>

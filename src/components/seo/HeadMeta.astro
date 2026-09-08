@@ -1,0 +1,88 @@
+---
+import { getLangFromUrl } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Lang;
+  jsonLd?: Record<string, any> | Record<string, any>[];
+}
+
+const { title, description, jsonLd } = Astro.props;
+const lang = Astro.props.lang || getLangFromUrl(Astro.url);
+
+const siteUrl = 'https://biggan.me';
+const pathname = Astro.url.pathname;
+const cleanPath = pathname.replace(/^\/(en|bn)/, '');
+const canonicalUrl = `${siteUrl}${pathname}`;
+const enUrl = `${siteUrl}/en${cleanPath}`;
+const bnUrl = `${siteUrl}/bn${cleanPath}`;
+
+const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION || '';
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || '';
+const adsenseClientId = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '';
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Bidirectional Hreflang Tags for SEO -->
+<link rel="alternate" hreflang="bn" href={bnUrl} />
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="x-default" href={bnUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="Biggan.me" />
+<meta property="og:locale" content={lang === 'bn' ? 'bn_BD' : 'en_US'} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+
+<!-- Google Search Console Verification -->
+{gscVerification && <meta name="google-site-verification" content={gscVerification} />}
+
+<!-- Google AdSense Tag (When configured) -->
+{adsenseClientId && (
+  <script
+    async
+    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+    crossorigin="anonymous"
+  ></script>
+)}
+
+<!-- Google Analytics 4 (When configured) -->
+{gaId && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  </>
+)}
+
+<!-- JSON-LD Structured Data -->
+{jsonLd && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(Array.isArray(jsonLd) ? jsonLd : [jsonLd])}
+  />
+)}

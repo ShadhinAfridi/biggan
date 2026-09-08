@@ -1,0 +1,284 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/ads/AdSlot.astro';
+import { CasioGuide } from '../components/casio/CasioGuide';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+
+export interface SolvedExemplar {
+  level: string;
+  levelBadge: string;
+  problemText: string;
+  givenData: string[];
+  solutionSteps: string[];
+  finalAnswer: string;
+}
+
+export interface ToolFaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  metaDescription: string;
+  toolName: string;
+  toolCategory: string;
+  curriculumTags: string[];
+  topicId: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox';
+  exemplars: SolvedExemplar[];
+  faqs: ToolFaqItem[];
+}
+
+const {
+  title,
+  metaDescription,
+  toolName,
+  toolCategory,
+  curriculumTags,
+  topicId,
+  exemplars,
+  faqs,
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Build structured JSON-LD schemas
+const webAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: toolName,
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'All',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  description: metaDescription,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: f.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: t('nav.home'),
+      item: `https://biggan.me/${lang}`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: t('nav.tools'),
+      item: `https://biggan.me/${lang}/tools`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: toolName,
+      item: Astro.url.href,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={metaDescription}
+  lang={lang}
+  jsonLd={[webAppSchema, faqSchema, breadcrumbSchema]}
+>
+  <div class="space-y-12">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400">
+      <a href={`/${lang}`} class="hover:text-cyan-400 transition">{t('nav.home')}</a>
+      <span>/</span>
+      <a href={`/${lang}/tools`} class="hover:text-cyan-400 transition">{t('nav.tools')}</a>
+      <span>/</span>
+      <span class="text-slate-200 font-medium">{toolName}</span>
+    </nav>
+
+    <!-- Header & Curriculum Badges -->
+    <div class="space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+          {toolCategory}
+        </span>
+        {curriculumTags.map((tag) => (
+          <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-800 text-slate-300 border border-slate-700">
+            {tag}
+          </span>
+        ))}
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+        {toolName}
+      </h1>
+      <p class="text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
+        {metaDescription}
+      </p>
+    </div>
+
+    <!-- PART 1: Interactive Workspace Island Slot (Above-the-Fold) -->
+    <section id="interactive-calculator" class="scroll-mt-20">
+      <slot name="calculator" />
+    </section>
+
+    <!-- Zero-CLS AdSlot Banner 1 -->
+    <AdSlot slotType="banner" slotId="top-tool-banner" />
+
+    <!-- PART 2: Contextual Derivation & Mathematical Foundations -->
+    <section id="mathematical-foundations" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          {t('section.derivation')}
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          {lang === 'bn'
+            ? 'তাত্ত্বিক ভিত্তি, একক বিশ্লেষণ ও সমীকরণের ভৌত সীমাবদ্ধতা'
+            : 'Theoretical foundation, dimensional analysis, and governing boundary conditions.'}
+        </p>
+      </div>
+
+      <div class="prose prose-invert max-w-none text-sm text-slate-300 space-y-4 leading-relaxed">
+        <slot name="derivation" />
+      </div>
+    </section>
+
+    <!-- PART 3: Solved Pedagogical Exemplars (Secondary, Advanced, Board Exam) -->
+    <section id="solved-exemplars" class="space-y-6">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          {t('section.examples')}
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          {lang === 'bn'
+            ? 'পাঠ্যবই, অলিম্পিয়াড ও বিগত বোর্ড পরীক্ষার হুবহু সমাধানকৃত ৩টি মানসম্পন্ন অংক'
+            : 'Three fully worked pedagogical exemplars: standard textbook, advanced edge-case, and authentic past board examination.'}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6">
+        {exemplars.map((ex, idx) => (
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 hover:border-slate-700 transition">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">
+                {ex.level}
+              </span>
+              <span class="text-[11px] font-mono bg-slate-800 text-slate-300 px-2.5 py-0.5 rounded-full border border-slate-700">
+                {ex.levelBadge}
+              </span>
+            </div>
+
+            <div class="text-sm font-semibold text-white">
+              {ex.problemText}
+            </div>
+
+            {ex.givenData.length > 0 && (
+              <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
+                <span class="text-slate-400 block font-medium">
+                  {lang === 'bn' ? 'দেওয়া আছে (Given Data):' : 'Given Parameters:'}
+                </span>
+                <ul class="list-disc list-inside space-y-0.5 text-slate-300 font-mono">
+                  {ex.givenData.map((d) => (
+                    <li>{d}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div class="space-y-2 text-xs text-slate-300">
+              <span class="text-slate-400 block font-medium">
+                {lang === 'bn' ? 'সমাধানের ধাপসমূহ:' : 'Procedural Solution:'}
+              </span>
+              <div class="space-y-1.5 font-mono text-slate-200">
+                {ex.solutionSteps.map((step) => (
+                  <div class="p-2 bg-slate-950/50 rounded border border-slate-800/60">
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-300 font-semibold flex items-center justify-between">
+              <span>{lang === 'bn' ? 'উত্তর:' : 'Final Answer:'}</span>
+              <span class="font-mono text-emerald-200">{ex.finalAnswer}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- PART 4: Casio Hardware Operational Bridge -->
+    <section id="casio-hardware-guide" class="scroll-mt-20">
+      <CasioGuide client:visible topic={topicId} lang={lang} />
+    </section>
+
+    <!-- Zero-CLS In-Content Ad -->
+    <AdSlot slotType="in-content" slotId="mid-tool-incontent" />
+
+    <!-- PART 5: Real-World Applications & Industrial Context -->
+    <section id="industrial-applications" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          {t('section.applications')}
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          {lang === 'bn'
+            ? 'শিল্প-কারখানা, ওষুধ প্রস্তুতি, প্রকৌশল ও আধুনিক গবেষণায় প্রয়োগ'
+            : 'How this scientific principle drives chemical engineering, aerospace, medicine, and research.'}
+        </p>
+      </div>
+      <div class="prose prose-invert max-w-none text-sm text-slate-300 leading-relaxed space-y-3">
+        <slot name="applications" />
+      </div>
+    </section>
+
+    <!-- PART 6: Technical FAQ & Schema Markup -->
+    <section id="faq" class="space-y-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-violet-400"></span>
+          {t('section.faq')}
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          {lang === 'bn'
+            ? 'শিক্ষার্থীদের সচরাচর ভুল ও গুরুত্বপূর্ণ প্রশ্নের একাডেমিক উত্তর'
+            : 'Answers to common conceptual misconceptions and board examination guidelines.'}
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        {faqs.map((faq, idx) => (
+          <details class="group bg-slate-900 border border-slate-800 rounded-xl p-4 transition open:border-slate-700">
+            <summary class="flex items-center justify-between cursor-pointer font-semibold text-sm text-slate-200 hover:text-white select-none">
+              <span>{faq.question}</span>
+              <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div class="mt-3 pt-3 border-t border-slate-800/80 text-xs sm:text-sm text-slate-400 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

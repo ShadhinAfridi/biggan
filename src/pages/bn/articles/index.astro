@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+
+const articles = [
+  {
+    title: 'আয়ন-ইলেকট্রন পদ্ধতিতে রেডক্স সমতাকরণ: সম্পূর্ণ নিয়মাবলী ও বোর্ড পরীক্ষার সমাধান',
+    slug: 'ion-electron-redox-balancing',
+    desc: 'উচ্চমাধ্যমিক (HSC) ও CBSE রসায়নে অম্লীয় ও ক্ষারীয় মাধ্যমে জারণ-বিজারণ বিক্রিয়া সমতাকরণের সহজ ধাপে ধাপে গাইড, শর্টকাট ও কাসিও ক্যালকুলেটর যাচাই।',
+    curriculum: 'NCTB একাদশ-দ্বাদশ / NCERT Class 11',
+    readTime: '৮ মিনিট',
+    date: '২০২৬-০৯-০৮',
+    badgeColor: 'text-purple-400 bg-purple-950/60 border-purple-800/40',
+  },
+  {
+    title: 'কেলাস পানি ও হাইড্রেট লবণের মোলার ভর নির্ণয়: নিয়মাবলী ও সাধারণ ভুলসমূহ',
+    slug: 'hydrates-molar-mass-rules',
+    desc: 'কেলাসিত লবণে ডট (·) চিহ্নের সঠিক গাণিতিক অর্থ, তুঁতে ও গ্রিন ভিট্রিয়লের মোলার ভর এবং পরীক্ষায় শতকরা পানির পরিমাণ নির্ণয়ের নির্ভরযোগ্য সমাধান।',
+    curriculum: 'NCTB নবম-দশম ও একাদশ / NCERT Class 11',
+    readTime: '৬ মিনিট',
+    date: '২০২৬-০৯-০৮',
+    badgeColor: 'text-cyan-400 bg-cyan-950/60 border-cyan-800/40',
+  },
+];
+---
+
+<BaseLayout
+  title="শিক্ষামূলক বিজ্ঞান প্রবন্ধ ও বোর্ড পরীক্ষার গাইড | Biggan.me"
+  description="NCTB ও NCERT পাঠ্যক্রমের জন্য রসায়ন, পদার্থবিজ্ঞান ও গণিতের গভীর বিশ্লেষণধর্মী গাইড এবং সমাধান।"
+  lang="bn"
+>
+  <div class="space-y-8">
+    <header class="space-y-3 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40">
+        একাডেমিক ব্লগ ও গাইড
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        বিজ্ঞান ও গণিত শিক্ষামূলক প্রবন্ধমালা
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        বোর্ড পরীক্ষা ও ভর্তি পরীক্ষার প্রস্তুতিকে সহজ করতে আমাদের শিক্ষকদের প্রস্তুতকৃত বিস্তারিত গাইড, থিওরি ও কাসিও ক্যালকুলেটর ট্রিকস।
+      </p>
+    </header>
+
+    <AdSlot slotType="banner" slotId="articles-directory-top" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {articles.map((art) => (
+        <a
+          href={getLocalizedPath(`/articles/${art.slug}`, 'bn')}
+          class="group p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900 transition flex flex-col justify-between space-y-4"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class={`text-xs font-mono px-2.5 py-0.5 rounded-full border ${art.badgeColor}`}>
+                {art.curriculum}
+              </span>
+              <span class="text-xs text-slate-400 font-mono">
+                {art.readTime}
+              </span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition">
+              {art.title}
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+              {art.desc}
+            </p>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between text-xs text-slate-400 font-mono border-t border-slate-800/80">
+            <span>{art.date}</span>
+            <span class="text-cyan-400 group-hover:translate-x-1 transition inline-flex items-center gap-1 font-semibold">
+              সম্পূর্ণ পড়ুন →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <AdSlot slotType="banner" slotId="articles-directory-bottom" />
+  </div>
+</BaseLayout>

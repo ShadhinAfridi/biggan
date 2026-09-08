@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+
+const tools = [
+  {
+    id: 'molar-mass',
+    name: 'Molar Mass & Composition Deconstructor',
+    desc: 'Calculate exact molecular weights for hydrates, coordinate salts, and complex chemical compounds with percent mass.',
+    category: 'Chemistry',
+    curriculum: 'NCERT Class 11 • AP Chemistry',
+    badge: 'Popular',
+    icon: '⚗️',
+  },
+  {
+    id: 'redox-balancer',
+    name: 'Ion-Electron Redox Balancing Engine',
+    desc: 'Balance oxidation-reduction reactions in acidic and basic media using step-by-step half-reactions and electron transfer.',
+    category: 'Chemistry',
+    curriculum: 'Class 11 Redox • NEET / JEE',
+    badge: 'Exam Special',
+    icon: '⚡',
+  },
+  {
+    id: 'significant-figures',
+    name: 'Significant Figures & Precision Engine',
+    desc: 'Count significant digits, convert to scientific notation, and execute precision-tracked addition, subtraction, and multiplication.',
+    category: 'Physics & Lab',
+    curriculum: 'Units & Measurements • Lab Protocols',
+    badge: 'Laboratory',
+    icon: '📏',
+  },
+  {
+    id: 'projectile-motion',
+    name: 'Kinematic Projectile Motion Solver',
+    desc: 'Compute maximum elevation, flight duration, horizontal range, and generate interactive 2D trajectory vector plots.',
+    category: 'Physics',
+    curriculum: 'Motion in a Plane • Mechanics',
+    badge: 'Interactive Plot',
+    icon: '🎯',
+  },
+  {
+    id: 'quadratic-solver',
+    name: 'Procedural Quadratic Equation Solver',
+    desc: 'Calculate real & complex roots, analyze discriminants, compute parabola vertex, and render completing-the-square steps.',
+    category: 'Mathematics',
+    curriculum: 'Algebra • Precalculus',
+    badge: 'Algebra',
+    icon: '📐',
+  },
+];
+---
+
+<BaseLayout
+  title="Scientific Calculators & Problem Solvers — Biggan.me"
+  description="Free step-by-step STEM calculation utilities featuring complete algebraic proofs, dimensional analysis, and physical Casio fx-991 hardware keystroke guides."
+  lang="en"
+>
+  <div class="space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        Scientific Utility Directory
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Programmatic Scientific Calculators
+      </h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        Full algebraic derivations, dimensional unit validation, and step-by-step Casio hardware keystroke sequences for secondary board candidates and STEM scholars.
+      </p>
+    </div>
+
+    <!-- Ad placeholder -->
+    <AdSlot slotType="banner" slotId="tools-index-top" />
+
+    <!-- Grid of Tools -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tools.map((tool) => (
+        <a
+          href={getLocalizedPath(`/tools/${tool.id}`, 'en')}
+          class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                {tool.icon}
+              </span>
+              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                {tool.badge}
+              </span>
+            </div>
+
+            <h2 class="text-lg font-bold text-white group-hover:text-cyan-400 transition leading-snug">
+              {tool.name}
+            </h2>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              {tool.desc}
+            </p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-mono text-slate-400">{tool.curriculum}</span>
+            <span class="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
+              Launch Tool →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

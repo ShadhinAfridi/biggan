@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/ads/AdSlot.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+
+const tools = [
+  {
+    id: 'molar-mass',
+    name: 'মোলার ভর ও শতকরা সংযুতি',
+    desc: 'কেলাস পানি ও ব্র্যাকেটসহ রাসায়নিক সংকেতের আণবিক ভর ও প্রতিটি মৌলের ভরের শতকরা হার।',
+    icon: '⚗️',
+    badge: 'রসায়ন ১ম পত্র',
+  },
+  {
+    id: 'redox-balancer',
+    name: 'আয়ন-ইলেকট্রন জারণ-বিজারণ সমতা',
+    desc: 'অম্লীয় ও ক্ষারীয় মাধ্যমে অর্ধ-বিক্রিয়া পদ্ধতিতে পূর্ণাঙ্গ সমতাকরণ ও ইলেকট্রন স্থানান্তর।',
+    icon: '⚡',
+    badge: 'এইচএসসি স্পেশাল',
+  },
+  {
+    id: 'significant-figures',
+    name: 'তাৎপর্যপূর্ণ অঙ্ক (Sig Figs) নির্ণায়ক',
+    desc: 'তাৎপর্যপূর্ণ অঙ্কের সংখ্যা গণনা, বৈজ্ঞানিক প্রকাশ ও সঠিক রাউন্ডিং নিয়ম।',
+    icon: '📏',
+    badge: 'ল্যাব ও প্র্যাকটিক্যাল',
+  },
+  {
+    id: 'projectile-motion',
+    name: 'প্রাস ও প্রক্ষেপক গতিবিদ্যা',
+    desc: 'সর্বোচ্চ উচ্চতা, বিচরণকাল, অনুভূমিক পাল্লা ও দ্বিমাত্রিক গতিপথের ভেক্টর চিত্রায়ন।',
+    icon: '🎯',
+    badge: 'পদার্থবিজ্ঞান ১ম পত্র',
+  },
+  {
+    id: 'quadratic-solver',
+    name: 'দ্বিঘাত সমীকরণ ধাপে ধাপে সমাধান',
+    desc: 'বাস্তব ও জটিল মূল, নিশ্চয়ক (Discriminant) বিশ্লেষণ এবং পূর্ণবর্গ পদ্ধতি।',
+    icon: '📐',
+    badge: 'উচ্চতর গণিত',
+  },
+];
+---
+
+<BaseLayout
+  title="Biggan.me — বিজ্ঞান ও গণিত সমস্যা সমাধান ও গাণিতিক টুলস"
+  description="NCTB ও NCERT কারিকুলাম ভিত্তিক বৈজ্ঞানিক ক্যালকুলেটর, ধাপে ধাপে সমীকরণ প্রতিপাদন, কাসিও fx-991 কি-স্ট্রোক গাইড এবং দ্বৈতভাষিক সায়েন্স ডিকশনারি।"
+  lang="bn"
+>
+  <div class="space-y-16">
+    <!-- Hero Section -->
+    <section class="text-center space-y-6 pt-6 sm:pt-12 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        🚀 দক্ষিণ এশিয়ার প্রথম দ্বৈতভাষিক STEM কম্পিউটেশনাল প্ল্যাটফর্ম
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight sm:leading-tight">
+        বিজ্ঞান ও গণিতের প্রতিটি ধাপ <br />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
+          স্পষ্ট, নির্ভুল ও পরীক্ষা-প্রস্তুত
+        </span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        বোর্ড পরীক্ষায় ফুল মার্কস পাওয়ার উপযোগী সম্পূর্ণ সমীকরণ প্রতিপাদন, আন্তর্জাতিক একক বিশ্লেষণ এবং অনুমোদিত কাসিও fx-991 সায়েন্টিফিক ক্যালকুলেটরের বোতাম টেপার বাস্তব গাইড।
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a
+          href={getLocalizedPath('/tools', 'bn')}
+          class="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-bold text-sm transition shadow-lg shadow-cyan-900/30"
+        >
+          ক্যালকুলেটর সমূহ অন্বেষণ করুন →
+        </a>
+        <a
+          href={getLocalizedPath('/periodic-table', 'bn')}
+          class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition"
+        >
+          দ্বৈতভাষিক পর্যায় সারণী
+        </a>
+      </div>
+
+      <!-- Curriculum Trust Badges -->
+      <div class="pt-6 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
+        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
+          🇧🇩 NCTB (SSC ও HSC)
+        </span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
+          🇮🇳 NCERT & WBCHSE
+        </span>
+        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
+          🎓 BUET, DU & NEET/JEE
+        </span>
+      </div>
+    </section>
+
+    <!-- Ad Placeholder -->
+    <AdSlot slotType="banner" slotId="home-hero-bottom" />
+
+    <!-- Flagship Calculators Grid -->
+    <section class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white">প্রধান বৈজ্ঞানিক ক্যালকুলেটর সমূহ</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            বোর্ড পরীক্ষা ও প্রবেশিকা পরীক্ষার সিলেবাস অনুযায়ী সাজানো স্বয়ংক্রিয় সমাধানকারী
+          </p>
+        </div>
+        <a href={getLocalizedPath('/tools', 'bn')} class="text-xs font-semibold text-cyan-400 hover:underline">
+          সবগুলো টুল দেখুন ({tools.length}) →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {tools.map((tool) => (
+          <a
+            href={getLocalizedPath(`/tools/${tool.id}`, 'bn')}
+            class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                  {tool.icon}
+                </span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                  {tool.badge}
+                </span>
+              </div>
+
+              <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition">
+                {tool.name}
+              </h3>
+
+              <p class="text-xs text-slate-400 leading-relaxed">
+                {tool.desc}
+              </p>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-cyan-400 font-medium">
+              <span>ধাপে ধাপে সমাধান</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Why Biggan.me Pillars -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 sm:p-12 space-y-8">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          কেন Biggan.me অন্যান্য ক্যালকুলেটর থেকে সম্পূর্ণ আলাদা?
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400">
+          প্রথাগত গাণিতিক টুলস এবং দক্ষিণ এশিয়ার শিক্ষার্থীদের বাস্তব একাডেমিক চাহিদার মধ্যকার দূরত্ব দূরীকরণে আমাদের উদ্ভাবন
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-500/20">
+            ⌨️
+          </div>
+          <h3 class="font-bold text-white text-base">কাসিও fx-991 কি-স্ট্রোক গাইড</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            পরীক্ষার হলে স্মার্টফোন নেওয়া নিষিদ্ধ। তাই প্রতিটি সমীকরণের নিচে কাসিও fx-991CW, fx-991EX, fx-991ES PLUS ও fx-100MS ক্যালকুলেটরে বোতাম টেপার বাস্তব অনুক্রম প্রদর্শিত হয়।
+          </p>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-lg border border-cyan-500/20">
+            📝
+          </div>
+          <h3 class="font-bold text-white text-base">খাতার পাতায় লেখার উপযোগী ধাপ</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            শুধু একটি চূড়ান্ত সংখ্যা নয়, বোর্ড পরীক্ষার খাতায় যেভাবে সূত্র লিখে ধাপে ধাপে মান বসিয়ে উত্তর করতে হয়—LaTeX ফরম্যাটে ঠিক সেভাবেই সমাধান প্রতিপাদিত হয়।
+          </p>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/20">
+            ⚡
+          </div>
+          <h3 class="font-bold text-white text-base">১০০% ক্লায়েন্ট-সাইড ও লো-ডেটা</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            কোনো ভারী ভিডিও বা ডেটাকবলক অ্যাপ ছাড়াই ২জি বা ৩জি মোবাইল নেটওয়ার্কেও নিমিষে পেজ লোড হয় এবং অফলাইনে দ্রুত হিসাব সম্পন্ন করে।
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

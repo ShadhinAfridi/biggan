@@ -1,0 +1,115 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { ProjectileCalculator } from '../../../tools/projectile-motion/ProjectileCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'High School & College Physics Mechanics',
+    levelBadge: 'Exemplar 1 • Classic Ground Launch',
+    problemText: 'A ball is projected from ground level with an initial velocity of 20 m/s at an elevation angle of 30° above the horizontal. Find its maximum height and horizontal range assuming g = 9.8 m/s².',
+    givenData: [
+      'Initial velocity v₀ = 20 m/s',
+      'Launch angle θ = 30°',
+      'Acceleration due to gravity g = 9.8 m/s²',
+    ],
+    solutionSteps: [
+      'Vertical initial velocity: v₀y = v₀ sin(30°) = 20 × 0.5 = 10 m/s',
+      'Horizontal velocity: v₀x = v₀ cos(30°) = 20 × 0.866 = 17.32 m/s',
+      'Max Height: H_max = (v₀y)² / (2g) = (10)² / (2 × 9.8) = 5.10 meters',
+      'Time of Flight: T = (2 × v₀y) / g = (2 × 10) / 9.8 = 2.04 seconds',
+      'Range: R = v₀x × T = 17.32 × 2.04 = 35.35 meters',
+    ],
+    finalAnswer: 'Max Height = 5.10 m; Range = 35.35 m',
+  },
+  {
+    level: 'Competitive Entrance (JEE / NEET / AP Physics C)',
+    levelBadge: 'Exemplar 2 • Elevated Launch',
+    problemText: 'A projectile is launched from the edge of a 40-meter cliff at an angle of 30° above horizontal with a speed of 20 m/s. Calculate the total flight time until impact with the ground.',
+    givenData: [
+      'Initial elevation y₀ = 40 m',
+      'v₀ = 20 m/s, θ = 30°, g = 9.8 m/s²',
+      'v₀y = 10 m/s, v₀x = 17.32 m/s',
+    ],
+    solutionSteps: [
+      'Vertical kinematic displacement: y(t) = y₀ + v₀y·t - 0.5·g·t² = 0',
+      '40 + 10t - 4.9t² = 0 ⇒ 4.9t² - 10t - 40 = 0',
+      'Quadratic formula: t = [10 + √(100 + 4 × 4.9 × 40)] / 9.8 = [10 + √884] / 9.8',
+      't = (10 + 29.73) / 9.8 = 4.05 seconds',
+      'Horizontal distance = v₀x × t = 17.32 × 4.05 = 70.15 meters',
+    ],
+    finalAnswer: 'Flight time = 4.05 s; Ground impact range = 70.15 m',
+  },
+  {
+    level: 'Analytical Trajectory Condition',
+    levelBadge: 'Exemplar 3 • Range vs Height Ratio',
+    problemText: 'Determine the launch angle θ at which a projectile’s horizontal range equals four times its maximum height.',
+    givenData: ['Condition: R = 4 × H_max'],
+    solutionSteps: [
+      'Range formula: R = (2 v₀² sin θ cos θ) / g',
+      'Height formula: H_max = (v₀² sin² θ) / (2g)',
+      'Equating: (2 v₀² sin θ cos θ) / g = 4 × [(v₀² sin² θ) / (2g)]',
+      'Simplify: 2 sin θ cos θ = 2 sin² θ ⇒ cos θ = sin θ ⇒ tan θ = 1',
+      'θ = arctan(1) = 45°',
+    ],
+    finalAnswer: 'Launch angle θ = 45°',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Why does horizontal velocity remain constant throughout projectile motion?',
+    answer: 'Assuming air resistance is negligible, no horizontal forces act upon the object (ax = 0). The only force acting is gravity, directed purely downward (ay = -g). Consequently, horizontal velocity vx = v₀ cos θ remains completely constant.',
+  },
+  {
+    question: 'Why is 45 degrees the optimal launch angle for maximum range on flat terrain?',
+    answer: 'The horizontal range equation is R = (v₀² sin 2θ) / g. The sine function achieves its theoretical maximum value of 1 when its argument is 90°. Setting 2θ = 90° yields θ = 45°.',
+  },
+  {
+    question: 'How do I input parametric projectile equations into my Casio calculator?',
+    answer: 'Use the STO key to store initial velocity into variable A and angle into variable B. Then compute formulas using [ALPHA] [A] and [ALPHA] [B]. Refer to the interactive Casio Keystroke Guide below.',
+  },
+];
+---
+
+<ToolLayout
+  title="Projectile Motion Calculator with Steps & Trajectory Plot — Biggan.me"
+  metaDescription="Calculate maximum height, time of flight, horizontal range, and visualize 2D parametric flight curves with step-by-step physics derivations and Casio hardware keystrokes."
+  toolName="Kinematic Projectile Motion Solver"
+  toolCategory="Physics & Classical Mechanics"
+  curriculumTags={['NCERT Class 11 Motion in a Plane', 'AP Physics 1', 'Engineering Kinematics']}
+  topicId="kinematics"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <ProjectileCalculator client:load lang="en" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      In classical Newtonian mechanics, a <strong>projectile</strong> is any object thrown into three-dimensional space subjected solely to gravitational acceleration. By Galilean vector decomposition, the two-dimensional motion can be decoupled into two independent one-dimensional motions: uniform velocity horizontally and constant acceleration vertically.
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">Kinematic Governing Equations</h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-sky-300">
+      <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+        <span class="text-slate-400 block mb-1">Max Height:</span>
+        <Latex formula={'H_{\\max} = y_0 + \\frac{v_0^2 \\sin^2\\theta}{2g}'} displayMode={true} />
+      </div>
+      <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
+        <span class="text-slate-400 block mb-1">Time of Flight:</span>
+        <Latex formula={'T = \\frac{v_0 \\sin\\theta + \\sqrt{v_0^2 \\sin^2\\theta + 2gy_0}}{g}'} displayMode={true} />
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      1. <strong>Sports Science & Biomechanics:</strong> Optimizing trajectory angles in soccer free-kicks, golf drives, and javelin throws to balance drag resistance and maximum airtime.
+    </p>
+    <p>
+      2. <strong>Ballistics & Aerial Payloads:</strong> Calculating parabolic arcs for humanitarian aid drops and orbital rocket stage separations under atmospheric conditions.
+    </p>
+  </div>
+</ToolLayout>

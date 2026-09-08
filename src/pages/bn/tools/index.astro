@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+
+const tools = [
+  {
+    id: 'molar-mass',
+    name: 'মোলার ভর ও শতকরা সংযুতি বিশ্লেষক',
+    desc: 'কেলাস পানি ও ব্র্যাকেটসহ জটিল যৌগের আণবিক ভর (g/mol) এবং প্রতিটি মৌলের শতকরা পরিমাণ নির্ণয়।',
+    category: 'রসায়ন',
+    categoryColor: 'emerald',
+    curriculum: 'NCTB ৯ম-১২শ • NCERT Class 11',
+    badge: 'জনপ্রিয়',
+    icon: '⚗️',
+  },
+  {
+    id: 'redox-balancer',
+    name: 'আয়ন-ইলেকট্রন জারণ-বিজারণ সমতা ইঞ্জিন',
+    desc: 'অম্লীয় ও ক্ষারীয় মাধ্যমে জারণ-বিজারণ অর্ধ-বিক্রিয়া পদ্ধতিতে পূর্ণাঙ্গ সমতাকরণ ও ইলেকট্রন স্থানান্তর।',
+    category: 'রসায়ন',
+    categoryColor: 'cyan',
+    curriculum: 'NCTB এইচএসসি ১ম পত্র • NEET / JEE',
+    badge: 'পরীক্ষার স্পেশাল',
+    icon: '⚡',
+  },
+  {
+    id: 'significant-figures',
+    name: 'তাৎপর্যপূর্ণ অঙ্ক (Sig Figs) ও রাউন্ডিং ইঞ্জিন',
+    desc: 'তাৎপর্যপূর্ণ অঙ্কের সংখ্যা গণনা, বৈজ্ঞানিক রূপান্তর এবং নির্ভুল যোগ, বিয়োগ ও গুণের আন্তর্জাতিক নিয়ম।',
+    category: 'পরিমাপ ও ল্যাব',
+    categoryColor: 'amber',
+    curriculum: 'পদার্থবিজ্ঞান ১ম পত্র অধ্যায় ১',
+    badge: 'ল্যাবরেটরি',
+    icon: '📏',
+  },
+  {
+    id: 'projectile-motion',
+    name: 'প্রাস ও প্রক্ষেপক গতিবিদ্যা সমাধানকারী',
+    desc: 'সর্বোচ্চ উচ্চতা, বিচরণকাল, অনুভূমিক পাল্লা ও দ্বিমাত্রিক প্যারামেট্রিক গতিপথের ভেক্টর চিত্রায়ন।',
+    category: 'পদার্থবিজ্ঞান',
+    categoryColor: 'sky',
+    curriculum: 'NCTB গতিবিদ্যা • NCERT Motion in Plane',
+    badge: 'ইন্টারেক্টিভ গ্রাফ',
+    icon: '🎯',
+  },
+  {
+    id: 'quadratic-solver',
+    name: 'দ্বিঘাত সমীকরণ ধাপে ধাপে সমাধানকারী',
+    desc: 'বাস্তব ও জটিল মূল, নিশ্চয়ক (Discriminant) বিশ্লেষণ এবং পূর্ণবর্গকরণ পদ্ধতির পুঙ্খানুপুঙ্খ ব্যাখ্যা।',
+    category: 'গণিত',
+    categoryColor: 'violet',
+    curriculum: 'উচ্চতর গণিত ৯ম-১২শ',
+    badge: 'বীজগণিত',
+    icon: '📐',
+  },
+];
+---
+
+<BaseLayout
+  title="সকল বৈজ্ঞানিক ক্যালকুলেটর ও সমীকরণ সমাধানকারী — Biggan.me"
+  description="বোর্ড পরীক্ষা ও ভর্তি পরীক্ষার উপযোগী ধাপে ধাপে বিজ্ঞান ক্যালকুলেটর। মোলার ভর, জারণ-বিজারণ সমতা, তাৎপর্যপূর্ণ অঙ্ক, প্রাসের গতি ও দ্বিঘাত সমীকরণ।"
+  lang="bn"
+>
+  <div class="space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        বিজ্ঞান ও গণিত টুলস ডিরেক্টরি
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        প্রোগ্রাম্যাটিক বিজ্ঞান ক্যালকুলেটর
+      </h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        বোর্ড পরীক্ষায় ফুল মার্কস পাওয়ার উপযোগী সম্পূর্ণ সমীকরণ প্রতিপাদন, আন্তর্জাতিক একক বিশ্লেষণ এবং কাসিও fx-991 ফিজিক্যাল ক্যালকুলেটর কি-স্ট্রোক গাইড সম্বলিত ফ্রি টুলস।
+      </p>
+    </div>
+
+    <!-- Ad placeholder -->
+    <AdSlot slotType="banner" slotId="tools-index-top" />
+
+    <!-- Grid of Tools -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {tools.map((tool) => (
+        <a
+          href={getLocalizedPath(`/tools/${tool.id}`, 'bn')}
+          class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                {tool.icon}
+              </span>
+              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                {tool.badge}
+              </span>
+            </div>
+
+            <h2 class="text-lg font-bold text-white group-hover:text-cyan-400 transition leading-snug">
+              {tool.name}
+            </h2>
+
+            <p class="text-xs text-slate-400 leading-relaxed">
+              {tool.desc}
+            </p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+            <span class="font-mono text-slate-400">{tool.curriculum}</span>
+            <span class="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
+              ব্যবহার করুন →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

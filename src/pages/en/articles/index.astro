@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+
+const articles = [
+  {
+    title: 'Balancing Redox Reactions by Ion-Electron Method: Complete Guide & Board Solutions',
+    slug: 'ion-electron-redox-balancing',
+    desc: 'Master balancing oxidation-reduction half-reactions in acidic and basic media. Step-by-step algorithms, worked board exam exemplars, and Casio fx-991 verification tips.',
+    curriculum: 'NCERT Class 11 / CBSE & State Boards',
+    readTime: '8 min',
+    date: '2026-09-08',
+    badgeColor: 'text-purple-400 bg-purple-950/60 border-purple-800/40',
+  },
+  {
+    title: 'Molar Mass of Hydrates and Water of Crystallization: Calculation Rules & Common Traps',
+    slug: 'hydrates-molar-mass-rules',
+    desc: 'Understand the mathematical meaning of the dot (·) symbol in hydrated salt formulas, compute molecular weight of vitriols, and master mass percentage of water.',
+    curriculum: 'NCERT Class 11 / CBSE & ICSE',
+    readTime: '6 min',
+    date: '2026-09-08',
+    badgeColor: 'text-cyan-400 bg-cyan-950/60 border-cyan-800/40',
+  },
+];
+---
+
+<BaseLayout
+  title="Educational Science Articles & Board Exam Guides | Biggan.me"
+  description="In-depth analytical guides, mathematical derivations, and Casio calculator tutorials for NCERT and NCTB high school STEM syllabi."
+  lang="en"
+>
+  <div class="space-y-8">
+    <header class="space-y-3 max-w-3xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40">
+        Academic Guides & Tutorials
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        STEM Educational Articles & Guides
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        Deep-dive pedagogical articles designed to demystify complex STEM topics, resolve common exam traps, and bridge algebraic theory with Casio calculator keystrokes.
+      </p>
+    </header>
+
+    <AdSlot slotType="banner" slotId="articles-directory-top" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {articles.map((art) => (
+        <a
+          href={getLocalizedPath(`/articles/${art.slug}`, 'en')}
+          class="group p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900 transition flex flex-col justify-between space-y-4"
+        >
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <span class={`text-xs font-mono px-2.5 py-0.5 rounded-full border ${art.badgeColor}`}>
+                {art.curriculum}
+              </span>
+              <span class="text-xs text-slate-400 font-mono">
+                {art.readTime}
+              </span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white group-hover:text-cyan-400 transition">
+              {art.title}
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+              {art.desc}
+            </p>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between text-xs text-slate-400 font-mono border-t border-slate-800/80">
+            <span>{art.date}</span>
+            <span class="text-cyan-400 group-hover:translate-x-1 transition inline-flex items-center gap-1 font-semibold">
+              Read Guide →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <AdSlot slotType="banner" slotId="articles-directory-bottom" />
+  </div>
+</BaseLayout>

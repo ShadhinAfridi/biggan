@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="গণনা পদ্ধতি ও নির্ভুলতার মানদণ্ড (Methodology) — Biggan.me"
+  description="Biggan.me তে ব্যবহৃত গাণিতিক অ্যালগরিদম, আইইউপিএসি (IUPAC) পারমাণবিক ভর, কোডাটা (CODATA) ধ্রুবক এবং রাউন্ডিং পদ্ধতির পুঙ্খানুপুঙ্খ বিবরণ।"
+  lang="bn"
+>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        একাডেমিক নির্ভুলতা ও মানদণ্ড
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        গাণিতিক পদ্ধতি ও ডেটাবেজ মানদণ্ড
+      </h1>
+      <p class="text-base text-slate-400 leading-relaxed">
+        আমাদের প্রতিটি গণনায় ব্যবহৃত আন্তর্জাতিক মান, প্রতীকী অ্যালগরিদম ও রাউন্ডিং নীতিমালার পূর্ণাঙ্গ বিবরণ।
+      </p>
+    </div>
+
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-white">১. পারমাণবিক ভর ও রাসায়নিক ডেটা</h2>
+      <p>
+        মোলার ভর ও স্টয়কিওমেট্রি ইঞ্জিনে ব্যবহৃত প্রতিটি মৌলের পারমাণবিক ভর IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW) কর্তৃক অনুমোদিত স্ট্যান্ডার্ড ভরের ভিত্তিতে সংরক্ষিত। কেলাস পানিযুক্ত লবণের ক্ষেত্রে স্বাভাবিক বায়ুমণ্ডলীয় চাপে ল্যাটিস অনুপাত অনুসারে বিশ্লেষণ করা হয়।
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">২. জারণ-বিজারণ সমতাকরণ এলগরিদম</h2>
+      <p>
+        আমাদের Redox ইঞ্জিন সাধারণ রৈখিক বীজগণিতীয় সমাধানের বদলে খাঁটি <strong>আয়ন-ইলেকট্রন অর্ধ-বিক্রিয়া নীতি</strong> অনুসরণ করে। এটি প্রতিটি ইলেকট্রন স্থানান্তরকে পৃথক করে শিক্ষার্থীদের সামনে তুলে ধরে, যা বোর্ড পরীক্ষার নির্দেশিকা অনুযায়ী বাধ্যতামূলক।
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">৩. পদার্থবিজ্ঞানের ধ্রুবক ও অভিকর্ষজ ত্বরণ</h2>
+      <p>
+        অভিকর্ষজ ত্বরণ (g) এর ক্ষেত্রে আমরা NCTB পাঠ্যপুস্তকের প্রথাগত মান (9.8 m/s²) এবং NCERT ও আন্তর্জাতিক মান (9.81 m/s²) উভয়েরই সমর্থন দিয়েছি, যাতে শিক্ষার্থীরা তাদের আঞ্চলিক পরীক্ষার প্রশ্নানুযায়ী সঠিক সমাধান প্রস্তুত করতে পারে।
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">৪. সফটওয়্যার টেস্টিং ও যাচাইকরণ</h2>
+      <p>
+        প্রতিটি গাণিতিক ইঞ্জিনকে ওপেন-সোর্স টেস্ট ফ্রেমওয়ার্ক (Vitest) দ্বারা শত শত টেক্সটবুক সমস্যা ও জটিল এজ-কেসের সাথে মিলিয়ে স্বয়ংক্রিয়ভাবে যাচাই করা হয়।
+      </p>
+    </div>
+  </div>
+</BaseLayout>

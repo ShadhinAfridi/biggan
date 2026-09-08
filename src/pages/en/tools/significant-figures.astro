@@ -1,0 +1,105 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { SigFigCalculator } from '../../../tools/significant-figures/SigFigCalculator';
+
+const exemplars = [
+  {
+    level: 'College Physics & Laboratory Science',
+    levelBadge: 'Exemplar 1 • Addition Precision',
+    problemText: 'Three rod measurements are taken: 12.1 cm, 1.253 cm, and 0.04 cm. Express the total sum with the correct number of significant figures.',
+    givenData: [
+      'Values: 12.1 cm (1 decimal place)',
+      '1.253 cm (3 decimal places)',
+      '0.04 cm (2 decimal places)',
+    ],
+    solutionSteps: [
+      'Raw arithmetic sum = 12.1 + 1.253 + 0.04 = 13.393 cm',
+      'Addition/Subtraction Rule: The result is limited by the operand with the fewest decimal places (12.1 cm has only 1 decimal place).',
+      'Round 13.393 to one decimal place: since the subsequent digit 9 > 5, round up to 13.4 cm.',
+    ],
+    finalAnswer: 'Total length = 13.4 cm (3 significant figures)',
+  },
+  {
+    level: 'Engineering Mechanics & Area Calculation',
+    levelBadge: 'Exemplar 2 • Multiplication Rule',
+    problemText: 'A rectangular metal sheet measures 4.234 meters in length and 2.16 meters in width. Determine the surface area respecting experimental precision.',
+    givenData: [
+      'Length = 4.234 m (4 sig figs)',
+      'Width = 2.16 m (3 sig figs)',
+    ],
+    solutionSteps: [
+      'Raw calculation = 4.234 × 2.16 = 9.14544 m²',
+      'Multiplication/Division Rule: The result must have the same number of significant figures as the measurement with the fewest sig figs (2.16 m has 3 sig figs).',
+      'Round 9.14544 to 3 significant figures: yields 9.15 m².',
+    ],
+    finalAnswer: 'Area = 9.15 m²',
+  },
+  {
+    level: 'Scientific Notation Conversion',
+    levelBadge: 'Exemplar 3 • Ambiguous Trailing Zeros',
+    problemText: 'Analyze the number 0.00040500: identify total significant digits and express in scientific notation with 3 significant figures.',
+    givenData: ['Input: 0.00040500'],
+    solutionSteps: [
+      'Leading zeros before the first non-zero digit (4) are not significant.',
+      'The captive zero between 4 and 5 is significant.',
+      'Trailing zeros following the decimal point are significant.',
+      'Total count = 5 significant figures (4, 0, 5, 0, 0).',
+      'Scientific notation to 3 sig figs: 4.05 × 10⁻⁴',
+    ],
+    finalAnswer: '5 significant figures; 3 sig-fig conversion = 4.05 × 10⁻⁴',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Why are trailing zeros in whole numbers without decimals considered ambiguous?',
+    answer: 'In a number like 500, it is ambiguous whether the measurement was accurate to the nearest unit, ten, or hundred. To eliminate ambiguity, write the number with an explicit decimal (500.) or express it in scientific notation (5.00 × 10² for 3 sig figs, 5 × 10² for 1 sig fig).',
+  },
+  {
+    question: 'How do significant figure rules differ between addition and multiplication?',
+    answer: 'Addition and subtraction are governed strictly by the number of decimal places (precision of measurement). Multiplication and division are governed by the total count of significant figures (relative uncertainty).',
+  },
+  {
+    question: 'How do I force Casio calculators to display answers in specific significant figures?',
+    answer: 'On the Casio fx-991ES PLUS, press SHIFT -> MODE -> 7 (Sci), then choose a number from 0 to 9. On the fx-991EX, press SHIFT -> MENU -> 3 (Number Format) -> 2 (Sci).',
+  },
+];
+---
+
+<ToolLayout
+  title="Significant Figures Calculator with Steps — Biggan.me"
+  metaDescription="Accurate significant figures counter, scientific notation converter, and precision-tracked arithmetic operations with governing IUPAC rounding rules."
+  toolName="Significant Figures Engine & Rounding Solver"
+  toolCategory="Physics & Measurement Precision"
+  curriculumTags={['NCERT Class 11 Units & Measurement', 'AP Physics 1', 'Scientific Laboratory Rules']}
+  topicId="sigfigs"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <SigFigCalculator client:load lang="en" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      Every experimental measurement carries an intrinsic degree of uncertainty dictated by the resolution of the physical measuring apparatus. <strong>Significant figures</strong> encompass all digits measured with certainty plus one final estimated or uncertain digit, ensuring that calculated results do not misrepresent experimental precision.
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">Universal Golden Rules of Significant Digits</h3>
+    <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+      <li>All non-zero digits (1–9) are always significant.</li>
+      <li>Zeros between non-zero digits (captive zeros) are significant (e.g. 5004 has 4 sig figs).</li>
+      <li>Leading zeros prior to the first non-zero digit are never significant (e.g. 0.002 has 1 sig fig).</li>
+      <li>Trailing zeros in a number containing a decimal point are significant (e.g. 92.00 has 4 sig figs).</li>
+    </ul>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      1. <strong>Precision Civil & Aerospace Engineering:</strong> Manufacturing jet engine turbine blades requires dimensional tolerances within microns; cumulative calculation errors could cause fatal mechanical failures.
+    </p>
+    <p>
+      2. <strong>Analytical Chemistry & Forensic Toxicology:</strong> Quantifying trace compounds in mass spectrometry requires strict adherence to significant figure limits to avoid false-positive forensic reports.
+    </p>
+  </div>
+</ToolLayout>

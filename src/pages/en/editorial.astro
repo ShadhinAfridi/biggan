@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Editorial Standards & Peer Review Policy — Biggan.me"
+  description="Editorial guidelines, fact-checking processes, and subject matter expert review workflows governing all pedagogical content on Biggan.me."
+  lang="en"
+>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        Editorial Integrity
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Editorial Standards & Guidelines
+      </h1>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Ensuring mathematical correctness, pedagogical clarity, and rigorous cross-examination against state and national curricula.
+      </p>
+    </div>
+
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8">
+      <h2 class="text-xl font-bold text-white">1. Content Authorship and Review</h2>
+      <p>
+        All worked exemplars, theoretical foundations, and Casio hardware keystroke sequences published on Biggan.me are drafted by STEM educators and engineering graduates. We do not generate unverified computational text or black-box calculations.
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">2. Verification Protocols</h2>
+      <p>
+        Every calculator module undergoes dual verification:
+      </p>
+      <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+        <li><strong>Algorithmic Validation:</strong> Code undergoes continuous automated integration testing against edge cases and reference textbooks.</li>
+        <li><strong>Physical Hardware Verification:</strong> Exact button press sequences are executed on genuine Casio hardware (fx-991CW, fx-991EX, fx-991ES PLUS, fx-100MS) to ensure 100% exam-hall replication accuracy.</li>
+      </ul>
+
+      <h2 class="text-xl font-bold text-white mt-6">3. Correction & Transparency Policy</h2>
+      <p>
+        We treat educational accuracy with paramount importance. If an educator, student, or researcher spots an inaccuracy, our editorial desk reviews the submission within 48 hours and documents any amendments in the release log.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biggan.me/sitemap-index.xml

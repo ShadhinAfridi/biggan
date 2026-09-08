@@ -1,0 +1,138 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-auto border-t border-slate-800 bg-slate-950 text-slate-400 text-xs">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Col 1: Brand & Mission -->
+      <div class="space-y-3 md:col-span-1">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-cyan-600 flex items-center justify-center text-white font-bold text-sm">
+            B
+          </div>
+          <span class="text-base font-bold text-white tracking-tight">Biggan.me</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          {lang === 'bn'
+            ? 'দক্ষিণ এশিয়ার শিক্ষার্থীদের জন্য প্রথম পূর্ণাঙ্গ দ্বৈতভাষিক (বাংলা ও ইংরেজি) বিজ্ঞান ও গণিত সমস্যা সমাধান প্ল্যাটফর্ম।'
+            : 'South Asia’s premier bilingual STEM learning utility, bridging digital calculations and board examination physical hardware.'}
+        </p>
+        <div class="pt-1">
+          <span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
+            NCTB • NCERT • WBCHSE
+          </span>
+        </div>
+      </div>
+
+      <!-- Col 2: Flagship Tools -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+          {lang === 'bn' ? 'প্রধান ক্যালকুলেটর' : 'Flagship Calculators'}
+        </h4>
+        <ul class="space-y-1.5">
+          <li>
+            <a href={getLocalizedPath('/tools/molar-mass', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.molarMass.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/redox-balancer', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.redox.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/significant-figures', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.sigFigs.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/projectile-motion', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.projectile.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/quadratic-solver', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.quadratic.name')}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Academic Resources -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+          {lang === 'bn' ? 'শিক্ষা ও রিসোর্স' : 'Academic Resources'}
+        </h4>
+        <ul class="space-y-1.5">
+          <li>
+            <a href={getLocalizedPath('/periodic-table', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.periodicTable')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/glossary', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.glossary')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/articles', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.articles')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/methodology', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.methodology')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/about', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.about')}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Trust & Compliance -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+          {lang === 'bn' ? 'নীতিমালা ও আইনি' : 'Compliance & Trust'}
+        </h4>
+        <ul class="space-y-1.5">
+          <li>
+            <a href={getLocalizedPath('/editorial', lang)} class="hover:text-cyan-400 transition">
+              {t('footer.editorial')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/privacy', lang)} class="hover:text-cyan-400 transition">
+              {t('footer.privacy')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/terms', lang)} class="hover:text-cyan-400 transition">
+              {t('footer.terms')}
+            </a>
+          </li>
+        </ul>
+        <div class="pt-2 text-[11px] text-slate-500">
+          IUPAC Atomic Weights & CODATA Fundamental Physical Constants Compliant.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Legal Line -->
+    <div class="mt-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-[11px]">
+      <div>
+        © {currentYear} Biggan.me. {t('footer.rights')}
+      </div>
+      <div>
+        {t('footer.disclaimer')}
+      </div>
+    </div>
+  </div>
+</footer>

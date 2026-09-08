@@ -1,0 +1,23 @@
+---
+import { languages, type Lang } from '../../i18n/ui';
+import { getLangFromUrl, switchLangUrl } from '../../i18n/utils';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+const currentLang = getLangFromUrl(Astro.url);
+const targetLang: Lang = currentLang === 'bn' ? 'en' : 'bn';
+const targetUrl = switchLangUrl(Astro.url, targetLang);
+---
+
+<a
+  href={targetUrl}
+  class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-medium transition shadow-sm ${className}`}
+  title={targetLang === 'en' ? 'Switch to English' : 'বাংলায় দেখুন'}
+  aria-label={`Switch language to ${languages[targetLang]}`}
+>
+  <span class="text-xs">🌐</span>
+  <span class="font-semibold">{languages[targetLang]}</span>
+</a>

@@ -1,0 +1,115 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { MolarMassCalculator } from '../../../tools/molar-mass/MolarMassCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'Secondary & High School Chemistry (NCERT / CBSE / NCTB)',
+    levelBadge: 'Exemplar 1 • Textbook Exercise',
+    problemText: 'Calculate the total molar mass of copper(II) sulfate pentahydrate (CuSO₄·5H₂O) and determine the mass percentage of water of crystallization. [Cu=63.55, S=32.06, O=16.00, H=1.008]',
+    givenData: [
+      'Chemical formula: CuSO₄·5H₂O',
+      'Atomic weights: Cu = 63.55, S = 32.06, O = 16.00, H = 1.008',
+    ],
+    solutionSteps: [
+      'Anhydrous CuSO₄ component: 63.55 + 32.06 + (4 × 16.00) = 159.61 g/mol',
+      'Hydrate 5H₂O component: 5 × [(2 × 1.008) + 16.00] = 5 × 18.016 = 90.08 g/mol',
+      'Total molar mass M = 159.61 + 90.08 = 249.69 g/mol',
+      'Mass % of Water = (90.08 / 249.69) × 100% = 36.08%',
+    ],
+    finalAnswer: 'Molar Mass = 249.69 g/mol; Water of Crystallization = 36.08%',
+  },
+  {
+    level: 'Advanced Placement (AP) & College Entrance (NEET/JEE)',
+    levelBadge: 'Exemplar 2 • Coordination Salt',
+    problemText: 'Determine the molecular weight of potassium ferrocyanide K₄[Fe(CN)₆] and the mass percentage of elemental nitrogen.',
+    givenData: [
+      'Formula: K₄[Fe(CN)₆]',
+      'K = 39.10, Fe = 55.85, C = 12.011, N = 14.007',
+    ],
+    solutionSteps: [
+      'Potassium: 4 × 39.10 = 156.40 g/mol',
+      'Iron: 1 × 55.85 = 55.85 g/mol',
+      'Cyanide ligands (6 × CN): 6 × (12.011 + 14.007) = 156.11 g/mol',
+      'Total molar mass = 156.40 + 55.85 + 156.11 = 368.36 g/mol',
+      'Mass % of Nitrogen = (84.04 / 368.36) × 100% = 22.81%',
+    ],
+    finalAnswer: 'Total Molar Mass = 368.36 g/mol; Nitrogen % = 22.81%',
+  },
+  {
+    level: 'Authentic Past Board Examination',
+    levelBadge: 'Exemplar 3 • Thermal Dehydration',
+    problemText: 'When washing soda (Na₂CO₃·10H₂O) is completely dehydrated upon heating, what is the theoretical percentage mass loss?',
+    givenData: [
+      'Na = 23.0, C = 12.0, O = 16.0, H = 1.008',
+      'All 10 moles of crystalline water are liberated.',
+    ],
+    solutionSteps: [
+      'Molar mass of Na₂CO₃ = (2 × 23) + 12 + (3 × 16) = 106.0 g/mol',
+      'Molar mass of 10H₂O = 10 × 18.016 = 180.16 g/mol',
+      'Total decahydrate molar mass = 106.0 + 180.16 = 286.16 g/mol',
+      'Percentage mass loss = (180.16 / 286.16) × 100% = 62.96%',
+    ],
+    finalAnswer: '62.96% mass loss upon complete thermal dehydration.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the exact distinction between Molar Mass and Molecular Weight?',
+    answer: 'Molecular weight is the mass of a single molecule, traditionally expressed in atomic mass units (amu) or Daltons (Da). Molar mass is the mass of one mole (6.022 × 10²³ particles) of a chemical entity, expressed in g/mol. While numerically identical under standard IUPAC constants, their dimensional physical units differ.',
+  },
+  {
+    question: 'What does the centered dot (·) represent in chemical hydrate formulas?',
+    answer: 'The dot does not signify mathematical multiplication. Rather, it indicates stoichiometric association where water molecules occupy definite interstitial coordinate positions in the crystalline lattice, held by hydrogen or coordinate covalent bonds.',
+  },
+  {
+    question: 'How do I perform hydrate molar mass calculations on a physical Casio calculator?',
+    answer: 'Use parentheses to enclose the water molecule component, or store key atomic masses into memories A-F (e.g. 1.008 STO A, 15.999 STO B). Check our Casio Keystroke Guide below for step-by-step instructions for fx-991CW, fx-991EX, and fx-991ES PLUS.',
+  },
+];
+---
+
+<ToolLayout
+  title="Molar Mass & Percent Composition Calculator — Biggan.me"
+  metaDescription="Calculate exact molar mass (g/mol) and mass percent composition for hydrates, coordinate salts, and complex chemical compounds with step-by-step LaTeX proofs and Casio fx-991 guides."
+  toolName="Molar Mass & Composition Deconstructor"
+  toolCategory="Chemistry & Stoichiometry"
+  curriculumTags={['AP Chemistry', 'NCERT Class 11 Ch 1', 'NCTB Chemistry Class 9-12']}
+  topicId="molar-mass"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <MolarMassCalculator client:load lang="en" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      In stoichiometry, the fundamental bridge between macroscopic laboratory mass and microscopic atomic counts is the <strong>Mole</strong>. Standardized by the International Bureau of Weights and Measures (BIPM) and IUPAC, one mole contains precisely $6.02214076 \times 10^{23}$ elementary entities (the <strong>Avogadro Constant</strong> $N_A$).
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">Governing Mathematical Summation</h3>
+    <p>
+      The total molar mass ($M$) of any chemical substance is calculated as the sum of products of elemental atomic masses ($M_i$) and their respective stoichiometric coefficients ($n_i$):
+    </p>
+    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-emerald-300">
+      <Latex formula={'M = \\sum_{i=1}^{k} \\left( n_i \\times M_i \\right)'} displayMode={true} />
+    </div>
+
+    <h3 class="text-base font-bold text-white mt-4">Elemental Mass Percent Composition</h3>
+    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-cyan-300">
+      <Latex formula={'\\% \\text{ Element} = \\frac{n_i \\times M_i}{M_{\\text{total}}} \\times 100\\%'} displayMode={true} />
+    </div>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      1. <strong>Pharmaceutical Dosage Formulation:</strong> Active pharmaceutical ingredients (APIs) require strict stoichiometric molecular weight calculations to ensure bioequivalence and accurate active dosage.
+    </p>
+    <p>
+      2. <strong>Industrial Fertilizer Blending:</strong> Determining effective nitrogen, phosphorus, and potassium (NPK) ratios in commercial agricultural blends depends on molar mass fractions.
+    </p>
+  </div>
+</ToolLayout>

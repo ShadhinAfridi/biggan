@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/ads/AdSlot.astro';
+import { PeriodicTableIsland } from '../../components/periodic-table/PeriodicTableIsland';
+---
+
+<BaseLayout
+  title="Bilingual Interactive Periodic Table with IUPAC Data — Biggan.me"
+  description="IUPAC standard periodic table with authentic Bengali nomenclature, secondary school examination mode (elements 1-30), and periodic trend visualizer."
+  lang="en"
+>
+  <div class="space-y-10">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        Chemistry Reference Hub
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Interactive Bilingual Periodic Table
+      </h1>
+      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
+        Curriculum exam filter (elements 1 through 30), electron configuration anomalies, and IUPAC standard atomic weights with authentic Bengali terminology.
+      </p>
+    </div>
+
+    <!-- Interactive Island -->
+    <PeriodicTableIsland client:load lang="en" />
+
+    <!-- Ad Placeholder -->
+    <AdSlot slotType="banner" slotId="ptable-mid" />
+
+    <!-- Pedagogical Content Section on Periodic Trends -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+        Periodic Trends & High-Yield Examination Exceptions
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-cyan-400 text-sm">1. Atomic & Ionic Radii</h3>
+          <p>
+            Decreases across a period left-to-right as effective nuclear charge increases without adding shielding shells. Increases down groups as principal quantum shells expand.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-emerald-400 text-sm">2. First Ionization Energy</h3>
+          <p>
+            The energy required to liberate one mole of electrons from one mole of isolated gaseous atoms. Highest for noble gases and lowest for alkali metals.
+          </p>
+        </div>
+
+        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
+          <h3 class="font-bold text-amber-400 text-sm">3. Pauling Electronegativity</h3>
+          <p>
+            Measures the relative propensity of an atom to attract shared electron pairs in covalent chemical bonds. Fluorine (F) sits at maximum 3.98.
+          </p>
+        </div>
+      </div>
+
+      <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
+        <span class="font-bold text-amber-300">Exam Exception Alert:</span> Chromium ($Z=24$) and Copper ($Z=29$) exhibit Aufbau exceptions due to enhanced exchange energy stability of half-filled ($d^5$) and fully-filled ($d^{10}$) subshells. Their ground state configurations are $[Ar] 3d^5 4s^1$ and $[Ar] 3d^{10} 4s^1$ respectively.
+      </div>
+    </section>
+  </div>
+</BaseLayout>

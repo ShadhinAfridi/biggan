@@ -1,0 +1,91 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const navLinks = [
+  { href: getLocalizedPath('/tools', lang), label: t('nav.tools') },
+  { href: getLocalizedPath('/periodic-table', lang), label: t('nav.periodicTable') },
+  { href: getLocalizedPath('/glossary', lang), label: t('nav.glossary') },
+  { href: getLocalizedPath('/articles', lang), label: t('nav.articles') },
+  { href: getLocalizedPath('/methodology', lang), label: t('nav.methodology') },
+  { href: getLocalizedPath('/about', lang), label: t('nav.about') },
+];
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/90 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2.5 group">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-cyan-900/30 group-hover:scale-105 transition">
+        B
+      </div>
+      <div>
+        <div class="flex items-baseline gap-1">
+          <span class="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition">
+            Biggan<span class="text-cyan-400">.me</span>
+          </span>
+          <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest px-1.5 py-0.2 rounded bg-cyan-950/60 border border-cyan-800/40">
+            STEM
+          </span>
+        </div>
+        <div class="text-[10px] text-slate-400 font-medium leading-none">
+          {lang === 'bn' ? 'বিজ্ঞান ও গণিত সলভার' : 'Step-by-Step STEM Solvers'}
+        </div>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-slate-300 hover:text-white transition hover:underline underline-offset-4 decoration-cyan-400 decoration-2"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right Action Items -->
+    <div class="flex items-center gap-3">
+      <LanguageSwitcher />
+
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+        aria-label="Toggle Navigation Menu"
+      >
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-4 pt-2 pb-4 space-y-1">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-900"
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>

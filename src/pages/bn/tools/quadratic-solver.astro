@@ -1,0 +1,119 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { QuadraticCalculator } from '../../../tools/quadratic-solver/QuadraticCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'মাধ্যমিক সাধারণ গণিত (NCTB Class 9-10)',
+    levelBadge: 'নমুনা ১ • বাস্তব মূল',
+    problemText: 'দ্বিঘাত সূত্র প্রয়োগ করে সমাধান কর: x² - 5x + 6 = 0',
+    givenData: [
+      'আদর্শ রূপ ax² + bx + c = 0 এর সাথে তুলনা করে:',
+      'a = 1, b = -5, c = 6',
+    ],
+    solutionSteps: [
+      'নিশ্চায়ক D = b² - 4ac = (-5)² - 4(1)(6) = 25 - 24 = 1',
+      'যেহেতু D = 1 > 0, সুতরাং মূলদ্বয় বাস্তব ও অসমান।',
+      'দ্বিঘাত সূত্র: x = [-b ± √(b² - 4ac)] / (2a)',
+      'x = [-(-5) ± √1] / (2 × 1) = (5 ± 1) / 2',
+      'x₁ = (5 + 1)/2 = 6/2 = 3;  x₂ = (5 - 1)/2 = 4/2 = 2',
+    ],
+    finalAnswer: 'x = 3, 2',
+  },
+  {
+    level: 'উচ্চ মাধ্যমিক উচ্চতর গণিত ১ম পত্র',
+    levelBadge: 'নমুনা ২ • জটিল সংখ্যা মূল',
+    problemText: 'সমীকরণটি সমাধান কর এবং মূলের প্রকৃতি ব্যাখ্যা কর: x² + 2x + 5 = 0',
+    givenData: [
+      'a = 1, b = 2, c = 5',
+    ],
+    solutionSteps: [
+      'নিশ্চায়ক D = b² - 4ac = (2)² - 4(1)(5) = 4 - 20 = -16',
+      'যেহেতু D < 0, সুতরাং মূলদ্বয় অবাস্তব বা জটিল অনুবন্ধী (Complex Conjugates)।',
+      'x = [-2 ± √(-16)] / (2 × 1) = [-2 ± 4i] / 2 = -1 ± 2i',
+    ],
+    finalAnswer: 'x = -1 + 2i, -1 - 2i',
+  },
+  {
+    level: 'বিগত বোর্ড পরীক্ষা প্রশ্ন (যশোর বোর্ড)',
+    levelBadge: 'নমুনা ৩ • সমান মূলের শর্ত',
+    problemText: 'k এর মান কত হলে (k - 1)x² - (k + 2)x + 4 = 0 সমীকরণের মূলদ্বয় পরস্পর সমান হবে?',
+    givenData: [
+      'a = (k - 1), b = -(k + 2), c = 4',
+      'মূলদ্বয় সমান হওয়ার শর্ত: নিশ্চয়ক D = 0',
+    ],
+    solutionSteps: [
+      'D = b² - 4ac = [-(k + 2)]² - 4(k - 1)(4) = 0',
+      '(k² + 4k + 4) - 16k + 16 = 0',
+      'k² - 12k + 20 = 0',
+      '(k - 10)(k - 2) = 0 ⇒ k = 10 অথবা k = 2',
+    ],
+    finalAnswer: 'k = 10 অথবা 2',
+  },
+];
+
+const faqs = [
+  {
+    question: 'নিশ্চায়ক বা পৃথায়ক (Discriminant) এর কাজ কী?',
+    answer: 'একটি দ্বিঘাত সমীকরণ সমাধান না করেই তার মূলের প্রকৃতি জানার জন্য b² - 4ac রাশিটিকে নিশ্চয়ক বা পৃথায়ক (D) বলা হয়। D > 0 হলে মূল বাস্তব ও অসমান, D = 0 হলে মূল বাস্তব ও সমান, এবং D < 0 হলে মূল জটিল অনুবন্ধী হয়।',
+  },
+  {
+    question: 'কাসিও সায়েন্টিফিক ক্যালকুলেটরে সরাসরি দ্বিঘাত সমীকরণ কীভাবে সমাধান করব?',
+    answer: 'কাসিও fx-991ES ক্যালকুলেটরে MODE -> 5 (EQN) -> 3 (ax² + bx + c = 0) চেপে a, b, c এর মান প্রবেশ করিয়ে "=" চাপলেই সরাসরি x1 ও x2 এর মান বের হয়ে যায়। fx-100MS এ MODE তিনবার চেপে EQN -> Degree 2 নির্বাচন করতে হয়।',
+  },
+  {
+    question: 'পূর্ণবর্গকরণ পদ্ধতি কেন জানা প্রয়োজন?',
+    answer: 'দ্বিঘাত সূত্রের মূল উৎসই হলো পূর্ণবর্গকরণ পদ্ধতি। বোর্ড পরীক্ষায় অনেক সময় সুনির্দিষ্টভাবে পূর্ণবর্গকরণ পদ্ধতির ধাপ লিখে সমাধান করতে নির্দেশ দেওয়া থাকে।',
+  },
+];
+---
+
+<ToolLayout
+  title="দ্বিঘাত সমীকরণ ধাপে ধাপে সমাধানকারী (Quadratic Equation Solver) — Biggan.me"
+  metaDescription="দ্বিঘাত সমীকরণের বাস্তব ও জটিল মূল নির্ণয়, নিশ্চয়ক (Discriminant) বিশ্লেষণ এবং পূর্ণবর্গ পদ্ধতি। NCTB ও NCERT বোর্ড সিলেবাস অনুযায়ী সম্পূর্ণ ধাপ ও কাসিও fx-991 কি-স্ট্রোক গাইড।"
+  toolName="দ্বিঘাত সমীকরণ ধাপে ধাপে সমাধানকারী"
+  toolCategory="উচ্চতর গণিত ও বীজগণিত"
+  curriculumTags={['NCTB উচ্চতর গণিত ৯ম-১০ম অধ্যায় ৫', 'NCTB উচ্চতর গণিত ১ম পত্র বহুপদী', 'NCERT Class 10 Quadratic Equations']}
+  topicId="quadratic"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <QuadraticCalculator client:load lang="bn" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      বীজগণিতে যে সমীকরণে অজ্ঞাত রাশির সর্বোচ্চ ঘাত দুই (২), তাকে <strong>দ্বিঘাত সমীকরণ (Quadratic Equation)</strong> বলে। এর প্রমিত আদর্শ রূপ হলো:
+      <div class="p-2 text-center">
+        <Latex formula={'ax^2 + bx + c = 0 \\quad (a \\neq 0)'} displayMode={true} />
+      </div>
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">দ্বিঘাত সূত্র প্রতিপাদন (শ্রীধর আচার্যের পদ্ধতি)</h3>
+    <p>
+      উভয়পক্ষকে 4a দ্বারা গুণ করে এবং বীজগণিতীয় পূর্ণবর্গ গঠন করে বিশ্বখ্যাত দ্বিঘাত সূত্র পাওয়া যায়:
+    </p>
+    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-violet-300">
+      <Latex formula={'x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'} displayMode={true} />
+    </div>
+
+    <h3 class="text-base font-bold text-white mt-4">নিশ্চায়কের বিশ্লেষণ (Nature of Roots)</h3>
+    <ul class="list-disc list-inside space-y-1 text-slate-300 text-xs sm:text-sm">
+      <li><strong>D &gt; 0 এবং পূর্ণবর্গ:</strong> মূলদ্বয় বাস্তব, অসমান ও মূলদ।</li>
+      <li><strong>D &gt; 0 কিন্তু পূর্ণবর্গ নয়:</strong> মূলদ্বয় বাস্তব, অসমান ও অমূলদ।</li>
+      <li><strong>D = 0:</strong> মূলদ্বয় বাস্তব ও পরস্পর সমান (x = -b / 2a)।</li>
+      <li><strong>D &lt; 0:</strong> মূলদ্বয় অবাস্তব বা জটিল অনুবন্ধী (u ± iv)।</li>
+    </ul>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      ১. <strong>অর্থনীতি ও লাভ-লোকসান ম্যাক্সিমাইজেশন:</strong> ব্যবসায়িক প্রতিষ্ঠানের লাভ এবং উৎপাদন খরচের সম্পর্ক প্রায়শই একটি দ্বিঘাত অপেক্ষক দ্বারা প্রকাশিত হয়। পরাবৃত্তের শীর্ষবিন্দু (Vertex) নির্ণয় করে সর্বাধিক মুনাফা অর্জন নিশ্চিত করা যায়।
+    </p>
+    <p>
+      ২. <strong>সিগন্যাল প্রসেসিং ও বৈদ্যুতিক সার্কিট:</strong> RLC সার্কিটের ডিফারেনশিয়াল সমীকরণের বৈশিষ্ট্যসূচক মূল (Characteristic Roots) বের করতে দ্বিঘাত সূত্রের জটিল মূল ব্যবহৃত হয়।
+    </p>
+  </div>
+</ToolLayout>

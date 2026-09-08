@@ -1,0 +1,108 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { Latex } from '../../../components/math/Latex';
+import { getLocalizedPath } from '../../../i18n/utils';
+---
+
+<ArticleLayout
+  title="কেলাস পানি ও হাইড্রেট লবণের মোলার ভর নির্ণয়: নিয়মাবলী ও সাধারণ ভুলসমূহ"
+  metaDescription="কেলাসিত লবণে ডট (·) চিহ্নের সঠিক গাণিতিক অর্থ, তুঁতে ও গ্রিন ভিট্রিয়লের মোলার ভর এবং পরীক্ষায় শতকরা পানির পরিমাণ নির্ণয়ের নির্ভরযোগ্য সমাধান।"
+  curriculum="NCTB নবম-দশম ও একাদশ রসায়ন / WBCHSE & CBSE Class 11 Some Basic Concepts of Chemistry"
+  readTime="6 মিনিট"
+  publishedDate="2026-09-08"
+  relatedTool={{
+    name: "মোলার ভর ও শতকরা সংযুতি ক্যালকুলেটর",
+    href: getLocalizedPath("/tools/molar-mass", "bn"),
+    desc: "তুঁতে, ফটকিরি ও যেকোনো জটিল হাইড্রেট যৌগের মোলার ভর এবং মৌল ও পানির শতকরা পরিমাণ এক ক্লিকে বিশ্লেষণ করুন।"
+  }}
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ১. কেলাস পানি (Water of Crystallization) কী?
+    </h2>
+    <p>
+      কোনো কোনো লবণ যখন জলীয় দ্রবণ থেকে নির্দিষ্ট জ্যামিতিক স্ফটিক বা কেলাস গঠন করে, তখন লবণের কেলাসের অভ্যন্তরে নির্দিষ্ট সংখ্যক পানির অণু রাসায়নিকভাবে সন্নিবেশিত হয়। এই সংযুক্ত পানির অণুগুলোকে <strong>কেলাস পানি (Water of Crystallization)</strong> বলা হয়।
+    </p>
+    <p>
+      উদাহরণস্বরূপ, কপার সালফেটের কেলাসে প্রতি ১ মোল লবণের সাথে ৫ মোল পানির অণু যুক্ত থাকে, যাকে নীল ভিট্রিওল বা তুঁতে বলা হয়:
+    </p>
+    <div class="py-2 text-center bg-slate-900 rounded-lg border border-slate-800">
+      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ২. পরীক্ষায় সবচেয়ে মারাত্মক ভুল: ডট (·) চিহ্নের বিভ্রান্তি!
+    </h2>
+    <div class="p-5 rounded-xl bg-rose-950/40 border border-rose-800/60 space-y-3">
+      <h3 class="text-lg font-bold text-rose-300 flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+        সতর্কতা: গণিতের গুণ (×) বনাম রসায়নের সংযোজন (+)
+      </h3>
+      <p class="text-sm text-slate-200 leading-relaxed">
+        বীজগণিতে ডট চিহ্ন দিয়ে গুণ বোঝায়। কিন্তু রসায়নে হাইড্রেট লবণের সংকেতের মাঝের ডট কোনো গুণন চিহ্ন নয়! এর অর্থ হলো লবণের মূল কাঠামোর সাথে পানির অণুগুলো <strong>যুক্ত বা সমষ্টিগত</strong> অবস্থায় রয়েছে।
+      </p>
+      <div class="bg-slate-950 p-4 rounded-lg font-mono text-xs sm:text-sm text-center border border-rose-900/60">
+        <div class="text-rose-400 font-bold mb-1">ভুল গণনা:</div>
+        <div class="line-through text-slate-400">মোলার ভর = CuSO4 এর ভর × (5 × H2O এর ভর)</div>
+        <div class="text-emerald-400 font-bold mt-3 mb-1">সঠিক গণনা:</div>
+        <div class="text-emerald-300">মোলার ভর = CuSO4 এর ভর + (5 × H2O এর ভর)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ৩. প্রধান হাইড্রেট ও তাদের মোলার ভর তালিকা
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse border border-slate-800 text-sm">
+        <thead>
+          <tr class="bg-slate-900 text-slate-200 font-mono text-xs">
+            <th class="p-3 border border-slate-800">যৌগের নাম</th>
+            <th class="p-3 border border-slate-800">রাসায়নিক সংকেত</th>
+            <th class="p-3 border border-slate-800">অনাহারী লবণের ভর</th>
+            <th class="p-3 border border-slate-800">কেলাস পানির ভর</th>
+            <th class="p-3 border border-slate-800 text-cyan-400">মোট মোলার ভর (g/mol)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+          <tr>
+            <td class="p-3 font-semibold text-white">তুঁতে (Blue Vitriol)</td>
+            <td class="p-3 font-mono text-cyan-300">CuSO4·5H2O</td>
+            <td class="p-3 font-mono">159.61</td>
+            <td class="p-3 font-mono">5 × 18.015 = 90.08</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">249.69</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-white">হীরাকস (Green Vitriol)</td>
+            <td class="p-3 font-mono text-emerald-300">FeSO4·7H2O</td>
+            <td class="p-3 font-mono">151.91</td>
+            <td class="p-3 font-mono">7 × 18.015 = 126.11</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">278.02</td>
+          </tr>
+          <tr>
+            <td class="p-3 font-semibold text-white">ইপসম লবণ (Epsom Salt)</td>
+            <td class="p-3 font-mono text-amber-300">MgSO4·7H2O</td>
+            <td class="p-3 font-mono">120.37</td>
+            <td class="p-3 font-mono">7 × 18.015 = 126.11</td>
+            <td class="p-3 font-mono font-bold text-cyan-400">246.48</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ৪. কেলাস পানির শতকরা পরিমাণ নির্ণয়ের সূত্র
+    </h2>
+    <div class="py-3 text-center bg-slate-900 rounded-lg border border-slate-800">
+      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} client:visible />
+    </div>
+    <p class="text-sm text-slate-300">
+      তুঁতের ক্ষেত্রে: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} client:visible />। অর্থাৎ ১০০ গ্রাম তুঁতে উত্তপ্ত করলে ৩৬.০৮ গ্রাম পানি বাষ্পীভূত হবে এবং ৬৩.৯২ গ্রাম অনাহারী কপার সালফেট অবশিষ্ট থাকবে।
+    </p>
+  </section>
+</ArticleLayout>

@@ -1,0 +1,110 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { QuadraticCalculator } from '../../../tools/quadratic-solver/QuadraticCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'Secondary School Algebra (CBSE Class 10 / GCSE)',
+    levelBadge: 'Exemplar 1 • Distinct Real Roots',
+    problemText: 'Solve the quadratic equation x² - 5x + 6 = 0 using the quadratic formula, stating the discriminant and nature of roots.',
+    givenData: ['Equation: ax² + bx + c = 0 with a = 1, b = -5, c = 6'],
+    solutionSteps: [
+      'Compute discriminant: D = b² - 4ac = (-5)² - 4(1)(6) = 25 - 24 = 1',
+      'Since D > 0, the equation possesses two distinct real roots.',
+      'Quadratic formula: x = [-b ± √(D)] / (2a) = [-(-5) ± √1] / 2 = (5 ± 1) / 2',
+      'x₁ = (5 + 1)/2 = 3;  x₂ = (5 - 1)/2 = 2',
+    ],
+    finalAnswer: 'x = 3, 2',
+  },
+  {
+    level: 'College Algebra & Pre-Calculus',
+    levelBadge: 'Exemplar 2 • Complex Conjugate Roots',
+    problemText: 'Solve the equation x² + 2x + 5 = 0 and express solutions in exact complex standard form a ± bi.',
+    givenData: ['a = 1, b = 2, c = 5'],
+    solutionSteps: [
+      'Discriminant: D = 2² - 4(1)(5) = 4 - 20 = -16',
+      'Since D < 0, roots are complex conjugates.',
+      'x = [-2 ± √(-16)] / (2 × 1) = [-2 ± 4i] / 2 = -1 ± 2i',
+    ],
+    finalAnswer: 'x = -1 + 2i, -1 - 2i',
+  },
+  {
+    level: 'Board Examination Parametric Problem',
+    levelBadge: 'Exemplar 3 • Equal Roots Condition',
+    problemText: 'Find the values of k for which the quadratic equation (k - 1)x² - (k + 2)x + 4 = 0 has equal real roots.',
+    givenData: ['Condition for equal roots: Discriminant D = 0'],
+    solutionSteps: [
+      'D = [-(k + 2)]² - 4(k - 1)(4) = 0',
+      'k² + 4k + 4 - 16k + 16 = 0 ⇒ k² - 12k + 20 = 0',
+      'Factorize: (k - 10)(k - 2) = 0',
+      'k = 10 or k = 2',
+    ],
+    finalAnswer: 'k = 10 or k = 2',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the geometric meaning of the discriminant D = b² - 4ac?',
+    answer: 'Geometrically, the discriminant indicates the number of x-intercepts of the parabola y = ax² + bx + c. If D > 0, the parabola intersects the x-axis at two distinct points. If D = 0, the vertex touches the x-axis tangentially. If D < 0, the parabola does not cross the x-axis.',
+  },
+  {
+    question: 'How do I solve polynomial equations on Casio calculators?',
+    answer: 'On the fx-991EX ClassWiz, press MENU -> (-) -> 2 -> 2. On the fx-991ES PLUS, press MODE -> 5 -> 3. On the fx-991CW, navigate to HOME -> Equation -> Polynomial Degree 2. Enter coefficients and press EXE/equal.',
+  },
+  {
+    question: 'How does completing the square relate to the quadratic formula?',
+    answer: 'The quadratic formula is derived directly by applying the completing-the-square method to the general polynomial ax² + bx + c = 0. Both yield identical solutions.',
+  },
+];
+---
+
+<ToolLayout
+  title="Quadratic Equation Solver with Steps & Complex Roots — Biggan.me"
+  metaDescription="Solve quadratic equations with procedural step-by-step proofs using the quadratic formula and completing-the-square methods, with discriminant analysis and Casio guides."
+  toolName="Procedural Quadratic Equation Solver"
+  toolCategory="Mathematics & Algebra"
+  curriculumTags={['NCERT Class 10 Quadratic Equations', 'Algebra 2 & Precalculus', 'SAT & ACT Math']}
+  topicId="quadratic"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <QuadraticCalculator client:load lang="en" />
+  </div>
+
+  <div slot="derivation" class="space-y-4">
+    <p>
+      A second-degree polynomial equation in a single variable x is termed a <strong>Quadratic Equation</strong>:
+      <div class="p-2 text-center">
+        <Latex formula={'ax^2 + bx + c = 0 \\quad (a \\neq 0)'} displayMode={true} />
+      </div>
+    </p>
+
+    <h3 class="text-base font-bold text-white mt-4">The Quadratic Formula Derivation</h3>
+    <p>
+      By algebraic isolation and completing the square across both sides of the polynomial, we obtain the universal quadratic formula:
+    </p>
+    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-violet-300">
+      <Latex formula={'x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}'} displayMode={true} />
+    </div>
+
+    <h3 class="text-base font-bold text-white mt-4">Parabola Vertex and Axis of Symmetry</h3>
+    <p>
+      The extreme point (vertex) of the parabola occurs at:
+    </p>
+    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 text-center font-mono text-cyan-300">
+      <Latex formula={'(h, k) = \\left( -\\frac{b}{2a}, \\; c - \\frac{b^2}{4a} \\right)'} displayMode={true} />
+    </div>
+  </div>
+
+  <div slot="applications" class="space-y-3">
+    <p>
+      1. <strong>Architectural Catenary & Arch Bridges:</strong> Parabolic arcs distribute compressive stress evenly across supporting piers in suspension bridges and vaulted ceilings.
+    </p>
+    <p>
+      2. <strong>Financial Profit Optimization:</strong> Revenue modeling functions are frequently quadratic polynomials where finding the vertex coordinates reveals the exact price point that maximizes gross margin.
+    </p>
+  </div>
+</ToolLayout>
