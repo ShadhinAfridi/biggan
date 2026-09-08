@@ -51,7 +51,8 @@ const parentFormulasUrl = `${siteUrl}/bn/formulas`;
 // Group formulas by chapter
 const chaptersMap = new Map<string, FormulaItem[]>();
 for (const f of formulas) {
-  const key = `${f.level.toUpperCase()} - অধ্যায় ${f.chapterNumber}: ${f.chapterTitleBn}`;
+  const paperLabel = f.paper ? ` (${f.paper === 1 ? '১ম পত্র' : '২য় পত্র'})` : '';
+  const key = `${f.level.toUpperCase()}${paperLabel} - অধ্যায় ${f.chapterNumber}: ${f.chapterTitleBn}`;
   if (!chaptersMap.has(key)) {
     chaptersMap.set(key, []);
   }

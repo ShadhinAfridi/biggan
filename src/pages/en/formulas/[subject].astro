@@ -51,7 +51,8 @@ const parentFormulasUrl = `${siteUrl}/en/formulas`;
 // Group formulas by chapter
 const chaptersMap = new Map<string, FormulaItem[]>();
 for (const f of formulas) {
-  const key = `${f.level.toUpperCase()} - Chapter ${f.chapterNumber}: ${f.chapterTitleEn}`;
+  const paperLabel = f.paper ? ` (Paper ${f.paper})` : '';
+  const key = `${f.level.toUpperCase()}${paperLabel} - Chapter ${f.chapterNumber}: ${f.chapterTitleEn}`;
   if (!chaptersMap.has(key)) {
     chaptersMap.set(key, []);
   }
