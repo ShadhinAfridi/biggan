@@ -2,72 +2,132 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdSlot from '../../../components/ads/AdSlot.astro';
 import { GLOSSARY_TERMS } from '../../../data/glossaryTerms';
+import { GlossarySearch } from '../../../components/glossary/GlossarySearch';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/bn/glossary`;
+
+// DefinedTermSet Schema for SEO
+const definedTermSetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': canonicalUrl,
+  name: 'বিজ্ঞান পরিভাষা, সূত্র ও একক ডিরেক্টরি (STEM Glossary) — Biggan.me',
+  description: 'NCTB ও বাংলা একাডেমি প্রমিত বিজ্ঞান পরিভাষা, সংজ্ঞাকারী সমীকরণ, এসআই একক, মাত্রীয় সংকেত ও বোর্ড পরীক্ষার গুরুত্বপূর্ণ প্রশ্নোত্তর।',
+  inLanguage: 'bn',
+  url: canonicalUrl,
+  hasDefinedTerm: GLOSSARY_TERMS.map((term) => ({
+    '@type': 'DefinedTerm',
+    '@id': `${canonicalUrl}/${term.id}`,
+    name: term.termBn,
+    alternateName: [term.termEn, term.pronunciationBn],
+    description: term.definitionBn,
+    inDefinedTermSet: canonicalUrl,
+    url: `${canonicalUrl}/${term.id}`,
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: `${siteUrl}/bn`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'বিজ্ঞান গ্লোসারি',
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const jsonLd = [definedTermSetSchema, breadcrumbSchema];
 ---
 
 <BaseLayout
-  title="বিজ্ঞান পরিভাষা ও সূত্র অভিধান (Bilingual STEM Glossary) — Biggan.me"
-  description="বাংলা একাডেমি ও NCTB কারিকুলাম স্বীকৃত বৈজ্ঞানিক পরিভাষা, প্রতীক, সংজ্ঞাকারী সমীকরণ, এসআই একক ও মাত্রার পূর্ণাঙ্গ অভিধান।"
+  title="বিজ্ঞান পরিভাষা, সূত্র ও একক ডিরেক্টরি (STEM Glossary) — Biggan.me"
+  description="পদার্থবিজ্ঞান, রসায়ন, জীববিজ্ঞান, উচ্চতর গণিত ও আইসিটির প্রমিত বৈজ্ঞানিক পরিভাষা, গাণিতিক সূত্র, এসআই একক, মাত্রা এবং বোর্ড পরীক্ষার প্রশ্নোত্তর।"
   lang="bn"
+  jsonLd={jsonLd}
 >
   <div class="space-y-8">
-    <div class="space-y-3">
+    {/* Page Header */}
+    <header class="space-y-4">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        বাংলা একাডেমি ও NCTB প্রমিত পরিভাষা
+        NCTB কারিকুলাম ও প্রমিত পরিভাষা
       </div>
       <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        দ্বৈতভাষিক বিজ্ঞান পরিভাষা কোষ
+        বিজ্ঞান পরিভাষা ও সূত্র ডিরেক্টরি
       </h1>
-      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
-        ইংরেজি বৈজ্ঞানিক টার্মের প্রমিত বাংলা পরিভাষা, গাণিতিক সূত্র, একক, মাত্রিক বিশ্লেষণ এবং ক্লাসরুম মেমোরি হুক (নেমোনিক্স)।
+      <p class="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed">
+        পদার্থবিজ্ঞান, রসায়ন, জীববিজ্ঞান, উচ্চতর গণিত এবং আইসিটির প্রয়োজনীয় বৈজ্ঞানিক টার্মের প্রমিত বাংলা ও ইংরেজি নাম, সংজ্ঞাকারী সমীকরণ, এসআই একক, মাত্রিক সংকেত এবং বোর্ড পরীক্ষার প্রশ্নোত্তর একসাথে।
       </p>
-    </div>
 
-    <!-- Ad placeholder -->
+      {/* Quick Curriculum & Stats Bar */}
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+          <span class="text-xs text-slate-400 block">মোট পরিভাষা</span>
+          <span class="text-xl font-black text-cyan-400 font-mono">{GLOSSARY_TERMS.length}+</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+          <span class="text-xs text-slate-400 block">কভার্ড বিষয়</span>
+          <span class="text-xl font-black text-emerald-400 font-mono">৫টি ডিসিপ্লিন</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+          <span class="text-xs text-slate-400 block">গাণিতিক ফরম্যাট</span>
+          <span class="text-xl font-black text-amber-400 font-mono">KaTeX সমীকরণ</span>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-center">
+          <span class="text-xs text-slate-400 block">ইন্টারেক্টিভ টুলস</span>
+          <span class="text-xl font-black text-purple-400 font-mono">ক্যালকুলেটর লিঙ্ক</span>
+        </div>
+      </div>
+    </header>
+
+    {/* Top Ad Slot */}
     <AdSlot slotType="banner" slotId="glossary-top" />
 
-    <!-- Glossary List -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {GLOSSARY_TERMS.map((term) => (
-        <div class="bg-slate-900 border border-slate-800 hover:border-cyan-500/40 rounded-2xl p-6 space-y-4 transition shadow-lg">
-          <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
-            <div>
-              <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                <span>{term.termBn}</span>
-                <span class="text-xs text-slate-400 font-normal">({term.termEn})</span>
-              </h2>
-              <span class="text-[11px] font-mono text-cyan-400">{term.curriculum}</span>
-            </div>
-            <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold bg-slate-800 text-slate-300 border border-slate-700">
-              {term.quantityType === 'scalar' ? 'স্কেলার রাশি' : term.quantityType === 'vector' ? 'ভেক্টর রাশি' : 'ভৌত ধ্রুবক'}
-            </span>
-          </div>
+    {/* Interactive Search Island */}
+    <GlossarySearch client:load terms={GLOSSARY_TERMS} lang="bn" />
 
-          <p class="text-xs text-slate-300 leading-relaxed">
-            {term.definitionBn}
+    {/* In-Content Ad */}
+    <AdSlot slotType="in-content" slotId="glossary-mid" />
+
+    {/* Educational Context & FAQ Guide for SEO */}
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-white">
+          বৈজ্ঞানিক পরিভাষা ও একক ব্যবহারের নির্দেশিকা
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          বোর্ড পরীক্ষা ও ভর্তি পরীক্ষায় ভালো ফলাফলের জন্য প্রমিত একক, মাত্রা ও বৈজ্ঞানিক চিহ্নের নিয়মাবলী
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+        <div class="space-y-3 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80">
+          <h3 class="text-base font-bold text-cyan-300 flex items-center gap-2">
+            <span>📏</span> এসআই (SI) একক ব্যবহারের নিয়ম
+          </h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-400">
+            আন্তর্জাতিক একক পদ্ধতিতে (Système International) বিজ্ঞানীদের নামে রাখা এককগুলোর পূর্ণ নাম ছোট হাতের অক্ষরে শুরু হয় (যেমন: newton, joule), তবে প্রতীক লিখলে বড় হাতের একক অক্ষর ব্যবহার করা হয় (যেমন: N, J)। অন্য সব সাধারণ এককের প্রতীক ছোট হাতের হয় (যেমন: meter এর প্রতীক m, kilogram এর প্রতীক kg)।
           </p>
-
-          <div class="grid grid-cols-2 gap-2 p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-xs font-mono text-slate-300">
-            <div>
-              <span class="text-slate-500 block text-[10px]">সংজ্ঞাকারী সমীকরণ:</span>
-              <span class="text-cyan-300 font-bold">{term.definingEquation}</span>
-            </div>
-            <div>
-              <span class="text-slate-500 block text-[10px]">প্রমিত এসআই একক:</span>
-              <span class="text-emerald-300">{term.siUnit}</span>
-            </div>
-            <div class="col-span-2 pt-1 border-t border-slate-900">
-              <span class="text-slate-500 text-[10px]">মাত্রীয় সংকেত: </span>
-              <span class="text-amber-300 font-bold">{term.dimensionalFormula}</span>
-            </div>
-          </div>
-
-          {term.mnemonicBn && (
-            <div class="p-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
-              💡 <span class="font-bold">মনে রাখার কৌশল:</span> {term.mnemonicBn}
-            </div>
-          )}
         </div>
-      ))}
-    </div>
+
+        <div class="space-y-3 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80">
+          <h3 class="text-base font-bold text-emerald-300 flex items-center gap-2">
+            <span>📐</span> মাত্রিক সমীকরণ ও সত্যতা যাচাই
+          </h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-400">
+            যেকোনো সঠিক সমীকরণের বামপক্ষ ও ডানপক্ষের মাত্রা সবসময় সমান হতে হয়, যা সমমাত্রিক নীতি (Principle of Homogeneity) নামে পরিচিত। মাত্রিক সংকেত সর্বদা তৃতীয় বন্ধনীতে [ ] প্রকাশ করা হয়। যেমন: বলের মাত্রা $[MLT^{-2}]$।
+          </p>
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>

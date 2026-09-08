@@ -1,0 +1,348 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { GLOSSARY_TERMS, type GlossaryTerm } from '../../../data/glossaryTerms';
+import katex from 'katex';
+
+export async function getStaticPaths() {
+  return GLOSSARY_TERMS.map((term) => ({
+    params: { id: term.id },
+    props: { term },
+  }));
+}
+
+interface Props {
+  term: GlossaryTerm;
+}
+
+const { term } = Astro.props;
+
+// Math Rendering Helpers
+function renderDisplayMath(tex: string): string {
+  try {
+    return katex.renderToString(tex, { displayMode: true, throwOnError: false });
+  } catch {
+    return tex;
+  }
+}
+
+function renderInlineMath(tex: string): string {
+  try {
+    return katex.renderToString(tex, { displayMode: false, throwOnError: false });
+  } catch {
+    return tex;
+  }
+}
+
+function formatMathInText(text: string): string {
+  if (!text) return '';
+  return text.replace(/\$([^$]+)\$/g, (_, formula) => renderInlineMath(formula));
+}
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/en/glossary/${term.id}`;
+const parentGlossaryUrl = `${siteUrl}/en/glossary`;
+
+// Quantity Type English Label
+const quantityTypeLabels: Record<string, string> = {
+  scalar: 'Scalar Quantity',
+  vector: 'Vector Quantity',
+  constant: 'Physical Constant',
+  concept: 'Fundamental Concept',
+  dimensionless: 'Dimensionless Ratio',
+};
+
+// Structured Data: DefinedTerm, BreadcrumbList, FAQPage
+const definedTermSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': canonicalUrl,
+  name: term.termEn,
+  alternateName: [term.termBn, term.pronunciationBn],
+  description: term.definitionEn,
+  inDefinedTermSet: parentGlossaryUrl,
+  url: canonicalUrl,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${siteUrl}/en`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'STEM Glossary',
+      item: parentGlossaryUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: term.termEn,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: term.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.questionEn,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answerEn.replace(/\$([^$]+)\$/g, '$1'),
+    },
+  })),
+};
+
+const jsonLd = [definedTermSchema, breadcrumbSchema, faqSchema];
+
+// Related Terms
+const relatedTerms = (term.relatedTermIds || [])
+  .map((rId) => GLOSSARY_TERMS.find((t) => t.id === rId))
+  .filter((t): t is GlossaryTerm => Boolean(t));
+
+const toolUrl = term.relatedToolUrl
+  ? term.relatedToolUrl.startsWith('/en')
+    ? term.relatedToolUrl
+    : `/en${term.relatedToolUrl.replace(/^\/(bn|en)/, '')}`
+  : undefined;
+---
+
+<BaseLayout
+  title={`${term.termEn} (${term.termBn}): Formula, SI Unit & Dimensions — Biggan.me`}
+  description={`${term.termEn} (${term.termBn}): ${term.definitionEn} SI Unit: ${term.siUnitEn}, Dimension: ${term.dimensionalFormula}. Mathematical equation, physical derivation, and exam FAQs.`}
+  lang="en"
+  jsonLd={jsonLd}
+>
+  <article class="space-y-8 max-w-4xl mx-auto">
+    {/* Breadcrumbs Navigation */}
+    <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+      <a href="/en" class="hover:text-cyan-400 transition">Home</a>
+      <span>/</span>
+      <a href="/en/glossary" class="hover:text-cyan-400 transition">Glossary</a>
+      <span>/</span>
+      <span class="text-white font-medium">{term.termEn}</span>
+    </nav>
+
+    {/* Header Section */}
+    <header class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+          {term.subjectNameEn}
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+          {quantityTypeLabels[term.quantityType] || term.quantityType}
+        </span>
+        <span class="text-xs text-slate-400 font-mono">
+          {term.curriculum}
+        </span>
+      </div>
+
+      <div>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          {term.termEn}
+        </h1>
+        <div class="flex flex-wrap items-center gap-3 text-slate-400 text-sm sm:text-base mt-2">
+          <span>Bengali: <strong class="text-slate-200">{term.termBn}</strong></span>
+          <span>•</span>
+          <span>Pronunciation: <span class="text-cyan-300">{term.pronunciationBn}</span></span>
+          <span>•</span>
+          <span>Symbol: <span class="font-mono text-amber-300 font-bold">{term.symbol}</span></span>
+        </div>
+      </div>
+
+      {/* Core Definition Highlight Box */}
+      <div class="p-4 sm:p-5 bg-cyan-950/30 border-l-4 border-cyan-500 rounded-r-2xl text-slate-200 text-base sm:text-lg leading-relaxed">
+        <strong class="text-cyan-300 block text-xs uppercase tracking-wider mb-1">
+          Standard Definition:
+        </strong>
+        <div set:html={formatMathInText(term.definitionEn)} />
+      </div>
+    </header>
+
+    {/* Top Ad */}
+    <AdSlot slotType="banner" slotId="term-top" />
+
+    {/* Scientific Specifications & Equation Grid */}
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span>📐</span> Mathematical Equation, Units & Dimensions
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Defining Equation */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">Defining Mathematical Equation</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-cyan-300 text-center text-lg overflow-x-auto">
+            <div set:html={renderDisplayMath(term.definingEquation)} />
+          </div>
+        </div>
+
+        {/* SI Unit */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">Standard SI Unit</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-emerald-300 font-mono text-center text-base">
+            <span class="font-bold">{term.siUnitEn}</span>
+            <span class="text-xs text-slate-400 block mt-0.5 font-sans">({term.siUnitBn})</span>
+          </div>
+        </div>
+
+        {/* Dimensional Formula */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">Dimensional Analysis</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-amber-300 text-center text-base">
+            <div set:html={renderInlineMath(term.dimensionalFormula)} />
+          </div>
+        </div>
+
+        {/* CGS Unit or Classification */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">
+            {term.cgsUnit ? 'CGS Unit' : 'Quantity Classification'}
+          </span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-slate-200 text-center text-base font-mono">
+            {term.cgsUnit ? (
+              <span class="text-purple-300 font-bold">{term.cgsUnit}</span>
+            ) : (
+              <span class="text-slate-300 font-sans">{quantityTypeLabels[term.quantityType]}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Detailed Physical Concept & Explanation */}
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span>📖</span> Physical Concept & Comprehensive Explanation
+      </h2>
+      <div class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-3">
+        <p set:html={formatMathInText(term.explanationEn)} />
+      </div>
+
+      {/* Mnemonic / Memory Hook */}
+      {term.mnemonicEn && (
+        <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm flex items-start gap-3 mt-4">
+          <span class="text-xl shrink-0">💡</span>
+          <div>
+            <strong class="font-bold text-amber-300 block mb-0.5">Quick Memory Hook:</strong>
+            <span>{term.mnemonicEn}</span>
+          </div>
+        </div>
+      )}
+    </section>
+
+    {/* Key Revision Points */}
+    {term.keyPointsEn && term.keyPointsEn.length > 0 && (
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span>🎯</span> High-Yield Revision Points
+        </h2>
+        <ul class="space-y-2.5">
+          {term.keyPointsEn.map((point) => (
+            <li class="flex items-start gap-2.5 text-sm sm:text-base text-slate-300">
+              <span class="text-cyan-400 font-bold mt-1">✓</span>
+              <span set:html={formatMathInText(point)} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {/* Interactive Solver Banner if linked */}
+    {toolUrl && (
+      <div class="bg-gradient-to-r from-cyan-950/60 to-emerald-950/60 border border-cyan-500/40 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+        <div class="space-y-1 text-center sm:text-left">
+          <h3 class="text-lg font-bold text-white">
+            Use Online Solver for {term.termEn}
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300">
+            Compute step-by-step solutions, verify formulas, and plot interactive diagrams on biggan.me.
+          </p>
+        </div>
+        <a
+          href={toolUrl}
+          class="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-sm transition shrink-0 shadow-md shadow-cyan-500/20"
+        >
+          Open Calculator →
+        </a>
+      </div>
+    )}
+
+    {/* In-Content Ad */}
+    <AdSlot slotType="in-content" slotId="term-mid" />
+
+    {/* Exam FAQs */}
+    {term.faqs && term.faqs.length > 0 && (
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>❓</span> Frequently Asked Exam Questions (FAQ)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Common questions in board and competitive entrance examinations
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {term.faqs.map((faq, index) => (
+            <div class="p-4 sm:p-5 bg-slate-950/80 rounded-xl border border-slate-800/80 space-y-2">
+              <h3 class="text-base font-bold text-cyan-300">
+                Q{index + 1}: {faq.questionEn}
+              </h3>
+              <div
+                class="text-sm text-slate-300 leading-relaxed pt-1"
+                set:html={formatMathInText(faq.answerEn)}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Related Terms Navigation */}
+    {relatedTerms.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-xl font-bold text-white">
+          Related STEM Terms
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {relatedTerms.map((rel) => (
+            <a
+              href={`/en/glossary/${rel.id}`}
+              class="bg-slate-900 border border-slate-800 hover:border-cyan-500/40 rounded-xl p-4 transition group flex items-center justify-between"
+            >
+              <div>
+                <span class="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                  {rel.termEn}
+                </span>
+                <span class="text-xs text-slate-400 block">
+                  {rel.termBn} • {rel.subjectNameEn}
+                </span>
+              </div>
+              <span class="text-cyan-400 text-lg group-hover:translate-x-1 transition">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Bottom Back Button */}
+    <div class="pt-4 text-center">
+      <a
+        href="/en/glossary"
+        class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 transition"
+      >
+        ← Back to All STEM Glossary Terms
+      </a>
+    </div>
+  </article>
+</BaseLayout>

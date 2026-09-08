@@ -178,33 +178,6 @@ const ForceVectorDiagram: React.FC<{ m: number; a: number; lang?: 'bn' | 'en' }>
         </svg>
       </div>
 
-      {/* Mobile Sticky Floating Answer Bar */}
-      {activeResult.success && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-amber-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
-          <div>
-            <span className="text-[10px] text-amber-400 font-semibold block uppercase tracking-wider">
-              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
-            </span>
-            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
-              <span>
-                {typeof activeResult.value === 'number'
-                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
-                    ? activeResult.value.toExponential(4)
-                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
-                  : activeResult.value}
-              </span>
-              {activeResult.unit && <span className="text-xs text-amber-300 font-normal">{activeResult.unit}</span>}
-            </div>
-          </div>
-          <button
-            onClick={handleCopy}
-            className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-amber-500/20"
-          >
-            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 };

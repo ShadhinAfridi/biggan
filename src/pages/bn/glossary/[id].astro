@@ -1,0 +1,348 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { GLOSSARY_TERMS, type GlossaryTerm } from '../../../data/glossaryTerms';
+import katex from 'katex';
+
+export async function getStaticPaths() {
+  return GLOSSARY_TERMS.map((term) => ({
+    params: { id: term.id },
+    props: { term },
+  }));
+}
+
+interface Props {
+  term: GlossaryTerm;
+}
+
+const { term } = Astro.props;
+
+// Math Rendering Helpers
+function renderDisplayMath(tex: string): string {
+  try {
+    return katex.renderToString(tex, { displayMode: true, throwOnError: false });
+  } catch {
+    return tex;
+  }
+}
+
+function renderInlineMath(tex: string): string {
+  try {
+    return katex.renderToString(tex, { displayMode: false, throwOnError: false });
+  } catch {
+    return tex;
+  }
+}
+
+function formatMathInText(text: string): string {
+  if (!text) return '';
+  return text.replace(/\$([^$]+)\$/g, (_, formula) => renderInlineMath(formula));
+}
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/bn/glossary/${term.id}`;
+const parentGlossaryUrl = `${siteUrl}/bn/glossary`;
+
+// Quantity Type Bengali Label
+const quantityTypeLabels: Record<string, string> = {
+  scalar: 'স্কেলার রাশি',
+  vector: 'ভেক্টর রাশি',
+  constant: 'ভৌত ধ্রুবক',
+  concept: 'মৌলিক প্রত্যয়',
+  dimensionless: 'মাত্রাহীন অনুপাত',
+};
+
+// Structured Data: DefinedTerm, BreadcrumbList, FAQPage
+const definedTermSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTerm',
+  '@id': canonicalUrl,
+  name: term.termBn,
+  alternateName: [term.termEn, term.pronunciationBn],
+  description: term.definitionBn,
+  inDefinedTermSet: parentGlossaryUrl,
+  url: canonicalUrl,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: `${siteUrl}/bn`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'বিজ্ঞান গ্লোসারি',
+      item: parentGlossaryUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: term.termBn,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: term.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.questionBn,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answerBn.replace(/\$([^$]+)\$/g, '$1'),
+    },
+  })),
+};
+
+const jsonLd = [definedTermSchema, breadcrumbSchema, faqSchema];
+
+// Related Terms
+const relatedTerms = (term.relatedTermIds || [])
+  .map((rId) => GLOSSARY_TERMS.find((t) => t.id === rId))
+  .filter((t): t is GlossaryTerm => Boolean(t));
+
+const toolUrl = term.relatedToolUrl
+  ? term.relatedToolUrl.startsWith('/bn')
+    ? term.relatedToolUrl
+    : `/bn${term.relatedToolUrl.replace(/^\/(bn|en)/, '')}`
+  : undefined;
+---
+
+<BaseLayout
+  title={`${term.termBn} (${term.termEn}) কাকে বলে? সূত্র, একক ও মাত্রা — Biggan.me`}
+  description={`${term.termBn} (${term.termEn}): ${term.definitionBn} এসআই একক: ${term.siUnitBn}, মাত্রা: ${term.dimensionalFormula}। সংজ্ঞাকারী সমীকরণ, ব্যাখ্যা ও বোর্ড পরীক্ষার প্রশ্নোত্তর।`}
+  lang="bn"
+  jsonLd={jsonLd}
+>
+  <article class="space-y-8 max-w-4xl mx-auto">
+    {/* Breadcrumbs Navigation */}
+    <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+      <a href="/bn" class="hover:text-cyan-400 transition">হোম</a>
+      <span>/</span>
+      <a href="/bn/glossary" class="hover:text-cyan-400 transition">গ্লোসারি</a>
+      <span>/</span>
+      <span class="text-white font-medium">{term.termBn}</span>
+    </nav>
+
+    {/* Header Section */}
+    <header class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+          {term.subjectNameBn}
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+          {quantityTypeLabels[term.quantityType] || term.quantityType}
+        </span>
+        <span class="text-xs text-slate-400 font-mono">
+          {term.curriculum}
+        </span>
+      </div>
+
+      <div>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          {term.termBn}
+        </h1>
+        <div class="flex flex-wrap items-center gap-3 text-slate-400 text-sm sm:text-base mt-2">
+          <span>ইংরেজি: <strong class="text-slate-200">{term.termEn}</strong></span>
+          <span>•</span>
+          <span>উচ্চারণ: <span class="text-cyan-300">{term.pronunciationBn}</span></span>
+          <span>•</span>
+          <span>প্রতীক: <span class="font-mono text-amber-300 font-bold">{term.symbol}</span></span>
+        </div>
+      </div>
+
+      {/* Core Definition Highlight Box */}
+      <div class="p-4 sm:p-5 bg-cyan-950/30 border-l-4 border-cyan-500 rounded-r-2xl text-slate-200 text-base sm:text-lg leading-relaxed">
+        <strong class="text-cyan-300 block text-xs uppercase tracking-wider mb-1">
+          প্রমিত সংজ্ঞা (Standard Definition):
+        </strong>
+        <div set:html={formatMathInText(term.definitionBn)} />
+      </div>
+    </header>
+
+    {/* Top Ad */}
+    <AdSlot slotType="banner" slotId="term-top" />
+
+    {/* Scientific Specifications & Equation Grid */}
+    <section class="space-y-3">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span>📐</span> গাণিতিক সমীকরণ, একক ও মাত্রা
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Defining Equation */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">সংজ্ঞাকারী সমীকরণ</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-cyan-300 text-center text-lg overflow-x-auto">
+            <div set:html={renderDisplayMath(term.definingEquation)} />
+          </div>
+        </div>
+
+        {/* SI Unit */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">এসআই (SI) একক</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-emerald-300 font-mono text-center text-base">
+            <span class="font-bold">{term.siUnitBn}</span>
+            <span class="text-xs text-slate-400 block mt-0.5 font-sans">({term.siUnitEn})</span>
+          </div>
+        </div>
+
+        {/* Dimensional Formula */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">মাত্রিক সংকেত (Dimension)</span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-amber-300 text-center text-base">
+            <div set:html={renderInlineMath(term.dimensionalFormula)} />
+          </div>
+        </div>
+
+        {/* CGS Unit or Classification */}
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 block">
+            {term.cgsUnit ? 'সিজিএস (CGS) একক' : 'রাশির ধরণ ও বৈশিষ্ট্য'}
+          </span>
+          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 text-slate-200 text-center text-base font-mono">
+            {term.cgsUnit ? (
+              <span class="text-purple-300 font-bold">{term.cgsUnit}</span>
+            ) : (
+              <span class="text-slate-300 font-sans">{quantityTypeLabels[term.quantityType]}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Detailed Physical Concept & Explanation */}
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2">
+        <span>📖</span> বিস্তারিত ব্যাখ্যা ও বাস্তবিক তাৎপর্য
+      </h2>
+      <div class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-3">
+        <p set:html={formatMathInText(term.explanationBn)} />
+      </div>
+
+      {/* Mnemonic / Memory Hook */}
+      {term.mnemonicBn && (
+        <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200 text-sm flex items-start gap-3 mt-4">
+          <span class="text-xl shrink-0">💡</span>
+          <div>
+            <strong class="font-bold text-amber-300 block mb-0.5">সহজে মনে রাখার টেকনিক (মেমোরি হুক):</strong>
+            <span>{term.mnemonicBn}</span>
+          </div>
+        </div>
+      )}
+    </section>
+
+    {/* Key Revision Points */}
+    {term.keyPointsBn && term.keyPointsBn.length > 0 && (
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span>🎯</span> পরীক্ষার জন্য গুরুত্বপূর্ণ মূল বিষয়সমূহ
+        </h2>
+        <ul class="space-y-2.5">
+          {term.keyPointsBn.map((point) => (
+            <li class="flex items-start gap-2.5 text-sm sm:text-base text-slate-300">
+              <span class="text-cyan-400 font-bold mt-1">✓</span>
+              <span set:html={formatMathInText(point)} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {/* Interactive Solver Banner if linked */}
+    {toolUrl && (
+      <div class="bg-gradient-to-r from-cyan-950/60 to-emerald-950/60 border border-cyan-500/40 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+        <div class="space-y-1 text-center sm:text-left">
+          <h3 class="text-lg font-bold text-white">
+            {term.termBn} সম্পর্কিত অনলাইন ক্যালকুলেটর ব্যবহার করুন
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300">
+            মান বসিয়ে সরাসরি নির্ভুল সমীকরণ সমাধান ও গ্রাফ দেখুন biggan.me সলভারে।
+          </p>
+        </div>
+        <a
+          href={toolUrl}
+          class="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-sm transition shrink-0 shadow-md shadow-cyan-500/20"
+        >
+          ক্যালকুলেটরে যান →
+        </a>
+      </div>
+    )}
+
+    {/* In-Content Ad */}
+    <AdSlot slotType="in-content" slotId="term-mid" />
+
+    {/* Exam FAQs (অনুধাবনমূলক ও বোর্ড প্রশ্ন) */}
+    {term.faqs && term.faqs.length > 0 && (
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>❓</span> বোর্ড ও ভর্তি পরীক্ষার বহুল জিজ্ঞাসিত প্রশ্ন (FAQ)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            জ্ঞান ও অনুধাবনমূলক প্রশ্নে সর্বাধিক কমন প্রশ্ন ও প্রমিত উত্তর
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {term.faqs.map((faq, index) => (
+            <div class="p-4 sm:p-5 bg-slate-950/80 rounded-xl border border-slate-800/80 space-y-2">
+              <h3 class="text-base font-bold text-cyan-300">
+                প্রশ্ন {index + 1}: {faq.questionBn}
+              </h3>
+              <div
+                class="text-sm text-slate-300 leading-relaxed pt-1"
+                set:html={formatMathInText(faq.answerBn)}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Related Terms Navigation */}
+    {relatedTerms.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-xl font-bold text-white">
+          সম্পর্কিত অন্যান্য বৈজ্ঞানিক পরিভাষা
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {relatedTerms.map((rel) => (
+            <a
+              href={`/bn/glossary/${rel.id}`}
+              class="bg-slate-900 border border-slate-800 hover:border-cyan-500/40 rounded-xl p-4 transition group flex items-center justify-between"
+            >
+              <div>
+                <span class="text-base font-bold text-white group-hover:text-cyan-300 transition">
+                  {rel.termBn}
+                </span>
+                <span class="text-xs text-slate-400 block">
+                  {rel.termEn} • {rel.subjectNameBn}
+                </span>
+              </div>
+              <span class="text-cyan-400 text-lg group-hover:translate-x-1 transition">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Bottom Back Button */}
+    <div class="pt-4 text-center">
+      <a
+        href="/bn/glossary"
+        class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 transition"
+      >
+        ← সকল বিজ্ঞান পরিভাষা তালিকায় ফিরে যান
+      </a>
+    </div>
+  </article>
+</BaseLayout>
