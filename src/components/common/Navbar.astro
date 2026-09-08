@@ -6,6 +6,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const navLinks = [
+  { href: getLocalizedPath('/curriculum', lang), label: t('nav.curriculum') },
   { href: getLocalizedPath('/tools', lang), label: t('nav.tools') },
   { href: getLocalizedPath('/periodic-table', lang), label: t('nav.periodicTable') },
   { href: getLocalizedPath('/glossary', lang), label: t('nav.glossary') },

@@ -1,0 +1,107 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { GeneralMathCalculator } from '../../../tools/math/general-math/GeneralMathCalculator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Board Exam Standard (CQ Part C — Grouped Statistics)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Given the frequency distribution: 31-40 (f=4), 41-50 (f=6), 51-60 (f=8). Calculate the Mean using step-deviation and find the Mode.',
+    givenData: [
+      'Classes: 31-40 (4), 41-50 (6), 51-60 (8)',
+      'Total observations n = 18',
+      'Class width h = 10',
+    ],
+    solutionSteps: [
+      'Assumed mean a = 45.5 (midpoint of 41-50).',
+      'Step-deviations: u1 = -1, u2 = 0, u3 = 1. Sum of fi·ui = (4 × -1) + (6 × 0) + (8 × 1) = 4.',
+      'Mean: x̄ = a + (∑fi·ui / n) × h = 45.5 + (4 / 18) × 10 = 47.72.',
+      'Modal class is 51-60 (highest freq 8). f1 = 8 - 6 = 2, f2 = 8 - 0 = 8.',
+      'Mode: L + [f1 / (f1 + f2)] × h = 51 + [2 / (2 + 8)] × 10 = 53.00.',
+    ],
+    finalAnswer: 'Mean = 47.72 and Mode = 53.00.',
+  },
+  {
+    level: 'Board Exam Standard (CQ Part C — Trigonometric Heights)',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'From a point on the ground 30 meters away from the base of a tower, the angle of elevation to the top is 60°. Calculate the height of the tower.',
+    givenData: ['Horizontal distance d = 30 m', 'Angle of elevation θ = 60°'],
+    solutionSteps: [
+      'In the right triangle formed: tan(θ) = Opposite / Adjacent = h / d.',
+      'tan(60°) = h / 30',
+      '√3 = h / 30 \u27f9 h = 30√3 = 30 × 1.73205 = 51.9615 meters.',
+    ],
+    finalAnswer: 'Height of the tower is 51.9615 meters (approx).',
+  },
+  {
+    level: 'Algebraic Identities (CQ Part B — Value Determination)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'If a + b = 5 and ab = 6, find the values of a² + b² and a³ + b³.',
+    givenData: ['a + b = 5', 'ab = 6'],
+    solutionSteps: [
+      'a² + b² = (a + b)² - 2ab = (5)² - 2(6) = 25 - 12 = 13.',
+      'a³ + b³ = (a + b)³ - 3ab(a + b) = (5)³ - 3(6)(5) = 125 - 90 = 35.',
+    ],
+    finalAnswer: 'a² + b² = 13 and a³ + b³ = 35.',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'How are boundary frequencies f1 and f2 evaluated for Mode calculation?',
+    answer: 'The modal class contains the maximum frequency (fm). f1 is the difference between modal frequency and preceding class frequency (f1 = fm - f(m-1)). f2 is the difference between modal frequency and succeeding class frequency (f2 = fm - f(m+1)). If the modal class is the first interval, f(m-1) = 0; if it is the last interval, f(m+1) = 0.',
+  },
+  {
+    question: 'What is the governing equation for the classic Broken Tree problem?',
+    answer: 'When a tree of total height H breaks at height x and touches the ground making angle θ with the ground: sin(θ) = x / (H - x). Solving for x gives x = [H × sin(θ)] / [1 + sin(θ)].',
+  },
+  {
+    question: 'How do Casio fx-991ES PLUS and fx-991EX ClassWiz solve grouped statistics?',
+    answer: 'On fx-991EX ClassWiz: Menu > 6 (Statistics) > 1 (1-Variable) with Frequency ON (Shift > Menu > Statistics > On). Enter class midpoints in X and frequencies in Freq, then press OPTN > 2 (1-Variable Calc) to view x̄, ∑x, and n. On fx-991ES PLUS: Mode > 3 (STAT) with Frequency enabled via Shift > Mode > Down > Stat > 1.',
+  },
+];
+---
+
+<ToolLayout
+  title="SSC General Mathematics Problem Solver & Equation Engine — Biggan.me"
+  metaDescription="Complete procedural equation solver for NCTB SSC General Mathematics (Classes 9-10). Grouped statistics (Mean, Median, Mode), trigonometry, algebra, and mensuration."
+  toolName="SSC General Mathematics Solver & Equation Engine"
+  toolCategory="General Mathematics (SSC Classes 9-10)"
+  curriculumTags={['NCTB SSC General Math (Classes 9-10)', 'Grouped Statistics', 'Trigonometric Heights', 'Algebraic Expressions']}
+  topicId="general-math"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <GeneralMathCalculator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">NCTB General Mathematics Mathematical Foundations</h3>
+      <p>
+        The SSC General Mathematics curriculum emphasizes both algorithmic manipulation and analytical deduction across 7 major thematic domains. This procedural utility provides full algebraic proofs and step-by-step substitutions.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Chapter 17 (Statistics Formulas):</span>
+          <p>• Mean: x̄ = a + (∑fi·ui / n) × h</p>
+          <p>• Median: L + [(n/2 - Fc) / fm] × h</p>
+          <p>• Mode: L + [f1 / (f1 + f2)] × h</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Chapter 10 (Heights & Distances):</span>
+          <p>• Single Elevation: h = d × tan(θ)</p>
+          <p>• Two Points: h = d / (cot θ1 - cot θ2)</p>
+          <p>• Broken Tree: x = [H sin θ] / [1 + sin θ]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      Trigonometric height calculations serve as the foundation of surveying, architecture, and geodesy. Step-deviation grouped statistics form the standard protocol in demographic census analysis, market research, and industrial quality control.
+    </p>
+  </div>
+</ToolLayout>

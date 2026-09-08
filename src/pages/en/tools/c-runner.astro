@@ -1,0 +1,103 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { CRunner } from '../../../tools/ict/c-runner/CRunner';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Foundational Loop Concept',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Determine how many times the loop for(i = 1; i <= 5; i++) iterates and find the final value of variable i.',
+    givenData: ['Initial: i = 1', 'Condition: i <= 5', 'Step: i++'],
+    solutionSteps: [
+      'Executes when i = 1, 2, 3, 4, 5 (condition true).',
+      'After the 5th iteration, i increments to 6.',
+      'The check 6 <= 5 evaluates false, terminating the loop.',
+    ],
+    finalAnswer: '5 iterations; final value of i is 6.',
+  },
+  {
+    level: 'Board Exam Standard',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Trace the algorithm to check whether an integer n = 7 is prime using trial division up to n/2.',
+    givenData: ['Target number: n = 7', 'Divisors checked: 2 to 3'],
+    solutionSteps: [
+      '7 % 2 = 1 (not divisible).',
+      '7 % 3 = 1 (not divisible).',
+      'No integer factor found; the isPrime flag remains 1.',
+    ],
+    finalAnswer: 'n = 7 is a Prime Number.',
+  },
+  {
+    level: 'Series Accumulation & Memory',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'Trace the step-by-step memory updates for calculating the first 6 terms of the Fibonacci series.',
+    givenData: ['a = 0, b = 1, n = 6'],
+    solutionSteps: [
+      'Step 1: Term 0, next = 1, a=1, b=1',
+      'Step 2: Term 1, next = 2, a=1, b=2',
+      'Step 3: Term 1, next = 3, a=2, b=3',
+      'Step 4: Term 2, next = 5, a=3, b=5',
+      'Step 5: Term 3, Step 6: Term 5',
+    ],
+    finalAnswer: 'Output sequence: 0, 1, 1, 2, 3, 5',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'What is dry-running a computer program?',
+    answer: 'A dry run is a manual step-by-step tracing of source code on paper or in a table to track variable states without executing on an actual computer compiler. It is a core requirement in secondary computer science board exams.',
+  },
+  {
+    question: 'How do while and do-while loops differ?',
+    answer: 'A while loop is entry-controlled (tests condition before the first iteration). A do-while loop is exit-controlled and guarantees at least one execution of the loop body.',
+  },
+  {
+    question: 'What does the break statement do inside a loop?',
+    answer: 'break immediately halts loop execution and transfers program control to the statement following the loop.',
+  },
+];
+---
+
+<ToolLayout
+  title="C Programming Code Simulator & Memory Tracer — Biggan.me"
+  metaDescription="Interactive in-browser C code runner with bidirectional step-by-step variable memory tracing (RAM stack), terminal I/O, and board exam dry-run worksheets."
+  toolName="C Programming Code Simulator & Memory Tracer"
+  toolCategory="Information & Communication Technology (ICT)"
+  curriculumTags={['NCTB HSC ICT Chapter 5', 'C Programming Language', 'Dry-Run Memory Tracing']}
+  topicId="c-runner"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <CRunner client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">Program Execution Architecture & Variable Tracing</h3>
+      <p>
+        In procedural programming, each line of code manipulates memory registers in sequence. Dry-run worksheets structure execution state into 4 critical pillars:
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">For Loop Anatomy:</span>
+          <p>1. Initialization (i = 1)</p>
+          <p>2. Condition evaluation (i &lt;= n)</p>
+          <p>3. Body execution</p>
+          <p>4. Iteration step (i++)</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Worksheet Columns:</span>
+          <p>Step # • Line # • Variables in RAM • Console Output</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      C is the bedrock language behind high-performance operating system kernels (Linux, macOS, Windows), relational database internals, robotic microcontrollers, and real-time graphics engines. Understanding variable memory allocation equips students with foundational algorithmic clarity.
+    </p>
+  </div>
+</ToolLayout>

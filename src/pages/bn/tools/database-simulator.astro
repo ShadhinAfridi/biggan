@@ -1,0 +1,110 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { SqlSimulator } from '../../../tools/ict/database-simulator/SqlSimulator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'সহজ / প্রজেকশন ও সিলেকশন',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Student টেবিল থেকে বিজ্ঞান (Science) বিভাগের সকল শিক্ষার্থীর নাম এবং জিপিএ প্রদর্শন করার জন্য এসকিউএল কুয়েরি লেখো।',
+    givenData: ['টেবিল: Student', 'শর্ত: GroupName = "Science"', 'ফিল্ড: Name, GPA'],
+    solutionSteps: [
+      'প্রজেকশন (ফিল্ড নির্বাচন): SELECT Name, GPA',
+      'উৎস টেবিল: FROM Student',
+      'সিলেকশন (শর্ত আরোপ): WHERE GroupName = \'Science\';',
+    ],
+    finalAnswer: 'SELECT Name, GPA FROM Student WHERE GroupName = \'Science\';',
+  },
+  {
+    level: 'বোর্ড পরীক্ষা স্পেশাল (CQ গ/ঘ — রিলেশন ও জয়েন)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Student এবং Result টেবিল দুটির মধ্যে প্রাইমারি কি ও ফরেন কি সম্পর্ক চিহ্নিত করে উভয় টেবিল থেকে রোল, নাম এবং জিপিএ প্রাপ্তির ইনার জয়েন (INNER JOIN) কুয়েরি তৈরি করো।',
+    givenData: [
+      'Student টেবিলের Primary Key: StudentID',
+      'Result টেবিলের Foreign Key: StudentID',
+      'কাঙ্ক্ষিত ফিল্ড: Student.Roll, Student.Name, Result.GPA',
+    ],
+    solutionSteps: [
+      'উভয় টেবিলকে সাধারণ ফিল্ড StudentID দিয়ে যুক্ত করতে হবে।',
+      'কুয়েরি সিনট্যাক্স: SELECT Student.Roll, Student.Name, Result.GPA FROM Student INNER JOIN Result ON Student.StudentID = Result.StudentID;',
+      'এটি একটি One-to-One বা One-to-Many রিলেশনাল কুয়েরি।',
+    ],
+    finalAnswer: 'SELECT Student.Roll, Student.Name, Result.GPA FROM Student INNER JOIN Result ON Student.StudentID = Result.StudentID;',
+  },
+  {
+    level: 'গ্রুপিং ও এগ্রিগেশন (GROUP BY & COUNT)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'Student টেবিল থেকে প্রতি গ্রুপে (Science, Commerce, Arts) কতজন করে শিক্ষার্থী রয়েছে তার সংখ্যা গণনা করার কুয়েরি লেখো।',
+    givenData: ['টেবিল: Student', 'কলাম: GroupName', 'এগ্রিগেট ফাংশন: COUNT(*)'],
+    solutionSteps: [
+      'গ্রুপ কলাম নির্বাচন: SELECT GroupName, COUNT(*)',
+      'টেবিল উল্লেখ: FROM Student',
+      'গ্রুপভিত্তিক বিভাজন: GROUP BY GroupName;',
+    ],
+    finalAnswer: 'SELECT GroupName, COUNT(*) FROM Student GROUP BY GroupName;',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'প্রাইমারি কি (Primary Key) এবং ফরেন কি (Foreign Key)-র মধ্যে পার্থক্য কী?',
+    answer: 'প্রাইমারি কি হলো একটি টেবিলের সেই অনন্য (Unique) ফিল্ড যা প্রতিটি রেকর্ডকে এককভাবে শনাক্ত করে এবং কখনো Null হতে পারে না। অন্যদিকে, ফরেন কি হলো একটি টেবিলের ফিল্ড যা অন্য টেবিলের প্রাইমারি কি-কে নির্দেশ করে দুটি টেবিলের মধ্যে সম্পর্ক (Relation) তৈরি করে।',
+  },
+  {
+    question: 'DDL এবং DML এর মধ্যে পার্থক্য কী?',
+    answer: 'DDL (Data Definition Language) ডাটাবেজের গঠন ও স্কিমা তৈরি/পরিবর্তন করে (যেমন: CREATE, ALTER, DROP)। DML (Data Manipulation Language) টেবিলের ভেতরের ডেটা নিয়ে কাজ করে (যেমন: SELECT, INSERT, UPDATE, DELETE)।',
+  },
+  {
+    question: 'ডাটাবেজ রিলেশন কয় প্রকার এবং কী কী?',
+    answer: 'সাধারণত চার প্রকার: ১. One-to-One (1:1), ২. One-to-Many (1:M), ৩. Many-to-One (M:1), ৪. Many-to-Many (M:N)। দুটি টেবিলের মধ্যে সম্পর্ক গড়তে অন্তত একটি কমন ফিল্ড প্রয়োজন হয় যা এক টেবিলে প্রাইমারি কি হিসেবে থাকে।',
+  },
+];
+---
+
+<ToolLayout
+  title="রিলেশনাল ডাটাবেজ ও এসকিউএল (SQL) সিমুলেটর — Biggan.me"
+  metaDescription="এইচএসসি আইসিটি ৬ষ্ঠ অধ্যায়ের রিলেশনাল ডাটাবেজ ও এসকিউএল সিমুলেটর। SELECT, WHERE, JOIN, GROUP BY কুয়েরি প্র্যাকটিস, লাইভ ইআর স্কিমা ও বোর্ড কুয়েরি।"
+  toolName="রিলেশনাল ডাটাবেজ ও এসকিউএল (SQL) সিমুলেটর"
+  toolCategory="তথ্য ও যোগাযোগ প্রযুক্তি (HSC ICT)"
+  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৬)', 'রিলেশনাল ডাটাবেজ ম্যানেজমেন্ট (RDBMS)', 'এসকিউএল (SQL)']}
+  topicId="database-simulator"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <SqlSimulator client:visible lang="bn" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">এসকিউএল (SQL) স্টেটমেন্টের গঠন ও কুয়েরি এক্সিকিউশন অর্ডার</h3>
+      <p>
+        এইচএসসি বোর্ড পরীক্ষায় শিক্ষার্থীদের এসকিউএল ক্লজগুলোর সঠিক ক্রম লিখতে বলা হয়। এসকিউএল সিনট্যাক্স যেভাবে লেখা হয়, ডাটাবেজ ইঞ্জিন কিন্তু ভিন্ন ক্রমে সেটি কার্যকর করে।
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">লেখার ক্রম (Syntax Order):</span>
+          <p>১. SELECT (কাঙ্ক্ষিত ফিল্ডসমূহ)</p>
+          <p>২. FROM (উৎস টেবিল ও JOIN)</p>
+          <p>৩. WHERE (রো ফিল্টারিং শর্ত)</p>
+          <p>৪. GROUP BY (গ্রুপিং)</p>
+          <p>৫. ORDER BY (সাজানোর ক্রম)</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">ডাটাবেজ এক্সিকিউশন অর্ডার:</span>
+          <p>১. FROM / JOIN (টেবিল লোড)</p>
+          <p>২. WHERE (শর্ত অনুযায়ী ফিল্টার)</p>
+          <p>৩. GROUP BY (গ্রুপ তৈরি)</p>
+          <p>৪. SELECT (কলাম বাছাই)</p>
+          <p>৫. ORDER BY (সর্টিং)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      ব্যাংকিং লেনদেন, ই-কমার্স ওয়েবসাইট, ফেসবুক বা ইউটিউবের ইউজার ডাটা, বিশ্ববিদ্যালয়ের ভর্তি ও পরীক্ষার ফলাফল প্রস্তুতকরণ—বিশ্বের প্রতিটি বড় সফটওয়্যার সিস্টেমের মূল ভিত্তি হলো রিলেশনাল ডাটাবেজ ও এসকিউএল। আমাদের ব্রাউজার-বেসড লাইটওয়েট ইঞ্জিনের মাধ্যমে কোনো সার্ভার বা সফটওয়্যার ইনস্টল ছাড়াই শিক্ষার্থীরা এসকিউএল কমান্ডের আউটপুট সরাসরি পরীক্ষা করতে পারে।
+    </p>
+  </div>
+</ToolLayout>

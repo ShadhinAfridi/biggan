@@ -60,6 +60,11 @@ const currentYear = new Date().getFullYear();
               {t('tools.quadratic.name')}
             </a>
           </li>
+          <li>
+            <a href={getLocalizedPath('/tools/general-math', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.generalMath.name')}
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -69,6 +74,31 @@ const currentYear = new Date().getFullYear();
           {lang === 'bn' ? 'শিক্ষা ও রিসোর্স' : 'Academic Resources'}
         </h4>
         <ul class="space-y-1.5">
+          <li>
+            <a href={getLocalizedPath('/curriculum', lang)} class="text-cyan-400 font-semibold hover:underline">
+              {lang === 'bn' ? '🎓 কারিকুলাম ও সিলেবাস' : '🎓 Curriculum & Syllabus'}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/html-runner', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.htmlRunner.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/circuit-simulator', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.circuitSimulator.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/c-runner', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.cRunner.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/database-simulator', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.dbSimulator.name')}
+            </a>
+          </li>
           <li>
             <a href={getLocalizedPath('/periodic-table', lang)} class="hover:text-cyan-400 transition">
               {t('nav.periodicTable')}
@@ -82,16 +112,6 @@ const currentYear = new Date().getFullYear();
           <li>
             <a href={getLocalizedPath('/articles', lang)} class="hover:text-cyan-400 transition">
               {t('nav.articles')}
-            </a>
-          </li>
-          <li>
-            <a href={getLocalizedPath('/methodology', lang)} class="hover:text-cyan-400 transition">
-              {t('nav.methodology')}
-            </a>
-          </li>
-          <li>
-            <a href={getLocalizedPath('/about', lang)} class="hover:text-cyan-400 transition">
-              {t('nav.about')}
             </a>
           </li>
         </ul>

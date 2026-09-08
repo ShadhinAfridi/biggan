@@ -1,0 +1,102 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { HtmlRunner } from '../../../tools/ict/html-runner/HtmlRunner';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'সহজ / মৌলিক ধারণা',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'একটি সাধারণ HTML ওয়েব পেজ তৈরি করো যাতে একটি প্রধান শিরোনাম <h1> এবং একটি অনুচ্ছেদ <p> থাকবে।',
+    givenData: ['শিরোনাম: HSC ICT Class 2026', 'অনুচ্ছেদ: Welcome to Web Design Chapter'],
+    solutionSteps: [
+      '<!DOCTYPE html> দিয়ে ডকুমেন্টের প্রকার নির্ধারণ করো।',
+      '<html> ও <head> ট্যাগের ভেতরে <title> পেজের নাম সেট করো।',
+      '<body> ট্যাগের ভেতরে <h1> ও <p> ট্যাগ ব্যবহার করো।',
+    ],
+    finalAnswer: '<h1>HSC ICT Class 2026</h1><p>Welcome to Web Design Chapter</p>',
+  },
+  {
+    level: 'বোর্ড পরীক্ষা স্পেশাল (CQ গ/ঘ)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'একটি টেবিল তৈরি করো যাতে ৩টি কলাম থাকবে (Roll, Subject, Marks)। ২য় রো-তে Marks কলামটি অনুভূমিকভাবে ২টি কলাম (Theory, Practical) জুড়ে থাকবে।',
+    givenData: ['কলাম সংখ্যা: ৩টি', 'প্রয়োজনীয় অ্যাট্রিবিউট: colspan="2"'],
+    solutionSteps: [
+      '<table> ট্যাগ শুরু করে border="1" নির্ধারণ করো।',
+      'প্রথম রো-তে <th>Roll</th>, <th>Subject</th> এবং <th colspan="2">Marks</th> লেখো।',
+      'দ্বিতীয় রো-তে সাব-হেডার হিসেবে <th>Theory</th> ও <th>Practical</th> যোগ করো।',
+    ],
+    finalAnswer: '<th colspan="2">Marks</th> দিয়ে কলাম মার্জ সফলভাবে সম্পন্ন হয়।',
+  },
+  {
+    level: 'ভর্তি পরীক্ষা ও বাস্তব প্রয়োগ',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'একটি অনলাইন ছাত্র ভর্তি ফর্মের জন্য HTML কোড লিখো যাতে নাম নেওয়ার টেক্সট ফিল্ড ও সাইন্স/আর্টস নির্বাচনের রেডিও বাটন থাকবে।',
+    givenData: ['ফর্ম ট্যাগ: <form>', 'ইনপুট টাইপ: text ও radio'],
+    solutionSteps: [
+      '<form action="#" method="POST"> দিয়ে ফর্ম শুরু করো।',
+      '<input type="text" name="name"> দিয়ে নাম ফিল্ড তৈরি করো।',
+      'গ্রুপ নির্বাচনের জন্য একই name="group" দিয়ে দুটি radio বাটন তৈরি করো যাতে যেকোনো একটি সিলেক্ট করা যায়।',
+    ],
+    finalAnswer: '<input type="radio" name="group" value="science"> Science',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'rowspan এবং colspan এর মধ্যে মূল পার্থক্য কী?',
+    answer: 'rowspan উল্লম্বভাবে (উপর-নিচ) একাধিক রো বা সারির সেল একত্রিত (merge) করতে ব্যবহৃত হয়। অপরদিকে colspan অনুভূমিকভাবে (পাশাপাশি) একাধিক কলামের সেল একত্রিত করতে ব্যবহৃত হয়।',
+  },
+  {
+    question: 'HTML ট্যাগ এবং অ্যাট্রিবিউট এর মধ্যে তফাৎ কী?',
+    answer: 'ট্যাগ হলো HTML এলিমেন্টের নির্দেশক (যেমন <table>, <a>), আর অ্যাট্রিবিউট হলো ট্যাগের অতিরিক্ত বৈশিষ্ট্য বা মান (যেমন border="1", href="url")।',
+  },
+  {
+    question: 'কন্টেইনার ট্যাগ এবং এম্পটি ট্যাগ কী?',
+    answer: 'যেসব ট্যাগের শুরুর (<tag>) এবং শেষের (</tag>) অংশ থাকে তাকে কন্টেইনার ট্যাগ বলে (যেমন <p>...</p>)। আর যেসব ট্যাগের কোনো শেষ ট্যাগ থাকে না তাদের এম্পটি ট্যাগ বলে (যেমন <br>, <img>, <hr>)।',
+  },
+];
+---
+
+<ToolLayout
+  title="এইচটিএমএল (HTML) কোড এডিটর ও রানার — Biggan.me"
+  metaDescription="এইচএসসি আইসিটি ৪র্থ অধ্যায়ের জন্য লাইভ HTML কোড এডিটর ও রানার। জটিল টেবিল (rowspan/colspan), ফর্ম ডিজাইন ও বোর্ড পরীক্ষার ভুল সংশোধনের রিয়েল-টাইম প্লেগ্রাউন্ড।"
+  toolName="এইচটিএমএল (HTML) কোড এডিটর ও রানার"
+  toolCategory="তথ্য ও যোগাযোগ প্রযুক্তি (HSC ICT)"
+  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৪)', 'CBSE Class 10/12 Web Applications', 'টেবিল ও ফর্ম']}
+  topicId="html-runner"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <HtmlRunner client:visible lang="bn" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">এইচটিএমএল টেবিল কাঠামো ও মার্জিং নিয়মাবলী</h3>
+      <p>
+        এইচএসসি বোর্ড পরীক্ষায় ৪র্থ অধ্যায় (ওয়েব ডিজাইন পরিচিতি এবং HTML) থেকে প্রতি বছর সৃজনশীল প্রশ্নে একটি জটিল টেবিলের দৃশ্যপট থাকে। টেবিল গঠনের মূল কাঠামো:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">রো মার্জিং (Rowspan):</span>
+          <p class="text-slate-400 font-sans">
+            যখন কোনো একটি সেলের তথ্য নিচের রো-গুলোতেও একই থাকে, তখন প্রথম সেলে <code class="text-cyan-300">&lt;td rowspan="n"&gt;</code> লিখতে হয় এবং নিচের রো-গুলো থেকে ওই সেলটি বাদ দিতে হয়।
+          </p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">কলাম মার্জিং (Colspan):</span>
+          <p class="text-slate-400 font-sans">
+            যখন একটি হেডার বা সেল পাশাপাশি একাধিক কলাম জুড়ে বিস্তৃত হয়, তখন <code class="text-cyan-300">&lt;th colspan="n"&gt;</code> ব্যবহার করা হয় এবং একই রো-এর পরবর্তী সেলগুলোর সংখ্যা কমে যায়।
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      HTML হলো পৃথিবীর সকল ওয়েবসাইট ও ওয়েব অ্যাপ্লিকেশনের ভিত্তিপ্রস্তর। আধুনিক যুগে শুধু ব্রাউজার ডিসপ্লে নয়, মোবাইল অ্যাপ্লিকেশন ডিজাইন (React Native, Capacitor), রেসপনসিভ ইমেইল মার্কেটিং এবং ডিজিটাল পাবলিশিংয়ে HTML5 ও CSS3 এর বিকল্প নেই। আমাদের এই ইন্টারেক্টিভ রানারে প্র্যাকটিস করে শিক্ষার্থীরা সরাসরি পরীক্ষার হলের জন্য নির্ভুল কোড লেখার দক্ষতা অর্জন করতে পারে।
+    </p>
+  </div>
+</ToolLayout>

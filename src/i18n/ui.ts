@@ -37,6 +37,16 @@ export const ui = {
     'tools.projectile.desc': 'সর্বোচ্চ উচ্চতা, বিচরণকাল, অনুভূমিক পাল্লা ও দ্বিমাত্রিক গতিপথের ভেক্টর চিত্র।',
     'tools.quadratic.name': 'দ্বিঘাত সমীকরণ ধাপে ধাপে সমাধান',
     'tools.quadratic.desc': 'বাস্তব ও জটিল মূল, নিশ্চয়ক (Discriminant) বিশ্লেষণ এবং পূর্ণবর্গ পদ্ধতি।',
+    'tools.htmlRunner.name': 'এইচটিএমএল (HTML) কোড এডিটর ও রানার',
+    'tools.htmlRunner.desc': 'লাইভ প্রিভিউ, টেবিল (rowspan/colspan), বোর্ড প্রশ্ন ও ভুল সংশোধনের এইচটিএমএল প্লেগ্রাউন্ড।',
+    'tools.cRunner.name': 'সি প্রোগ্রামিং (C Code) সিমুলেটর ও মেমরি ট্রেসার',
+    'tools.cRunner.desc': 'লুপ, শর্ত ও ভ্যারিয়েবলের ধাপভিত্তিক মেমরি ট্রেস এবং এইচএসসি বোর্ড স্ট্যান্ডার্ড সি রানার।',
+    'tools.dbSimulator.name': 'রিলেশনাল ডেটাবেজ ও SQL কুয়েরি সিমুলেটর',
+    'tools.dbSimulator.desc': 'ব্রাউজারে সরাসরি SQL কুয়েরি রান, টেবিল রিলেশনশিপ ও এইচএসসি বোর্ড ডেটাবেজ এক্সপ্লোরার।',
+    'tools.circuitSimulator.name': 'ডিজিটাল লজিক গেট ও সার্কিট সিমুলেটর',
+    'tools.circuitSimulator.desc': 'লজিক গেট (AND, OR, NOT, XOR), হাফ/ফুল অ্যাডার এবং লাইভ ট্রুথ টেবিল সিমুলেটর।',
+    'tools.generalMath.name': 'এসএসসি সাধারণ গণিত সমাধান ও সমীকরণ ইঞ্জিন',
+    'tools.generalMath.desc': 'পরিসংখ্যান (গড়, মধ্যক, প্রচুরক), ত্রিকোণমিতি ও উচ্চতা, বীজগণিত ও পরিমিতির সম্পূর্ণ সমাধান।',
 
     // Casio
     'casio.guideTitle': 'কাসিও fx-991 ও fx-100MS ফিজিক্যাল ক্যালকুলেটর কি-স্ট্রোক গাইড',
@@ -104,6 +114,16 @@ export const ui = {
     'tools.projectile.desc': 'Calculate maximum height, time of flight, range, and interactive 2D trajectory vector plots.',
     'tools.quadratic.name': 'Procedural Quadratic Equation Solver',
     'tools.quadratic.desc': 'Real and complex roots, discriminant analysis, and completing-the-square derivations.',
+    'tools.htmlRunner.name': 'HTML Code Playground & Live Runner',
+    'tools.htmlRunner.desc': 'Live responsive iframe sandbox, board exam tables (rowspan/colspan), and error fixer.',
+    'tools.cRunner.name': 'C Programming Code Simulator & Memory Tracer',
+    'tools.cRunner.desc': 'Step-by-step RAM variable memory tracing, loops, conditional branches, and board C algorithms.',
+    'tools.dbSimulator.name': 'Relational Database & SQL Simulator',
+    'tools.dbSimulator.desc': 'In-browser SQL queries, relational schemas, ER diagrams, and secondary exam databases.',
+    'tools.circuitSimulator.name': 'Digital Logic Gate & Circuit Simulator',
+    'tools.circuitSimulator.desc': 'Interactive logic gates, Half/Full Adders, universal gate circuits, and live truth tables.',
+    'tools.generalMath.name': 'SSC General Mathematics Solver & Equation Engine',
+    'tools.generalMath.desc': 'Step-by-step solver for grouped statistics (Mean, Median, Mode), trigonometry, algebra, and mensuration.',
 
     // Casio
     'casio.guideTitle': 'Casio fx-991 & fx-100MS Hardware Keystroke Guide',

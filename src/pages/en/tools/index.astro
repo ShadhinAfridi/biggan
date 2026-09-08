@@ -3,7 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import AdSlot from '../../../components/ads/AdSlot.astro';
 import { getLocalizedPath } from '../../../i18n/utils';
 
-const tools = [
+const scienceTools = [
   {
     id: 'molar-mass',
     name: 'Molar Mass & Composition Deconstructor',
@@ -49,64 +49,176 @@ const tools = [
     badge: 'Algebra',
     icon: '📐',
   },
+  {
+    id: 'general-math',
+    name: 'SSC General Mathematics Solver & Equation Engine',
+    desc: 'Procedural solver for grouped statistics (Mean, Median, Mode), trigonometry, algebra, and mensuration.',
+    category: 'Mathematics',
+    curriculum: 'NCTB Secondary Math (Classes 9-10)',
+    badge: 'All-in-One',
+    icon: '➕',
+  },
+];
+
+const ictTools = [
+  {
+    id: 'html-runner',
+    name: 'HTML5 Code Editor & Live Viewport Runner',
+    desc: 'Practice HSC Chapter 4 web design, complex table structures (colspan/rowspan), and common board mistake debugging.',
+    category: 'HSC ICT Chapter 4',
+    curriculum: 'NCTB Web Design • HTML5 Core',
+    badge: 'Board Special',
+    icon: '🌐',
+  },
+  {
+    id: 'circuit-simulator',
+    name: 'Digital Logic Circuits & Gate Simulator',
+    desc: 'Interactive signal evaluation for Half Adder, Full Adder, and De Morgan’s theorem with synchronized dynamic truth tables.',
+    category: 'HSC ICT Chapter 3',
+    curriculum: 'NCTB Digital Devices • Logic Gates',
+    badge: 'Real-time Signal',
+    icon: '🔌',
+  },
+  {
+    id: 'c-runner',
+    name: 'C Programming Code Runner & Memory Tracer',
+    desc: 'Step-by-step loop execution, prime verification, Fibonacci sequences, live RAM variable registers, and dry-run worksheets.',
+    category: 'HSC ICT Chapter 5',
+    curriculum: 'NCTB Programming • Dry Run Tracing',
+    badge: 'AST Engine',
+    icon: '💻',
+  },
+  {
+    id: 'database-simulator',
+    name: 'Relational Database & SQL Simulator',
+    desc: 'Practice SELECT, WHERE, INNER JOIN, and GROUP BY queries on Student/Result tables with interactive ER schema visualizer.',
+    category: 'HSC ICT Chapter 6',
+    curriculum: 'NCTB DBMS • SQL Relations',
+    badge: 'In-Memory SQL',
+    icon: '🗄️',
+  },
 ];
 ---
 
 <BaseLayout
-  title="Scientific Calculators & Problem Solvers — Biggan.me"
-  description="Free step-by-step STEM calculation utilities featuring complete algebraic proofs, dimensional analysis, and physical Casio fx-991 hardware keystroke guides."
+  title="Scientific Calculators & ICT Lab Simulators — Biggan.me"
+  description="Free step-by-step STEM calculation utilities and zero-backend ICT simulators. Molar mass, logic circuits, C memory tracer, HTML runner, and SQL engine."
   lang="en"
 >
-  <div class="space-y-8">
+  <div class="space-y-12">
     <div class="space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        Scientific Utility Directory
+        STEM & ICT Tools Directory
       </div>
       <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        Programmatic Scientific Calculators
+        Interactive Labs & Programmatic Calculators
       </h1>
       <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
-        Full algebraic derivations, dimensional unit validation, and step-by-step Casio hardware keystroke sequences for secondary board candidates and STEM scholars.
+        Board exam verified derivations, dimensional unit analysis, physical Casio fx-991 hardware keystroke bridge, and zero-server client-side ICT lab simulators.
       </p>
     </div>
 
     <!-- Ad placeholder -->
     <AdSlot slotType="banner" slotId="tools-index-top" />
 
-    <!-- Grid of Tools -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {tools.map((tool) => (
-        <a
-          href={getLocalizedPath(`/tools/${tool.id}`, 'en')}
-          class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
-                {tool.icon}
-              </span>
-              <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
-                {tool.badge}
-              </span>
+    <!-- ICT & Programming Simulators Section -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="space-y-1">
+          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <span>💻</span> ICT Laboratory & Virtual Simulators
+          </h2>
+          <p class="text-xs text-slate-400">Zero-backend browser engines for board exams, dry-runs, circuits, and code execution</p>
+        </div>
+        <span class="text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+          4 Simulators
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {ictTools.map((tool) => (
+          <a
+            href={getLocalizedPath(`/tools/${tool.id}`, 'en')}
+            class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                  {tool.icon}
+                </span>
+                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                  {tool.badge}
+                </span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition leading-snug">
+                {tool.name}
+              </h3>
+
+              <p class="text-xs text-slate-400 leading-relaxed">
+                {tool.desc}
+              </p>
             </div>
 
-            <h2 class="text-lg font-bold text-white group-hover:text-cyan-400 transition leading-snug">
-              {tool.name}
-            </h2>
+            <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+              <span class="font-mono text-slate-400">{tool.curriculum}</span>
+              <span class="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
+                Launch Simulator →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
 
-            <p class="text-xs text-slate-400 leading-relaxed">
-              {tool.desc}
-            </p>
-          </div>
+    <!-- Science & Math Calculators Section -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="space-y-1">
+          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <span>🔬</span> Scientific & Mathematical Calculators
+          </h2>
+          <p class="text-xs text-slate-400">Complete procedural step engines featuring physical Casio fx-991 hardware mappings</p>
+        </div>
+        <span class="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+          5 Engines
+        </span>
+      </div>
 
-          <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-            <span class="font-mono text-slate-400">{tool.curriculum}</span>
-            <span class="text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
-              Launch Tool →
-            </span>
-          </div>
-        </a>
-      ))}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {scienceTools.map((tool) => (
+          <a
+            href={getLocalizedPath(`/tools/${tool.id}`, 'en')}
+            class="group bg-slate-900 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-950/30 flex flex-col justify-between"
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                  {tool.icon}
+                </span>
+                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  {tool.badge}
+                </span>
+              </div>
+
+              <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition leading-snug">
+                {tool.name}
+              </h3>
+
+              <p class="text-xs text-slate-400 leading-relaxed">
+                {tool.desc}
+              </p>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+              <span class="font-mono text-slate-400">{tool.curriculum}</span>
+              <span class="text-emerald-400 font-semibold group-hover:translate-x-1 transition-transform">
+                Compute Now →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </BaseLayout>

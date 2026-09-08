@@ -1,0 +1,110 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { SqlSimulator } from '../../../tools/ict/database-simulator/SqlSimulator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Foundational / Projection & Selection',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Write an SQL query to retrieve the Name and GPA of all students belonging to the "Science" group from the Student table.',
+    givenData: ['Table: Student', 'Condition: GroupName = "Science"', 'Fields: Name, GPA'],
+    solutionSteps: [
+      'Projection (choose target columns): SELECT Name, GPA',
+      'Data source: FROM Student',
+      'Selection (row filter condition): WHERE GroupName = \'Science\';',
+    ],
+    finalAnswer: 'SELECT Name, GPA FROM Student WHERE GroupName = \'Science\';',
+  },
+  {
+    level: 'Board Exam Standard (Relational Join)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Formulate an INNER JOIN query between Student and Result tables using the StudentID key to display Roll, Name, and GPA.',
+    givenData: [
+      'Student Primary Key: StudentID',
+      'Result Foreign Key: StudentID',
+      'Desired output columns: Student.Roll, Student.Name, Result.GPA',
+    ],
+    solutionSteps: [
+      'Identify shared relational key: StudentID.',
+      'Construct JOIN clause: FROM Student INNER JOIN Result ON Student.StudentID = Result.StudentID',
+      'Select qualified attributes: SELECT Student.Roll, Student.Name, Result.GPA',
+    ],
+    finalAnswer: 'SELECT Student.Roll, Student.Name, Result.GPA FROM Student INNER JOIN Result ON Student.StudentID = Result.StudentID;',
+  },
+  {
+    level: 'Aggregation & Grouping (GROUP BY & COUNT)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'Count the total number of enrolled students grouped by their academic track (GroupName) from the Student table.',
+    givenData: ['Table: Student', 'Grouping column: GroupName', 'Aggregate function: COUNT(*)'],
+    solutionSteps: [
+      'Select group identifier and counter: SELECT GroupName, COUNT(*)',
+      'Specify relation: FROM Student',
+      'Partition by categorical attribute: GROUP BY GroupName;',
+    ],
+    finalAnswer: 'SELECT GroupName, COUNT(*) FROM Student GROUP BY GroupName;',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'What is the fundamental difference between a Primary Key and a Foreign Key?',
+    answer: 'A Primary Key uniquely identifies each row (tuple) in a database relation and cannot contain NULL values. A Foreign Key is an attribute in one table that references the Primary Key of another table, enforcing referential integrity between the two entities.',
+  },
+  {
+    question: 'What is the distinction between DDL and DML?',
+    answer: 'Data Definition Language (DDL) statements (e.g., CREATE, ALTER, DROP) manage the structure and schema of the database. Data Manipulation Language (DML) statements (e.g., SELECT, INSERT, UPDATE, DELETE) manage and query data instances within tables.',
+  },
+  {
+    question: 'What are the main types of relational cardinality?',
+    answer: 'Relational cardinality describes entity relationships: One-to-One (1:1), One-to-Many (1:N), Many-to-One (N:1), and Many-to-Many (M:N). In relational engines, M:N relationships are normalized into two 1:N relations using a junction table.',
+  },
+];
+---
+
+<ToolLayout
+  title="Relational Database & SQL Simulator — Biggan.me"
+  metaDescription="Interactive HSC ICT relational database and SQL simulator. Run SELECT, WHERE, INNER JOIN, and GROUP BY queries with live ER schema visualization."
+  toolName="Relational Database & SQL Simulator"
+  toolCategory="Information & Communication Technology (HSC ICT)"
+  curriculumTags={['NCTB HSC ICT (Chapter 6)', 'Relational Database Management (RDBMS)', 'SQL Engine']}
+  topicId="database-simulator"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <SqlSimulator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">SQL Statement Structure vs Logical Execution Order</h3>
+      <p>
+        In computer science examinations, candidates are frequently tested on the logical execution order of SQL clauses, which differs significantly from lexical syntax order.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Lexical Syntax Order:</span>
+          <p>1. SELECT (Attributes & Aggregates)</p>
+          <p>2. FROM (Target tables & JOINs)</p>
+          <p>3. WHERE (Row-level filters)</p>
+          <p>4. GROUP BY (Aggregation groups)</p>
+          <p>5. ORDER BY (Sort criteria)</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Engine Execution Order:</span>
+          <p>1. FROM / JOIN (Table Cartesian/Join)</p>
+          <p>2. WHERE (Filter records)</p>
+          <p>3. GROUP BY (Form groups)</p>
+          <p>4. SELECT (Column projection)</p>
+          <p>5. ORDER BY (Sort final rows)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      From banking transaction ledgers to university admissions registries and global cloud architectures, relational database management systems remain the cornerstone of enterprise software. This client-side simulator provides zero-latency query execution without requiring local database servers or administrative permissions.
+    </p>
+  </div>
+</ToolLayout>

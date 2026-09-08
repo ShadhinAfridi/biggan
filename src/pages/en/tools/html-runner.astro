@@ -1,0 +1,102 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { HtmlRunner } from '../../../tools/ict/html-runner/HtmlRunner';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Foundational Concept',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Construct a valid HTML5 page containing a top-level heading <h1> and a brief intro paragraph <p>.',
+    givenData: ['Heading: STEM Foundations', 'Paragraph: Welcome to Web Design'],
+    solutionSteps: [
+      'Declare <!DOCTYPE html> at the start.',
+      'Wrap structural elements inside <html>, <head>, and <body>.',
+      'Place <h1> and <p> tags inside the body tag.',
+    ],
+    finalAnswer: '<h1>STEM Foundations</h1><p>Welcome to Web Design</p>',
+  },
+  {
+    level: 'Secondary Board Standard',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Design an examination grade table where the Marks header spans two sub-columns (Theory and Practical).',
+    givenData: ['Total columns: 3', 'Required attribute: colspan="2"'],
+    solutionSteps: [
+      'Create <table> container with border attributes.',
+      'In row 1, set <th colspan="2">Marks</th>.',
+      'In row 2, add subheaders <th>Theory</th> and <th>Practical</th>.',
+    ],
+    finalAnswer: '<th colspan="2">Marks</th> merges horizontal columns.',
+  },
+  {
+    level: 'Practical Application',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'Write HTML for an enrollment form containing a student name text input and radio buttons for academic groups.',
+    givenData: ['Form wrapper: <form>', 'Input types: text and radio'],
+    solutionSteps: [
+      'Open form with <form method="POST">.',
+      'Add <input type="text" name="studentName">.',
+      'Add radio inputs with identical name="group" attribute to enforce mutual exclusivity.',
+    ],
+    finalAnswer: '<input type="radio" name="group" value="science"> Science',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'What is the difference between rowspan and colspan?',
+    answer: 'rowspan merges cells vertically across multiple rows, whereas colspan merges cells horizontally across multiple columns.',
+  },
+  {
+    question: 'What are self-closing empty elements in HTML?',
+    answer: 'Empty elements do not have closing tags or text content between them, such as <br>, <img>, and <hr>.',
+  },
+  {
+    question: 'Why is <!DOCTYPE html> mandatory?',
+    answer: 'It instructs modern web browsers to render the document in standard HTML5 mode rather than legacy quirks mode.',
+  },
+];
+---
+
+<ToolLayout
+  title="HTML Code Playground & Live Runner — Biggan.me"
+  metaDescription="Interactive dual-pane HTML code editor with live sandboxed preview, device frames, and HSC Board exam table templates (colspan/rowspan)."
+  toolName="HTML Code Playground & Live Runner"
+  toolCategory="Information & Communication Technology (ICT)"
+  curriculumTags={['NCTB HSC ICT Chapter 4', 'CBSE Web Applications', 'HTML Tables & Forms']}
+  topicId="html-runner"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <HtmlRunner client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">HTML Table Architecture & Merging Rules</h3>
+      <p>
+        In secondary ICT exams, questions testing HTML tables with irregular grids are among the most frequent. Understanding row and column spans requires visualizing grid coordinates:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Rowspan (Vertical Span):</span>
+          <p class="text-slate-400 font-sans">
+            Increases the height of a cell downwards across <code class="text-cyan-300">n</code> rows. The succeeding rows must omit this cell from their definition.
+          </p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">Colspan (Horizontal Span):</span>
+          <p class="text-slate-400 font-sans">
+            Expands a cell sideways across <code class="text-cyan-300">n</code> columns within the same row, reducing the remaining cell count in that row accordingly.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      HTML is the universal structural language powering millions of web applications, hybrid mobile frameworks, responsive email templates, and digital publishing. Practicing in this client-side sandbox provides students with immediate tactile feedback, reinforcing clean semantic code habits for exams and real software projects.
+    </p>
+  </div>
+</ToolLayout>

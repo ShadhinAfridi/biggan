@@ -1,0 +1,101 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { CircuitSimulator } from '../../../tools/ict/circuit-simulator/CircuitSimulator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'সহজ / মৌলিক গেট',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'একটি ২-ইনপুট XOR গেটের ইনপুট A = 1 এবং B = 1 হলে আউটপুট কত হবে?',
+    givenData: ['ইনপুট A = 1, B = 1', 'গেট: XOR (এক্সক্লুসিভ অর)'],
+    solutionSteps: [
+      'XOR গেটের সূত্র: Y = A ⊕ B = A\'B + AB\'।',
+      'ইনপুটের মান বসাই: (0 · 1) + (1 · 0) = 0 + 0 = 0।',
+      'XOR গেটে দুটি ইনপুট অভিন্ন (উভয়েই ১ বা উভয়েই ০) হলে আউটপুট সবসময় ০ হয়।',
+    ],
+    finalAnswer: 'আউটপুট Y = 0',
+  },
+  {
+    level: 'বোর্ড পরীক্ষা স্পেশাল (CQ গ/ঘ)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'হাফ অ্যাডার (Half Adder) এর মাধ্যমে দুটি বাইনারি বিট ১ এবং ১ যোগ করলে Sum ও Carry এর মান কত হবে?',
+    givenData: ['যোগফল বিট: A = 1, B = 1'],
+    solutionSteps: [
+      '১ এবং ১ যোগ করলে বাইনারি যোগফল হয় ১০ (Decimal 2)।',
+      'একক স্থানীয় বিট বা Sum = A ⊕ B = 1 ⊕ 1 = 0।',
+      'হাতে থাকা ক্যারি বা Carry = A · B = 1 · 1 = 1।',
+    ],
+    finalAnswer: 'Sum (S) = 0, Carry (C) = 1 (মোট যোগফল 10₂)',
+  },
+  {
+    level: 'সার্বজনীন গেট বাস্তবায়ন',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'শুধুমাত্র NAND গেট ব্যবহার করে কীভাবে একটি মৌলিক OR গেট তৈরি করা সম্ভব?',
+    givenData: ['গেট: সার্বজনীন NAND গেট'],
+    solutionSteps: [
+      'ডি মরগানের সূত্র: A + B = (A\' · B\')\'।',
+      '১ম NAND গেট দিয়ে A\' তৈরি করি: NAND(A, A)।',
+      '২য় NAND গেট দিয়ে B\' তৈরি করি: NAND(B, B)।',
+      '৩য় NAND গেটে A\' ও B\' ইনপুট দিলে আউটপুট পাই: ((A\') · (B\'))\' = A + B।',
+    ],
+    finalAnswer: 'মোট ৩টি NAND গেট দিয়ে OR গেট বাস্তবায়ন করা যায়।',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'সার্বজনীন গেট (Universal Gate) কাকে বলে এবং কেন?',
+    answer: 'NAND এবং NOR গেটকে সার্বজনীন গেট বলা হয়, কারণ এই দুটি গেটের যেকোনো একটি ব্যবহার করে অন্য সকল মৌলিক গেট (AND, OR, NOT) এবং যেকোনো জটিল ডিজিটাল সার্কিট বাস্তবায়ন করা সম্ভব।',
+  },
+  {
+    question: 'হাফ অ্যাডার এবং ফুল অ্যাডার এর মধ্যে পার্থক্য কী?',
+    answer: 'হাফ অ্যাডার দুটি একক বাইনারি বিট যোগ করতে পারে। আর ফুল অ্যাডার পূর্ববর্তী ক্যারি বিটসহ মোট তিনটি বাইনারি বিট যোগ করতে সক্ষম। দুটি হাফ অ্যাডার এবং একটি OR গেট দিয়ে একটি ফুল অ্যাডার তৈরি করা যায়।',
+  },
+  {
+    question: 'কাসিও fx-991 ক্যালকুলেটরে কীভাবে লজিক গেট অপারেশন করা যায়?',
+    answer: 'কাসিও fx-991EX বা fx-991CW-তে MODE/MENU চেপে Base-N নির্বাচন করুন। এরপর LOGIC বাটনে ক্লিক করে AND, OR, XOR, NOT নির্বাচন করে সরাসরি বাইনারি বা হেক্সাডেসিমাল হিসাব করা যায়।',
+  },
+];
+---
+
+<ToolLayout
+  title="ডিজিটাল লজিক গেট ও সার্কিট সিমুলেটর — Biggan.me"
+  metaDescription="এইচএসসি আইসিটি ৩য় অধ্যায়ের ডিজিটাল লজিক গেট (AND, OR, NOT, NAND, NOR, XOR, XNOR), হাফ ও ফুল অ্যাডার এবং রিয়েল-টাইম সত্যক সারণী (Truth Table) সিমুলেটর।"
+  toolName="ডিজিটাল লজিক গেট ও সার্কিট সিমুলেটর"
+  toolCategory="তথ্য ও যোগাযোগ প্রযুক্তি (HSC ICT)"
+  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৩)', 'ডিজিটাল ডিভাইস', 'লজিক গেট ও অ্যাডার']}
+  topicId="circuit-simulator"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <CircuitSimulator client:visible lang="bn" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">বুলিয়ান বীজগণিত ও ডিজিটাল লজিক তত্ত্ব</h3>
+      <p>
+        কম্পিউটার প্রসেসরের অভ্যন্তরে সকল গাণিতিক ও যৌক্তিক সিদ্ধান্ত লজিক গেটের মাধ্যমে ০ (০ ভোল্ট) এবং ১ (+৫ ভোল্ট) বৈদ্যুতিক সংকেতের সাহায্যে সম্পন্ন হয়।
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">হাফ অ্যাডার সমীকরণ:</span>
+          <p>Sum: S = A ⊕ B</p>
+          <p>Carry: C = A · B</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">ফুল অ্যাডার সমীকরণ:</span>
+          <p>Sum: S = A ⊕ B ⊕ Cin</p>
+          <p>Cout = (A · B) + (Cin · (A ⊕ B))</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      আধুনিক মাইক্রোপ্রসেসর (Intel, AMD, Apple M-Series), গ্রাফিক্স কার্ড (GPU) এবং মেমরি চিপে বিলিয়ন বিলিয়ন ট্রানজিস্টরের সাহায্যে এই মৌলিক ও সার্বজনীন গেটগুলো সংযুক্ত থাকে। আমাদের এই সিমুলেটরে টাচ করে সিগন্যাল পরিবর্তনের মাধ্যমে শিক্ষার্থীরা কম্পিউটার আর্কিটেকচারের অন্তঃস্থল প্রত্যক্ষ করতে পারে।
+    </p>
+  </div>
+</ToolLayout>

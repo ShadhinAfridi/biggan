@@ -1,0 +1,104 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { CRunner } from '../../../tools/ict/c-runner/CRunner';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'সহজ / মৌলিক লুপ',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'একটি C প্রোগ্রামের লুপে for(i = 1; i <= 5; i++) দেওয়া আছে। লুপটি মোট কতবার ঘুরবে এবং শেষ মান কত হবে?',
+    givenData: ['শুরু: i = 1', 'শর্ত: i <= 5', 'বৃদ্ধি: i++'],
+    solutionSteps: [
+      'লুপের প্রতিটি ধাপ: i = 1, 2, 3, 4, 5 (শর্ত সত্য)।',
+      'i = 5 এর পর বৃদ্ধি পেয়ে i = 6 হয়।',
+      'শর্ত 6 <= 5 মিথ্যা হওয়ায় লুপ শেষ হয়।',
+    ],
+    finalAnswer: 'লুপটি মোট ৫ বার ঘুরবে এবং লুপ শেষে i এর মান হবে ৬।',
+  },
+  {
+    level: 'বোর্ড পরীক্ষা স্পেশাল (CQ গ/ঘ)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'একটি সংখ্যা মৌলিক (Prime) কি না তা যাচাই করার অ্যালগরিদম ও C কোডের ড্রাই-রান সম্পন্ন করো।',
+    givenData: ['সংখ্যা n = 7', 'ভাজক রেঞ্জ: 2 থেকে n/2'],
+    solutionSteps: [
+      'লুপ শুরু করি i = 2 থেকে 3 (7 / 2 = 3) পর্যন্ত।',
+      '7 % 2 = 1 (ভাগশেষ 0 নয়)।',
+      '7 % 3 = 1 (ভাগশেষ 0 নয়)।',
+      'কোনো ভাজক দ্বারা নিঃশেষে বিভাজ্য না হওয়ায় সংখ্যাটি মৌলিক।',
+    ],
+    finalAnswer: 'n = 7 একটি মৌলিক সংখ্যা (Prime Number)।',
+  },
+  {
+    level: 'ধারার যোগফল ও মেমরি ট্রেস',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'ফিবোনাচ্চি ধারার প্রথম ৬টি পদের মান C প্রোগ্রামের মেমরি রেজিস্টার পরিবর্তনের মাধ্যমে দেখাও।',
+    givenData: ['a = 0, b = 1, n = 6'],
+    solutionSteps: [
+      'পদ ১: ০ (next = 0 + 1 = 1, a=1, b=1)',
+      'পদ ২: ১ (next = 1 + 1 = 2, a=1, b=2)',
+      'পদ ৩: ১ (next = 1 + 2 = 3, a=2, b=3)',
+      'পদ ৪: ২ (next = 2 + 3 = 5, a=3, b=5)',
+      'পদ ৫: ৩, পদ ৬: ৫',
+    ],
+    finalAnswer: 'ফিবোনাচ্চি ধারা: 0, 1, 1, 2, 3, 5',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'সি ভাষায় if-else এবং লুপের ড্রাই-রান (Dry-Run) কী?',
+    answer: 'ড্রাই-রান হলো কম্পিউটার ছাড়া কাগজের পাতায় পেন্সিল দিয়ে কোডের প্রতিটি লাইনের পর ভ্যারিয়েবলগুলোর মান কীভাবে পরিবর্তিত হচ্ছে তা সারণী আকারে লিখে টেস্ট করার পদ্ধতি। এইচএসসি পরীক্ষায় এটি সরাসরি লিখিত প্রশ্নে আসে।',
+  },
+  {
+    question: 'while লুপ এবং do-while লুপের মধ্যে মূল পার্থক্য কী?',
+    answer: 'while লুপে লুপে প্রবেশের আগেই শর্ত যাচাই করা হয় (Entry-controlled)। অপরদিকে do-while লুপে অন্তত একবার বডি এক্সিকিউট হওয়ার পর শর্ত যাচাই করা হয় (Exit-controlled)।',
+  },
+  {
+    question: 'ব্রেক (break) এবং কন্টিনিউ (continue) স্টেটমেন্টের কাজ কী?',
+    answer: 'break স্টেটমেন্ট লুপকে সাথে সাথে বন্ধ করে বাইরে বের করে দেয়। আর continue স্টেটমেন্ট বর্তমান চক্রের বাকি অংশ বাদ দিয়ে পরবর্তী ইটারেশনে চলে যায়।',
+  },
+];
+---
+
+<ToolLayout
+  title="সি প্রোগ্রামিং (C Code) সিমুলেটর ও মেমরি ট্রেসার — Biggan.me"
+  metaDescription="এইচএসসি আইসিটি ৫ম অধ্যায়ের জন্য সি প্রোগ্রামিং কোড সিমুলেটর। লুপ, শর্ত ও ভ্যারিয়েবলের ধাপভিত্তিক মেমরি রেজিস্টার পরিবর্তন (Dry-run) ও রিয়েল-টাইম কনসোল।"
+  toolName="সি প্রোগ্রামিং (C Code) সিমুলেটর ও মেমরি ট্রেসার"
+  toolCategory="তথ্য ও যোগাযোগ প্রযুক্তি (HSC ICT)"
+  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৫)', 'সি প্রোগ্রামিং', 'ড্রাই-রান ও অ্যালগরিদম']}
+  topicId="c-runner"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <CRunner client:visible lang="bn" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">সি প্রোগ্রামিংয়ের মেমরি সংগঠন ও লুপ ট্রেসিং</h3>
+      <p>
+        এইচএসসি আইসিটি পরীক্ষায় সি প্রোগ্রামিংয়ের প্রশ্নগুলোতে শিক্ষার্থীদের সবচেয়ে বেশি নম্বর কাটার কারণ হলো লুপের ভেতরে ভ্যারিয়েবলের মান কীভাবে আপডেট হচ্ছে তা কল্পনা করতে না পারা।
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">For Loop এর ৪টি ধাপ:</span>
+          <p>১. ইনিশিয়ালাইজেশন (i = 1)</p>
+          <p>২. কন্ডিশন চেক (i &lt;= n)</p>
+          <p>৩. বডি এক্সিকিউশন (Body Execution)</p>
+          <p>৪. ইনক্রিমেন্ট বা ডিক্রিমেন্ট (i++)</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-cyan-400 font-bold block">ড্রাই-রান টেবিল কলাম:</span>
+          <p>Step # • Line # • RAM Variables • Output</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p>
+      সি প্রোগ্রামিং ল্যাঙ্গুয়েজকে আধুনিক সকল কম্পিউটার ভাষার জননী বলা হয়। লিনাক্স ও উইন্ডোজ অপারেটিং সিস্টেম কার্নেল, ডাটাবেজ ইঞ্জিন (MySQL, PostgreSQL), এমবেডেড মাইক্রোকন্ট্রোলার এবং উচ্চগতির গেম ইঞ্জিন আজও সি ও সি++ দিয়ে তৈরি। আমাদের এই ভিজ্যুয়াল মেমরি ট্রেসারে কোড রান করে শিক্ষার্থীরা কম্পিউটার আর্কিটেকচারের সরাসরি বাস্তব ধারণা পায়।
+    </p>
+  </div>
+</ToolLayout>
