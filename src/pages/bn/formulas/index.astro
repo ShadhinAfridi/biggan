@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import { FORMULA_CATALOG, SUBJECT_METADATA } from '../../../data/formulaCatalog';
+import { FormulaSearch } from '../../../components/formulas/FormulaSearch';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/bn/formulas`;
+
+// Breadcrumb & CollectionPage Structured Data for Google Indexing
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: `${siteUrl}/bn`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'সকল বিষয়ের সূত্রমালা',
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': canonicalUrl,
+  name: 'এসএসসি ও এইচএসসি সকল বিষয়ের সূত্রমালা (Formula Sheet) — Biggan.me',
+  description: 'পদার্থবিজ্ঞান, রসায়ন, সাধারণ গণিত, উচ্চতর গণিত, আইসিটি ও জীববিজ্ঞানের সমস্ত প্রয়োজনীয় সমীকরণ, ধ্রুবক ও বোর্ড পরীক্ষার গুরুত্বপূর্ণ সূত্রের পূর্ণাঙ্গ সংকলন।',
+  inLanguage: 'bn',
+  url: canonicalUrl,
+  hasPart: Object.values(SUBJECT_METADATA).map((sub) => ({
+    '@type': 'WebPage',
+    name: `${sub.nameBn} সূত্রমালা`,
+    url: `${canonicalUrl}/${sub.id}`,
+    description: sub.descriptionBn,
+  })),
+};
+
+const jsonLd = [breadcrumbSchema, collectionSchema];
+
+const subjectsList = Object.values(SUBJECT_METADATA);
+---
+
+<BaseLayout
+  title="এসএসসি ও এইচএসসি সকল বিষয়ের সূত্রমালা (Complete Formula Sheet) — Biggan.me"
+  description="পদার্থবিজ্ঞান, রসায়ন, সাধারণ গণিত, উচ্চতর গণিত, আইসিটি ও জীববিজ্ঞানের সমস্ত প্রয়োজনীয় সমীকরণ, ধ্রুবক ও বোর্ড পরীক্ষার গুরুত্বপূর্ণ সূত্রের পূর্ণাঙ্গ সংকলন।"
+  lang="bn"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+    {/* Page Header */}
+    <header class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        <span>📖</span>
+        <span>এনসিটিবি অনুমোদিত কারিকুলাম ও বোর্ড পরীক্ষা স্পেশাল</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        বোর্ড পরীক্ষার পূর্ণাঙ্গ সূত্র ভাণ্ডার
+      </h1>
+      <p class="max-w-3xl mx-auto text-sm sm:text-base text-slate-300 leading-relaxed">
+        পদার্থবিজ্ঞান, রসায়ন, সাধারণ গণিত, উচ্চতর গণিত, আইসিটি এবং জীববিজ্ঞানের সকল প্রয়োজনীয় গাণিতিক সমীকরণ, ধ্রুবকের মান ও পরীক্ষার গুরুত্বপূর্ণ শর্তাবলী। এক ক্লিকে টেক্সট বা ল্যাটেক্স কোড কপি করুন, সরাসরি ক্যালকুলেটরে যাচাই করুন বা পিডিএফ হিসেবে প্রিন্ট করে রাখুন।
+      </p>
+
+      {/* Action Buttons */}
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2 no-print">
+        <button
+          onclick="window.print()"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition shadow-lg shadow-amber-500/20 cursor-pointer"
+        >
+          <span>🖨️</span>
+          <span>প্রিন্ট / PDF সংরক্ষণ করুন</span>
+        </button>
+        <a
+          href="/bn/my-progress"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
+        >
+          <span>📊</span>
+          <span>রিভিশন ট্র্যাকার</span>
+        </a>
+      </div>
+    </header>
+
+    {/* Dedicated Subject Sheets Navigation Hub */}
+    <section class="space-y-3 no-print">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
+          বিষয়ভিত্তিক ডেডিকেটেড শিট (Dedicated Subject Sheets)
+        </h2>
+        <span class="text-[11px] text-cyan-400 font-mono">৬টি বিষয় কভার্ড</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        {subjectsList.map((sub) => {
+          const count = FORMULA_CATALOG.filter((f) => f.subjectId === sub.id).length;
+          return (
+            <a
+              href={`/bn/formulas/${sub.id}`}
+              class="bg-slate-900 border border-slate-800 hover:border-amber-500/40 p-3.5 rounded-xl transition group flex flex-col justify-between space-y-2 hover:bg-slate-850"
+            >
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">{sub.icon}</span>
+                <span class="text-[11px] font-mono text-amber-400 font-bold bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-800/40">
+                  {count}টি সূত্র
+                </span>
+              </div>
+              <div>
+                <span class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition block">
+                  {sub.nameBn}
+                </span>
+                <span class="text-[10px] text-slate-400 block truncate">
+                  {sub.nameEn}
+                </span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    {/* Top Ad Slot */}
+    <AdSlot slotType="banner" slotId="formulas-top" />
+
+    {/* Interactive Formula Search & Directory Island */}
+    <FormulaSearch client:load formulas={FORMULA_CATALOG} lang="bn" />
+
+    {/* In-Content Ad */}
+    <AdSlot slotType="in-content" slotId="formulas-mid" />
+
+    {/* Educational Context & Board Exam Formula Guidelines */}
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-xl sm:text-2xl font-bold text-white">
+          বোর্ড পরীক্ষায় নির্ভুল সূত্র প্রয়োগের ৩টি সোনালী নিয়ম
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          সৃজনশীল প্রশ্নের 'গ' ও 'ঘ' নম্বরের পূর্ণ মার্কস নিশ্চিত করার কৌশল
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-300">
+        <div class="space-y-2 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80">
+          <h3 class="text-base font-bold text-amber-300 flex items-center gap-2">
+            <span>১.</span> একক সমতাকরণ (Unit Consistency)
+          </h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-400">
+            সূত্র প্রয়োগের পূর্বে অবশ্যই সকল ইনপুট মানকে একই একক পদ্ধতিতে (বিশেষ করে SI একক যেমন: m, s, kg, mol) রূপান্তর করে নিতে হবে। কিলোমিটার বা সেন্টিমিটার সরাসরি সূত্রে বসালে চূড়ান্ত উত্তর ভুল হবে।
+          </p>
+        </div>
+
+        <div class="space-y-2 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80">
+          <h3 class="text-base font-bold text-cyan-300 flex items-center gap-2">
+            <span>২.</span> প্রয়োগের শর্তাবলী যাচাই
+          </h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-400">
+            প্রতিটি সূত্রের নির্দিষ্ট শর্ত থাকে। যেমন: $s = ut + \frac{1}{2}at^2$ কেবল সুষম ত্বরণে প্রযোজ্য; সমবেগে $s = vt$ ব্যবহার করতে হয়। শর্ত না মেনে সূত্র প্রয়োগ করলে শিক্ষক পুরো নম্বর কেটে দিতে পারেন।
+          </p>
+        </div>
+
+        <div class="space-y-2 bg-slate-950/80 p-5 rounded-xl border border-slate-800/80">
+          <h3 class="text-base font-bold text-emerald-300 flex items-center gap-2">
+            <span>৩.</span> ক্যালকুলেটরে সরাসরি সমাধান (Check with CASIO)
+          </h3>
+          <p class="text-xs sm:text-sm leading-relaxed text-slate-400">
+            দ্বিঘাত সমীকরণ বা ত্রিকোণমিতিক সমাধান শেষে অনুমোদিত কাসিও fx-991EX বা fx-991MS ক্যালকুলেটরের SOLVE ও EQN ফিচারের মাধ্যমে খাতার উত্তর দ্রুত মিলিয়ে নিশ্চিত হয়ে নিন।
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .formula-card {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+      }
+      .formula-card * {
+        color: black !important;
+      }
+    }
+  </style>
+</BaseLayout>

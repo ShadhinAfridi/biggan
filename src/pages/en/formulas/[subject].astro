@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AdSlot from '../../../components/ads/AdSlot.astro';
+import {
+  FORMULA_CATALOG,
+  SUBJECT_METADATA,
+  getFormulasBySubject,
+  getSubjectMeta,
+  type FormulaItem,
+  type SubjectFormulaMeta,
+} from '../../../data/formulaCatalog';
+import { FormulaCard } from '../../../components/formulas/FormulaCard';
+import katex from 'katex';
+
+export async function getStaticPaths() {
+  const subjects = Object.keys(SUBJECT_METADATA);
+  return subjects.map((subjId) => ({
+    params: { subject: subjId },
+    props: {
+      meta: SUBJECT_METADATA[subjId],
+      formulas: getFormulasBySubject(subjId),
+    },
+  }));
+}
+
+interface Props {
+  meta: SubjectFormulaMeta;
+  formulas: FormulaItem[];
+}
+
+const { meta, formulas } = Astro.props;
+
+// Math Rendering Helper for FAQs
+function renderInlineMath(tex: string): string {
+  try {
+    return katex.renderToString(tex, { displayMode: false, throwOnError: false });
+  } catch {
+    return tex;
+  }
+}
+
+function formatMathInText(text: string): string {
+  if (!text) return '';
+  return text.replace(/\$([^$]+)\$/g, (_, formula) => renderInlineMath(formula));
+}
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/en/formulas/${meta.id}`;
+const parentFormulasUrl = `${siteUrl}/en/formulas`;
+
+// Group formulas by chapter
+const chaptersMap = new Map<string, FormulaItem[]>();
+for (const f of formulas) {
+  const key = `${f.level.toUpperCase()} - Chapter ${f.chapterNumber}: ${f.chapterTitleEn}`;
+  if (!chaptersMap.has(key)) {
+    chaptersMap.set(key, []);
+  }
+  chaptersMap.get(key)!.push(f);
+}
+
+// JSON-LD Structured Data: CreativeWork, ItemList, BreadcrumbList, FAQPage
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${siteUrl}/en`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Formula Reference Sheets',
+      item: parentFormulasUrl,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: `${meta.nameEn} Formula Sheet`,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const creativeWorkSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  '@id': canonicalUrl,
+  name: `${meta.nameEn} Formula Reference Sheet & Board Exam Guide — Biggan.me`,
+  description: meta.descriptionEn,
+  inLanguage: 'en',
+  url: canonicalUrl,
+  about: {
+    '@type': 'Thing',
+    name: meta.nameEn,
+  },
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: formulas.map((f, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    name: f.nameEn,
+    description: f.cleanText,
+    url: `${canonicalUrl}#${f.id}`,
+  })),
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: meta.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.questionEn,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answerEn.replace(/\$([^$]+)\$/g, '$1'),
+    },
+  })),
+};
+
+const jsonLd = [breadcrumbSchema, creativeWorkSchema, itemListSchema, faqSchema];
+
+const allSubjects = Object.values(SUBJECT_METADATA);
+---
+
+<BaseLayout
+  title={`${meta.nameEn} Formula Sheet & Complete Equation Bank — Biggan.me`}
+  description={`${meta.nameEn}: ${meta.descriptionEn} Chapter-by-chapter NCTB secondary and higher secondary formulas, LaTeX notation, physical boundary conditions, and exam FAQs.`}
+  lang="en"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+    {/* Breadcrumb Navigation */}
+    <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-400 no-print">
+      <a href="/en" class="hover:text-amber-400 transition">Home</a>
+      <span>/</span>
+      <a href="/en/formulas" class="hover:text-amber-400 transition">Formulas</a>
+      <span>/</span>
+      <span class="text-white font-medium">{meta.nameEn}</span>
+    </nav>
+
+    {/* Subject Hero Header */}
+    <header class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl">
+            {meta.icon}
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-amber-300 border border-slate-700">
+                NCTB Aligned
+              </span>
+              <span class="text-xs text-slate-400 font-mono">
+                {formulas.length} Formulas
+              </span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-black text-white tracking-tight mt-1">
+              {meta.nameEn} Formulas
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400 font-mono">
+              {meta.nameBn}
+            </p>
+          </div>
+        </div>
+
+        {/* Print Button Specifically for this Subject */}
+        <div class="flex items-center gap-2 no-print">
+          <button
+            onclick="window.print()"
+            class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition shadow-lg shadow-amber-500/20 cursor-pointer"
+          >
+            <span>🖨️</span>
+            <span>Print {meta.nameEn} Sheet</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed border-t border-slate-800/80 pt-4">
+        {meta.descriptionEn}
+      </p>
+
+      {/* Switch to Other Subjects Pills */}
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800/80 no-print">
+        <span class="text-xs text-slate-400 font-semibold mr-1">Other Subjects:</span>
+        {allSubjects.map((sub) => {
+          const isCurrent = sub.id === meta.id;
+          return (
+            <a
+              href={`/en/formulas/${sub.id}`}
+              class={`px-3 py-1 rounded-lg text-xs font-medium transition ${
+                isCurrent
+                  ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                  : 'bg-slate-800 text-slate-300 hover:bg-slate-750 hover:text-white border border-slate-700/60'
+              }`}
+            >
+              {sub.nameEn}
+            </a>
+          );
+        })}
+      </div>
+    </header>
+
+    {/* Top Ad */}
+    <AdSlot slotType="banner" slotId={`formulas-${meta.id}-top`} />
+
+    {/* Chapter-wise Formula Groupings */}
+    <div class="space-y-10">
+      {Array.from(chaptersMap.entries()).map(([chapterTitle, chapterFormulas]) => (
+        <section class="space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <span>{chapterTitle}</span>
+            </h2>
+            <span class="text-xs text-slate-400 font-mono">
+              {chapterFormulas.length} Formulas
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {chapterFormulas.map((f) => (
+              <FormulaCard client:load formula={f} lang="en" />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    {/* Mid Ad */}
+    <AdSlot slotType="in-content" slotId={`formulas-${meta.id}-mid`} />
+
+    {/* Subject Board Exam FAQs */}
+    {meta.faqs && meta.faqs.length > 0 && (
+      <section class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <span>❓</span> {meta.nameEn} Board Examination FAQs
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Common questions on formula application and exam problem-solving rules
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {meta.faqs.map((faq, idx) => (
+            <div class="p-5 bg-slate-950/80 rounded-2xl border border-slate-800/80 space-y-2">
+              <h3 class="text-base font-bold text-amber-300">
+                Q{idx + 1}: {faq.questionEn}
+              </h3>
+              <div
+                class="text-sm text-slate-300 leading-relaxed pt-1"
+                set:html={formatMathInText(faq.answerEn)}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/* Bottom Back Button */}
+    <div class="text-center pt-4 no-print">
+      <a
+        href="/en/formulas"
+        class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-xl text-sm font-semibold border border-slate-800 transition"
+      >
+        ← Back to All Formula Reference Sheets
+      </a>
+    </div>
+  </div>
+
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .formula-card {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+        box-shadow: none !important;
+      }
+      .formula-card * {
+        color: black !important;
+      }
+    }
+  </style>
+</BaseLayout>
