@@ -1,0 +1,215 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { PhysicsCalculator } from '../../../tools/physics/PhysicsCalculator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Board Exam Special (Kinematics & Vertical Projection)',
+    levelBadge: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+    problemText: 'A cricket ball is projected vertically upward with an initial velocity of 19.6 m/s. Find the maximum height reached and the total time of flight before it hits the ground. (Take g = 9.8 m/s²)',
+    givenData: [
+      'Initial velocity u = 19.6 m/s',
+      'Acceleration due to gravity g = 9.8 m/s²',
+      'Velocity at highest point v = 0 m/s',
+    ],
+    solutionSteps: [
+      'Equation for maximum height: v² = u² - 2gH_max ⟹ 0 = u² - 2gH_max ⟹ H_max = u² / (2g)',
+      'H_max = (19.6)² / (2 × 9.8) = 384.16 / 19.6 = 19.6 meters.',
+      'Time to reach peak: t_rise = u / g = 19.6 / 9.8 = 2 seconds.',
+      'Total time of flight: T = 2 × t_rise = 2 × 2 = 4 seconds.',
+    ],
+    finalAnswer: 'The ball reaches a maximum height of 19.6 meters and returns to the ground in 4 seconds.',
+  },
+  {
+    level: 'Board Exam Special (Work, Power & Efficiency)',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'An electric water pump has a rated power of 2 Horsepower (2 HP). It lifts 500 kg of water from a 10-meter deep well in 1 minute. Calculate the mechanical efficiency (η) of the pump. (Take g = 9.8 m/s²)',
+    givenData: [
+      'Total power input P_total = 2 HP = 2 × 746 W = 1492 Watts',
+      'Mass of water m = 500 kg, Height h = 10 m, Time t = 60 s',
+      'Acceleration due to gravity g = 9.8 m/s²',
+    ],
+    solutionSteps: [
+      'Work done against gravity: W = mgh = 500 × 9.8 × 10 = 49,000 Joules.',
+      'Useful power output: P_useful = W / t = 49,000 / 60 = 816.67 Watts.',
+      'Efficiency formula: η = (P_useful / P_total) × 100%',
+      'η = (816.67 / 1492) × 100% = 54.74%',
+    ],
+    finalAnswer: 'The mechanical efficiency of the water pump is 54.74%.',
+  },
+  {
+    level: 'Board Exam Special (Waves, Sound Speed & Echo)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'On a day when the air temperature is 30°C, a student claps their hands in front of a tall mountain. What is the minimum distance required to hear a distinct echo? (Take sound speed at 0°C v0 = 332 m/s)',
+    givenData: [
+      'Air temperature θ = 30°C',
+      'Speed of sound at 0°C v0 = 332 m/s',
+      'Persistence of hearing t = 0.1 seconds',
+    ],
+    solutionSteps: [
+      'Speed of sound at 30°C: v_θ = v0 + 0.6 × θ = 332 + (0.6 × 30) = 332 + 18 = 350 m/s.',
+      'Round trip echo distance: 2d = v × t ⟹ d = (v × t) / 2.',
+      'For minimum distance, taking t = 0.1 s: d_min = (350 × 0.1) / 2 = 35 / 2 = 17.5 meters.',
+    ],
+    finalAnswer: 'The minimum distance to the obstacle mountain is 17.5 meters at 30°C.',
+  },
+  {
+    level: 'Board Exam Special (Current Electricity & Billing)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'A household runs five 60W incandescent light bulbs and two 100W ceiling fans for 6 hours daily. If each electrical unit costs 7.50 BDT, compute the total electricity bill for May (31 days).',
+    givenData: [
+      '5 bulbs power = 5 × 60 W = 300 W',
+      '2 fans power = 2 × 100 W = 200 W, Total power P = 500 Watts',
+      'Daily usage t = 6 hours, Month of May = 31 days, Tariff rate = 7.50 BDT/unit',
+    ],
+    solutionSteps: [
+      'Total energy consumed in Board of Trade (BOT) units (kWh): W = (P × t_daily × days) / 1000',
+      'W = (500 × 6 × 31) / 1000 = 93,000 / 1000 = 93 kWh.',
+      'Total electricity bill = Units × Tariff Rate = 93 × 7.50 = 697.50 BDT.',
+    ],
+    finalAnswer: 'The total monthly electricity bill for May is 697.50 BDT.',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'What default value of gravity (g) does NCTB specify for secondary exams?',
+    answer: 'NCTB secondary curriculum textbooks in Bangladesh standardize on g = 9.8 m/s². Our calculator defaults to 9.8 m/s² with an instant toggle to 9.81 m/s² for higher precision or international exam benchmarks (such as Edexcel or Cambridge O-Levels).',
+  },
+  {
+    question: 'Why is 0.1 seconds the critical threshold for hearing an echo?',
+    answer: 'The human auditory sensation persists in the brain for approximately 0.1 seconds after the sound wave ceases. If a reflected sound wave returns in under 0.1 seconds, it overlaps with the original sensation. Only when round-trip travel time t >= 0.1 s is a distinct echo perceived.',
+  },
+  {
+    question: 'What are the sign conventions for spherical mirrors and thin lenses?',
+    answer: 'For spherical mirrors: Concave mirrors have positive focal lengths (+f) while convex mirrors have negative focal lengths (-f). For thin lenses: Convex lenses have positive focal lengths (+f) and concave lenses have negative focal lengths (-f). Real images correspond to positive v, while virtual images produce negative v.',
+  },
+  {
+    question: 'How do I solve multi-step kinematics equations on a Casio scientific calculator?',
+    answer: 'On Casio fx-991EX / ClassWiz and fx-991CW, store physical parameters into variable memories (A, B, C) via the STO key, and compute formulas in one go using the natural textbook display.',
+  },
+];
+---
+
+<ToolLayout
+  title="SSC Physics Unified Equation & Solution Suite — Biggan.me"
+  metaDescription="All-in-one NCTB SSC Physics textbook calculator covering all 13 chapters: Kinematics, Forces, Work-Power-Energy, Hydrostatic Pressure, Heat, Sound, Optics, and Electricity."
+  toolName="SSC Physics Equation & Solution Suite"
+  toolCategory="Physics (SSC Physics)"
+  curriculumTags={['NCTB SSC Physics (Classes 9-10)', 'All 13 Chapters', 'Kinematics & Dynamics', 'Optics & Electricity']}
+  topicId="kinematics"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <PhysicsCalculator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4 text-slate-300">
+      <h3 class="text-base font-bold text-white">NCTB SSC Physics 13-Chapter Comprehensive Formula Sheet</h3>
+      <p class="text-sm">
+        SSC board exams test physical principles through both Creative Questions (CQ - 50 marks) and Multiple Choice Questions (MCQ - 25 marks). Master all fundamental formulas below:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 1: Physical Quantities & Measurement</span>
+          <p>• Vernier Constant: VC = s / N</p>
+          <p>• Slide Calipers: L = M + (V × VC) - E</p>
+          <p>• Screw Gauge LC: LC = p / N</p>
+          <p>• Sphere Volume: V = 4/3 π r³</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 2: Motion (Kinematics)</span>
+          <p>• v = u + at</p>
+          <p>• s = ((u + v)/2) × t</p>
+          <p>• s = ut + 1/2 at²</p>
+          <p>• v² = u² + 2as</p>
+          <p>• Vertical projection: H_max = u² / (2g), T = 2u / g</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 3: Force & Dynamics</span>
+          <p>• Force: F = ma</p>
+          <p>• Momentum: p = mv</p>
+          <p>• Momentum conservation: m1u1 + m2u2 = m1v1 + m2v2</p>
+          <p>• Inelastic collision: v = (m1u1 + m2u2) / (m1 + m2)</p>
+          <p>• Gravitational force: F = G (m1·m2) / d²</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 4: Work, Power & Energy</span>
+          <p>• Mechanical work: W = F·s·cos(θ)</p>
+          <p>• Kinetic energy: Ek = 1/2 mv²</p>
+          <p>• Potential energy: Ep = mgh</p>
+          <p>• Power: P = W / t (1 HP = 746 W)</p>
+          <p>• Efficiency: η = (P_useful / P_total) × 100%</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 5: Pressure & States of Matter</span>
+          <p>• Pressure: P = F / A</p>
+          <p>• Hydrostatic pressure: P = h·ρ·g</p>
+          <p>• Hydraulic press: F1 / r1² = F2 / r2²</p>
+          <p>• Young's Modulus: Y = (F·L) / (A·ΔL)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 6: Effect of Heat on Matter</span>
+          <p>• Temperature conversion: C/5 = (F-32)/9 = (K-273)/5</p>
+          <p>• Thermal expansion: ΔL = α L1 Δθ, β = 2α, γ = 3α</p>
+          <p>• Heat transfer: Q = m·s·Δθ</p>
+          <p>• Latent heat: Q = m·Lf (ice: 336000), Q = m·Lv</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 7: Waves & Sound</span>
+          <p>• Wave velocity: v = f·λ, f = 1 / T</p>
+          <p>• Sound speed with temperature: v_θ = 332 + 0.6·θ</p>
+          <p>• Echo relation: 2d = v·t</p>
+          <p>• Min echo distance: d_min = (v × 0.1) / 2</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 8 & 9: Geometric Optics (Mirrors & Lenses)</span>
+          <p>• Mirror equation: 1/f = 1/u + 1/v</p>
+          <p>• Magnification: m = -v/u, |m| = hi / ho</p>
+          <p>• Snell's Law: η1·sin(θ1) = η2·sin(θ2)</p>
+          <p>• Critical angle: sin(θc) = η_rare / η_dense</p>
+          <p>• Optical lens power: P = 1 / f (in meters) Dioptres</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 10 & 11: Static & Current Electricity</span>
+          <p>• Coulomb's Law: F = k (q1·q2) / r²</p>
+          <p>• Field intensity & potential: E = kQ/r², V = kQ/r</p>
+          <p>• Ohm's Law & resistivity: V = IR, R = ρ L / A</p>
+          <p>• Resistors: Rs = Σ R, 1/Rp = Σ (1/R)</p>
+          <p>• Commercial electricity: kWh = (P·t) / 1000</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-amber-400 font-bold block text-sm">Ch 12 & 13: Magnetism & Modern Physics</span>
+          <p>• Ideal transformer: Vp / Vs = Np / Ns = Is / Ip</p>
+          <p>• Einstein mass-energy: E = m c²</p>
+          <p>• Radioactive decay: N(t) = N0 · (1/2)^(t / T_half)</p>
+          <p>• Decay constant: λ = 0.693 / T_half</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <div class="space-y-3 text-slate-300">
+      <h4 class="text-white font-bold text-sm">Board Exam Tips & Pitfalls:</h4>
+      <ul class="list-disc list-inside space-y-1.5 text-xs">
+        <li><strong>Unit Conversion:</strong> Always convert km/h to m/s by dividing by 3.6 (e.g. 54 km/h = 15 m/s). Convert grams to kg by dividing by 1000.</li>
+        <li><strong>Mirror & Lens Focal Sign:</strong> Remember that convex mirrors and concave lenses have negative focal lengths (-f). Omitting the negative sign in exam steps leads to zero marks.</li>
+        <li><strong>Electricity Billing:</strong> Power must be in Watts and time in total hours before dividing by 1000 to obtain BOT units (kWh).</li>
+        <li><strong>Offline Practice:</strong> You can run our zero-dependency Python CLI agent (<code class="text-amber-400">scripts/ssc_physics_calculator.py</code>) on your laptop without an internet connection.</li>
+      </ul>
+    </div>
+  </div>
+</ToolLayout>
