@@ -1,14 +1,17 @@
 # Biggan.me — প্ল্যাটফর্মের ইন্টারফেস ও টেস্ট ডিরেক্টরি
 
-> **দ্বৈতভাষিক বিজ্ঞান পরিভাষা কোষ (Bilingual Scientific Glossary):**  
-> * **দ্বৈতভাষিক (Dwito-bhashik):** Bilingual (using two languages)  
-> * **বিজ্ঞান (Biggan):** Science  
-> * **পরিভাষা (Poribhasha):** Terminology or Glossary  
-> * **কোষ (Kosh):** Dictionary, lexicon, or collection  
->   
-> সহজ কথায়, এটি এমন একটি রিসোর্স বা ডিকশনারি যেখানে বিজ্ঞানের গুরুত্বপূর্ণ শব্দ, সূত্র ও ধারণাসমূহ পাশাপাশি দুই ভাষায় (বাংলা ও ইংরেজি) সহজ ও প্রাঞ্জলভাবে বুঝিয়ে দেওয়া হয়েছে।
+> **ভাষাশৈলী ও পরিভাষা নীতি (Natural Language Policy):**  
+> বিজ্ঞানের যেসকল ইংরেজি কনসেপ্ট সচরাচর আমরা যেভাবে ব্যবহার করি (যেমন: *চেয়ারকে 'কেদারা' না বলে আমরা স্বাভাবিকভাবে 'চেয়ার'ই বলি*, ঠিক তেমনি *ক্যালকুলেটর, ইনপুট, রেজাল্ট, লুপ, ডাটাবেজ, ট্রুথ টেবিল, সিগনিফিক্যান্ট ফিগার, বিএমআই, এটিপি, প্রজেক্টাইল, ডেরিভেশন, ফর্মুলা শিট*), সেগুলোকে জোর করে জটিল বা দুর্বোধ্য বাংলায় অনুবাদ না করে স্বাভাবিক, বহুল-ব্যবহৃত ও ছাত্রবান্ধব আধুনিক ভাষায় রাখা হয়েছে।
 
-biggan.me ওয়েবসাইটের মেনু, ক্যালকুলেটরের কাজ, পাঠ্যক্রম এবং অটোমেটেড টেস্ট ফাইলের এ টু জেড গাইড এটি। সম্পূর্ণ টেক্সট সাধারণ শিক্ষার্থী ও ডেভেলপারদের কথা মাথায় রেখে সাবলীল বাংলায় সাজানো হয়েছে।
+> **দ্বৈতভাষিক বিজ্ঞান পরিভাষা কোষ (Bilingual Scientific Glossary):**  
+> * **দ্বৈতভাষিক (Dwito-bhashik):** Bilingual (বাংলা ও ইংরেজি দুই ভাষার সহজ মেলবন্ধন)  
+> * **বিজ্ঞান (Biggan):** Science  
+> * **পরিভাষা (Poribhasha):** Scientific Terminology বা Glossary  
+> * **কোষ (Kosh):** Lexicon, Dictionary বা সংকলন  
+>   
+> এটি একটি আধুনিক দ্বিভাষিক বিজ্ঞান সংকলন, যেখানে প্রতিটি কঠিন বৈজ্ঞানিক টার্ম, একক ও সূত্রকে বাংলা ও ইংরেজির সমন্বয়ে বাস্তবসম্মত ও সহজে বুঝিয়ে দেওয়া হয়েছে।
+
+biggan.me প্ল্যাটফর্মের ইন্টারফেস, ক্যালকুলেটরের কার্যপদ্ধতি, সিলেবাস এবং অটোমেটেড টেস্টের একটি সম্পূর্ণ, প্রাঞ্জল ও বাস্তবসম্মত গাইডলাইন এটি।
 
 ---
 
@@ -61,16 +64,16 @@ biggan.me ওয়েবসাইটের মেনু, ক্যালকুল�
 
 | Identifier | English Text | সাবলীল বাংলা |
 | :--- | :--- | :--- |
-| `nav.home` | Home | হোমপেজ |
-| `nav.tools` | Calculators | কাজের টুলস / ক্যালকুলেটর |
+| `nav.home` | Home | **হোম** |
+| `nav.tools` | Calculators | **ক্যালকুলেটর** |
 | `nav.periodicTable` | Periodic Table | পর্যায় সারণি |
-| `nav.glossary` | Glossary | বিজ্ঞানের পরিভাষা |
-| `nav.articles` | Guides & Articles | গাইড ও টিউটোরিয়াল |
+| `nav.glossary` | Glossary | **সায়েন্স গ্লসারি** |
+| `nav.articles` | Guides & Articles | **গাইড ও আর্টিকেল** |
 | `nav.curriculum` | Curriculum | সিলেবাস |
-| `nav.formulas` | Formula Sheet | প্রয়োজনীয় সূত্র |
-| `nav.progress` | My Progress | পড়াশোনার আপডেট |
+| `nav.formulas` | Formula Sheet | **ফর্মুলা শিট** |
+| `nav.progress` | My Progress | **মাই প্রগ্রেস** |
 | `nav.about` | About Us | আমাদের সম্পর্কে |
-| `nav.methodology` | Methodology | কাজের ধরন ও নির্ভুলতা |
+| `nav.methodology` | Methodology | **মেথডোলজি** |
 
 ### 1.3 ক্যালকুলেটরের নাম ও বিবরণ
 
@@ -78,38 +81,38 @@ biggan.me ওয়েবসাইটের মেনু, ক্যালকুল�
 | :--- | :--- | :--- |
 | `tools.title` | Science & Math Calculators | বিজ্ঞান ও গণিতের ক্যালকুলেটর |
 | `tools.subtitle` | Get step-by-step equations, unit breakdowns, and exact Casio fx-991 calculator steps for every problem. | প্রতিটি অঙ্কের সূত্রের বিস্তারিত ধাপ, এককের হিসাব এবং কাসিও fx-991 ক্যালকুলেটরে কীভাবে সলভ করবেন, তার একদম সঠিক নিয়ম। |
-| `tools.molarMass` | Molar Mass & Mass Percent: Easily find the molar mass for hydrates, coordination compounds, and isotopic mixtures. | মোলার ভর ও শতকরা সংযুতি: সংকেত দিলেই যেকোনো যৌগের পরমাণুর সংখ্যা আর কেলাস পানিসহ টোটাল মোলার ভর এক ক্লিকেই বের করে আনবে। |
-| `tools.redox` | Redox Equation Balancer: Balance complex redox reactions in acidic or basic solutions using the half-reaction method. | জারণ-বিজারণ সমতা: অর্ধ-বিক্রিয়া পদ্ধতিতে অম্লীয় বা ক্ষারীয় মাধ্যমে জারণ-বিজারণের যেকোনো কঠিন সমীকরণ সহজে ব্যালেন্স করার টুল। |
-| `tools.sigFigs` | Significant Figures Calculator: Count significant digits, convert to scientific notation, and perfectly apply rounding rules. | সিগনিফিক্যান্ট ফিগার (Sig Figs): তাৎপর্যপূর্ণ অঙ্ক গোনা, সায়েন্টিফিক মোডে নেওয়া এবং যোগ-গুণের রাউন্ডিং রুলস নিখুঁতভাবে অ্যাপ্লাই করার সুবিধা। |
-| `tools.projectile` | Projectile Motion Calculator: Calculate maximum height, time of flight, horizontal range, and exact trajectory coordinates. | প্রাসের গতি (Projectile): কোনো বস্তু কত বেগে ছুড়লে কত উঁচুতে উঠবে, কতক্ষণ বাতাসে থাকবে বা কত দূরে পড়বে—প্রাসের এই হিসাবগুলো নিমেষেই পেয়ে যাবেন। |
-| `tools.quadratic` | Quadratic Equation Solver: Find real and complex roots, determine the discriminant value, and see step-by-step factoring. | দ্বিঘাত সমীকরণ সমাধান: নিশ্চায়ক বের করে মূলের প্রকৃতি (বাস্তব নাকি জটিল) এবং মানগুলো ধাপে ধাপে সলভ করে। |
-| `tools.htmlRunner` | HTML Code Playground: Write and preview HTML in real-time, test complex table layouts, and validate your tags. | এইচটিএমএল (HTML) রানার: সরাসরি ব্রাউজারে কোড লিখে আউটপুট দেখার প্লেগ্রাউন্ড। টেবিল (rowspan/colspan) বা ট্যাগ ঠিক আছে কিনা চেক করার দারুণ জায়গা। |
-| `tools.cRunner` | C Code Simulator: Step through loops and conditionals to watch variable values change line-by-line. | সি (C) প্রোগ্রামিং সিমুলেটর: লুপ আর কন্ডিশনাল কোড লাইন-বাই-লাইন রান করে দেখুন ভ্যারিয়েবলের মান কীভাবে বদলায়। |
-| `tools.dbSimulator` | SQL Database Simulator: Practice by running SELECT, WHERE, ORDER BY, and JOIN queries on sample student databases. | এসকিউএল (SQL) প্র্যাকটিস: ব্রাউজারেই ডামি স্টুডেন্ট ডাটাবেজ নিয়ে SELECT, WHERE, ORDER BY বা JOIN কুয়েরি প্র্যাকটিস করার সুবিধা। |
-| `tools.circuitSimulator` | Logic Gate Simulator: Test logic gates, build Half and Full Adders, and instantly generate truth tables. | লজিক গেট সিমুলেটর: বেসিক ও সার্বজনীন গেট টেস্ট করুন, হাফ/ফুল অ্যাডার বানান আর নিমিষেই ট্রুথ টেবিল মিলিয়ে নিন। |
-| `tools.generalMath` | SSC General Math Solver: Solve problems in grouped statistics, heights and distances, algebra, and mensuration. | সাধারণ গণিত সমাধান: পরিসংখ্যানের সারণি, ত্রিকোণমিতির উচ্চতা-দূরত্ব এবং পরিমিতির ঝামেলার অঙ্কগুলোর সহজ সমাধান। |
-| `tools.physics` | SSC Physics Calculator: Step-by-step solvers for all 13 textbook chapters, covering kinematics to modern physics. | পদার্থবিজ্ঞান ক্যালকুলেটর: গতিবিদ্যা থেকে আধুনিক পদার্থবিজ্ঞান—বইয়ের ১৩টি অধ্যায়ের সব অঙ্কের স্টেপ-বাই-স্টেপ সলভ। |
-| `tools.chemistry` | SSC Chemistry Calculator: Master gas diffusion, mole conversions, molarity, limiting reactants, $\Delta H$, and pH. | রসায়ন ক্যালকুলেটর: গ্যাসের ব্যাপন, মোলারিটি, লিমিটিং বিক্রিয়ক বা pH—রসায়নের যেকোনো গাণিতিক সমস্যার সমাধান এক ক্লিকে। |
-| `tools.biology` | SSC Biology Calculator: Calculate BMI, BMR, ATP yields in respiration, Punnett squares, and ecological energy flow. | জীববিজ্ঞান ক্যালকুলেটর: BMI, BMR, শ্বসনে উৎপন্ন ATP-এর হিসাব থেকে শুরু করে মেন্ডেলের জেনেটিক ক্রস ও বাস্তুতন্ত্রের শক্তির হিসাব। |
-| `tools.higherMath` | SSC Higher Math Calculator: Detailed solvers for Venn sets, Apollonius medians, quadratics, series, and vectors. | উচ্চতর গণিত ক্যালকুলেটর: ভেনচিত্র, অ্যাপোলোনিয়াস, ধারা, দ্বিপদী বিস্তৃতি বা ভেক্টরের মতো টপিকগুলোর বিস্তারিত সমাধান। |
+| `tools.molarMass` | Molar Mass & Mass Percent: Easily find the molar mass for hydrates, coordination compounds, and isotopic mixtures. | **মোলার ভর ও ম্যাস পারসেন্ট:** যেকোনো কেমিক্যাল ফর্মুলা দিলেই কেলাস পানিসহ টোটাল মোলার ভর ও শতকরা সংযুতি সহজে বের করে। |
+| `tools.redox` | Redox Equation Balancer: Balance complex redox reactions in acidic or basic solutions using the half-reaction method. | **রেডক্স ব্যালেন্সার (জারণ-বিজারণ সমতা):** হাফ-রিঅ্যাকশন মেথডে এসিডিক বা বেসিক মিডিয়ামে জটিল রেডক্স সমীকরণ ব্যালেন্স করার টুল। |
+| `tools.sigFigs` | Significant Figures Calculator: Count significant digits, convert to scientific notation, and perfectly apply rounding rules. | **সিগনিফিক্যান্ট ফিগারস (Sig Figs):** সিগনিফিক্যান্ট ডিজিট কাউন্ট, সায়েন্টিফিক নোটেশন এবং রাউন্ডিং রুলস অ্যাপ্লাই করার ক্যালকুলেটর। |
+| `tools.projectile` | Projectile Motion Calculator: Calculate maximum height, time of flight, horizontal range, and exact trajectory coordinates. | **প্রজেক্টাইল মোশন (প্রাসের গতি):** নিক্ষেপণ বেগ ও কোণ থেকে ম্যাক্সিমাম হাইট, টাইম অব ফ্লাইট, হরিজন্টাল রেঞ্জ ও ট্র্যাজেক্টরি হিসাব। |
+| `tools.quadratic` | Quadratic Equation Solver: Find real and complex roots, determine the discriminant value, and see step-by-step factoring. | **দ্বিঘাত সমীকরণ সলভার:** ডিসক্রিমিন্যান্ট ($D$) চেক করে রিয়েল ও কমপ্লেক্স রুটস এবং স্টেপ-বাই-স্টেপ সমাধান। |
+| `tools.htmlRunner` | HTML Code Playground: Write and preview HTML in real-time, test complex table layouts, and validate your tags. | **HTML5 প্লেগ্রাউন্ড ও রানার:** সরাসরি ব্রাউজারে কোড লিখে লাইভ প্রিভিউ দেখার প্লেগ্রাউন্ড। টেবিল (rowspan/colspan) ও ট্যাগ টেস্ট করার সুবিধা। |
+| `tools.cRunner` | C Code Simulator: Step through loops and conditionals to watch variable values change line-by-line. | **সি (C) প্রোগ্রাম সিমুলেটর:** লুপ ও কন্ডিশনাল কোড লাইন-বাই-লাইন রান করে ভ্যারিয়েবলের ভ্যালু চেইঞ্জ লাইভ দেখার ট্রেসার। |
+| `tools.dbSimulator` | SQL Database Simulator: Practice by running SELECT, WHERE, ORDER BY, and JOIN queries on sample student databases. | **SQL ডাটাবেজ সিমুলেটর:** ব্রাউজারেই স্যাম্পল ডাটাবেজ নিয়ে SELECT, WHERE, ORDER BY ও JOIN কুয়েরি প্র্যাকটিস করার সুবিধা। |
+| `tools.circuitSimulator` | Logic Gate Simulator: Test logic gates, build Half and Full Adders, and instantly generate truth tables. | **লজিক গেট সিমুলেটর:** বেসিক ও ইউনিভার্সাল গেট টেস্ট করুন, হাফ/ফুল অ্যাডার বানান আর লাইভ ট্রুথ টেবিল দেখুন। |
+| `tools.generalMath` | SSC General Math Solver: Solve problems in grouped statistics, heights and distances, algebra, and mensuration. | **সাধারণ গণিত ক্যালকুলেটর:** পরিসংখ্যান সারণি, ত্রিকোণমিতির উচ্চতা-দূরত্ব এবং পরিমিতির গাণিতিক সমাধান। |
+| `tools.physics` | SSC Physics Calculator: Step-by-step solvers for all 13 textbook chapters, covering kinematics to modern physics. | **পদার্থবিজ্ঞান ক্যালকুলেটর:** গতিবিদ্যা থেকে মডার্ন ফিজিক্স—বইয়ের ১৩টি চ্যাপ্টারের সব অঙ্কের স্টেপ-বাই-স্টেপ সলভ। |
+| `tools.chemistry` | SSC Chemistry Calculator: Master gas diffusion, mole conversions, molarity, limiting reactants, $\Delta H$, and pH. | **রসায়ন ক্যালকুলেটর:** গ্যাসের ব্যাপন, মোলারিটি, লিমিটিং রিঅ্যাক্ট্যান্ট ও pH—রসায়নের গাণিতিক সমস্যার সহজ সমাধান। |
+| `tools.biology` | SSC Biology Calculator: Calculate BMI, BMR, ATP yields in respiration, Punnett squares, and ecological energy flow. | **জীববিজ্ঞান ক্যালকুলেটর:** BMI, BMR, সেলুলার শ্বসনে ATP ইল্ড এবং মেন্ডেলের জেনেটিক ক্রস ক্যালকুলেটর। |
+| `tools.higherMath` | SSC Higher Math Calculator: Detailed solvers for Venn sets, Apollonius medians, quadratics, series, and vectors. | **উচ্চতর গণিত ক্যালকুলেটর:** ভেনচিত্র, অ্যাপোলোনিয়াস থিওরেম, ধারা, দ্বিপদী বিস্তৃতি ও ভেক্টর ক্যালকুলেটর। |
 
 ### 1.4 পেজের অন্যান্য সেকশন
 
 | Identifier | English Text | সাবলীল বাংলা |
 | :--- | :--- | :--- |
 | `section.calculator` | Calculator | ক্যালকুলেটর |
-| `section.derivation` | Formula & Derivation | সূত্র ও গাণিতিক প্রমাণ |
-| `section.examples` | Solved Textbook Examples | বই ও বোর্ড পরীক্ষার সলভড উদাহরণ |
-| `section.casio` | Casio Calculator Guide | কাসিও ক্যালকুলেটর হ্যাকস |
-| `section.applications` | Practical Applications | বাস্তব জীবনে এর ব্যবহার |
+| `section.derivation` | Formula & Derivation | **ফর্মুলা ও ডেরিভেশন** |
+| `section.examples` | Solved Textbook Examples | **সলভড উদাহরণ ও বোর্ড প্রশ্ন** |
+| `section.casio` | Casio Calculator Guide | **কাসিও ক্যালকুলেটর ট্রিকস** |
+| `section.applications` | Practical Applications | **রিয়েল-লাইফ অ্যাপ্লিকেশন** |
 | `section.faq` | Frequently Asked Questions | সচরাচর জিজ্ঞাসা (FAQ) |
 
 ### 1.5 কাসিও ক্যালকুলেটরের ব্যবহার
 
 | Identifier | English Text | সাবলীল বাংলা |
 | :--- | :--- | :--- |
-| `casio.guideTitle` | Casio fx-991 & fx-100MS Keystroke Guide | কাসিও fx-991 ও fx-100MS ক্যালকুলেটরে হিসাব করার নিয়ম |
-| `casio.guideSubtitle` | Follow these exact button sequences for standard scientific calculators allowed in board exams: | বোর্ড বা অ্যাডমিশন টেস্টে যেসব সায়েন্টিফিক ক্যালকুলেটর ব্যবহার করা যায়, সেগুলোতে খুব সহজে হিসাব মেলানোর স্টেপ-বাই-স্টেপ গাইড: |
+| `casio.guideTitle` | Casio fx-991 & fx-100MS Keystroke Guide | **কাসিও fx-991 ও fx-100MS ক্যালকুলেটর গাইড** |
+| `casio.guideSubtitle` | Follow these exact button sequences for standard scientific calculators allowed in board exams: | **বোর্ড ও অ্যাডমিশন পরীক্ষায় অনুমোদিত সায়েন্টিফিক ক্যালকুলেটরে দ্রুত সমাধান করার কি-স্ট্রোক গাইড:** |
 | `casio.model.cw` | fx-991CW (New ClassWiz) | fx-991CW (নতুন ক্লাসউইজ) |
 | `casio.model.ex` | fx-991EX (ClassWiz) | fx-991EX (ক্লাসউইজ) |
 | `casio.model.es` | fx-991ES PLUS / 2nd Edition | fx-991ES PLUS / 2nd Edition |
@@ -119,24 +122,24 @@ biggan.me ওয়েবসাইটের মেনু, ক্যালকুল�
 
 | Identifier | English Text | সাবলীল বাংলা |
 | :--- | :--- | :--- |
-| `ui.calculate` | Calculate | হিসাব করুন |
-| `ui.clear` | Clear | ক্লিয়ার করুন |
-| `ui.copy` | Copy | কপি করুন |
+| `ui.calculate` | Calculate | **ক্যালকুলেট করুন** |
+| `ui.clear` | Clear | **ক্লিয়ার** |
+| `ui.copy` | Copy | **কপি** |
 | `ui.copied` | Copied! | কপি হয়েছে! |
 | `ui.share` | Share | বন্ধুদের সাথে শেয়ার করুন |
-| `ui.print` | Print / Save PDF | পিডিএফ সেভ / প্রিন্ট করুন |
+| `ui.print` | Print / Save PDF | **প্রিন্ট / সেভ PDF** |
 | `ui.steps` | Step-by-Step Solution | ধাপে ধাপে সমাধান |
 | `ui.result` | Result | রেজাল্ট |
-| `ui.input` | Input | মান বসান |
-| `ui.example` | Load Example | একটি উদাহরণ দেখুন |
+| `ui.input` | Input | **ইনপুট** |
+| `ui.example` | Load Example | **স্যাম্পল উদাহরণ** |
 
 ### 1.7 ফুটার ও নীতিমালা
 
 | Identifier | English Text | সাবলীল বাংলা |
 | :--- | :--- | :--- |
-| `footer.disclaimer` | Biggan.me is a free educational tool for science and math. All formulas strictly follow NCTB textbook standards. | Biggan.me বিজ্ঞান ও গণিত শেখার একটি ফ্রি প্ল্যাটফর্ম। এখানকার সমস্ত গণনা ও সূত্র NCTB পাঠ্যবইয়ের স্ট্যান্ডার্ড মেনে তৈরি। |
+| `footer.disclaimer` | Biggan.me is a free educational tool for science and math. All formulas strictly follow NCTB textbook standards. | **Biggan.me বিজ্ঞান ও গণিত শেখার একটি ফ্রি অনলাইন প্ল্যাটফর্ম। এখানকার সমস্ত ফর্মুলা ও ক্যালকুলেশন NCTB পাঠ্যবইয়ের স্ট্যান্ডার্ড অনুযায়ী তৈরি।** |
 | `footer.privacy` | Privacy Policy | প্রাইভেসি পলিসি |
-| `footer.terms` | Terms of Service | ব্যবহারের শর্তাবলি |
+| `footer.terms` | Terms of Service | **টার্মস অব সার্ভিস** |
 | `footer.rights` | All rights reserved. | সর্বস্বত্ব সংরক্ষিত। |
 
 ---
@@ -150,7 +153,7 @@ biggan.me ওয়েবসাইটের মেনু, ক্যালকুল�
 | **SSC** | ১৩৮ | জীববিজ্ঞান (Biology) | কোষ কাঠামো, সালোকসংশ্লেষণ ও শ্বসন, পুষ্টি, রক্ত সংবহন, বংশগতি (জেনেটিক্স) এবং বাস্তুতন্ত্রের বৈজ্ঞানিক আলোচনা। |
 | **SSC** | ১০৯ | সাধারণ গণিত (General Math) | সেট-ফাংশন, বীজগণিত, সূচক-লগারিদম, ত্রিকোণমিতি, পরিমিতি এবং পরিসংখ্যানের সকল গাণিতিক সমাধান। |
 | **SSC** | ১২৬ | উচ্চতর গণিত (Higher Math) | অ্যাপোলোনিয়াসের উপপাদ্য, দ্বিঘাত সমীকরণ, অনন্ত ধারা, দ্বিপদী বিস্তৃতি, স্থানাঙ্ক জ্যামিতি ও ভেক্টর অ্যানালাইসিস। |
-| **HSC** | ২৭৫ | আইসিটি (ICT) | বুলিয়ান লজিক গেট, সংখ্যা পদ্ধতি, এইচটিএমএল, সি (C) প্রোগ্রামিং এবং এসকিউএল (SQL) ডেটাবেজ ম্যানেজমেন্ট। |
+| **HSC** | ২৭৫ | আইসিটি (ICT) | বুলিয়ান অ্যালজেবরা ও লজিক গেট, সংখ্যা পদ্ধতি, এইচটিএমএল (HTML), সি (C) প্রোগ্রামিং এবং এসকিউএল (SQL) ডাটাবেজ। |
 
 ---
 
@@ -167,7 +170,7 @@ biggan.me ওয়েবসাইটের মেনু, ক্যালকুল�
 | `electronegativity` | Electronegativity | **তড়িৎ ঋণাত্মকতা** | সমযোজী বন্ধনের শেয়ার করা ইলেকট্রন জোড়কে নিজের দিকে টেনে নেওয়ার ক্ষমতাকে তড়িৎ ঋণাত্মকতা বলে। |
 | `planck-constant` | Planck Constant ($h = 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$) | **প্লাঙ্কের ধ্রুবক** | ফোটনের শক্তি ও কম্পাঙ্কের মধ্যকার অনুপাত নির্দেশকারী একটি মৌলিক ধ্রুবক। |
 | `refractive-index` | Refractive Index ($n = \frac{c}{v}$) | **প্রতিসরাঙ্ক** | শূন্য মাধ্যমে আলোর বেগের সাথে কোনো নির্দিষ্ট মাধ্যমে আলোর বেগের অনুপাতকে ঐ মাধ্যমের প্রতিসরাঙ্ক বলে। |
-| `ohm-law` | Ohm's Law ($I = \frac{V}{R}$) | **ওহমের সূত্র** | স্থির তাপমাত্রায় কোনো পরিবাহীর মধ্য দিয়ে প্রবাহিত তড়িৎ প্রবাহ তার দুই প্রান্তের বিভব পার্থক্যের সমানুপাতিক। |
+| `ohm-law` | Ohm's Law ($I = \frac{V}{R}$) | **ওহমের সূত্র (Ohm's Law)** | স্থির তাপমাত্রায় পরিবাহীর মধ্য দিয়ে কারেন্ট প্রবাহ তার দুই প্রান্তের ভোল্টেজ বা বিভব পার্থক্যের সমানুপাতিক। |
 
 ---
 

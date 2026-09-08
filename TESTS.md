@@ -58,7 +58,7 @@
 
 | # | মডিউল ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
 | :-: | :--- | :--- | :--- | :-: |
-| 01 | সংকেত পার্সার | Parses formulas with brackets and crystal hydrates, calculating exact molar mass. | ব্র্যাকেট বা পানিযুক্ত কঠিন রাসায়নিক সংকেত ভেঙে পরমাণুর সংখ্যা ও মোলার ভর চমৎকারভাবে বের করে আনে। | ✅ Passed |
+| 01 | কেমিক্যাল ফর্মুলা পার্সার | Parses formulas with brackets and crystal hydrates, calculating exact molar mass. | ব্র্যাকেট বা পানিযুক্ত কঠিন রাসায়নিক সংকেত ভেঙে পরমাণুর সংখ্যা ও মোলার ভর চমৎকারভাবে বের করে আনে। | ✅ Passed |
 | 02 | মডিউল A: গ্যাস ব্যাপন | Calculates gas diffusion ratios using Graham's law ($r_1 / r_2 = \sqrt{M_2 / M_1}$). | গ্রাহামের সূত্র দিয়ে দুটি গ্যাসের আণবিক ভর তুলনা করে কোনটা দ্রুত ছড়াবে, তার অনুপাত বের করে। | ✅ Passed |
 | 03 | মডিউল B: পরমাণুর গঠন | Finds average atomic mass from isotopic abundances and electron angular momentum in orbits. | আইসোটোপের শতকরা পরিমাণ থেকে গড় আপেক্ষিক ভর এবং বোর মডেলে ইলেকট্রনের কৌণিক ভরবেগ হিসাব করে। | ✅ Passed |
 | 04 | মডিউল C1: মোল রূপান্তর | Converts between grams, moles, STP volume (22.4 L), and particle counts ($6.023 \times 10^{23}$). | ভর, মোল, লিটার আয়তন (STP তে) এবং অণুর সংখ্যার মধ্যে খুব দ্রুত এবং নির্ভুলভাবে কনভার্ট করে দেয়। | ✅ Passed |
@@ -77,16 +77,16 @@
 
 | # | মডিউল ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
 | :-: | :--- | :--- | :--- | :-: |
-| 01 | মডিউল A: পুষ্টি ও বিএমআই | Calculates BMI and identifies normal, healthy weight boundaries for age and height. | ওজন আর উচ্চতা দিয়ে BMI মাপে এবং বয়স অনুযায়ী স্বাস্থ্যকর ওজনের রেঞ্জটা দেখিয়ে দেয়। | ✅ Passed |
-| 02 | মডিউল A: ওজন ঘাটতি/স্থূলতা | Identifies underweight and overweight categories and calculates required weight changes. | ওজন কম নাকি বেশি তা ধরে ফেলে এবং নরমাল ওজনে আসতে ঠিক কত কেজি বাড়াতে বা কমাতে হবে তার টিপস দেয়। | ✅ Passed |
-| 03 | মডিউল A: বিএমআর ও ক্যালরি | Computes gender-specific BMR and daily calorie requirements (TDEE) based on activity. | আপনি দিনে কতটুকু পরিশ্রম করেন, তার ওপর ভিত্তি করে আপনার BMR ও প্রতিদিন কত ক্যালরি খাবার দরকার তা হিসাব করে। | ✅ Passed |
-| 04 | মডিউল B: সবাত শ্বসন (প্রাচীন) | Verifies the 38 ATP balance sheet across Glycolysis, Acetyl-CoA, and Krebs cycle for 1 mol glucose. | ১ মোল গ্লুকোজ জারণে ৩টি ধাপে মোট ৩৮টি এটিপি (ATP) ও ৬ অণু $CO_2$ কীভাবে তৈরি হয়, তার পুরা হিসাব তুলে ধরে। | ✅ Passed |
-| 05 | মডিউল B: সবাত শ্বসন (আধুনিক) | Computes the modern 36 ATP yield model and scales proportionally for fractional glucose amounts. | আধুনিক ৩৬ ATP মডেল অনুযায়ী গ্লুকোজ ভেঙে মোট শক্তি উৎপাদনের হিসাব করে (ভগ্নাংশ মোলের জন্যও কাজ করে)। | ✅ Passed |
-| 06 | মডিউল C: মেন্ডেলের ১ম সূত্র | Solves monohybrid cross ($Tt \times Tt$), producing a 3:1 phenotypic and 1:2:1 genotypic ratio. | একসংকর ক্রস ($Tt \times Tt$) সলভ করে মেন্ডেলের বিখ্যাত ৩:১ ফিনোটাইপ এবং ১:২:১ জিনোটাইপ অনুপাতটি দেখায়। | ✅ Passed |
-| 07 | মডিউল C: সেক্স-লিংকড বংশগতি | Solves carrier mother $\times$ normal father cross, showing affected status for sons and daughters. | বাহক মা ও সুস্থ বাবার মিলনে কন্যারা সুস্থ বা বাহক এবং ৫০% ছেলে বর্ণান্ধ হওয়ার সম্ভাবনাটুকু নিখুঁতভাবে দেখায়। | ✅ Passed |
-| 08 | মডিউল C: ক্রিস-ক্রস ইনহেরিটেন্স | Demonstrates criss-cross inheritance (color-blind mother passing condition to all sons). | বর্ণান্ধ মা ও স্বাভাবিক বাবার মিলনে 'ক্রিস-ক্রস' নীতি অনুযায়ী সকল ছেলেই যে বর্ণান্ধ হবে, সেটি প্রমাণ করে দেয়। | ✅ Passed |
-| 09 | মডিউল D: খাদ্য শিকলে শক্তি প্রবাহ | Applies Lindeman's 10% energy transfer rule across trophic levels and tallies 90% heat loss. | লিন্ডেম্যানের '১০% শক্তি স্থানান্তর' নিয়ম অনুযায়ী খাদ্য শিকলের প্রতি স্তরে কতটুকু শক্তি যায় আর কতটুকু তাপ হয়ে হারায়, তা মাপে। | ✅ Passed |
-| 10 | মডিউল E: রক্তের গ্রুপ সামঞ্জস্যতা | Checks ABO and Rh compatibility, confirming universal donor ($O^-$) and recipient ($AB^+$). | রক্ত দেওয়ার সময় অ্যান্টিজেন বিচার করে ABO এবং Rh গ্রুপের ম্যাচিং করে এবং রক্ত জমাট বাঁধার কোনো ঝুঁকি আছে কিনা চেক করে। | ✅ Passed |
+| 01 | BMI ক্যালকুলেটর ও হেলথি ওয়েট রেঞ্জ | Calculates BMI and identifies normal, healthy weight boundaries for age and height. | ওজন আর উচ্চতা দিয়ে BMI মাপে এবং বয়স অনুযায়ী স্বাস্থ্যকর ওজনের রেঞ্জটা দেখিয়ে দেয়। | ✅ Passed |
+| 02 | ওজন ঠিক করা (Underweight/Overweight) | Identifies underweight and overweight categories and calculates required weight changes. | ওজন কম নাকি বেশি তা ধরে ফেলে এবং নরমাল ওজনে আসতে ঠিক কত কেজি বাড়াতে বা কমাতে হবে তার টিপস দেয়। | ✅ Passed |
+| 03 | BMR ও ডেইলি ক্যালরি রিকোয়ারমেন্ট | Computes gender-specific BMR and daily calorie requirements (TDEE) based on activity. | আপনি দিনে কতটুকু পরিশ্রম করেন, তার ওপর ভিত্তি করে আপনার BMR ও প্রতিদিন কত ক্যালরি খাবার দরকার তা হিসাব করে। | ✅ Passed |
+| 04 | সেলুলার শ্বসন (৩৮ ATP মডেল) | Verifies the 38 ATP balance sheet across Glycolysis, Acetyl-CoA, and Krebs cycle for 1 mol glucose. | ১ মোল গ্লুকোজ জারণে ৩টি ধাপে মোট ৩৮টি এটিপি (ATP) ও ৬ অণু $CO_2$ কীভাবে তৈরি হয়, তার পুরা হিসাব তুলে ধরে। | ✅ Passed |
+| 05 | সেলুলার শ্বসন (৩৬ ATP মডেল) | Computes the modern 36 ATP yield model and scales proportionally for fractional glucose amounts. | আধুনিক ৩৬ ATP মডেল অনুযায়ী গ্লুকোজ ভেঙে মোট শক্তি উৎপাদনের হিসাব করে (ভগ্নাংশ মোলের জন্যও কাজ করে)। | ✅ Passed |
+| 06 | মেন্ডেলের ১ম সূত্র (মোনোহাইব্রিড ক্রস) | Solves monohybrid cross ($Tt \times Tt$), producing a 3:1 phenotypic and 1:2:1 genotypic ratio. | একসংকর ক্রস ($Tt \times Tt$) সলভ করে মেন্ডেলের বিখ্যাত ৩:১ ফিনোটাইপ এবং ১:২:১ জিনোটাইপ অনুপাতটি দেখায়। | ✅ Passed |
+| 07 | সেক্স-লিংকড জেনেটিক্স | Solves carrier mother $\times$ normal father cross, showing affected status for sons and daughters. | বাহক মা ও সুস্থ বাবার মিলনে কন্যারা সুস্থ বা বাহক এবং ৫০% ছেলে বর্ণান্ধ হওয়ার সম্ভাবনাটুকু নিখুঁতভাবে দেখায়। | ✅ Passed |
+| 08 | ক্রিস-ক্রস ইনহেরিটেন্স | Demonstrates criss-cross inheritance (color-blind mother passing condition to all sons). | বর্ণান্ধ মা ও স্বাভাবিক বাবার মিলনে 'ক্রিস-ক্রস' নীতি অনুযায়ী সকল ছেলেই যে বর্ণান্ধ হবে, সেটি প্রমাণ করে দেয়। | ✅ Passed |
+| 09 | খাদ্য শিকলে শক্তির প্রবাহ (১০% রুল) | Applies Lindeman's 10% energy transfer rule across trophic levels and tallies 90% heat loss. | লিন্ডেম্যানের '১০% শক্তি স্থানান্তর' নিয়ম অনুযায়ী খাদ্য শিকলের প্রতি স্তরে কতটুকু শক্তি যায় আর কতটুকু তাপ হয়ে হারায়, তা মাপে। | ✅ Passed |
+| 10 | ব্লাড গ্রুপ ম্যাচিং (ABO ও Rh) | Checks ABO and Rh compatibility, confirming universal donor ($O^-$) and recipient ($AB^+$). | রক্ত দেওয়ার সময় অ্যান্টিজেন বিচার করে ABO এবং Rh গ্রুপের ম্যাচিং করে এবং রক্ত জমাট বাঁধার কোনো ঝুঁকি আছে কিনা চেক করে। | ✅ Passed |
 
 ---
 
@@ -95,8 +95,8 @@
 
 | # | অধ্যায় ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
 | :-: | :--- | :--- | :--- | :-: |
-| 01 | অধ্যায় ২: শক্তি সেট | Finds power set element count ($2^n$) and proper subsets ($2^n - 1$). | যেকোনো সেটের উপাদান সংখ্যা থেকে তার পাওয়ার সেটের উপাদান ($2^n$) ও প্রকৃত উপসেট সংখ্যা ($2^n-1$) বের করে। | ✅ Passed |
-| 02 | অধ্যায় ২: কার্তেসীয় গুণজ | Generates Cartesian product ordered pairs and verifies cardinality $n(A \times B)$. | দুটি সেটের ক্রস গুণন (কার্তেসীয় গুণজ) করে ক্রোমজোড়গুলো তৈরি করে এবং মোট উপাদানের সংখ্যা মিলিয়ে দেখে। | ✅ Passed |
+| 01 | অধ্যায় ২: পাওয়ার সেট (^n$) | Finds power set element count ($2^n$) and proper subsets ($2^n - 1$). | যেকোনো সেটের উপাদান সংখ্যা থেকে তার পাওয়ার সেটের উপাদান ($2^n$) ও প্রকৃত উপসেট সংখ্যা ($2^n-1$) বের করে। | ✅ Passed |
+| 02 | অধ্যায় ২: কার্তেসীয় গুণজ (ক্রস প্রোডাক্ট) | Generates Cartesian product ordered pairs and verifies cardinality $n(A \times B)$. | দুটি সেটের ক্রস গুণন (কার্তেসীয় গুণজ) করে ক্রোমজোড়গুলো তৈরি করে এবং মোট উপাদানের সংখ্যা মিলিয়ে দেখে। | ✅ Passed |
 | 03 | অধ্যায় ৩: বর্গের অনুসিদ্ধান্ত | Computes $a^2 + b^2$ and $(a-b)^2$ from given sum $(a+b)$ and product $(ab)$. | দুটি রাশির যোগফল ও গুণফল দেওয়া থাকলে, অনুসিদ্ধান্ত ফেলে খুব সহজেই বর্গের যোগফল ও বিয়োগফল বের করে। | ✅ Passed |
 | 04 | অধ্যায় ৩: ঘনের অনুসিদ্ধান্ত | Solves $a^3 + b^3 = (a+b)^3 - 3ab(a+b)$ from sum and product. | মান দেওয়া থাকলে ঘনের অনুসিদ্ধান্ত ($a^3 + b^3$) ব্যবহার করে দুটি রাশির ঘনকের সমষ্টির মান হিসাব করে ফেলে। | ✅ Passed |
 | 05 | অধ্যায় ৩: ত্রিপদী রাশির বর্গ | Evaluates $a^2 + b^2 + c^2$ from $(a+b+c)$ and pairwise products $(ab+bc+ca)$. | $(a+b+c)$ ও $(ab+bc+ca)$-এর মান থেকে তিনটি রাশির বর্গের যোগফলের মান মুহূর্তের মধ্যেই নির্ণয় করে। | ✅ Passed |
@@ -158,8 +158,8 @@
 | 11 | সি ট্রেসার (মৌলিক সংখ্যা) | Traces variable updates and condition branches during prime number testing in C. | মৌলিক সংখ্যা চেক করার প্রোগ্রামে লুপের প্রতিটি স্টেপ ও কন্ডিশন কীভাবে কাজ করছে তার লাইভ পরিবর্তন দেখায়। | ✅ Passed |
 | 12 | সি ট্রেসার (ফ্যাক্টোরিয়াল) | Traces multiplication accumulator across loop iterations for $n!$ computation. | ১ থেকে $n$ পর্যন্ত ক্রমিক গুণের সময় ($n!$) লুপের প্রতি ইটারেশনে ভ্যালু কীভাবে বাড়ে তা রেকর্ড করে রাখে। | ✅ Passed |
 | 13 | এইচটিএমএল টেবিল | Verifies board exam templates with table cells spanning multiple rows and columns. | এইচএসসি বোর্ডের প্যাটার্ন অনুযায়ী টেবিল বানানো এবং rowspan ও colspan ট্যাগের সঠিকতা নিখুঁতভাবে চেক করে। | ✅ Passed |
-| 14 | পাঠ্যক্রম ডাটাবেজ | Asserts taxonomy completeness across 6 core subjects for both SSC and HSC levels. | ডাটাবেজে এসএসসি ও এইচএসসি স্তরের ৬টি মেইন সাবজেক্টের সবগুলো চ্যাপ্টারের ডেটা ঠিকমতো আছে কিনা তা ভেরিফাই করে। | ✅ Passed |
-| 15 | অধ্যায় তথ্য উত্তোলন | Tests lookup of localized chapter names, core formulas, and interactive tool routes. | প্রতিটি অধ্যায়ের নাম, মেইন সূত্রগুলো এবং ক্যালকুলেটরের সঠিক লিঙ্ক ডাটাবেজ থেকে ঠিকঠাক ফেচ করতে পারে। | ✅ Passed |
+| 14 | কারিকুলাম ডাটাবেজ চেক | Asserts taxonomy completeness across 6 core subjects for both SSC and HSC levels. | ডাটাবেজে এসএসসি ও এইচএসসি স্তরের ৬টি মেইন সাবজেক্টের সবগুলো চ্যাপ্টারের ডেটা ঠিকমতো আছে কিনা তা ভেরিফাই করে। | ✅ Passed |
+| 15 | চ্যাপ্টার ডাটা এক্সট্রাকশন | Tests lookup of localized chapter names, core formulas, and interactive tool routes. | প্রতিটি অধ্যায়ের নাম, মেইন সূত্রগুলো এবং ক্যালকুলেটরের সঠিক লিঙ্ক ডাটাবেজ থেকে ঠিকঠাক ফেচ করতে পারে। | ✅ Passed |
 
 ---
 
@@ -170,15 +170,15 @@
 | :-: | :--- | :--- | :--- | :-: |
 | 01 | মোলার ভর ($H_2O$) | Calculates molar mass of simple binary compounds ($18.015\text{ g/mol}$). | যৌগের সংকেত ভেঙে হাইড্রোজেন ও অক্সিজেনের পরমাণু আলাদা করে গুনে মোলার ভর চমৎকারভাবে হিসাব করে দেয়। | ✅ Passed |
 | 02 | কেলাস লবণ ($CuSO_4\cdot 5H_2O$) | Calculates mass and elemental percentage for copper sulfate pentahydrate. | তুঁতের মতো জটিল কেলাস যৌগের মোট ভর, ৫ অণু পানির পরিমাণ এবং তামার শতকরা সংযুতি একদম নিখুঁতভাবে বের করে। | ✅ Passed |
-| 03 | বন্ধনীযুক্ত সংকেত | Handles nested radical multipliers like $Ca(OH)_2$ properly. | $Ca(OH)_2$-এর মতো ব্র্যাকেটযুক্ত যৌগের সংকেত পার্স করে ভেতরের পরমাণুকে সঠিক সংখ্যা দিয়ে গুণ করে ভর মাপে। | ✅ Passed |
-| 04 | অজানা প্রতীক প্রতিরোধ | Guards against invalid chemical formula typos by throwing descriptive errors. | পর্যায় সারণির বাইরে কোনো উল্টাপাল্টা প্রতীক বা বানান ভুল ইনপুট দিলে সিস্টেম নিজে থেকেই এরর মেসেজ দিয়ে থামিয়ে দেয়। | ✅ Passed |
+| 03 | ব্র্যাকেটযুক্ত সংকেত | Handles nested radical multipliers like $Ca(OH)_2$ properly. | $Ca(OH)_2$-এর মতো ব্র্যাকেটযুক্ত যৌগের সংকেত পার্স করে ভেতরের পরমাণুকে সঠিক সংখ্যা দিয়ে গুণ করে ভর মাপে। | ✅ Passed |
+| 04 | ইনভ্যালিড প্রতীক গার্ড | Guards against invalid chemical formula typos by throwing descriptive errors. | পর্যায় সারণির বাইরে কোনো উল্টাপাল্টা প্রতীক বা বানান ভুল ইনপুট দিলে সিস্টেম নিজে থেকেই এরর মেসেজ দিয়ে থামিয়ে দেয়। | ✅ Passed |
 | 05 | জারণ-বিজারণ (অম্লীয়) | Balances acidic redox half-reactions for $KMnO_4 + FeSO_4$. | অম্লীয় মাধ্যমে পটাশিয়াম পারম্যাঙ্গানেট ও ফেরাস সালফেটের মতো জটিল অর্ধ-বিক্রিয়াগুলোকে স্টেপ-বাই-স্টেপ সমতা করে। | ✅ Passed |
 | 06 | জারণ-বিজারণ (ক্ষারীয়) | Balances basic redox half-reactions for $KMnO_4 + KI$ using $OH^-$ ions. | ক্ষারীয় মাধ্যমে বিক্রিয়ার ক্ষেত্রে ঠিক যেখানে যতটুকু দরকার, সেখানে হাইড্রোক্সাইড ($OH^-$) আয়ন দিয়ে বিক্রিয়া ব্যালেন্স করে। | ✅ Passed |
-| 07 | তাৎপর্যপূর্ণ অঙ্ক (শূন্য নিয়ম) | Identifies non-significant leading zeros and significant trailing decimals. | সংখ্যার শুরুর দামহীন শূন্যগুলো (Leading Zeros) বাদ দেয় এবং দশমিকের পরের দামি শূন্যগুলোকে স্মার্টলি কাউন্ট করে। | ✅ Passed |
-| 08 | তাৎপর্যপূর্ণ অঙ্ক (যোগ) | Enforces addition rounding constrained by the term with fewest decimal places. | যোগ ও বিয়োগের সময় রুলস মেনে, সবচেয়ে কম দশমিক ঘর থাকা সংখ্যাটির সমান করে ফাইনাল রেজাল্ট রাউন্ড করে দেয়। | ✅ Passed |
-| 09 | তাৎপর্যপূর্ণ অঙ্ক (গুণ) | Enforces multiplication rounding limited by the term with fewest sig figs. | গুণ ও ভাগের ক্ষেত্রে সবচেয়ে কম সিগনিফিক্যান্ট ফিগার থাকা ইনপুটটির সাথে মিলিয়ে চূড়ান্ত ফলাফল রাউন্ড করে। | ✅ Passed |
-| 10 | প্রক্ষেপক গতিপথ | Calculates launch range, maximum height, and coordinate trajectories. | কত বেগে আর কত ডিগ্রি কোণে ছুড়লে অনুভূমিক পাল্লা, সর্বোচ্চ উচ্চতা আর গতিপথ কেমন হবে তা নিমেষেই বের করে ফেলে। | ✅ Passed |
-| 11 | অবাস্তব ইনপুট গার্ড | Rejects unphysical inputs such as negative launch velocities or angles over $90^\circ$. | মাইনাস বেগ বা ৯০ ডিগ্রির বেশি নিক্ষেপণ কোণের মতো উল্টাপাল্টা ইনপুট দিলে ক্যালকুলেটর যৌক্তিক সতর্কবার্তা দিয়ে আটকে দেয়। | ✅ Passed |
+| 07 | সিগনিফিক্যান্ট ফিগারস (শূন্য নিয়ম) | Identifies non-significant leading zeros and significant trailing decimals. | সংখ্যার শুরুর দামহীন শূন্যগুলো (Leading Zeros) বাদ দেয় এবং দশমিকের পরের দামি শূন্যগুলোকে স্মার্টলি কাউন্ট করে। | ✅ Passed |
+| 08 | সিগনিফিক্যান্ট ফিগারস (যোগ-বিয়োগ) | Enforces addition rounding constrained by the term with fewest decimal places. | যোগ ও বিয়োগের সময় রুলস মেনে, সবচেয়ে কম দশমিক ঘর থাকা সংখ্যাটির সমান করে ফাইনাল রেজাল্ট রাউন্ড করে দেয়। | ✅ Passed |
+| 09 | সিগনিফিক্যান্ট ফিগারস (গুণ-ভাগ) | Enforces multiplication rounding limited by the term with fewest sig figs. | গুণ ও ভাগের ক্ষেত্রে সবচেয়ে কম সিগনিফিক্যান্ট ফিগার থাকা ইনপুটটির সাথে মিলিয়ে চূড়ান্ত ফলাফল রাউন্ড করে। | ✅ Passed |
+| 10 | প্রজেক্টাইল ট্র্যাজেক্টরি | Calculates launch range, maximum height, and coordinate trajectories. | কত বেগে আর কত ডিগ্রি কোণে ছুড়লে অনুভূমিক পাল্লা, সর্বোচ্চ উচ্চতা আর গতিপথ কেমন হবে তা নিমেষেই বের করে ফেলে। | ✅ Passed |
+| 11 | ইনভ্যালিড ইনপুট গার্ড | Rejects unphysical inputs such as negative launch velocities or angles over $90^\circ$. | মাইনাস বেগ বা ৯০ ডিগ্রির বেশি নিক্ষেপণ কোণের মতো উল্টাপাল্টা ইনপুট দিলে ক্যালকুলেটর যৌক্তিক সতর্কবার্তা দিয়ে আটকে দেয়। | ✅ Passed |
 | 12 | দ্বিঘাত মূল (ভিন্ন বাস্তব) | Solves equations with positive discriminants ($D > 0$), yielding distinct real roots. | নিশ্চায়ক পজিটিভ ($D > 0$) হলে দ্বিঘাত সমীকরণের দুটি ভিন্ন ভিন্ন বাস্তব মূল খুব সুন্দরভাবে ধাপে ধাপে বের করে আনে। | ✅ Passed |
 | 13 | দ্বিঘাত মূল (সমান বাস্তব) | Solves equations with zero discriminants ($D = 0$), yielding repeated roots. | নিশ্চায়ক শূন্য ($D = 0$) হয়ে গেলে সমীকরণের পুনরাবৃত্ত একটিমাত্র বাস্তব মূল সমাধান করে দেখিয়ে দেয়। | ✅ Passed |
 | 14 | দ্বিঘাত মূল (জটিল অনুবন্ধী) | Solves equations with negative discriminants ($D < 0$), yielding complex roots ($\alpha \pm i\beta$). | নিশ্চায়ক নেগেটিভ ($D < 0$) হলে অবাস্তব বা কাল্পনিক একক ($i$) সহ অনুবন্ধী জটিল মূলগুলো নিখুঁতভাবে হিসাব করে দেয়। | ✅ Passed |
