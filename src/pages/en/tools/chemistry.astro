@@ -1,0 +1,217 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { ChemistryCalculator } from '../../../tools/chemistry/ChemistryCalculator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Board Exam Special (Molarity & Standard Solution Prep)',
+    levelBadge: 'bg-teal-500/10 text-teal-400 border border-teal-500/20',
+    problemText: '10.6 grams of sodium carbonate (Na₂CO₃) is dissolved in 250 mL of aqueous solution. What is the molarity of the solution? How many additional grams of Na₂CO₃ must be added to make it a semimolar (0.5 M) solution?',
+    givenData: [
+      'Solution volume V = 250 mL',
+      'Dissolved solute mass W = 10.6 g',
+      'Molecular mass of Na₂CO₃ M = (2 × 23) + 12 + (3 × 16) = 106 g/mol',
+      'Target semimolar concentration S₂ = 0.5 M',
+    ],
+    solutionSteps: [
+      'Part 1: Apply standard molarity formula: S = (1000 × W) / (V × M)',
+      'S = (1000 × 10.6) / (250 × 106) = 10600 / 26500 = 0.4 mol/L (M) [This is a decimolar solution].',
+      'Part 2: Calculate required mass for 0.5 M solution: W₂ = (S₂ × V × M) / 1000',
+      'W₂ = (0.5 × 250 × 106) / 1000 = 13250 / 1000 = 13.25 g',
+      'Additional solute required = W₂ - W = 13.25 - 10.6 = 2.65 grams.',
+    ],
+    finalAnswer: 'The initial molarity is 0.4 M, and 2.65 grams of additional Na₂CO₃ is required to achieve a 0.5 M semimolar solution.',
+  },
+  {
+    level: 'Board Exam Special (Limiting Reactant & Theoretical Yield)',
+    levelBadge: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+    problemText: 'In a closed vessel, 5 grams of hydrogen gas (H₂) is mixed with 35 grams of oxygen gas (O₂) and sparked to produce water. Identify the limiting reactant and calculate the maximum mass of water (H₂O) formed in grams.',
+    givenData: [
+      'Balanced equation: 2H₂ + O₂ ⟶ 2H₂O',
+      'Mass of H₂ supplied = 5 g, M(H₂) = 2.016 g/mol',
+      'Mass of O₂ supplied = 35 g, M(O₂) = 32.00 g/mol',
+    ],
+    solutionSteps: [
+      'Step 1: Compute moles of each reactant:',
+      'n(H₂) = 5 / 2.016 = 2.480 mol',
+      'n(O₂) = 35 / 32.00 = 1.0938 mol',
+      'Step 2: Compare stoichiometric requirements (2 mol H₂ : 1 mol O₂):',
+      'Moles of H₂ required to react with 1.0938 mol O₂ = 1.0938 × 2 = 2.1876 mol.',
+      'Since 2.480 mol H₂ is available (greater than the required 2.1876 mol), H₂ is present in excess and O₂ is completely consumed. Hence, O₂ is the limiting reactant.',
+      'Step 3: Calculate theoretical yield of water:',
+      'Moles of H₂O formed = 1.0938 × 2 = 2.1876 mol',
+      'Theoretical mass of H₂O = 2.1876 mol × 18.015 g/mol = 39.41 grams.',
+      'Excess hydrogen remaining = (2.480 - 2.1876) × 2.016 = 0.59 grams.',
+    ],
+    finalAnswer: 'Oxygen (O₂) is the limiting reactant, and 39.41 grams of water is produced (with 0.59 g of unreacted H₂ remaining).',
+  },
+  {
+    level: 'Board Exam Special (Reaction Enthalpy ΔH from Bond Energies)',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'For the chlorination of methane: CH₄ + Cl₂ ⟶ CH₃Cl + HCl, calculate the enthalpy change of the reaction (ΔH) using NCTB textbook bond energy values. (C-H = 414, Cl-Cl = 244, C-Cl = 326, H-Cl = 431 kJ/mol)',
+    givenData: [
+      'Bonds broken: 1 × C-H and 1 × Cl-Cl (or total: 4 × C-H, 1 × Cl-Cl)',
+      'Bonds formed: 1 × C-Cl and 1 × H-Cl (or total: 3 × C-H, 1 × C-Cl, 1 × H-Cl)',
+      'Bond energies: B(C-H)=414, B(Cl-Cl)=244, B(C-Cl)=326, B(H-Cl)=431 kJ/mol',
+    ],
+    solutionSteps: [
+      'Step 1: Total energy absorbed to break reactant bonds (B₁):',
+      'B₁ = [1 × B(C-H)] + [1 × B(Cl-Cl)] = 414 + 244 = 658 kJ/mol',
+      'Step 2: Total energy released upon forming product bonds (B₂):',
+      'B₂ = [1 × B(C-Cl)] + [1 × B(H-Cl)] = 326 + 431 = 757 kJ/mol',
+      'Step 3: Calculate reaction enthalpy ΔH = B₁ - B₂:',
+      'ΔH = 658 - 757 = -99 kJ/mol',
+      'Since ΔH < 0, the reaction is exothermic, releasing 99 kJ of thermal energy per mole.',
+    ],
+    finalAnswer: 'The enthalpy change ΔH = -99 kJ/mol. The reaction is exothermic.',
+  },
+  {
+    level: 'Board Exam Special (Empirical & Molecular Formula Determination)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'An organic compound contains 40.0% Carbon, 6.67% Hydrogen, and the remaining percentage is Oxygen. If the vapor density of the compound is 30, determine its empirical and molecular formulas.',
+    givenData: [
+      '%C = 40.0%, %H = 6.67%',
+      '%O = 100 - (40.0 + 6.67) = 53.33%',
+      'Vapor density (D) = 30',
+      'Atomic masses: C = 12.011, H = 1.008, O = 15.999',
+    ],
+    solutionSteps: [
+      'Step 1: Divide percentages by respective atomic masses:',
+      'C = 40.0 / 12 = 3.333',
+      'H = 6.67 / 1 = 6.670',
+      'O = 53.33 / 16 = 3.333',
+      'Step 2: Divide by the smallest quotient (3.333):',
+      'C = 3.333 / 3.333 = 1',
+      'H = 6.670 / 3.333 ≈ 2',
+      'O = 3.333 / 3.333 = 1',
+      'Hence, the empirical formula is CH₂O.',
+      'Step 3: Empirical formula mass = 12 + (2 × 1) + 16 = 30 g/mol.',
+      'Step 4: Molecular mass M = 2 × Vapor Density = 2 × 30 = 60 g/mol.',
+      'Multiplier n = 60 / 30 = 2.',
+      'Molecular formula = (CH₂O)₂ = C₂H₄O₂ (Ethanoic acid / Acetic acid).',
+    ],
+    finalAnswer: 'The empirical formula is CH₂O and the molecular formula is C₂H₄O₂.',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'What is the standard molar gas volume at STP according to NCTB?',
+    answer: 'Under National Curriculum and Textbook Board (NCTB) secondary chemistry guidelines, standard temperature and pressure (STP: 0°C or 273 K and 1 atm) dictates that 1 mole of any ideal gas occupies exactly 22.4 liters (22.4 dm³). This calculator implements n = V / 22.4 for all gas conversions.',
+  },
+  {
+    question: 'How do I handle volume units in the molarity equation?',
+    answer: 'When solution volume is provided in milliliters (mL or cm³), use the standard formula W = (S × V × M) / 1000, where W is solute mass in grams, S is molar concentration in mol/L, V is in mL, and M is molar mass in g/mol. For dilution problems, V₁S₁ = V₂S₂ applies.',
+  },
+  {
+    question: 'What is the thermodynamic significance of positive vs. negative ΔH?',
+    answer: 'Reaction enthalpy is calculated as ΔH = (Energy to break reactant bonds) - (Energy released forming product bonds). A negative ΔH (ΔH < 0) denotes an exothermic reaction releasing heat into surroundings. A positive ΔH (ΔH > 0) denotes an endothermic reaction absorbing heat from surroundings.',
+  },
+  {
+    question: 'How can I calculate complex chemical formulas on a Casio scientific calculator?',
+    answer: 'On Casio fx-991EX (ClassWiz) or fx-991CW, you can enter compound formula calculations directly using parentheses (e.g. 63.55 + 32.07 + 4×16 + 5×(2×1.01 + 16) for CuSO₄·5H₂O) without intermediate rounding errors.',
+  },
+];
+---
+
+<ToolLayout
+  title="SSC Chemistry Complete Solution & Equation Suite — Biggan.me"
+  metaDescription="All-in-one NCTB SSC Chemistry quantitative solver covering Graham's Law, Bohr Model, Mole & Molarity, Empirical Formula, Limiting Reactants, Oxidation Numbers, Bond Energy ΔH, pH, and Hydrocarbons."
+  toolName="SSC Chemistry Equation & Solution Suite"
+  toolCategory="Chemistry (SSC Chemistry)"
+  curriculumTags={['NCTB SSC Chemistry (Classes 9-10)', 'Mole & Molarity (W = SVM/1000)', 'Reaction Enthalpy (ΔH)', 'Oxidation & Titration']}
+  topicId="molar-mass"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <ChemistryCalculator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4 text-slate-300">
+      <h3 class="text-base font-bold text-white">NCTB SSC Chemistry Quantitative Formula Cheat Sheet</h3>
+      <p class="text-sm">
+        Scoring full marks in secondary chemistry requires complete mastery over quantitative formulas across Chapters 2, 3, 6, 7, 8, 9, and 11. Below is the comprehensive standardized formula bank:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 2: States of Matter (Graham's Law)</span>
+          <p>• Diffusion rate vs Molar mass: r₁ / r₂ = √(M₂ / M₁)</p>
+          <p>• Diffusion time vs Molar mass: t₁ / t₂ = √(M₁ / M₂)</p>
+          <p>• Heavier gases diffuse more slowly than lighter gases (r ∝ 1/√M)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 3: Structure of Matter (Bohr & Isotopes)</span>
+          <p>• Average atomic mass: A_avg = Σ (A_i × p_i) / 100</p>
+          <p>• Bohr angular momentum: mvr = (n × h) / (2π)</p>
+          <p>• Planck's constant: h = 6.626 × 10⁻³⁴ J·s</p>
+          <p>• Orbital electron capacity: 2n² (subshells: s=2, p=6, d=10, f=14)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 6: Mole Concept & Molarity</span>
+          <p>• Unified mole formula: n = W / M = V / 22.4 = N / (6.023 × 10²³)</p>
+          <p>• Solution molarity: W = (S × V × M) / 1000</p>
+          <p>• Percentage composition: %Element = (n × Ar / Mr) × 100%</p>
+          <p>• Solution dilution: V₁S₁ = V₂S₂</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 6: Empirical Formula & Limiting Reactant</span>
+          <p>• Atom ratio: ratio = %mass / Ar</p>
+          <p>• Molecular formula: (Empirical Formula)_n where n = M / M_empirical</p>
+          <p>• Vapor density relation: Molar mass = 2 × Vapor Density (M = 2D)</p>
+          <p>• Limiting reactant: min(n_i / stoichiometric_coefficient)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 7: Chemical Reactions (Oxidation Numbers)</span>
+          <p>• Neutral compound sum of oxidation numbers = 0</p>
+          <p>• Polyatomic ion sum of oxidation numbers = ionic charge</p>
+          <p>• Oxidation = Loss of electrons (LEO)</p>
+          <p>• Reduction = Gain of electrons (GER)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 8: Chemistry & Energy (Bond Energy & ΔH)</span>
+          <p>• Reaction enthalpy: ΔH = Σ B_broken - Σ B_formed</p>
+          <p>• ΔH < 0 indicates an exothermic reaction</p>
+          <p>• ΔH > 0 indicates an endothermic reaction</p>
+          <p>• Core bond energies (kJ/mol): C-H: 414, Cl-Cl: 244, C-Cl: 326, H-Cl: 431, O=O: 498, O-H: 464</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 9: Acid-Base Equilibrium (pH & Titration)</span>
+          <p>• Hydronium concentration: pH = -log₁₀[H⁺]</p>
+          <p>• Hydroxide concentration: pOH = -log₁₀[OH⁻]</p>
+          <p>• Water ion product at 25°C: pH + pOH = 14</p>
+          <p>• Neutralization titration: (V_A × S_A) / a = (V_B × S_B) / b</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-teal-400 font-bold block text-sm">Chapter 11: Mineral Resources — Fossils (Hydrocarbons)</span>
+          <p>• Alkanes: C_n H_(2n+2) (saturated paraffins)</p>
+          <p>• Alkenes: C_n H_(2n) (double bonded olefins)</p>
+          <p>• Alkynes: C_n H_(2n-2) (triple bonded acetylenes)</p>
+          <p>• Methane (CH₄), Ethane (C₂H₆), Propane (C₃H₈), Butane (C₄H₁₀)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <div class="space-y-3 text-slate-300">
+      <h4 class="text-white font-bold text-sm">Board Exam Pitfalls & Scoring Recommendations:</h4>
+      <ul class="list-disc list-inside space-y-1.5 text-xs">
+        <li><strong>Volume Units:</strong> STP molar volume is 22.4 L. Always verify whether volume is stated in milliliters (mL) or liters (L) before substitution. 1000 mL = 1 L = 1 dm³.</li>
+        <li><strong>Hydrated Salts:</strong> When determining the molar mass of hydrated crystals (e.g. CuSO₄·5H₂O), remember to include all water of crystallization (5 × 18.015 = 90.075 g/mol).</li>
+        <li><strong>Limiting Reactant Identification:</strong> Never identify the limiting reactant by comparing initial masses directly. You must convert both reactants to moles and normalize by their stoichiometric coefficients.</li>
+        <li><strong>Bond Counting:</strong> Sketch structural diagrams to verify the exact number of covalent bonds. For example, O₂ contains an O=O double bond (498 kJ/mol) and CO₂ contains two C=O double bonds.</li>
+        <li><strong>Offline CLI Tool:</strong> For offline study or scripting, run our standalone Python CLI (<code class="text-teal-400">scripts/ssc_chemistry_calculator.py</code>) on your local computer.</li>
+      </ul>
+    </div>
+  </div>
+</ToolLayout>
