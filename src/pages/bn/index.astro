@@ -2,371 +2,336 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSlot from '../../components/ads/AdSlot.astro';
 import { getLocalizedPath } from '../../i18n/utils';
+import { QuickSolverPreview } from '../../components/home/QuickSolverPreview';
 
-const stats = [
-  { value: '১৪টি', label: 'ক্যালকুলেটর ও সিমুলেটর', icon: '⚡' },
-  { value: '৬টি', label: 'STEM বিষয় ও সিলেবাস', icon: '📚' },
-  { value: '১০০%', label: 'ধাপে ধাপে KaTeX প্রতিপাদন', icon: '📝' },
-  { value: '০ms', label: 'ক্লায়েন্ট-সাইড অফলাইন হিসাব', icon: '🚀' },
-];
-
-const subjectCategories = [
+const sscSubjects = [
   {
     id: 'physics',
     name: 'পদার্থবিজ্ঞান',
-    level: 'SSC ও HSC',
-    icon: '⚡',
-    color: 'from-blue-600/20 to-cyan-600/20 border-cyan-500/30 text-cyan-400',
-    desc: 'গতিবিদ্যা, বল, কাজ-ক্ষমতা-শক্তি, তাপ, তরঙ্গ, আলো ও চলবিদ্যুৎ সমীকরণ।',
+    chapters: '১৩টি অধ্যায়',
+    topics: 'গতি, বল (F=ma), কাজ-শক্তি, পদার্থের অবস্থা ও চাপ, তরঙ্গ ও শব্দ, আলো, চলবিদ্যুৎ',
     link: getLocalizedPath('/tools/physics', 'bn'),
-    toolsCount: '৩টি টুলস',
-    highlightTool: '১৩টি অধ্যায় সমাধান',
+    icon: '⚡',
+    color: 'border-blue-500/40 text-blue-400 bg-blue-500/10',
+  },
+  {
+    id: 'higher-math',
+    name: 'উচ্চতর গণিত',
+    chapters: '১৪টি অধ্যায়',
+    topics: 'এ্যাপোলোনিওস উপপাদ্য, দ্বিঘাত সমীকরণ, অসীম গুণোত্তর ধারা, দ্বিপদী বিস্তৃতি, স্থানাঙ্ক জ্যামিতি',
+    link: getLocalizedPath('/tools/higher-math', 'bn'),
+    icon: '📐',
+    color: 'border-amber-500/40 text-amber-400 bg-amber-500/10',
   },
   {
     id: 'chemistry',
     name: 'রসায়ন',
-    level: 'SSC ও HSC',
-    icon: '⚗️',
-    color: 'from-emerald-600/20 to-teal-600/20 border-emerald-500/30 text-emerald-400',
-    desc: 'মোল ধারণা, মোলারিটি, গ্রাহামের ব্যাপন, বোর মডেল, সীমিত বিক্রিয়ক, ΔH ও pH।',
+    chapters: '১২টি অধ্যায়',
+    topics: 'মোল ধারণা, মোলারিটি (S=1000w/MV), ব্যাপন হার, বোর মডেল, সীমিত বিক্রিয়ক, বন্ধন শক্তি (ΔH), pH',
     link: getLocalizedPath('/tools/chemistry', 'bn'),
-    toolsCount: '৩টি টুলস',
-    highlightTool: 'পরিমাণগত রসায়ন ইঞ্জিন',
+    icon: '⚗️',
+    color: 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10',
   },
   {
-    id: 'math',
-    name: 'গণিত ও উচ্চতর গণিত',
-    level: 'SSC ৯ম-১০ম',
-    icon: '📐',
-    color: 'from-amber-600/20 to-orange-600/20 border-amber-500/30 text-amber-400',
-    desc: 'পরিসংখ্যান (গড়, মধ্যক, প্রচুরক), ত্রিকোণমিতি, এ্যাপোলোনিওস, ধারা ও স্থানাঙ্ক।',
-    link: getLocalizedPath('/tools/higher-math', 'bn'),
-    toolsCount: '৩টি টুলস',
-    highlightTool: '১৪ অধ্যায় উচ্চতর গণিত',
+    id: 'general-math',
+    name: 'সাধারণ গণিত ও পরিসংখ্যান',
+    chapters: 'বোর্ড স্পেশাল',
+    topics: 'ক্রমযোজিত গণসংখ্যা সারণী, সংক্ষিপ্ত গড়, মধ্যক, প্রচুরক, ত্রিকোণমিতিক উচ্চতা-দূরত্ব, পরিমিতি',
+    link: getLocalizedPath('/tools/general-math', 'bn'),
+    icon: '➕',
+    color: 'border-cyan-500/40 text-cyan-400 bg-cyan-500/10',
   },
   {
     id: 'biology',
     name: 'জীববিজ্ঞান',
-    level: 'SSC ৯ম-১০ম',
-    icon: '🧬',
-    color: 'from-rose-600/20 to-pink-600/20 border-rose-500/30 text-rose-400',
-    desc: 'বিএমআই, বিএমআর ও ক্যালোরি, গ্লুকোজ জারণের এটিপি, পুনেট স্কয়ার ও শক্তি পিরামিড।',
+    chapters: '১৪টি অধ্যায়',
+    topics: 'বিএমআই, হ্যারিস-বেনেডিক্ট BMR ও ক্যালোরি, গ্লুকোজ জারণে নিট ৩৮ ATP, ২×২ পুনেট স্কয়ার',
     link: getLocalizedPath('/tools/biology', 'bn'),
-    toolsCount: '১টি ফ্ল্যাগশিপ',
-    highlightTool: 'পরিমাণগত জীববিজ্ঞান',
-  },
-  {
-    id: 'ict',
-    name: 'আইসিটি ল্যাবরেটরি',
-    level: 'HSC আইসিটি',
-    icon: '💻',
-    color: 'from-violet-600/20 to-purple-600/20 border-violet-500/30 text-violet-400',
-    desc: 'HTML5 এডিটর, ডিজিটাল লজিক গেট সার্কিট, সি কোড মেমরি ট্রেসার ও SQL কুয়েরি।',
-    link: getLocalizedPath('/tools/c-runner', 'bn'),
-    toolsCount: '৪টি সিমুলেটর',
-    highlightTool: 'সি মেমরি ড্রাই-রান',
+    icon: '🧬',
+    color: 'border-rose-500/40 text-rose-400 bg-rose-500/10',
   },
 ];
 
-const flagshipTools = [
+const hscTools = [
   {
-    id: 'physics',
-    name: 'এসএসসি পদার্থবিজ্ঞান পূর্ণাঙ্গ সমাধান ইঞ্জিন',
-    desc: '১৩টি অধ্যায়ের প্রতিটি সূত্রের উভয়মুখী রূপান্তর (F=ma, v=u+at, s=vt, H=msΔθ, V=IR)।',
-    icon: '⚡',
-    badge: 'ফ্ল্যাগশিপ ইঞ্জিন',
-    tag: 'SSC Physics 1-13',
-    accent: 'cyan',
+    name: 'লজিক গেট সার্কিট ডিজাইনার',
+    desc: 'AND, OR, NOT, NAND, NOR, XOR গেটের লাইভ ট্রুথ টেবিল ও আউটপুট ভোল্টেজ',
+    link: getLocalizedPath('/tools/circuit-simulator', 'bn'),
+    icon: '🔌',
   },
   {
-    id: 'higher-math',
-    name: 'এসএসসি উচ্চতর গণিত প্রমাণ ও সমাধান ইঞ্জিন',
-    desc: 'এ্যাপোলোনিওস উপপাদ্য, দ্বিঘাত সমীকরণ, অসীম ধারা, দ্বিপদী বিস্তৃতি ও Shoelace ক্ষেত্রফল।',
-    icon: '📐',
-    badge: 'ফ্ল্যাগশিপ গণিত',
-    tag: 'SSC Higher Math 1-14',
-    accent: 'amber',
-  },
-  {
-    id: 'chemistry',
-    name: 'এসএসসি রসায়ন সমীকরণ ও হিসাব ইঞ্জিন',
-    desc: 'মোলার ভর, মোলারিটি, সীমিত বিক্রিয়ক, তাপরাসায়নিক বন্ধন শক্তি (ΔH) ও পানির pH পরিমাপক।',
-    icon: '⚗️',
-    badge: 'ফ্ল্যাগশিপ রসায়ন',
-    tag: 'SSC Chemistry 1-12',
-    accent: 'emerald',
-  },
-  {
-    id: 'general-math',
-    name: 'এসএসসি সাধারণ গণিত ও পরিসংখ্যান সমাধানকারী',
-    desc: 'গ্রুপড উপাত্তের গড়, মধ্যক, প্রচুরক সারণী, ত্রিকোণমিতিক উচ্চতা-দূরত্ব ও পরিমিতি।',
-    icon: '➕',
-    badge: 'বোর্ড স্পেশাল',
-    tag: 'SSC General Math',
-    accent: 'blue',
-  },
-  {
-    id: 'biology',
-    name: 'এসএসসি জীববিজ্ঞান পরিমাণগত ক্যালকুলেটর',
-    desc: 'হ্যারিস-বেনেডিক্ট BMR ও দৈনিক ক্যালোরি, ক্রেবস চক্রের ATP হিসাব ও ২×২ পুনেট স্কয়ার।',
-    icon: '🧬',
-    badge: 'নতুন ফ্ল্যাগশিপ',
-    tag: 'SSC Biology 1-14',
-    accent: 'rose',
-  },
-  {
-    id: 'c-runner',
-    name: 'সি প্রোগ্রামিং মেমরি ট্রেসার ও ড্রাই-রান',
-    desc: 'লুপ ও কন্ডিশনাল কোডের ধাপে ধাপে এক্সিকিউশন, লাইভ RAM ভ্যারিয়েবল রেজিস্টার টেবিল।',
+    name: 'সি প্রোগ্রামিং মেমরি ড্রাই-রান',
+    desc: 'লুপ ও কন্ডিশনাল কোডের ধাপে ধাপে এক্সিকিউশন ও লাইভ RAM ভ্যারিয়েবল টেবিল',
+    link: getLocalizedPath('/tools/c-runner', 'bn'),
     icon: '💻',
-    badge: 'আইসিটি ৫ম অধ্যায়',
-    tag: 'HSC ICT C-Code',
-    accent: 'violet',
+  },
+  {
+    name: 'HTML5 এডিটর ও লাইভ প্রিভিউ',
+    desc: 'এইচএসসি ৩য় অধ্যায়ের ট্যাগ ও টেবিল কোডিং সরাসরি ব্রাউজারে অনুশীলন',
+    link: getLocalizedPath('/tools/html-runner', 'bn'),
+    icon: '🌐',
+  },
+  {
+    name: 'SQL ডেটাবেজ সিমুলেটর',
+    desc: 'SELECT, WHERE, JOIN এবং ডেটাবেজ রিলেশনশিপ টেবিল কোয়েরি সিমুলেটর',
+    link: getLocalizedPath('/tools/database-simulator', 'bn'),
+    icon: '🗄️',
   },
 ];
 ---
 
 <BaseLayout
   title="Biggan.me — বিজ্ঞান ও গণিত সমস্যা সমাধান ও গাণিতিক টুলস"
-  description="NCTB ও NCERT কারিকুলাম ভিত্তিক বৈজ্ঞানিক ক্যালকুলেটর, ধাপে ধাপে সমীকরণ প্রতিপাদন, কাসিও fx-991 কি-স্ট্রোক গাইড এবং দ্বৈতভাষিক সায়েন্স ডিকশনারি।"
+  description="NCTB ৯ম-১০ম ও একাদশ-দ্বাদশ শ্রেণির পদার্থবিজ্ঞান, উচ্চতর গণিত, রসায়ন, জীববিজ্ঞান ও আইসিটির প্রতিটি অধ্যায়ের নির্ভুল হিসাব, সূত্র এবং অনুমোদিত কাসিও fx-991 কি-স্ট্রোক সহায়িকা।"
   lang="bn"
 >
   <div class="space-y-16">
-    <!-- Hero Section -->
-    <section class="text-center space-y-6 pt-4 sm:pt-10 max-w-4xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-        দক্ষিণ এশিয়ার প্রথম দ্বৈতভাষিক STEM কম্পিউটেশনাল প্ল্যাটফর্ম
-      </div>
-
-      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight sm:leading-tight">
-        বিজ্ঞান ও গণিতের প্রতিটি ধাপ <br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
-          স্পষ্ট, নির্ভুল ও পরীক্ষা-প্রস্তুত
-        </span>
-      </h1>
-
-      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        বোর্ড পরীক্ষায় পূর্ণ নম্বর অর্জনের উপযোগী সম্পূর্ণ সমীকরণ প্রতিপাদন, আন্তর্জাতিক একক বিশ্লেষণ এবং অনুমোদিত কাসিও fx-991 সায়েন্টিফিক ক্যালকুলেটরের বোতাম টেপার বাস্তব গাইড।
-      </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <a
-          href={getLocalizedPath('/tools', 'bn')}
-          class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-95 text-white font-bold text-sm transition shadow-lg shadow-cyan-900/30 flex items-center gap-2"
-        >
-          <span>🚀 সকল ক্যালকুলেটর অন্বেষণ করুন</span>
-          <span>→</span>
-        </a>
-        <a
-          href={getLocalizedPath('/formulas', 'bn')}
-          class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition flex items-center gap-2"
-        >
-          <span>📜 সূত্র সংকলন (Formula Sheet)</span>
-        </a>
-      </div>
-
-      <!-- Live Stats Bar -->
-      <div class="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
-        {stats.map((s) => (
-          <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm flex flex-col items-center justify-center hover:border-slate-700 transition">
-            <span class="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-              {s.value}
-            </span>
-            <span class="text-xs text-slate-400 text-center mt-0.5">
-              {s.label}
-            </span>
+    <!-- Asymmetric Product-First Hero Section -->
+    <section class="pt-4 sm:pt-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+        <!-- Left Column: Grounded Editorial Value & Fast Jumps -->
+        <div class="lg:col-span-7 space-y-5 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            NCTB ৯ম-১০ম ও একাদশ-দ্বাদশ শ্রেণি
           </div>
-        ))}
-      </div>
 
-      <!-- Curriculum Trust Badges -->
-      <div class="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
-        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          🇧🇩 NCTB (SSC ও HSC)
-        </span>
-        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          🇮🇳 NCERT & WBCHSE
-        </span>
-        <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          🎓 BUET, DU & মেডিকেল
-        </span>
+          <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+            বিজ্ঞান ও গণিতের সমস্যা <br class="hidden sm:inline" />
+            সমাধান করুন ধাপে ধাপে
+          </h1>
+
+          <p class="text-base text-slate-300 leading-relaxed max-w-xl">
+            পদার্থবিজ্ঞান, রসায়ন, উচ্চতর গণিত, সাধারণ গণিত ও জীববিজ্ঞানের প্রতিটি অধ্যায়ের নির্ভুল হিসাব — সূত্র প্রতিপাদন, এসআই একক এবং অনুমোদিত কাসিও fx-991 ক্যালকুলেটরের কি-স্ট্রোকসহ।
+          </p>
+
+          <!-- Quick Subject Filter Pills -->
+          <div class="space-y-2 pt-1">
+            <span class="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">
+              সরাসরি বিষয়ে যান:
+            </span>
+            <div class="flex flex-wrap gap-2">
+              <a href={getLocalizedPath('/tools/physics', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>⚡</span> পদার্থবিজ্ঞান
+              </a>
+              <a href={getLocalizedPath('/tools/chemistry', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>⚗️</span> রসায়ন
+              </a>
+              <a href={getLocalizedPath('/tools/higher-math', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>📐</span> উচ্চতর গণিত
+              </a>
+              <a href={getLocalizedPath('/tools/general-math', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>➕</span> সাধারণ গণিত
+              </a>
+              <a href={getLocalizedPath('/tools/biology', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>🧬</span> জীববিজ্ঞান
+              </a>
+              <a href={getLocalizedPath('/tools/c-runner', 'bn')} class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-800 hover:border-slate-700 transition flex items-center gap-1.5">
+                <span>💻</span> আইসিটি
+              </a>
+            </div>
+          </div>
+
+          <!-- Secondary Links -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href={getLocalizedPath('/tools', 'bn')}
+              class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs transition"
+            >
+              সকল ১৪টি ক্যালকুলেটর দেখুন →
+            </a>
+            <a
+              href={getLocalizedPath('/formulas', 'bn')}
+              class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-300 border border-slate-800 text-xs font-medium transition"
+            >
+              সূত্র সংকলন (Formula Sheet)
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Actual Live Working Product Demo Widget -->
+        <div class="lg:col-span-5">
+          <QuickSolverPreview client:load lang="bn" />
+        </div>
       </div>
     </section>
 
     <!-- Ad Placeholder -->
     <AdSlot slotType="banner" slotId="home-hero-bottom" />
 
-    <!-- Subject Category Showcase Tiles -->
+    <!-- Section 1: SSC Class 9-10 Subject Directory -->
     <section class="space-y-6">
-      <div class="border-b border-slate-800 pb-4">
-        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
-          <span>📚</span> বিষয়ভিত্তিক কারিকুলাম ডিরেক্টরি
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">
-          আপনার পঠিত বিষয় অনুযায়ী সাজানো সমীকরণ সমাধানকারী ও ল্যাব সিমুলেটর সমূহ
-        </p>
+      <div class="border-b border-slate-800 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <span>📚</span> এসএসসি বিষয়ভিত্তিক ক্যালকুলেটর (৯ম-১০ম শ্রেণি)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            NCTB পাঠ্যবইয়ের প্রতিটি অধ্যায়ের সূত্র, চলক পরিবর্তন ও ধাপসহ সমাধান
+          </p>
+        </div>
+        <span class="text-xs font-mono text-slate-500">৫টি মূল বিষয়</span>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {subjectCategories.map((cat) => (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sscSubjects.map((sub) => (
           <a
-            href={cat.link}
-            class={`group relative p-5 rounded-2xl bg-gradient-to-br ${cat.color} bg-slate-900/70 border hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg`}
+            href={sub.link}
+            class="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition flex flex-col justify-between space-y-4 group"
           >
-            <div class="space-y-3">
+            <div class="space-y-2.5">
               <div class="flex items-center justify-between">
-                <span class="text-3xl p-2 rounded-xl bg-slate-950/80 border border-slate-800">
-                  {cat.icon}
-                </span>
-                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-950/90 text-slate-300 border border-slate-800">
-                  {cat.level}
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">{sub.icon}</span>
+                  <h3 class="font-bold text-white text-base group-hover:text-cyan-400 transition">
+                    {sub.name}
+                  </h3>
+                </div>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800">
+                  {sub.chapters}
                 </span>
               </div>
-              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition">
-                {cat.name}
-              </h3>
+
               <p class="text-xs text-slate-400 leading-relaxed">
-                {cat.desc}
+                {sub.topics}
               </p>
             </div>
-            <div class="pt-4 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs font-semibold text-cyan-400">
-              <span>{cat.highlightTool}</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
+
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 group-hover:text-cyan-400 transition">
+              <span>ক্যালকুলেটর খুলুন</span>
+              <span>→</span>
             </div>
           </a>
         ))}
       </div>
     </section>
 
-    <!-- Featured Spotlight Tool Banner -->
-    <section class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/50 via-slate-900 to-cyan-950/50 border border-cyan-500/30 space-y-4 shadow-xl">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-            ⭐ বোর্ড স্পেশাল ফ্ল্যাগশিপ
-          </span>
-          <span class="text-xs text-slate-400 font-mono">NCTB SSC ২০২৫/২০২৬</span>
-        </div>
-        <span class="text-xs text-slate-400">কাসিও fx-991 কি-স্ট্রোক অন্তর্ভুক্ত</span>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        <div class="lg:col-span-2 space-y-2">
-          <h3 class="text-xl sm:text-2xl font-black text-white">
-            এসএসসি পদার্থবিজ্ঞান ও উচ্চতর গণিত পূর্ণাঙ্গ সমাধান ইঞ্জিন
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            পাঠ্যবইয়ের ১৩টি পদার্থবিজ্ঞান অধ্যায় এবং ১৪টি উচ্চতর গণিত অধ্যায়ের প্রতিটি সূত্রের ধাপে ধাপে রূপান্তর, LaTeX সমীকরণ প্রতিপাদন ও বিগত ১০ বছরের বোর্ড পরীক্ষার গাণিতিক সমাধান।
-          </p>
-        </div>
-        <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 justify-center">
-          <a
-            href={getLocalizedPath('/tools/physics', 'bn')}
-            class="px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs text-center transition shadow-lg shadow-cyan-950/50"
-          >
-            ⚡ পদার্থবিজ্ঞান ইঞ্জিন চালু করুন
-          </a>
-          <a
-            href={getLocalizedPath('/tools/higher-math', 'bn')}
-            class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs text-center transition"
-          >
-            📐 উচ্চতর গণিত ইঞ্জিন চালু করুন
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Flagship Calculators Grid -->
+    <!-- Section 2: HSC Class 11-12 ICT Simulators -->
     <section class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800 pb-4">
+      <div class="border-b border-slate-800 pb-3 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
         <div>
-          <h2 class="text-2xl font-bold text-white">প্রধান বৈজ্ঞানিক ক্যালকুলেটর সমূহ</h2>
-          <p class="text-xs text-slate-400 mt-1">
-            বোর্ড পরীক্ষা ও প্রবেশিকা পরীক্ষার সিলেবাস অনুযায়ী সাজানো স্বয়ংক্রিয় সমাধানকারী
+          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+            <span>💻</span> এইচএসসি আইসিটি সিমুলেটর ল্যাব (একাদশ-দ্বাদশ শ্রেণি)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            লজিক গেট, সি প্রোগ্রামিং মেমরি ড্রাই-রান, এইচটিএমএল এবং এসকিউএল অনুশীলন
           </p>
         </div>
-        <a href={getLocalizedPath('/tools', 'bn')} class="text-xs font-semibold text-cyan-400 hover:underline">
-          সবগুলো ১৪টি টুল দেখুন →
-        </a>
+        <span class="text-xs font-mono text-slate-500">৪টি ল্যাব সিমুলেটর</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {flagshipTools.map((tool) => (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {hscTools.map((tool) => (
           <a
-            href={getLocalizedPath(`/tools/${tool.id}`, 'bn')}
-            class="group bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+            href={tool.link}
+            class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition flex flex-col justify-between space-y-3 group"
           >
-            <div class="space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl p-2.5 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
-                  {tool.icon}
-                </span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
-                  {tool.badge}
-                </span>
-              </div>
-
-              <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition leading-snug">
+            <div class="space-y-2">
+              <span class="text-2xl block">{tool.icon}</span>
+              <h3 class="font-bold text-white text-sm group-hover:text-cyan-400 transition">
                 {tool.name}
               </h3>
-
               <p class="text-xs text-slate-400 leading-relaxed">
                 {tool.desc}
               </p>
             </div>
-
-            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-cyan-400 font-medium">
-              <span class="text-slate-400 text-[11px] font-mono">{tool.tag}</span>
-              <span class="group-hover:translate-x-1 transition-transform font-bold">ধাপে ধাপে সমাধান →</span>
-            </div>
+            <span class="text-xs text-cyan-400 font-medium pt-2">
+              সিমুলেটর চালু করুন →
+            </span>
           </a>
         ))}
       </div>
     </section>
 
-    <!-- Why Biggan.me Pillars -->
-    <section class="bg-slate-900/60 border border-slate-800 rounded-3xl p-8 sm:p-12 space-y-8">
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-          কেন Biggan.me অন্যান্য ক্যালকুলেটর থেকে সম্পূর্ণ আলাদা?
+    <!-- Section 3: Essential Study & Revision Hubs -->
+    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-lg sm:text-xl font-bold text-white">
+          দ্রুত রিভিশন ও রেফারেন্স টুলস
         </h2>
-        <p class="text-xs sm:text-sm text-slate-400">
-          প্রথাগত গাণিতিক টুলস এবং দক্ষিণ এশিয়ার শিক্ষার্থীদের বাস্তব একাডেমিক চাহিদার মধ্যকার দূরত্ব দূরীকরণে আমাদের উদ্ভাবন
+        <p class="text-xs text-slate-400 mt-0.5">
+          পরীক্ষার প্রস্তুতি ও বোর্ড পরীক্ষার জন্য জরুরি রেফারেন্স সংকলন
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg border border-amber-500/20">
-            ⌨️
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <a
+          href={getLocalizedPath('/periodic-table', 'bn')}
+          class="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition space-y-2 block"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🧪</span>
+            <h3 class="font-bold text-white text-sm">১১৮ মৌলের পর্যায় সারণি</h3>
           </div>
-          <h3 class="font-bold text-white text-base">কাসিও fx-991 কি-স্ট্রোক গাইড</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            পরীক্ষার হলে স্মার্টফোন নেওয়া নিষিদ্ধ। তাই প্রতিটি সমীকরণের নিচে কাসিও fx-991CW, fx-991EX, fx-991ES PLUS ও fx-100MS ক্যালকুলেটরে বোতাম টেপার বাস্তব অনুক্রম প্রদর্শিত হয়।
+          <p class="text-slate-400 leading-relaxed">
+            IUPAC স্বীকৃত ১১৮টি মৌল, ছন্দে ছন্দে মনে রাখার টেকনিক, ল্যাটিন নাম ও যোজ্যতা চার্ট।
           </p>
-        </div>
+          <span class="text-cyan-400 font-medium inline-block pt-1">সারণি দেখুন →</span>
+        </a>
 
-        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-lg border border-cyan-500/20">
-            📝
+        <a
+          href={getLocalizedPath('/formulas', 'bn')}
+          class="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition space-y-2 block"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📜</span>
+            <h3 class="font-bold text-white text-sm">সূত্র সংকলন (Formula Sheet)</h3>
           </div>
-          <h3 class="font-bold text-white text-base">খাতার পাতায় লেখার উপযোগী ধাপ</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            শুধু একটি চূড়ান্ত সংখ্যা নয়, বোর্ড পরীক্ষার খাতায় যেভাবে সূত্র লিখে ধাপে ধাপে মান বসিয়ে উত্তর করতে হয়—LaTeX ফরম্যাটে ঠিক সেভাবেই সমাধান প্রতিপাদিত হয়।
+          <p class="text-slate-400 leading-relaxed">
+            পদার্থ, রসায়ন, গণিত ও আইসিটির প্রয়োজনীয় সব সূত্র এক পাতায় — প্রিন্ট ও পিডিএফ উপযোগী।
           </p>
-        </div>
+          <span class="text-cyan-400 font-medium inline-block pt-1">সূত্রাবলী দেখুন →</span>
+        </a>
 
-        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/20">
-            ⚡
+        <a
+          href={getLocalizedPath('/my-progress', 'bn')}
+          class="p-4 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition space-y-2 block"
+        >
+          <div class="flex items-center gap-2">
+            <span class="text-xl">✅</span>
+            <h3 class="font-bold text-white text-sm">অধ্যায় রিভিশন ট্র্যাকার</h3>
           </div>
-          <h3 class="font-bold text-white text-base">১০০% ক্লায়েন্ট-সাইড ও লো-ডেটা</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            কোনো ভারী ভিডিও বা ডেটাকবলক অ্যাপ ছাড়াই ২জি বা ৩জি মোবাইল নেটওয়ার্কেও নিমিষে পেজ লোড হয় এবং সম্পূর্ণ অফলাইনে দ্রুত হিসাব সম্পন্ন করে।
+          <p class="text-slate-400 leading-relaxed">
+            কোন কোন অধ্যায় সমাধান ও রিভিশন সম্পন্ন হলো তা ব্রাউজারেই চিহ্নিত করে রাখার ব্যবস্থা।
           </p>
+          <span class="text-cyan-400 font-medium inline-block pt-1">অগ্রগতি দেখুন →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 4: Authentic Curriculum Standards (Zero Fake Social Proof) -->
+    <section class="border border-slate-800/80 rounded-2xl p-6 bg-slate-950 text-xs text-slate-400 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <span class="font-bold text-slate-300 text-sm">
+          পাঠ্যবই ও পরীক্ষার মানদণ্ড (Curriculum Conventions)
+        </span>
+        <span class="font-mono text-[11px] text-slate-500">
+          NCTB SSC & HSC Syllabus Mapped
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 font-mono">
+        <div class="space-y-1">
+          <span class="text-slate-500 block text-[10px]">অভিকর্ষজ ত্বরণ:</span>
+          <span class="text-slate-200 font-semibold">g = 9.8 m/s²</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-slate-500 block text-[10px]">অ্যাভোগাড্রো সংখ্যা:</span>
+          <span class="text-slate-200 font-semibold">N_A = 6.023 × 10²³</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-slate-500 block text-[10px]">STP তে মোলার আয়তন:</span>
+          <span class="text-slate-200 font-semibold">V_m = 22.4 L/mol</span>
+        </div>
+        <div class="space-y-1">
+          <span class="text-slate-500 block text-[10px]">পানির ঘনত্ব (4°C):</span>
+          <span class="text-slate-200 font-semibold">ρ = 1000 kg/m³</span>
         </div>
       </div>
+
+      <p class="text-slate-500 pt-1 border-t border-slate-900 text-[11px]">
+        বি. দ্র.: সকল ক্যালকুলেশন ক্লায়েন্ট-সাইডে সম্পন্ন হয়। কোনো ব্যক্তিগত ডেটা সংগ্রহ বা লগইন করার প্রয়োজন নেই।
+      </p>
     </section>
   </div>
 </BaseLayout>
