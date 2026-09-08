@@ -1,0 +1,111 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { GasLawCalculator } from '../../../tools/gas-law/GasLawCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'Higher Secondary Chemistry (NCTB Class 12)',
+    levelBadge: 'Sample 1 • Ideal Gas Volume Calculation',
+    problemText: 'Calculate the volume occupied by 2.0 moles of CO2 at 27°C and 1.5 atm pressure. [R = 0.0821 L·atm/(mol·K)]',
+    givenData: [
+      'P = 1.5 atm',
+      'n = 2.0 mol',
+      'T = 27°C = 300.15 K',
+      'R = 0.0821 L·atm/(mol·K)',
+    ],
+    solutionSteps: [
+      'Ideal gas equation: PV = nRT',
+      'V = (nRT) / P',
+      'V = (2 × 0.0821 × 300.15) / 1.5',
+      'V = 49.2846 / 1.5 = 32.86 L',
+    ],
+    finalAnswer: 'Gas volume = 32.86 Liters',
+  },
+  {
+    level: 'Higher Secondary Physics (NCTB Class 11)',
+    levelBadge: 'Sample 2 • Oxygen Molecule RMS Speed',
+    problemText: 'Determine the root-mean-square (RMS) velocity of oxygen (O2) molecules at 27°C. [R = 8.314 J/(mol·K), M = 32 g/mol]',
+    givenData: [
+      'T = 27°C = 300.15 K',
+      'M = 32 g/mol = 0.032 kg/mol',
+      'R = 8.314 J/(mol·K)',
+    ],
+    solutionSteps: [
+      'RMS formula: c_rms = √(3RT / M)',
+      'c_rms = √[(3 × 8.314 × 300.15) / 0.032]',
+      'c_rms = √233948.17 = 483.68 m/s',
+    ],
+    finalAnswer: 'RMS velocity of O2 = 483.68 m/s',
+  },
+  {
+    level: 'Engineering Admission (BUET / Medical)',
+    levelBadge: 'Sample 3 • Combined Gas Law Bubble Problem',
+    problemText: 'A bubble of volume 2.0 mL at the bottom of a lake has a pressure of 1.5 atm and temperature 10°C. If the surface conditions are 1.0 atm and 25°C, find the bubble volume at the surface.',
+    givenData: [
+      'P1 = 1.5 atm, V1 = 2 mL, T1 = 283 K',
+      'P2 = 1.0 atm, T2 = 298 K',
+    ],
+    solutionSteps: [
+      'Combined gas law: (P1 × V1) / T1 = (P2 × V2) / T2',
+      'V2 = (P1 × V1 × T2) / (P2 × T1)',
+      'V2 = (1.5 × 2 × 298) / (1.0 × 283)',
+      'V2 = 894 / 283 = 3.16 mL',
+    ],
+    finalAnswer: 'Surface bubble volume = 3.16 mL',
+  },
+];
+
+const faqs = [
+  {
+    question: 'When should R = 0.0821 L·atm/(mol·K) be used versus R = 8.314 J/(mol·K)?',
+    answer: 'Use R = 0.0821 L·atm/(mol·K) when pressure is in atmospheres (atm) and volume in liters (L). Use R = 8.314 J/(mol·K) (SI units) when working with pressure in Pascals (Pa), volume in cubic meters (m³), or computing kinetic energy and molecular RMS speed.',
+  },
+  {
+    question: 'What is the difference between STP and SATP conditions?',
+    answer: 'STP (Standard Temperature and Pressure) is defined at 0°C (273.15 K) and 1 atm (101.325 kPa), where 1 mole of ideal gas occupies 22.414 L. SATP (Standard Ambient Temperature and Pressure) is at 25°C (298.15 K) and 1 bar (100 kPa), where 1 mole occupies 24.789 L.',
+  },
+  {
+    question: 'How does gas molecular RMS speed depend on temperature and molar mass?',
+    answer: 'RMS speed is directly proportional to the square root of absolute temperature (c_rms ∝ √T) and inversely proportional to the square root of molar mass (c_rms ∝ 1/√M). Lighter gases at higher temperatures travel significantly faster.',
+  },
+];
+---
+
+<ToolLayout
+  title="Ideal Gas Law & Kinetic Theory Calculator — Biggan.me"
+  metaDescription="Online Ideal Gas Law (PV = nRT) solver, molecular RMS speed, kinetic energy, and combined gas law calculator for chemistry and physics."
+  toolName="Ideal Gas Law & Kinetic Solver"
+  toolCategory="Chemistry & Physics"
+  curriculumTags={['NCTB Chemistry Paper 2 Ch 1', 'NCTB Physics Paper 1 Ch 10', 'BUET & Medical Prep']}
+  topicId="gas-laws"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <GasLawCalculator client:load lang="en" />
+  </div>
+
+  <div slot="theory" class="space-y-4">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>💨</span> Fundamental Gas Law Formulations
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-emerald-400">Ideal Gas Equation:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="PV = nRT = \frac{w}{M}RT = N k_B T" />
+        </p>
+        <p class="text-slate-400 text-xs">Where R = 0.0821 L·atm/(mol·K) or 8.314 J/(mol·K)</p>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-cyan-400">Root-Mean-Square Speed (RMS):</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="c_{rms} = \sqrt{\frac{3RT}{M}} = \sqrt{\frac{3P}{\rho}}" />
+        </p>
+        <p class="text-slate-400 text-xs">Total kinetic energy: <Latex math="E_k = \frac{3}{2} n R T" /></p>
+      </div>
+    </div>
+  </div>
+</ToolLayout>

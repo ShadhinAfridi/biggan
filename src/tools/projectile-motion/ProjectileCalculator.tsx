@@ -1,17 +1,25 @@
 import React, { useState, useMemo } from 'react';
 import { calculateProjectile, type ProjectileResult } from './engine';
 import { Latex } from '../../components/math/Latex';
-import { Activity, Compass, Wind, ArrowUpRight, Check } from 'lucide-react';
+import { Activity, Compass, Wind, ArrowUpRight, Check, Copy } from 'lucide-react';
 
 interface Props {
   lang?: 'en' | 'bn';
 }
+
+const PROJECTILE_PRESETS = [
+  { labelBn: 'ফুটবল কিক (45°)', labelEn: 'Football Kick (45°)', v0: 25, theta: 45, y0: 0 },
+  { labelBn: 'ক্রিকেট বাউন্ডারি (35°)', labelEn: 'Cricket Six (35°)', v0: 32, theta: 35, y0: 1 },
+  { labelBn: 'পাহাড় থেকে অনুভূমিক নিক্ষেপ (0°)', labelEn: 'Cliff Horizontal (0°)', v0: 20, theta: 0, y0: 45 },
+  { labelBn: 'খাড়া উল্লম্ব নিক্ষেপ (90°)', labelEn: 'Vertical Launch (90°)', v0: 29.4, theta: 90, y0: 0 },
+];
 
 export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [v0, setV0] = useState<number>(25);
   const [theta, setTheta] = useState<number>(45);
   const [y0, setY0] = useState<number>(0);
   const [g, setG] = useState<number>(9.8);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const result = useMemo(() => {
     try {
@@ -20,6 +28,21 @@ export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
       return null;
     }
   }, [v0, theta, y0, g]);
+
+  const handleCopy = () => {
+    if (!result) return;
+    const text = `Projectile Motion Result:
+Initial Velocity: ${v0} m/s
+Launch Angle: ${theta}°
+Initial Height: ${y0} m
+Max Height (H_max): ${result.maxHeight} m
+Horizontal Range (R): ${result.range} m
+Total Flight Time (T): ${result.flightTime} s
+Impact Velocity: ${result.impactVelocity} m/s`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   // SVG Trajectory plot calculations
   const svgPath = useMemo(() => {
@@ -55,41 +78,63 @@ export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </p>
         </div>
 
-        {/* Gravity Selector */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 self-start md:self-auto">
-          <span className="text-[10px] text-slate-400 px-2 font-mono">g =</span>
+        {/* Gravity Selector & Copy Button */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+            <span className="text-[10px] text-slate-400 px-2 font-mono">g =</span>
+            <button
+              onClick={() => setG(9.8)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-mono transition ${
+                g === 9.8
+                  ? 'bg-sky-600 text-white shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              9.8 m/s² (NCTB)
+            </button>
+            <button
+              onClick={() => setG(9.81)}
+              className={`px-2.5 py-1 rounded-lg text-xs font-mono transition ${
+                g === 9.81
+                  ? 'bg-sky-600 text-white shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              9.81 m/s² (NCERT)
+            </button>
+          </div>
+
           <button
-            onClick={() => setG(9.8)}
-            className={`px-2.5 py-1 rounded-lg text-xs font-mono transition ${
-              g === 9.8
-                ? 'bg-sky-600 text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            onClick={handleCopy}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
           >
-            9.8 m/s² (NCTB)
-          </button>
-          <button
-            onClick={() => setG(9.81)}
-            className={`px-2.5 py-1 rounded-lg text-xs font-mono transition ${
-              g === 9.81
-                ? 'bg-sky-600 text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            9.81 m/s² (NCERT)
+            {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-sky-400" />}
+            {copied ? (lang === 'bn' ? 'কপি হয়েছে' : 'Copied') : (lang === 'bn' ? 'ফলাফল কপি' : 'Copy Result')}
           </button>
         </div>
       </div>
 
-      {/* Control Inputs */}
+      {/* Control Inputs: Slider + Direct Numeric Inputs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Initial Velocity v0 */}
-        <div className="space-y-1.5">
+        <div className="space-y-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
           <div className="flex justify-between items-center text-xs">
             <label className="font-medium text-slate-300">
               {lang === 'bn' ? 'আদি বেগ (v₀)' : 'Initial Velocity (v₀)'}
             </label>
-            <span className="font-mono text-sky-400 font-bold">{v0} m/s</span>
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="500"
+                step="0.5"
+                value={v0}
+                onChange={(e) => setV0(parseFloat(e.target.value) || 0)}
+                aria-label={lang === 'bn' ? 'আদি বেগ' : 'Initial Velocity'}
+                className="w-16 px-1.5 py-0.5 bg-slate-900 border border-slate-700 rounded text-right font-mono text-sky-400 font-bold text-xs outline-none focus:border-sky-500"
+              />
+              <span className="text-[10px] text-slate-400">m/s</span>
+            </div>
           </div>
           <input
             type="range"
@@ -97,17 +142,30 @@ export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             max="100"
             value={v0}
             onChange={(e) => setV0(Number(e.target.value))}
+            aria-label={lang === 'bn' ? 'আদি বেগ স্লাইডার' : 'Initial Velocity Slider'}
             className="w-full accent-sky-500 cursor-pointer"
           />
         </div>
 
         {/* Launch Angle theta */}
-        <div className="space-y-1.5">
+        <div className="space-y-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
           <div className="flex justify-between items-center text-xs">
             <label className="font-medium text-slate-300">
               {lang === 'bn' ? 'নিক্ষেপণ কোণ (θ)' : 'Launch Angle (θ)'}
             </label>
-            <span className="font-mono text-sky-400 font-bold">{theta}°</span>
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="90"
+                step="1"
+                value={theta}
+                onChange={(e) => setTheta(parseFloat(e.target.value) || 0)}
+                aria-label={lang === 'bn' ? 'নিক্ষেপণ কোণ' : 'Launch Angle'}
+                className="w-14 px-1.5 py-0.5 bg-slate-900 border border-slate-700 rounded text-right font-mono text-sky-400 font-bold text-xs outline-none focus:border-sky-500"
+              />
+              <span className="text-[10px] text-slate-400">°</span>
+            </div>
           </div>
           <input
             type="range"
@@ -115,17 +173,30 @@ export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             max="90"
             value={theta}
             onChange={(e) => setTheta(Number(e.target.value))}
+            aria-label={lang === 'bn' ? 'নিক্ষেপণ কোণ স্লাইডার' : 'Launch Angle Slider'}
             className="w-full accent-sky-500 cursor-pointer"
           />
         </div>
 
         {/* Initial Elevation y0 */}
-        <div className="space-y-1.5">
+        <div className="space-y-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
           <div className="flex justify-between items-center text-xs">
             <label className="font-medium text-slate-300">
               {lang === 'bn' ? 'নিক্ষেপণের উচ্চতা (y₀)' : 'Initial Height (y₀)'}
             </label>
-            <span className="font-mono text-sky-400 font-bold">{y0} m</span>
+            <div className="flex items-center gap-1">
+              <input
+                type="number"
+                min="0"
+                max="200"
+                step="1"
+                value={y0}
+                onChange={(e) => setY0(parseFloat(e.target.value) || 0)}
+                aria-label={lang === 'bn' ? 'নিক্ষেপণের উচ্চতা' : 'Initial Height'}
+                className="w-14 px-1.5 py-0.5 bg-slate-900 border border-slate-700 rounded text-right font-mono text-sky-400 font-bold text-xs outline-none focus:border-sky-500"
+              />
+              <span className="text-[10px] text-slate-400">m</span>
+            </div>
           </div>
           <input
             type="range"
@@ -133,9 +204,28 @@ export const ProjectileCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             max="50"
             value={y0}
             onChange={(e) => setY0(Number(e.target.value))}
+            aria-label={lang === 'bn' ? 'নিক্ষেপণের উচ্চতা স্লাইডার' : 'Initial Height Slider'}
             className="w-full accent-sky-500 cursor-pointer"
           />
         </div>
+      </div>
+
+      {/* Exam Presets */}
+      <div className="flex flex-wrap items-center gap-2 pt-1">
+        <span className="text-xs text-slate-400">{lang === 'bn' ? 'বোর্ড সিনারিও:' : 'Presets:'}</span>
+        {PROJECTILE_PRESETS.map((p, idx) => (
+          <button
+            key={idx}
+            onClick={() => {
+              setV0(p.v0);
+              setTheta(p.theta);
+              setY0(p.y0);
+            }}
+            className="text-xs font-mono px-2.5 py-1 rounded-lg bg-slate-800/80 text-slate-300 hover:bg-sky-950 hover:text-sky-300 border border-slate-700 transition"
+          >
+            {lang === 'bn' ? p.labelBn : p.labelEn}
+          </button>
+        ))}
       </div>
 
       {/* SVG Interactive Trajectory Curve */}

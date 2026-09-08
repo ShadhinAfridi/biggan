@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { solveQuadratic, type QuadraticResult } from './engine';
 import { Latex } from '../../components/math/Latex';
-import { Layers, CheckCircle, HelpCircle, ArrowRight } from 'lucide-react';
+import { Layers, CheckCircle, HelpCircle, ArrowRight, Copy, Check } from 'lucide-react';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -12,6 +12,7 @@ const PRESETS = [
   { label: 'x² - 4x + 4 = 0 (Repeated)', a: 1, b: -4, c: 4 },
   { label: 'x² + 2x + 5 = 0 (Complex)', a: 1, b: 2, c: 5 },
   { label: '2x² + 7x - 15 = 0 (Fractions)', a: 2, b: 7, c: -15 },
+  { label: '4x² - 12x + 9 = 0 (Zero Disc)', a: 4, b: -12, c: 9 },
 ];
 
 export const QuadraticCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
@@ -19,6 +20,7 @@ export const QuadraticCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [b, setB] = useState<number>(-5);
   const [c, setC] = useState<number>(6);
   const [methodTab, setMethodTab] = useState<'formula' | 'completing_square'>('formula');
+  const [copied, setCopied] = useState<boolean>(false);
 
   const { result, error } = useMemo(() => {
     try {
@@ -27,6 +29,18 @@ export const QuadraticCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
       return { result: null, error: e.message };
     }
   }, [a, b, c]);
+
+  const handleCopy = () => {
+    if (!result) return;
+    const text = `Quadratic Equation: ${a}x² + ${b}x + ${c} = 0
+Roots: ${result.rootsDisplayLatex}
+Discriminant: D = ${result.discriminant} (${result.rootType})
+Vertex: (${result.vertex.h}, ${result.vertex.k})
+Axis of Symmetry: x = ${result.axisOfSymmetry}`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="bg-slate-900 border border-slate-700/80 rounded-2xl p-6 shadow-2xl space-y-6">
@@ -43,27 +57,37 @@ export const QuadraticCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </p>
         </div>
 
-        {/* Method Toggle */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+        {/* Method Toggle & Copy */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+            <button
+              onClick={() => setMethodTab('formula')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                methodTab === 'formula'
+                  ? 'bg-violet-600 text-white shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              {lang === 'bn' ? 'দ্বিঘাত সূত্র' : 'Quadratic Formula'}
+            </button>
+            <button
+              onClick={() => setMethodTab('completing_square')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                methodTab === 'completing_square'
+                  ? 'bg-violet-600 text-white shadow'
+                  : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              {lang === 'bn' ? 'পূর্ণবর্গ পদ্ধতি' : 'Completing the Square'}
+            </button>
+          </div>
+
           <button
-            onClick={() => setMethodTab('formula')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-              methodTab === 'formula'
-                ? 'bg-violet-600 text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
+            onClick={handleCopy}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
           >
-            {lang === 'bn' ? 'দ্বিঘাত সূত্র' : 'Quadratic Formula'}
-          </button>
-          <button
-            onClick={() => setMethodTab('completing_square')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-              methodTab === 'completing_square'
-                ? 'bg-violet-600 text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            {lang === 'bn' ? 'পূর্ণবর্গ পদ্ধতি' : 'Completing the Square'}
+            {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5 text-violet-400" />}
+            {copied ? (lang === 'bn' ? 'কপি হয়েছে' : 'Copied') : (lang === 'bn' ? 'কপি করুন' : 'Copy')}
           </button>
         </div>
       </div>

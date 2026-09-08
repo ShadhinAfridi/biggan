@@ -1,0 +1,125 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { SolutionDilutionCalculator } from '../../../tools/solution-dilution/SolutionDilutionCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'College Chemistry / NCTB Class 12',
+    levelBadge: 'Exemplar 1 • Primary Standard Solution Prep (W = SMV/1000)',
+    problemText: 'How many grams of solid sodium carbonate (Na₂CO₃) are required to prepare 250 mL of 0.1 M standard solution? [Molar mass M = 106 g/mol]',
+    givenData: [
+      'Target molarity S = 0.1 M (mol/L)',
+      'Volumetric flask volume V = 250 mL',
+      'Molar mass of Na₂CO₃ M = (23×2) + 12 + (16×3) = 106 g/mol',
+    ],
+    solutionSteps: [
+      'Standard formula: W = (S × M × V) / 1000',
+      'W = (0.1 × 106 × 250) / 1000',
+      'W = 2650 / 1000 = 2.65 g',
+    ],
+    finalAnswer: 'Required solute mass = 2.65 grams',
+  },
+  {
+    level: 'Quantitative Chemistry / Solution Chemistry',
+    levelBadge: 'Exemplar 2 • Stock Acid Dilution (V₁S₁ = V₂S₂)',
+    problemText: 'How much volume of concentrated 12 M stock hydrochloric acid (HCl) is required to prepare 500 mL of 0.1 M diluted HCl solution?',
+    givenData: [
+      'Stock concentration S₁ = 12 M',
+      'Target concentration S₂ = 0.1 M',
+      'Target volume V₂ = 500 mL',
+    ],
+    solutionSteps: [
+      'Dilution equation: V₁ × S₁ = V₂ × S₂',
+      'V₁ = (V₂ × S₂) / S₁',
+      'V₁ = (500 × 0.1) / 12 = 50 / 12 = 4.167 mL',
+      'Solvent (distilled water) to add = V₂ - V₁ = 500 - 4.167 = 495.83 mL',
+    ],
+    finalAnswer: 'Required stock HCl = 4.17 mL, add water = 495.83 mL',
+  },
+  {
+    level: 'Volumetric Analysis & Titration',
+    levelBadge: 'Exemplar 3 • Acid-Base Equivalence',
+    problemText: 'A 20 mL aliquot of 0.1 M Na₂CO₃ requires 25 mL of an unknown HCl solution for complete neutralization. What is the molar concentration of the HCl solution?',
+    givenData: [
+      'Base Na₂CO₃: V_B = 20 mL, S_B = 0.1 M, Equivalence factor e_B = 2',
+      'Acid HCl: V_A = 25 mL, Equivalence factor e_A = 1',
+    ],
+    solutionSteps: [
+      'Equivalence equation: V_A × S_A × e_A = V_B × S_B × e_B',
+      'S_A = (V_B × S_B × e_B) / (V_A × e_A)',
+      'S_A = (20 × 0.1 × 2) / (25 × 1) = 4 / 25 = 0.16 M',
+    ],
+    finalAnswer: 'Molarity of HCl solution = 0.16 M',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What is the difference between a primary and secondary standard substance?',
+    answer: 'A primary standard substance (such as pure anhydrous Na₂CO₃ or oxalic acid dihydrate) is extremely pure, non-hygroscopic, stable in air, and can be weighed directly to make an exact molar concentration. A secondary standard substance (such as NaOH, HCl, or KMnO₄) absorbs moisture or CO₂ from air and must be standardized via titration against a primary standard.',
+  },
+  {
+    question: 'Why is there a factor of 1000 in W = (SMV) / 1000?',
+    answer: 'Molarity S is expressed in moles per liter (mol/L). In standard laboratory practice, volume V is measured in milliliters (mL). Dividing by 1000 converts milliliters to liters (V mL / 1000 = V L).',
+  },
+  {
+    question: 'How do you convert Molarity (M) to PPM (parts per million)?',
+    answer: 'PPM in aqueous solutions is equivalent to mg/L. To convert molarity to PPM: PPM = Molarity (mol/L) × Molar Mass (g/mol) × 1000. For instance, a 0.001 M NaOH solution equals 0.001 × 40 × 1000 = 40 ppm.',
+  },
+];
+---
+
+<ToolLayout
+  title="Solution Preparation & Dilution Calculator (W=SMV/1000, V₁S₁=V₂S₂) — Biggan.me"
+  metaDescription="Interactive chemical solution prep calculator, stock acid dilution solver, molarity to PPM converter, and titration equivalence. High school and college chemistry."
+  toolName="Solution Preparation & Dilution Calculator"
+  toolCategory="Chemistry"
+  curriculumTags={['Quantitative Chemistry', 'Volumetric Analysis', 'Lab Practical Standards', 'Board & Entrance Exams']}
+  topicId="solution-dilution"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <SolutionDilutionCalculator client:load lang="en" />
+  </div>
+
+  <div slot="theory" class="space-y-4">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>🧪</span> Fundamental Equations in Solution Chemistry
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-teal-400">1. Solution Preparation from Solid Solute:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="W = \frac{S \times M \times V}{1000}" />
+        </p>
+        <p class="text-slate-400 text-xs">Where W = solute mass (g), S = molarity (mol/L), M = molar mass (g/mol), V = volume (mL).</p>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-teal-400">2. Stock Dilution Equation:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="V_1 S_1 = V_2 S_2" />
+        </p>
+        <p class="text-slate-400 text-xs">Required solvent volume to add = V₂ - V₁. Always add concentrated acid slowly to water, never water to acid.</p>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-teal-400">3. Acid-Base Equivalence Law:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="V_A S_A e_A = V_B S_B e_B" />
+        </p>
+        <p class="text-slate-400 text-xs">e_A and e_B are the acid basicity and base acidity respectively (e.g., H₂SO₄: e=2, NaOH: e=1).</p>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-teal-400">4. Concentration Units & PPM:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="\text{PPM} = \text{Molarity} \times M \times 1000 = \frac{\text{mg}}{\text{L}}" />
+        </p>
+        <p class="text-slate-400 text-xs">From %(w/v) to Molarity: <Latex math="S = \frac{10 \times \%}{M}" /></p>
+      </div>
+    </div>
+  </div>
+</ToolLayout>

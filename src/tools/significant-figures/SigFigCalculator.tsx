@@ -111,12 +111,12 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             />
             {/* Quick chips */}
             <div className="flex flex-wrap items-center gap-1.5 pt-1">
-              <span className="text-xs text-slate-400">{lang === 'bn' ? 'উদাহরণ:' : 'Try:'}</span>
-              {['0.005020', '104.50', '6.022e23', '100.0', '0.040'].map((chip) => (
+              <span className="text-xs text-slate-400">{lang === 'bn' ? 'পরীক্ষার জটিল উদাহরণ:' : 'Tricky Examples:'}</span>
+              {['0.005020', '104.50', '6.022e23', '100.0', '0.040', '0.00025', '5.000', '1200', '1.2000e4'].map((chip) => (
                 <button
                   key={chip}
                   onClick={() => setInputVal(chip)}
-                  className="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700"
+                  className="text-xs font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 hover:bg-amber-950 hover:text-amber-300 border border-slate-700 transition"
                 >
                   {chip}
                 </button>
@@ -141,11 +141,25 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                     </div>
                   </div>
 
-                  <div className="bg-slate-800/80 px-3 py-2 rounded-xl border border-slate-700 text-xs font-mono text-slate-300">
-                    <span className="text-slate-400 block text-[10px] uppercase">
-                      {lang === 'bn' ? 'বৈজ্ঞানিক সংকেত' : 'Scientific Notation'}
-                    </span>
-                    <Latex formula={analysis.scientificNotation} />
+                  <div className="flex items-center gap-2">
+                    <div className="bg-slate-800/80 px-3 py-2 rounded-xl border border-slate-700 text-xs font-mono text-slate-300">
+                      <span className="text-slate-400 block text-[10px] uppercase">
+                        {lang === 'bn' ? 'বৈজ্ঞানিক সংকেত' : 'Scientific Notation'}
+                      </span>
+                      <Latex formula={analysis.scientificNotation} />
+                    </div>
+
+                    <button
+                      onClick={() =>
+                        handleCopy(
+                          `Number: ${inputVal}\nSignificant Figures: ${analysis.count}\nScientific Notation: ${analysis.scientificNotation}`
+                        )
+                      }
+                      className="p-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-amber-400 rounded-xl border border-slate-700 transition"
+                      title={lang === 'bn' ? 'ফলাফল কপি করুন' : 'Copy result'}
+                    >
+                      {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                    </button>
                   </div>
                 </div>
 

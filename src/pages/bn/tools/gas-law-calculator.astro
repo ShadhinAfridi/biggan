@@ -1,0 +1,111 @@
+---
+import ToolLayout from '../../../layouts/ToolLayout.astro';
+import { GasLawCalculator } from '../../../tools/gas-law/GasLawCalculator';
+import { Latex } from '../../../components/math/Latex';
+
+const exemplars = [
+  {
+    level: 'উচ্চ মাধ্যমিক রসায়ন ২য় পত্র (NCTB Class 12)',
+    levelBadge: 'নমুনা ১ • আদর্শ গ্যাস আয়তন (STP)',
+    problemText: '২৭°C তাপমাত্রা ও ১.৫ atm চাপে ২ মোল কার্বন ডাই-অক্সাইড (CO₂) গ্যাসের আয়তন কত লিটার হবে? [R = 0.0821 L·atm/(mol·K)]',
+    givenData: [
+      'চাপ P = 1.5 atm',
+      'মোল সংখ্যা n = 2 mol',
+      'তাপমাত্রা T = 27°C = 27 + 273.15 = 300.15 K',
+      'সার্বজনীন গ্যাস ধ্রুবক R = 0.0821 L·atm/(mol·K)',
+    ],
+    solutionSteps: [
+      'আদর্শ গ্যাস সমীকরণ: PV = nRT',
+      'V = (nRT) / P',
+      'V = (2 × 0.0821 × 300.15) / 1.5',
+      'V = 49.2846 / 1.5 = 32.86 L',
+    ],
+    finalAnswer: 'গ্যাসের আয়তন = ৩২.৮৬ লিটার',
+  },
+  {
+    level: 'উচ্চ মাধ্যমিক পদার্থবিজ্ঞান ১ম পত্র (NCTB Class 11)',
+    levelBadge: 'নমুনা ২ • অক্সিজেন অণুর RMS বেগ',
+    problemText: '২৭°C তাপমাত্রায় অক্সিজেন (O₂) অণুর মূল-গড়-বর্গ বেগ (c_rms) নির্ণয় কর। [R = 8.314 J/(mol·K), M = 32 g/mol]',
+    givenData: [
+      'তাপমাত্রা T = 27°C = 300.15 K',
+      'আণবিক ভর M = 32 g/mol = 0.032 kg/mol',
+      'R = 8.314 J/(mol·K)',
+    ],
+    solutionSteps: [
+      'RMS বেগের সমীকরণ: c_rms = √(3RT / M)',
+      'c_rms = √[(3 × 8.314 × 300.15) / 0.032]',
+      'c_rms = √[7486.34 / 0.032] = √233948.17 = 483.68 m/s',
+    ],
+    finalAnswer: 'অক্সিজেনের RMS বেগ = ৪৮৩.৬৮ মি/সে',
+  },
+  {
+    level: 'প্রকৌশল ভর্তি পরীক্ষা (BUET / Medical)',
+    levelBadge: 'নমুনা ৩ • সমন্বিত গ্যাস সূত্র',
+    problemText: 'হ্রদের তলদেশে ১.৫ atm চাপ ও ১০°C তাপমাত্রায় একটি বুদবুদের আয়তন ২ mL। হ্রদের পৃষ্ঠে তাপমাত্রা ২৫°C ও চাপ ১ atm হলে পৃষ্ঠে বুদবুদটির আয়তন কত হবে?',
+    givenData: [
+      'P₁ = 1.5 atm, V₁ = 2 mL, T₁ = 10 + 273 = 283 K',
+      'P₂ = 1.0 atm, T₂ = 25 + 273 = 298 K',
+    ],
+    solutionSteps: [
+      'সমন্বিত গ্যাস সূত্র: (P₁ V₁) / T₁ = (P₂ V₂) / T₂',
+      'V₂ = (P₁ × V₁ × T₂) / (P₂ × T₁)',
+      'V₂ = (1.5 × 2 × 298) / (1.0 × 283)',
+      'V₂ = 894 / 283 = 3.16 mL',
+    ],
+    finalAnswer: 'পৃষ্ঠে বুদবুদের আয়তন = ৩.১৬ মিলিলিটার',
+  },
+];
+
+const faqs = [
+  {
+    question: 'PV = nRT সমীকরণে R-এর কোন মানটি কখন ব্যবহার করতে হয়?',
+    answer: 'চাপ যদি atm এবং আয়তন যদি লিটারে (L) দেওয়া থাকে, তবে R = 0.0821 L·atm/(mol·K) ব্যবহার করতে হয়। কিন্তু চাপ যদি প্যাসকেল (Pa বা N/m²) এবং আয়তন যদি ঘনমিটারে (m³) থাকে, অথবা গতিশক্তি ও RMS বেগ নির্ণয়ে R = 8.314 J/(mol·K) ব্যবহার করতে হয়।',
+  },
+  {
+    question: 'STP ও SATP অবস্থার মধ্যে মূল পার্থক্য কী?',
+    answer: 'STP (Standard Temperature and Pressure) অবস্থায় তাপমাত্রা 0°C (273.15 K) এবং চাপ 1 atm (101.325 kPa), যেখানে ১ মোল গ্যাসের মোলার আয়তন ২২.৪১৪ লিটার। অপরদিকে SATP (Standard Ambient Temperature and Pressure) অবস্থায় তাপমাত্রা 25°C (298.15 K) এবং চাপ 1 bar (100 kPa), যেখানে মোলার আয়তন ২৪.৭৮৯ লিটার।',
+  },
+  {
+    question: 'তাপমাত্রার সাথে গ্যাস অণুর RMS বেগের সম্পর্ক কী?',
+    answer: 'RMS বেগ পরম তাপমাত্রার বর্গমূলের সমানুপাতিক (c_rms ∝ √T) এবং মোলার ভরের বর্গমূলের ব্যস্তানুপাতিক (c_rms ∝ 1/√M)। তাপমাত্রা ৪ গুণ বৃদ্ধি পেলে গ্যাস অণুর গড় গতিবেগ দ্বিগুণ হয়ে যায়।',
+  },
+];
+---
+
+<ToolLayout
+  title="আদর্শ গ্যাস ও গতিতত্ত্ব (PV = nRT) ক্যালকুলেটর — Biggan.me"
+  metaDescription="অনলাইনে আদর্শ গ্যাস সমীকরণ (PV = nRT), RMS বেগ, গতিশক্তি ও সমন্বিত গ্যাস সূত্রের সমাধান। NCTB একাদশ-দ্বাদশ শ্রেণির পদার্থ ও রসায়ন সিলেবাস।"
+  toolName="আদর্শ গ্যাস ও গতিতত্ত্ব ক্যালকুলেটর"
+  toolCategory="রসায়ন ও পদার্থবিজ্ঞান"
+  curriculumTags={['রসায়ন ২য় পত্র অধ্যায় ১ (পরিবেশ রসায়ন)', 'পদার্থবিজ্ঞান ১ম পত্র অধ্যায় ১০ (আদর্শ গ্যাস)', 'বোর্ড ও মেডিকেল ভর্তি পরীক্ষা']}
+  topicId="gas-laws"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <GasLawCalculator client:load lang="bn" />
+  </div>
+
+  <div slot="theory" class="space-y-4">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>💨</span> গ্যাস সূত্রাবলীর মৌলিক সমীকরণ
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-emerald-400">আদর্শ গ্যাস অবস্থা সমীকরণ:</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="PV = nRT = \frac{w}{M}RT = N k_B T" />
+        </p>
+        <p class="text-slate-400 text-xs">যেখানে R = 0.0821 L·atm/(mol·K) অথবা 8.314 J/(mol·K)</p>
+      </div>
+
+      <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h4 class="font-semibold text-cyan-400">মূল-গড়-বর্গ বেগ (RMS Speed):</h4>
+        <p class="text-slate-300 text-xs">
+          <Latex math="c_{rms} = \sqrt{\frac{3RT}{M}} = \sqrt{\frac{3P}{\rho}}" />
+        </p>
+        <p class="text-slate-400 text-xs">মোট গতিশক্তি: <Latex math="E_k = \frac{3}{2} n R T" /></p>
+      </div>
+    </div>
+  </div>
+</ToolLayout>
