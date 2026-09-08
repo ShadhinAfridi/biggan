@@ -1,0 +1,197 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { BiologyCalculator } from '../../../tools/biology/BiologyCalculator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Board Exam Special (Nutrition, BMI, BMR & Daily Caloric Needs)',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Shayla is a 16-year-old female student who weighs 50 kg and stands 155 cm tall. She engages in moderate exercise 3 to 5 days a week. Calculate her Body Mass Index (BMI), Basal Metabolic Rate (BMR), and Total Daily Energy Expenditure (TDEE) to maintain her current weight.',
+    givenData: [
+      'Biological sex: Female, Age A = 16 years',
+      'Body weight W = 50 kg, Height H = 155 cm = 1.55 m',
+      'Activity factor = Moderately active (Multiplier = 1.55)',
+    ],
+    solutionSteps: [
+      'Part 1: Calculate Body Mass Index (BMI):',
+      'BMI = Weight (kg) / [Height (m)]² = 50 / (1.55)² = 50 / 2.4025 = 20.81 kg/m²',
+      'According to WHO and NCTB standards, a BMI of 18.5 to 24.9 is classified as "Healthy / Normal Weight". Shayla has an ideal body mass status.',
+      'Part 2: Calculate BMR (Harris-Benedict equation for females):',
+      'BMR = 655 + (9.6 × W) + (1.8 × H) - (4.7 × A)',
+      'BMR = 655 + (9.6 × 50) + (1.8 × 155) - (4.7 × 16)',
+      'BMR = 655 + 480 + 279 - 75.2 = 1414 - 75.2 = 1338.8 kcal/day.',
+      'Part 3: Compute Total Daily Energy Expenditure (TDEE):',
+      'TDEE = BMR × Activity Multiplier = 1338.8 × 1.55 = 2075.14 kcal/day.',
+    ],
+    finalAnswer: 'Shayla has a BMI of 20.81 (Healthy Weight), a BMR of 1338.8 kcal/day, and requires 2075.1 kcal daily.',
+  },
+  {
+    level: 'Board Exam Special (Bioenergetics & Glucose Oxidation ATP Yield)',
+    levelBadge: 'bg-amber-500/10 text-amber-400 border border-amber-500/20',
+    problemText: 'How many ATP molecules and how much total usable biological energy in kilocalories (kcal) and kilojoules (kJ) are liberated during the complete aerobic respiration of 2 moles of glucose (C₆H₁₂O₆) under the classical NCTB model?',
+    givenData: [
+      'Quantity of glucose = 2 moles',
+      'Classical ATP yield per mole of glucose = 38 ATP',
+      'Energy released per mole of ATP = 7.3 kcal (30.55 kJ)',
+    ],
+    solutionSteps: [
+      'Step 1: Cellular respiration stage-wise ATP distribution (per mole of glucose):',
+      '• Glycolysis: Net 2 direct ATP + 2 NADH (6 ATP) = 8 ATP',
+      '• Acetyl-CoA Formation: 2 NADH (6 ATP) = 6 ATP',
+      '• Krebs Cycle: 2 GTP (2 ATP) + 6 NADH (18 ATP) + 2 FADH₂ (4 ATP) = 24 ATP',
+      '• Total per 1 mole of glucose = 8 + 6 + 24 = 38 ATP.',
+      'Step 2: Total ATP for 2 moles of glucose:',
+      'Total ATP = 2 × 38 = 76 ATP molecules.',
+      'Step 3: Calculate usable biological energy liberated:',
+      'Energy in kilocalories = 76 × 7.3 kcal = 554.8 kcal.',
+      'Energy in kilojoules = 76 × 30.55 kJ = 2321.8 kJ.',
+      'Carbon dioxide released = 2 × 6 = 12 moles CO₂.',
+    ],
+    finalAnswer: 'Complete aerobic respiration of 2 moles of glucose yields 76 ATP, 12 moles of CO₂, and 554.8 kcal (2321.8 kJ) of energy.',
+  },
+  {
+    level: 'Board Exam Special (Sex-Linked Color Blindness Punnett Square)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'A woman with normal vision whose father was color-blind (making her a carrier, Xᴺ Xⁿ) marries a man with normal vision (Xᴺ Y). Using a 2 × 2 Punnett Square, predict the probabilities of their sons and daughters being color-blind.',
+    givenData: [
+      'Maternal genotype = Xᴺ Xⁿ (Carrier mother with normal vision)',
+      'Paternal genotype = Xᴺ Y (Normal vision father)',
+      'Xᴺ = Dominant normal allele, Xⁿ = Recessive mutant color-blind allele',
+    ],
+    solutionSteps: [
+      'Step 1: Determine parental gametes:',
+      'Maternal ova: 50% Xᴺ and 50% Xⁿ. Paternal spermatozoa: 50% Xᴺ and 50% Y.',
+      'Step 2: Execute 2 × 2 Punnett Square cross:',
+      '• (Xᴺ × Xᴺ) ⟹ XᴺXᴺ : Normal vision daughter (25% of all offspring)',
+      '• (Xᴺ × Y) ⟹ XᴺY : Normal vision son (25% of all offspring)',
+      '• (Xⁿ × Xᴺ) ⟹ XᴺXⁿ : Carrier daughter with normal vision (25% of all offspring)',
+      '• (Xⁿ × Y) ⟹ XⁿY : Color-blind son (25% of all offspring)',
+      'Step 3: Segregate phenotypic probabilities by gender:',
+      '• Daughters: 100% normal vision (50% homozygous normal + 50% heterozygous carriers). 0% of daughters are color-blind.',
+      '• Sons: 50% normal vision and 50% color-blind.',
+    ],
+    finalAnswer: '0% of daughters will be color-blind (50% carriers, 50% normal), whereas 50% of sons will be color-blind.',
+  },
+  {
+    level: 'Board Exam Special (Ecosystem Dynamics & Lindeman 10% Law)',
+    levelBadge: 'bg-green-500/10 text-green-400 border border-green-500/20',
+    problemText: 'In a freshwater pond ecosystem, phytoplankton (producers) synthesize 10,000 Joules of chemical biomass from sunlight. According to Lindeman’s 10% ecological efficiency law, how much energy reaches the apex predator (chital/carnivorous fish) at Level 4, and how much is dissipated into the environment?',
+    givenData: [
+      'Producer level energy (Level 1) E₁ = 10,000 J',
+      'Trophic transfer efficiency = 10% (0.10)',
+      'Metabolic heat loss per step = 90% (0.90)',
+    ],
+    solutionSteps: [
+      'Step 1: Primary consumers / Zooplankton (Level 2):',
+      'E₂ = E₁ × 0.10 = 10,000 × 0.10 = 1,000 Joules (10%).',
+      'Step 2: Secondary consumers / Small fish (Level 3):',
+      'E₃ = E₂ × 0.10 = 1,000 × 0.10 = 100 Joules (1%).',
+      'Step 3: Tertiary consumers / Apex fish (Level 4):',
+      'E₄ = E₃ × 0.10 = 100 × 0.10 = 10 Joules (0.1%).',
+      'Step 4: Calculate total dissipated thermal energy:',
+      'Total heat lost = E₁ - E₄ = 10,000 - 10 = 9,990 Joules (99.9%).',
+    ],
+    finalAnswer: 'Only 10 Joules reaches the apex predator level, with 9,990 Joules lost as respiratory heat and metabolic waste.',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: 'How many ATP molecules are produced in aerobic respiration according to NCTB?',
+    answer: 'Under the National Curriculum and Textbook Board (NCTB) SSC Biology curriculum, complete oxidation of 1 molecule of glucose yields 38 ATP (8 from Glycolysis, 6 from Acetyl-CoA, and 24 from Krebs Cycle). In standard international biochemistry, shuttle mechanisms may reduce this to 36 ATP or 30-32 ATP. Our calculator supports toggling between both models.',
+  },
+  {
+    question: 'What is the fundamental difference between BMI and BMR?',
+    answer: 'BMI (Body Mass Index) evaluates weight relative to height (BMI = W / H²) to categorize body mass as underweight, normal, or obese. BMR (Basal Metabolic Rate) computes the minimal caloric energy expended at absolute physical and mental rest to keep vital organs functioning.',
+  },
+  {
+    question: 'Why can human males never be carriers for color blindness?',
+    answer: 'Red-green color blindness is an X-linked recessive disorder. Females possess two X chromosomes (XX), so a single mutant allele (Xⁿ) is masked by a dominant normal allele (Xᴺ), producing an asymptomatic carrier. Males have only one X chromosome (XY). Any male inheriting the mutant Xⁿ allele will exhibit the disease; having no second X chromosome, males cannot be silent carriers.',
+  },
+  {
+    question: 'Why are trophic food chains rarely longer than 4 or 5 levels?',
+    answer: 'Due to Lindeman’s 10% ecological efficiency rule, 90% of available energy is dissipated as respiratory heat at each successive link. By the 4th or 5th trophic level, remaining energy is too miniscule (e.g. 0.1% of original producer energy) to sustain another population of consumers.',
+  },
+];
+---
+
+<ToolLayout
+  title="SSC Biology Complete Solutions & Equation Suite — Biggan.me"
+  metaDescription="All-in-one NCTB SSC Biology quantitative solver covering BMI, BMR, Daily Caloric Needs (TDEE), Respiration ATP Balance Sheet, Mendelian & Sex-Linked Punnett Squares, Lindeman's 10% Energy Pyramid, and Blood Matching."
+  toolName="SSC Biology Equation & Solution Suite"
+  toolCategory="Biology (SSC Biology)"
+  curriculumTags={['NCTB SSC Biology (Classes 9-10)', 'BMI & BMR (Harris-Benedict)', 'Bioenergetics & ATP Yield', 'Punnett Squares & Color Blindness']}
+  topicId="molar-mass"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <BiologyCalculator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4 text-slate-300">
+      <h3 class="text-base font-bold text-white">NCTB SSC Biology Quantitative Formula Reference Sheet</h3>
+      <p class="text-sm">
+        Achieving maximum marks in secondary biology exams requires thorough mastery over quantitative problems across Chapters 4, 5, 6, 12, and 13. Below is the standardized formula bank:
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-emerald-400 font-bold block text-sm">Chapter 5: Food & Nutrition (BMI & BMR)</span>
+          <p>• BMI formula: BMI = Weight (kg) / [Height (m)]²</p>
+          <p>• Male BMR: 66 + (13.7 × W) + (5 × H) - (6.8 × A)</p>
+          <p>• Female BMR: 655 + (9.6 × W) + (1.8 × H) - (4.7 × A)</p>
+          <p>• TDEE = BMR × Activity Factor (1.2 to 1.9)</p>
+          <p>• Healthy Range: 18.5 - 24.9 kg/m²</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-emerald-400 font-bold block text-sm">Chapter 4: Bioenergetics (ATP Respiration Sheet)</span>
+          <p>• Aerobic equation: C₆H₁₂O₆ + 6O₂ ⟶ 6CO₂ + 6H₂O + 38 ATP</p>
+          <p>• Glycolysis: 2 direct ATP + 2 NADH (6 ATP) = 8 ATP</p>
+          <p>• Acetyl-CoA: 2 NADH (6 ATP) = 6 ATP</p>
+          <p>• Krebs cycle: 2 GTP (2 ATP) + 6 NADH (18) + 2 FADH₂ (4) = 24 ATP</p>
+          <p>• 1 mole ATP = 7.3 kcal (30.55 kJ)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-emerald-400 font-bold block text-sm">Chapter 12: Heredity & Punnett Squares (Genetics)</span>
+          <p>• Monohybrid cross: Tt × Tt ⟹ Phenotypic 3:1, Genotypic 1:2:1</p>
+          <p>• Test cross: Tt × tt ⟹ 1:1 ratio</p>
+          <p>• Sex-linked recessive: X-linked (Xᴺ normal, Xⁿ mutant)</p>
+          <p>• Carrier mother (XᴺXⁿ) × Normal father (XᴺY) ⟹ 50% sons affected</p>
+          <p>• Affected mother (XⁿXⁿ) × Normal father (XᴺY) ⟹ 100% sons affected</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+          <span class="text-emerald-400 font-bold block text-sm">Chapter 13: Environment (Lindeman's 10% Law)</span>
+          <p>• Trophic energy transfer: E_(n+1) = E_n × 0.10</p>
+          <p>• Level 1 Producers: 100% energy</p>
+          <p>• Level 2 Herbivores: 10% energy</p>
+          <p>• Level 3 Carnivores: 1% energy</p>
+          <p>• Level 4 Apex Predators: 0.1% energy (90% dissipated as heat)</p>
+        </div>
+
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 md:col-span-2">
+          <span class="text-emerald-400 font-bold block text-sm">Chapter 6: Transport in Organisms (Blood Compatibility)</span>
+          <p>• Universal Donor: O- (no A, B, or Rh surface antigens on RBCs)</p>
+          <p>• Universal Recipient: AB+ (no Anti-A, Anti-B, or Anti-Rh antibodies in serum)</p>
+          <p>• Agglutination rule: Donor RBC antigens must not match recipient plasma antibodies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <div class="space-y-3 text-slate-300">
+      <h4 class="text-white font-bold text-sm">Board Exam Tips & Scoring Guidelines:</h4>
+      <ul class="list-disc list-inside space-y-1.5 text-xs">
+        <li><strong>Unit Conversion for Height:</strong> When computing BMI, convert height in centimeters into meters first (divide by 100) before squaring. E.g., 155 cm = 1.55 m, (1.55)² = 2.4025.</li>
+        <li><strong>BMR Sex Distinction:</strong> Pay close attention to the constants: male equations begin with 66 with a 13.7 weight multiplier, while female equations begin with 655 with a 9.6 weight multiplier.</li>
+        <li><strong>Gender-Segregated Punnett Questions:</strong> When a creative question asks "What percentage of daughters are color-blind?", calculate the fraction out of total daughters (not out of total children).</li>
+        <li><strong>Offline CLI Tool:</strong> For offline study or scripting, run our standalone Python CLI (<code class="text-emerald-400">scripts/ssc_biology_calculator.py</code>) on your local machine.</li>
+      </ul>
+    </div>
+  </div>
+</ToolLayout>
