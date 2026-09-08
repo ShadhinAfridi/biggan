@@ -1,3 +1,4 @@
+import { RevisionTracker } from '../../../components/tools/RevisionTracker';
 import React, { useState } from 'react';
 import {
   Calculator,
@@ -35,6 +36,151 @@ interface Props {
 }
 
 type ChapterId = 'ch2' | 'ch3' | 'ch4' | 'ch9_10' | 'ch11' | 'ch16' | 'ch17';
+
+
+const FrequencyHistogram: React.FC<{ classes: ClassInterval[]; modalIndex?: number; lang?: 'bn' | 'en' }> = ({
+  classes,
+  modalIndex,
+  lang = 'bn',
+}) => {
+  if (!classes || classes.length === 0) return null;
+  const maxFreq = Math.max(...classes.map((c) => c.freq), 1);
+  const chartHeight = 110;
+  const chartWidth = 320;
+  const padding = 25;
+  const barWidth = Math.max(16, (chartWidth - padding * 2) / classes.length - 6);
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-cyan-300">
+          {lang === 'bn' ? 'গণসংখ্যা আয়তলেখ চিত্র (Frequency Histogram)' : 'Grouped Frequency Histogram'}
+        </span>
+        <span className="text-[10px] text-slate-400">
+          {lang === 'bn' ? 'শীর্ষ গণসংখ্যা: ' : 'Peak Frequency: '}{maxFreq}
+        </span>
+      </div>
+      <div className="flex justify-center overflow-x-auto">
+        <svg viewBox={`0 0 ${chartWidth} ${chartHeight + 25}`} className="w-full max-w-sm h-32 overflow-visible">
+          <line x1={padding} y1={chartHeight} x2={chartWidth - 10} y2={chartHeight} stroke="#475569" strokeWidth="1.5" />
+          <line x1={padding} y1={10} x2={padding} y2={chartHeight} stroke="#475569" strokeWidth="1.5" />
+          {classes.map((cls, idx) => {
+            const barH = (cls.freq / maxFreq) * (chartHeight - 30);
+            const x = padding + 8 + idx * (barWidth + 6);
+            const y = chartHeight - barH;
+            const isModal = idx === modalIndex;
+
+            return (
+              <g key={idx}>
+                <rect
+                  x={x}
+                  y={y}
+                  width={barWidth}
+                  height={barH}
+                  rx="3"
+                  fill={isModal ? '#06b6d4' : '#1e293b'}
+                  stroke={isModal ? '#67e8f9' : '#0ea5e9'}
+                  strokeWidth="1.5"
+                />
+                <text
+                  x={x + barWidth / 2}
+                  y={y - 4}
+                  textAnchor="middle"
+                  fill={isModal ? '#67e8f9' : '#94a3b8'}
+                  fontSize="9"
+                  fontWeight="bold"
+                  fontFamily="monospace"
+                >
+                  {cls.freq}
+                </text>
+                <text
+                  x={x + barWidth / 2}
+                  y={chartHeight + 14}
+                  textAnchor="middle"
+                  fill="#94a3b8"
+                  fontSize="8"
+                  fontFamily="monospace"
+                >
+                  {cls.lower}-{cls.upper}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const RightTriangleDiagram: React.FC<{ angle: number; dist: number; height: number; lang?: 'bn' | 'en' }> = ({
+  angle,
+  dist,
+  height,
+  lang = 'bn',
+}) => {
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-cyan-300">
+          {lang === 'bn' ? 'সমকোণী ত্রিভুজ জ্যামিতিক চিত্র' : 'Right-Angled Triangle Elevation Model'}
+        </span>
+        <span className="text-[10px] font-mono text-amber-400">θ = {angle}°</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 260 140" className="w-full max-w-xs h-32 overflow-visible">
+          <line x1="20" y1="110" x2="240" y2="110" stroke="#475569" strokeWidth="1.5" />
+          <path d="M 190 110 L 190 100 L 200 100" fill="none" stroke="#64748b" strokeWidth="1" />
+          <polygon points="40,110 200,110 200,30" fill="rgba(6, 182, 212, 0.08)" stroke="#06b6d4" strokeWidth="2" />
+          <path d="M 70 110 A 30 30 0 0 0 65 97" fill="none" stroke="#f59e0b" strokeWidth="1.5" />
+          <text x="75" y="104" fill="#f59e0b" fontSize="9" fontWeight="bold" fontFamily="monospace">
+            {angle}°
+          </text>
+          <text x="120" y="124" textAnchor="middle" fill="#94a3b8" fontSize="10" fontFamily="monospace">
+            {lang === 'bn' ? 'দূরত্ব ' : 'Base '}d = {dist}m
+          </text>
+          <text x="208" y="70" textAnchor="start" fill="#38bdf8" fontSize="10" fontWeight="bold" fontFamily="monospace">
+            h = {height.toFixed(1)}m
+          </text>
+          <line x1="200" y1="110" x2="200" y2="30" stroke="#38bdf8" strokeWidth="3" />
+        </svg>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-cyan-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] text-cyan-400 font-semibold block uppercase tracking-wider">
+            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
+          </span>
+          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+            {activeChapter === 'ch17' && statResult.success && (
+              <span>
+                {lang === 'bn' ? 'গড়' : 'Mean'}: {statResult.mean} | {lang === 'bn' ? 'মধ্যক' : 'Med'}: {statResult.median}
+              </span>
+            )}
+            {activeChapter === 'ch9_10' && trigSubTab === 'height' && (
+              <span>h = {(trigDist * Math.tan((trigAngle * Math.PI) / 180)).toFixed(2)} m</span>
+            )}
+            {activeChapter === 'ch3' && ch3Result.success && (
+              <span>{ch3Result.value}</span>
+            )}
+            {activeChapter === 'ch4' && ch4Result.success && (
+              <span>{ch4Result.value}</span>
+            )}
+            {activeChapter === 'ch16' && mensResult.success && (
+              <span>{mensResult.value}</span>
+            )}
+            {activeChapter === 'ch11' && compResult.success && (
+              <span>{compResult.value}</span>
+            )}
+            {activeChapter === 'ch2' && ch2Result.success && (
+              <span>{ch2Result.value}</span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeChapter, setActiveChapter] = useState<ChapterId>('ch17');
@@ -285,6 +431,8 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </button>
             </div>
 
+            <FrequencyHistogram classes={statClasses} modalIndex={statResult.modalIndex} lang={lang} />
+
             {/* Step-Deviation Grouped Frequency Table */}
             {statResult.success && (
               <div className="space-y-3">
@@ -422,29 +570,32 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
             {/* Inputs based on sub tab */}
             {trigSubTab === 'height' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-950 rounded-2xl border border-slate-800">
-                <div>
-                  <label className="text-xs font-mono text-slate-400 block mb-1">
-                    {lang === 'bn' ? 'উন্নতি কোণ (θ) ডিগ্রিতে (0 < θ < 90°):' : 'Angle of Elevation θ (0 < θ < 90°):'}
-                  </label>
-                  <input
-                    type="number"
-                    value={trigAngle}
-                    onChange={(e) => setTrigAngle(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
-                  />
+              <div className="space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                  <div>
+                    <label className="text-xs font-mono text-slate-400 block mb-1">
+                      {lang === 'bn' ? 'উন্নতি কোণ (θ) ডিগ্রিতে (0 < θ < 90°):' : 'Angle of Elevation θ (0 < θ < 90°):'}
+                    </label>
+                    <input
+                      type="number"
+                      value={trigAngle}
+                      onChange={(e) => setTrigAngle(parseFloat(e.target.value) || 0)}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-xs font-mono text-slate-400 block mb-1">
+                      {lang === 'bn' ? 'গোড়া হতে অনুভূমিক দূরত্ব (মিটার):' : 'Horizontal Distance from Base (meters):'}
+                    </label>
+                    <input
+                      type="number"
+                      value={trigDist}
+                      onChange={(e) => setTrigDist(parseFloat(e.target.value) || 0)}
+                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label className="text-xs font-mono text-slate-400 block mb-1">
-                    {lang === 'bn' ? 'গোড়া হতে অনুভূমিক দূরত্ব (মিটার):' : 'Horizontal Distance from Base (meters):'}
-                  </label>
-                  <input
-                    type="number"
-                    value={trigDist}
-                    onChange={(e) => setTrigDist(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
-                  />
-                </div>
+                <RightTriangleDiagram angle={trigAngle} dist={trigDist} height={trigDist * Math.tan((trigAngle * Math.PI) / 180)} lang={lang} />
               </div>
             )}
 
@@ -986,6 +1137,40 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         <span className="font-mono text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded-md border border-cyan-800/60 text-[11px]">
           STAT • TABLE • EQN
         </span>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-cyan-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] text-cyan-400 font-semibold block uppercase tracking-wider">
+            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
+          </span>
+          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+            {activeChapter === 'ch17' && statResult.success && (
+              <span>
+                {lang === 'bn' ? 'গড়' : 'Mean'}: {statResult.mean} | {lang === 'bn' ? 'মধ্যক' : 'Med'}: {statResult.median}
+              </span>
+            )}
+            {activeChapter === 'ch9_10' && trigSubTab === 'height' && (
+              <span>h = {(trigDist * Math.tan((trigAngle * Math.PI) / 180)).toFixed(2)} m</span>
+            )}
+            {activeChapter === 'ch3' && ch3Result.success && (
+              <span>{ch3Result.value}</span>
+            )}
+            {activeChapter === 'ch4' && ch4Result.success && (
+              <span>{ch4Result.value}</span>
+            )}
+            {activeChapter === 'ch16' && mensResult.success && (
+              <span>{mensResult.value}</span>
+            )}
+            {activeChapter === 'ch11' && compResult.success && (
+              <span>{compResult.value}</span>
+            )}
+            {activeChapter === 'ch2' && ch2Result.success && (
+              <span>{ch2Result.value}</span>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

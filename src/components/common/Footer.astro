@@ -29,56 +29,46 @@ const currentYear = new Date().getFullYear();
         </div>
       </div>
 
-      <!-- Col 2: Flagship Tools -->
+      <!-- Col 2: SSC Flagship Engines -->
       <div class="space-y-2">
         <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
-          {lang === 'bn' ? 'প্রধান ক্যালকুলেটর' : 'Flagship Calculators'}
+          {lang === 'bn' ? 'এসএসসি ফ্ল্যাগশিপ ইঞ্জিন' : 'SSC Flagship Engines'}
         </h4>
         <ul class="space-y-1.5">
           <li>
-            <a href={getLocalizedPath('/tools/molar-mass', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.molarMass.name')}
+            <a href={getLocalizedPath('/tools/physics', lang)} class="hover:text-cyan-400 transition flex items-center gap-1.5">
+              <span>⚡</span> {t('tools.physics.name')}
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/tools/redox-balancer', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.redox.name')}
+            <a href={getLocalizedPath('/tools/chemistry', lang)} class="hover:text-cyan-400 transition flex items-center gap-1.5">
+              <span>⚗️</span> {t('tools.chemistry.name')}
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/tools/significant-figures', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.sigFigs.name')}
+            <a href={getLocalizedPath('/tools/biology', lang)} class="hover:text-cyan-400 transition flex items-center gap-1.5">
+              <span>🧬</span> {t('tools.biology.name')}
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/tools/projectile-motion', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.projectile.name')}
+            <a href={getLocalizedPath('/tools/general-math', lang)} class="hover:text-cyan-400 transition flex items-center gap-1.5">
+              <span>➕</span> {t('tools.generalMath.name')}
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/tools/quadratic-solver', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.quadratic.name')}
-            </a>
-          </li>
-          <li>
-            <a href={getLocalizedPath('/tools/general-math', lang)} class="hover:text-cyan-400 transition">
-              {t('tools.generalMath.name')}
+            <a href={getLocalizedPath('/tools/higher-math', lang)} class="hover:text-cyan-400 transition flex items-center gap-1.5">
+              <span>📐</span> {t('tools.higherMath.name')}
             </a>
           </li>
         </ul>
       </div>
 
-      <!-- Col 3: Academic Resources -->
+      <!-- Col 3: Specialized & ICT Tools -->
       <div class="space-y-2">
         <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
-          {lang === 'bn' ? 'শিক্ষা ও রিসোর্স' : 'Academic Resources'}
+          {lang === 'bn' ? 'আইসিটি ও বিশেষায়িত টুলস' : 'ICT & Specialized Tools'}
         </h4>
         <ul class="space-y-1.5">
-          <li>
-            <a href={getLocalizedPath('/curriculum', lang)} class="text-cyan-400 font-semibold hover:underline">
-              {lang === 'bn' ? '🎓 কারিকুলাম ও সিলেবাস' : '🎓 Curriculum & Syllabus'}
-            </a>
-          </li>
           <li>
             <a href={getLocalizedPath('/tools/html-runner', lang)} class="hover:text-cyan-400 transition">
               {t('tools.htmlRunner.name')}
@@ -100,6 +90,40 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
+            <a href={getLocalizedPath('/tools/molar-mass', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.molarMass.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/redox-balancer', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.redox.name')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/tools/projectile-motion', lang)} class="hover:text-cyan-400 transition">
+              {t('tools.projectile.name')}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Academic Resources & Trust -->
+      <div class="space-y-2">
+        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+          {lang === 'bn' ? 'শিক্ষা ও নীতি' : 'Resources & Trust'}
+        </h4>
+        <ul class="space-y-1.5">
+          <li>
+            <a href={getLocalizedPath('/curriculum', lang)} class="text-cyan-400 font-semibold hover:underline">
+              {lang === 'bn' ? '🎓 কারিকুলাম ও সিলেবাস' : '🎓 Curriculum & Syllabus'}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/formulas', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.formulas')}
+            </a>
+          </li>
+          <li>
             <a href={getLocalizedPath('/periodic-table', lang)} class="hover:text-cyan-400 transition">
               {t('nav.periodicTable')}
             </a>
@@ -110,19 +134,10 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
-            <a href={getLocalizedPath('/articles', lang)} class="hover:text-cyan-400 transition">
-              {t('nav.articles')}
+            <a href={getLocalizedPath('/methodology', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.methodology')}
             </a>
           </li>
-        </ul>
-      </div>
-
-      <!-- Col 4: Trust & Compliance -->
-      <div class="space-y-2">
-        <h4 class="text-xs font-semibold text-slate-200 uppercase tracking-wider">
-          {lang === 'bn' ? 'নীতিমালা ও আইনি' : 'Compliance & Trust'}
-        </h4>
-        <ul class="space-y-1.5">
           <li>
             <a href={getLocalizedPath('/editorial', lang)} class="hover:text-cyan-400 transition">
               {t('footer.editorial')}
@@ -139,9 +154,6 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
         </ul>
-        <div class="pt-2 text-[11px] text-slate-500">
-          IUPAC Atomic Weights & CODATA Fundamental Physical Constants Compliant.
-        </div>
       </div>
     </div>
 

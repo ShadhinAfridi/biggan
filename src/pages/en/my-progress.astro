@@ -1,0 +1,46 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ProgressDashboard } from '../../components/progress/ProgressDashboard';
+---
+
+<BaseLayout
+  title="My Revision Progress & Board Readiness | Biggan.me"
+  description="Personal revision tracker and board exam readiness dashboard for SSC Physics, Chemistry, Higher Math, General Math, and Biology."
+  lang="en"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+    {/* Page Header */}
+    <div class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span>🎯</span>
+        <span>Personal Study & Board Exam Readiness Dashboard</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        My Revision Progress
+      </h1>
+      <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
+        Track your syllabus completion across all major secondary STEM subjects. No account or login required — all data is saved securely in your browser's local storage.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a
+          href="/en/formulas"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition shadow-lg shadow-amber-500/20"
+        >
+          <span>📖</span>
+          <span>View Complete Formula Sheet</span>
+        </a>
+        <a
+          href="/en/tools"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
+        >
+          <span>🧮</span>
+          <span>All Calculators Directory</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Interactive Client-Side React Dashboard */}
+    <ProgressDashboard client:load lang="en" />
+  </div>
+</BaseLayout>

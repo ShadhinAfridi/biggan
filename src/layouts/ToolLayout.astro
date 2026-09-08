@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/ads/AdSlot.astro';
 import { CasioGuide } from '../components/casio/CasioGuide';
+import { Latex } from '../components/math/Latex';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
@@ -25,7 +26,7 @@ interface Props {
   toolName: string;
   toolCategory: string;
   curriculumTags: string[];
-  topicId?: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox' | string;
+  topicId?: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox' | 'physics-general' | 'chemistry-general' | 'statistics' | 'biology-general' | 'higher-math' | string;
   exemplars: SolvedExemplar[];
   faqs: ToolFaqItem[];
 }
@@ -43,6 +44,20 @@ const {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Supported Casio Guide topics
+const CASIO_TOPICS = [
+  'quadratic',
+  'sigfigs',
+  'kinematics',
+  'molar-mass',
+  'redox',
+  'physics-general',
+  'chemistry-general',
+  'statistics',
+  'biology-general',
+  'higher-math',
+];
 
 // Build structured JSON-LD schemas
 const webAppSchema = {
@@ -104,14 +119,22 @@ const breadcrumbSchema = {
   lang={lang}
   jsonLd={[webAppSchema, faqSchema, breadcrumbSchema]}
 >
-  <div class="space-y-12">
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-xs text-slate-400">
-      <a href={`/${lang}`} class="hover:text-cyan-400 transition">{t('nav.home')}</a>
-      <span>/</span>
-      <a href={`/${lang}/tools`} class="hover:text-cyan-400 transition">{t('nav.tools')}</a>
-      <span>/</span>
-      <span class="text-slate-200 font-medium">{toolName}</span>
+  <div class="space-y-10">
+    <!-- Semantic Breadcrumb -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+        <li class="flex items-center gap-2">
+          <a href={`/${lang}`} class="hover:text-cyan-400 transition">{t('nav.home')}</a>
+          <span>/</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <a href={`/${lang}/tools`} class="hover:text-cyan-400 transition">{t('nav.tools')}</a>
+          <span>/</span>
+        </li>
+        <li class="text-slate-200 font-medium truncate max-w-xs sm:max-w-md">
+          {toolName}
+        </li>
+      </ol>
     </nav>
 
     <!-- Header & Curriculum Badges -->
@@ -126,12 +149,39 @@ const breadcrumbSchema = {
           </span>
         ))}
       </div>
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
         {toolName}
       </h1>
-      <p class="text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
+      <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
         {metaDescription}
       </p>
+    </div>
+
+    <!-- Quick Section Anchor Pills -->
+    <div class="overflow-x-auto py-1 scrollbar-none">
+      <div class="inline-flex items-center gap-2 min-w-full text-xs font-medium text-slate-300">
+        <span class="text-[11px] font-mono text-slate-500 uppercase tracking-wider pl-1 hidden sm:inline">
+          {lang === 'bn' ? 'দ্রুত যান:' : 'Jump to:'}
+        </span>
+        <a href="#interactive-calculator" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          ⚡ {lang === 'bn' ? 'ক্যালকুলেটর' : 'Calculator'}
+        </a>
+        <a href="#mathematical-foundations" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          📝 {lang === 'bn' ? 'সমীকরণ ও প্রতিপাদন' : 'Derivations'}
+        </a>
+        <a href="#solved-exemplars" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          🎯 {lang === 'bn' ? 'বোর্ড উদাহরণ' : 'Exemplars'}
+        </a>
+        <a href="#hardware-or-shortcuts" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          ⌨️ {lang === 'bn' ? 'কাসিও ও শর্টকাট' : 'Casio & Shortcuts'}
+        </a>
+        <a href="#industrial-applications" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          🌐 {lang === 'bn' ? 'বাস্তব প্রয়োগ' : 'Applications'}
+        </a>
+        <a href="#faq" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 hover:text-cyan-400 border border-slate-800 whitespace-nowrap transition">
+          ❓ {lang === 'bn' ? 'প্রশ্নোত্তর' : 'FAQ'}
+        </a>
+      </div>
     </div>
 
     <!-- PART 1: Interactive Workspace Island Slot (Above-the-Fold) -->
@@ -143,7 +193,7 @@ const breadcrumbSchema = {
     <AdSlot slotType="banner" slotId="top-tool-banner" />
 
     <!-- PART 2: Contextual Derivation & Mathematical Foundations -->
-    <section id="mathematical-foundations" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
+    <section id="mathematical-foundations" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 scroll-mt-20 shadow-lg">
       <div class="border-b border-slate-800 pb-4">
         <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
@@ -162,7 +212,7 @@ const breadcrumbSchema = {
     </section>
 
     <!-- PART 3: Solved Pedagogical Exemplars (Secondary, Advanced, Board Exam) -->
-    <section id="solved-exemplars" class="space-y-6">
+    <section id="solved-exemplars" class="space-y-6 scroll-mt-20">
       <div>
         <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
@@ -177,7 +227,7 @@ const breadcrumbSchema = {
 
       <div class="grid grid-cols-1 gap-6">
         {exemplars.map((ex, idx) => (
-          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4 hover:border-slate-700 transition">
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 space-y-4 hover:border-slate-700 transition shadow-md">
             <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">
                 {ex.level}
@@ -192,7 +242,7 @@ const breadcrumbSchema = {
             </div>
 
             {ex.givenData.length > 0 && (
-              <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
+              <div class="bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80 text-xs text-slate-300 space-y-1">
                 <span class="text-slate-400 block font-medium">
                   {lang === 'bn' ? 'দেওয়া আছে (Given Data):' : 'Given Parameters:'}
                 </span>
@@ -210,14 +260,14 @@ const breadcrumbSchema = {
               </span>
               <div class="space-y-1.5 font-mono text-slate-200">
                 {ex.solutionSteps.map((step) => (
-                  <div class="p-2 bg-slate-950/50 rounded border border-slate-800/60">
+                  <div class="p-2.5 bg-slate-950/60 rounded-lg border border-slate-800/60 text-xs">
                     {step}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-300 font-semibold flex items-center justify-between">
+            <div class="p-3.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-xs text-emerald-300 font-semibold flex items-center justify-between">
               <span>{lang === 'bn' ? 'উত্তর:' : 'Final Answer:'}</span>
               <span class="font-mono text-emerald-200">{ex.finalAnswer}</span>
             </div>
@@ -226,41 +276,43 @@ const breadcrumbSchema = {
       </div>
     </section>
 
-    <!-- PART 4: Casio Hardware Operational Bridge or Developer Cheatsheet -->
-    {topicId && ['quadratic', 'sigfigs', 'kinematics', 'molar-mass', 'redox'].includes(topicId) ? (
-      <section id="casio-hardware-guide" class="scroll-mt-20">
-        <CasioGuide client:visible topic={topicId as any} lang={lang} />
-      </section>
-    ) : (
-      <section id="developer-shortcuts" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
-        <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-          <h2 class="text-lg sm:text-xl font-bold text-white">
-            {lang === 'bn' ? 'বোর্ড পরীক্ষা ও প্র্যাকটিক্যাল কি-বোর্ড শর্টকাট' : 'Board Exam Practical & Keyboard Shortcuts'}
-          </h2>
+    <!-- PART 4: Casio Hardware Operational Bridge or Board Exam Checklist -->
+    <section id="hardware-or-shortcuts" class="scroll-mt-20">
+      {topicId && CASIO_TOPICS.includes(topicId) ? (
+        <div id="casio-hardware-guide">
+          <CasioGuide client:visible topic={topicId as any} lang={lang} />
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-mono text-xs text-slate-300">
-          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-            <span class="text-cyan-400 font-bold block mb-1">Ctrl + Enter</span>
-            <span>{lang === 'bn' ? 'কোড বা কুয়েরি রান করুন' : 'Execute code / query'}</span>
+      ) : (
+        <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-5">
+          <div class="flex items-center gap-2 border-b border-slate-800 pb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+            <h2 class="text-lg sm:text-xl font-bold text-white">
+              {lang === 'bn' ? 'বোর্ড পরীক্ষা ও ল্যাব চেকলিস্ট' : 'Board Exam & Laboratory Checklist'}
+            </h2>
           </div>
-          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-            <span class="text-cyan-400 font-bold block mb-1">F12 / Inspect</span>
-            <span>{lang === 'bn' ? 'ব্রাউজার কনসোল বা ডিবাগিং' : 'Open browser developer console'}</span>
-          </div>
-          <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-            <span class="text-cyan-400 font-bold block mb-1">Ctrl + S</span>
-            <span>{lang === 'bn' ? 'ফাইল সংরক্ষণ করুন' : 'Save source code file'}</span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-mono text-xs text-slate-300">
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+              <span class="text-cyan-400 font-bold block">✓ একক রূপান্তর (SI Units)</span>
+              <span class="text-slate-400">{lang === 'bn' ? 'গণনার পূর্বে সকল মানকে SI এককে নিয়ে নিন।' : 'Convert all inputs to SI units prior to calculation.'}</span>
+            </div>
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+              <span class="text-cyan-400 font-bold block">✓ সূত্র ও পক্ষান্তর উল্লেখ</span>
+              <span class="text-slate-400">{lang === 'bn' ? 'খাতায় মূল সূত্র লিখে লক্ষ্য চলককে আলাদা করুন।' : 'Explicitly isolate target variable before substitution.'}</span>
+            </div>
+            <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+              <span class="text-cyan-400 font-bold block">✓ তাৎপর্যপূর্ণ অঙ্ক ও রাউন্ডিং</span>
+              <span class="text-slate-400">{lang === 'bn' ? 'চূড়ান্ত ফলাফলে ২ বা ৩ দশমিক স্থান পর্যন্ত রাউন্ড করুন।' : 'Preserve required precision without premature truncation.'}</span>
+            </div>
           </div>
         </div>
-      </section>
-    )}
+      )}
+    </section>
 
     <!-- Zero-CLS In-Content Ad -->
     <AdSlot slotType="in-content" slotId="mid-tool-incontent" />
 
     <!-- PART 5: Real-World Applications & Industrial Context -->
-    <section id="industrial-applications" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4">
+    <section id="industrial-applications" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-4 scroll-mt-20 shadow-lg">
       <div>
         <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
@@ -278,7 +330,7 @@ const breadcrumbSchema = {
     </section>
 
     <!-- PART 6: Technical FAQ & Schema Markup -->
-    <section id="faq" class="space-y-4">
+    <section id="faq" class="space-y-4 scroll-mt-20">
       <div>
         <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-violet-400"></span>
@@ -293,7 +345,7 @@ const breadcrumbSchema = {
 
       <div class="space-y-3">
         {faqs.map((faq, idx) => (
-          <details class="group bg-slate-900 border border-slate-800 rounded-xl p-4 transition open:border-slate-700">
+          <details class="group bg-slate-900/80 border border-slate-800 rounded-2xl p-4 transition open:border-cyan-500/40">
             <summary class="flex items-center justify-between cursor-pointer font-semibold text-sm text-slate-200 hover:text-white select-none">
               <span>{faq.question}</span>
               <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
@@ -307,3 +359,4 @@ const breadcrumbSchema = {
     </section>
   </div>
 </BaseLayout>
+

@@ -21,7 +21,7 @@ interface ModelGuide {
 }
 
 interface CasioGuideProps {
-  topic: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox';
+  topic: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox' | 'physics-general' | 'chemistry-general' | 'statistics' | 'biology-general' | 'higher-math';
   lang?: 'en' | 'bn';
 }
 
@@ -508,6 +508,435 @@ const GUIDES_DATA: Record<string, Record<CasioModel, ModelGuide>> = {
           keys: ['5', '×', '0.02', '×', '20', '÷', '25', '='],
           noteEn: 'Computes equivalent concentration in mol/L.',
           noteBn: 'তুল্য ঘনমাত্রা সরাসরি স্ক্রিনে আসবে।',
+        },
+      ],
+    },
+  },
+  'physics-general': {
+    'fx-991cw': {
+      modelName: 'Casio fx-991CW (New ClassWiz)',
+      descriptionEn: 'Solving arbitrary equations (F=ma, v=u+at) using Equation Solver.',
+      descriptionBn: 'ইকুয়েশন সলভার অ্যাপের সাহায্যে যেকোনো অজানা ভৌত চলকের মান নির্ণয়।',
+      steps: [
+        {
+          labelEn: '1. Access Solver App',
+          labelBn: '১. সলভার অ্যাপে প্রবেশ',
+          keys: ['HOME', 'Equation', 'OK', 'Solver', 'OK'],
+          noteEn: 'Select Equation then choose Solver.',
+          noteBn: 'হোম মেন্যু থেকে Equation > Solver নির্বাচন করুন।',
+        },
+        {
+          labelEn: '2. Input Formula (e.g. F = m × a)',
+          labelBn: '২. সমীকরণ টাইপ করুন (যেমন F = m × a)',
+          keys: ['F', '=', 'm', '×', 'x', 'EXE'],
+          noteEn: 'Use variable key "x" for the unknown quantity.',
+          noteBn: 'অজানা চলকের জন্য "x" প্রতীক ব্যবহার করুন।',
+        },
+        {
+          labelEn: '3. Execute Numerical Solve',
+          labelBn: '৩. মান ইনপুট ও সমাধান',
+          keys: ['[Enter Knowns]', 'EXE', 'Solve', 'EXE'],
+          noteEn: 'Provides high-precision Newton-Raphson numerical root.',
+          noteBn: 'ক্যালকুলেটর স্বয়ংক্রিয়ভাবে নির্ভুল মান বের করবে।',
+        },
+      ],
+      proTipEn: 'Press [FORMAT] to view the result in standard scientific notation with exponents.',
+      proTipBn: '[FORMAT] চেপে বৈজ্ঞানিক সূচকীয় আকারে ফলাফল দেখা যায়।',
+    },
+    'fx-991ex': {
+      modelName: 'Casio fx-991EX (ClassWiz)',
+      descriptionEn: 'One-touch SOLVE feature for algebraic physics formulas.',
+      descriptionBn: 'অজানা চলকের মান এক ক্লিকে বের করার জন্য বিশ্বখ্যাত SOLVE ফিচার।',
+      steps: [
+        {
+          labelEn: '1. Type the Equation on Main Screen',
+          labelBn: '১. ক্যালকুলেটরের পর্দায় মূল সমীকরণ টাইপ করুন',
+          keys: ['ALPHA', 'CALC', '(=)'],
+          noteEn: 'Use ALPHA + CALC to generate the red "=" sign (e.g. 50 = 5 × x).',
+          noteBn: 'লাল রঙের "=" চিহ্নের জন্য ALPHA + CALC চাপুন (যেমন: ৫০ = ৫ × x)।',
+        },
+        {
+          labelEn: '2. Trigger SOLVE Engine',
+          labelBn: '২. SOLVE কমান্ড চালু করুন',
+          keys: ['SHIFT', 'CALC', '(SOLVE)'],
+          noteEn: 'Prompts for initial guess or other variable values.',
+          noteBn: 'SHIFT + CALC চাপুন।',
+        },
+        {
+          labelEn: '3. Obtain Target Variable',
+          labelBn: '৩. চূড়ান্ত ফলাফল প্রদর্শন',
+          keys: ['='],
+          noteEn: 'Displays "x = [value]" and L-R = 0 (error residual).',
+          noteBn: '"=" চাপলে কাঙ্ক্ষিত চলকের সঠিক মান পর্দায় আসবে।',
+        },
+      ],
+      proTipEn: 'Ensure L-R = 0 at the bottom to verify mathematical convergence with zero residual error.',
+      proTipBn: 'নিচে L-R = 0 দেখালে নিশ্চিত হবেন কোনো গাণিতিক ত্রুটি ছাড়াই সঠিক মান বের হয়েছে।',
+    },
+    'fx-991es': {
+      modelName: 'Casio fx-991ES PLUS / 2nd Edition',
+      descriptionEn: 'Newton-Raphson numerical solver directly on COMP mode.',
+      descriptionBn: 'বোর্ড পরীক্ষায় বহুল ব্যবহৃত সলভার ফাংশন।',
+      steps: [
+        {
+          labelEn: '1. Write Equation with Red Equals Sign',
+          labelBn: '১. সমীকরণ ও লাল সমান চিহ্ন লিখুন',
+          keys: ['ALPHA', 'CALC', '(=)'],
+          noteEn: 'Combine ALPHA + CALC for "=" and ALPHA + ) for variable X.',
+          noteBn: 'ALPHA + CALC দিয়ে "=" এবং ALPHA + ) দিয়ে X টাইপ করুন।',
+        },
+        {
+          labelEn: '2. Press SHIFT + CALC',
+          labelBn: '২. SHIFT + CALC চাপুন',
+          keys: ['SHIFT', 'CALC'],
+          noteEn: 'Shows "Solve for X".',
+          noteBn: 'পর্দায় Solve for X দেখাবে।',
+        },
+        {
+          labelEn: '3. Press = to Calculate',
+          labelBn: '৩. সমাধান পেতে = চাপুন',
+          keys: ['='],
+          noteEn: 'Wait 1 second for iteration convergence.',
+          noteBn: '১ সেকেন্ডের মধ্যে X এর চূড়ান্ত মান প্রদর্শিত হবে।',
+        },
+      ],
+    },
+    'fx-100ms': {
+      modelName: 'Casio fx-100MS / fx-570MS',
+      descriptionEn: 'Parentheses and Ans memory for multi-step physics solutions.',
+      descriptionBn: 'বন্ধনীবদ্ধ হিসাব ও Ans মেমরির সাহায্যে নির্ভুল সমাধান।',
+      steps: [
+        {
+          labelEn: '1. Isolate Variable Manually & Compute',
+          labelBn: '১. সূত্রে পক্ষান্তর করে সরাসরি মান বসান',
+          keys: ['(', 'v', '-', 'u', ')', '÷', 't', '='],
+          noteEn: 'Use bracket keys to prevent precedence errors in division.',
+          noteBn: 'ভাগ করার আগে লবকে ব্র্যাকেটের ভেতরে রাখুন।',
+        },
+      ],
+    },
+  },
+  'chemistry-general': {
+    'fx-991cw': {
+      modelName: 'Casio fx-991CW (New ClassWiz)',
+      descriptionEn: 'Precision scientific notation (Avogadro, Molarity) and logarithmic pH.',
+      descriptionBn: 'অ্যাভোগাড্রো সংখ্যা, মোলারিটি এবং লগারিদমিক pH হিসাবের নির্ভুল পদ্ধতি।',
+      steps: [
+        {
+          labelEn: '1. Input Avogadro Constant',
+          labelBn: '১. অ্যাভোগাড্রো সংখ্যা ইনপুট',
+          keys: ['6.023', '×10^x', '23', 'EXE'],
+          noteEn: 'Uses dedicated scientific exponent key.',
+          noteBn: '×10^x বাটন চেপে সরাসরি ২৩ বসান।',
+        },
+        {
+          labelEn: '2. Compute pH from [H+]',
+          labelBn: '২. [H+] থেকে pH নির্ণয়',
+          keys: ['(-)', 'log', '(', '0.05', ')', 'EXE'],
+          noteEn: 'Directly yields pH = -log[H+].',
+          noteBn: 'pH এর মান স্বয়ংক্রিয়ভাবে স্ক্রিনে আসবে।',
+        },
+      ],
+    },
+    'fx-991ex': {
+      modelName: 'Casio fx-991EX (ClassWiz)',
+      descriptionEn: 'High-speed stoichiometry with fraction template and scientific exponent.',
+      descriptionBn: 'ভগ্নাংশ বাটন ও বৈজ্ঞানিক এক্সপোনেন্ট কি-এর সাহায্যে রসায়নের জটিল হিসাব।',
+      steps: [
+        {
+          labelEn: '1. Stoichiometry Fraction (w / M)',
+          labelBn: '১. মোল সংখ্যার হিসাব (n = w / M)',
+          keys: ['[■/□]', '5', '▼', '58.5', '='],
+          noteEn: 'Press [S-D] to toggle between fraction and decimal mol.',
+          noteBn: 'S-D চেপে সরাসরি দশমিক মোল দেখা যাবে।',
+        },
+        {
+          labelEn: '2. Particles via Avogadro Number',
+          labelBn: '২. পরমাণুর সংখ্যা গণনা (n × NA)',
+          keys: ['Ans', '×', '6.023', 'x10^x', '23', '='],
+          noteEn: 'Uses Ans memory to avoid rounding errors.',
+          noteBn: 'Ans মেমরি ব্যবহারের ফলে কোনো রাউন্ডিং ভুল হয় না।',
+        },
+      ],
+    },
+    'fx-991es': {
+      modelName: 'Casio fx-991ES PLUS / 2nd Edition',
+      descriptionEn: 'The standard board tool for mole, molarity, and buffer pH.',
+      descriptionBn: 'মোল, মোলারিটি ও বাফারের pH হিসাবের বোর্ড স্ট্যান্ডার্ড পদ্ধতি।',
+      steps: [
+        {
+          labelEn: '1. Input Exponent (6.023 × 10²³)',
+          labelBn: '১. বৈজ্ঞানিক সংখ্যা ইনপুট',
+          keys: ['6.023', 'x10^x', '23'],
+          noteEn: 'Do not type "× 10 ^ 23" manually; always use the dedicated x10^x key.',
+          noteBn: 'কখনোই ম্যানুয়ালি × 10 ^ 23 লিখবেন না; সর্বদা x10^x বাটন ব্যবহার করুন।',
+        },
+        {
+          labelEn: '2. Calculate pH = -log[H+]',
+          labelBn: '২. pH হিসাব',
+          keys: ['(-)', 'log', '(', '1.5', 'x10^x', '(-)', '3', ')', '='],
+          noteEn: 'Yields exact pH value without intermediate rounding.',
+          noteBn: 'সরাসরি কাঙ্ক্ষিত pH মান বের হবে।',
+        },
+      ],
+    },
+    'fx-100ms': {
+      modelName: 'Casio fx-100MS / fx-570MS',
+      descriptionEn: 'Using the EXP key for scientific powers in secondary chemistry.',
+      descriptionBn: 'EXP বাটনের সাহায্যে পাওয়ার অব টেন এবং লগারিদম হিসাব।',
+      steps: [
+        {
+          labelEn: '1. Enter Powers with EXP Key',
+          labelBn: '১. EXP বাটন দিয়ে বৈজ্ঞানিক সংখ্যা',
+          keys: ['6.023', 'EXP', '23'],
+          noteEn: 'Displays "6.023E23".',
+          noteBn: 'স্ক্রিনে 6.023E23 প্রদর্শিত হবে।',
+        },
+      ],
+    },
+  },
+  'statistics': {
+    'fx-991cw': {
+      modelName: 'Casio fx-991CW (New ClassWiz)',
+      descriptionEn: 'Statistics App for grouped data Mean, Variance, and Standard Deviation.',
+      descriptionBn: 'পরিসংখ্যানের সংক্ষিপ্ত গড়, মধ্যক ও পরিমিত ব্যবধানের দ্রুততম সারণী পদ্ধতি।',
+      steps: [
+        {
+          labelEn: '1. Open Statistics App & Turn Frequency ON',
+          labelBn: '১. পরিসংখ্যান অ্যাপে প্রবেশ ও গণসংখ্যা চালু',
+          keys: ['HOME', 'Statistics', 'OK', 'TOOLS', 'Frequency', 'On', 'OK'],
+          noteEn: 'Enables 2-column input table for midpoint (x) and frequency (f).',
+          noteBn: 'শ্রেণি মধ্যমান (x) এবং গণসংখ্যা (f) এর দুই কলাম সারণী চালু হবে।',
+        },
+        {
+          labelEn: '2. Enter Data Table',
+          labelBn: '২. উপাত্ত সারণী ইনপুট',
+          keys: ['[x values]', 'EXE', '[f values]', 'EXE'],
+          noteEn: 'Type midpoints in column 1 and frequencies in column 2.',
+          noteBn: 'প্রথম কলামে মধ্যমান ও দ্বিতীয় কলামে গণসংখ্যা লিখে EXE চাপুন।',
+        },
+        {
+          labelEn: '3. View Mean (x̄) and Σf',
+          labelBn: '৩. গড় (x̄) এবং মোট গণসংখ্যা দেখুন',
+          keys: ['OK', '1-Variable Calc', 'OK'],
+          noteEn: 'Displays x̄ (mean), Σx, and σx directly.',
+          noteBn: 'গড় (x̄), মোট উপাত্ত n এবং পরিমিত ব্যবধান সরাসরি দেখা যাবে।',
+        },
+      ],
+      proTipEn: 'Use the displayed x̄ to verify your board exam "সংক্ষিপ্ত গড়" step table before submitting your script.',
+      proTipBn: 'বোর্ড পরীক্ষায় সংক্ষিপ্ত পদ্ধতিতে গড় করার পর ক্যালকুলেটরের x̄ মিলিয়ে নিলে ৪-এ ৪ নিশ্চিত।',
+    },
+    'fx-991ex': {
+      modelName: 'Casio fx-991EX (ClassWiz)',
+      descriptionEn: 'Frequency distribution table statistics on ClassWiz.',
+      descriptionBn: 'ক্লাসউইজ মডেলে ফ্রিকোয়েন্সি টেবিল ও অটোমেটিক মিন ক্যালকুলেশন।',
+      steps: [
+        {
+          labelEn: '1. Turn Frequency ON',
+          labelBn: '১. ফ্রিকোয়েন্সি কলাম চালু করুন',
+          keys: ['SHIFT', 'MENU', '▼', '3 (Statistics)', '1 (ON)'],
+          noteEn: 'Permanent setup until reset.',
+          noteBn: 'SHIFT + MENU চেপে ৩ > ১ চাপলে গণসংখ্যা কলাম চালু হবে।',
+        },
+        {
+          labelEn: '2. Open Statistics 1-Variable',
+          labelBn: '২. ১-ভ্যারিয়েবল স্ট্যাট মোড',
+          keys: ['MENU', '6 (Statistics)', '1 (1-Variable)'],
+          noteEn: 'Brings up table with X and FREQ headers.',
+          noteBn: 'X এবং FREQ কলামের টেবিল আসবে।',
+        },
+        {
+          labelEn: '3. View 1-Variable Summary',
+          labelBn: '৩. গড় ও যোগফল প্রদর্শন',
+          keys: ['OPTN', '3 (1-Variable Calc)'],
+          noteEn: 'Instant display of Mean (x̄), Σx, and n.',
+          noteBn: 'OPTN > ৩ চাপলেই গড় x̄ ও মোট সংখ্যা n প্রদর্শিত হবে।',
+        },
+      ],
+    },
+    'fx-991es': {
+      modelName: 'Casio fx-991ES PLUS / 2nd Edition',
+      descriptionEn: 'Board standard grouped data analysis.',
+      descriptionBn: 'এসএসসি পরীক্ষার হলে বহুল ব্যবহৃত স্ট্যাট মোড।',
+      steps: [
+        {
+          labelEn: '1. Enable Frequency Table',
+          labelBn: '১. ফ্রিকোয়েন্সি টেবিল অন করুন',
+          keys: ['SHIFT', 'MODE', '▼', '4 (STAT)', '1 (ON)'],
+          noteEn: 'Shows Freq column.',
+          noteBn: 'গণসংখ্যার কলাম স্ক্রিনে সক্রিয় হবে।',
+        },
+        {
+          labelEn: '2. Enter Data in STAT Mode',
+          labelBn: '২. উপাত্ত লিখুন',
+          keys: ['MODE', '3 (STAT)', '1 (1-VAR)', '[Fill X & FREQ]', 'AC'],
+          noteEn: 'Always press AC after data entry to store in memory.',
+          noteBn: 'মান বসানো শেষ হলে মেমরিতে রাখতে AC চাপুন।',
+        },
+        {
+          labelEn: '3. Read Mean (x̄)',
+          labelBn: '৩. গড় বের করুন',
+          keys: ['SHIFT', '1 (STAT)', '4 (Var)', '2 (x̄)', '='],
+          noteEn: 'Displays the exact arithmetic mean.',
+          noteBn: 'সঠিক গাণিতিক গড় স্ক্রিনে আসবে।',
+        },
+      ],
+    },
+    'fx-100ms': {
+      modelName: 'Casio fx-100MS / fx-570MS',
+      descriptionEn: 'Using the M+ memory key in SD mode.',
+      descriptionBn: 'এসডি (SD) মোডে M+ কি ব্যবহার করে পরিসংখ্যান সমাধান।',
+      steps: [
+        {
+          labelEn: '1. Enter SD Mode',
+          labelBn: '১. এসডি মোডে প্রবেশ',
+          keys: ['MODE', 'MODE', '1 (SD)'],
+          noteEn: 'Clears previous stat memory.',
+          noteBn: 'স্ক্রিনে SD লেখা আসবে।',
+        },
+        {
+          labelEn: '2. Input [Value] ; [Frequency] M+',
+          labelBn: '২. মান ও গণসংখ্যা ইনপুট',
+          keys: ['[x]', 'SHIFT', ',', '[f]', 'M+'],
+          noteEn: 'Repeats for each row in the table.',
+          noteBn: 'প্রতিটি সারির জন্য মান, সেমিকোলন ও গণসংখ্যা লিখে M+ চাপুন।',
+        },
+        {
+          labelEn: '3. Display Mean (x̄)',
+          labelBn: '৩. গড় প্রদর্শন',
+          keys: ['SHIFT', '2 (S-VAR)', '1 (x̄)', '='],
+          noteEn: 'Yields the grouped mean.',
+          noteBn: 'নিমিষে গড় বের হবে।',
+        },
+      ],
+    },
+  },
+  'biology-general': {
+    'fx-991cw': {
+      modelName: 'Casio fx-991CW (New ClassWiz)',
+      descriptionEn: 'BMI and daily caloric expenditure evaluation.',
+      descriptionBn: 'বিএমআই এবং দৈনিক ক্যালোরি চাহিদার দ্রুততম হিসাব।',
+      steps: [
+        {
+          labelEn: '1. Compute BMI: Weight / (Height in m)²',
+          labelBn: '১. বিএমআই হিসাব: ওজন ÷ (উচ্চতা মি)² ',
+          keys: ['65', '÷', '(', '1.68', ')', 'x²', 'EXE'],
+          noteEn: 'Enter height in meters (e.g. 168 cm = 1.68 m).',
+          noteBn: 'উচ্চতা সেন্টিমিটার থেকে মিটারে রূপান্তর করে স্কয়ার করুন।',
+        },
+      ],
+    },
+    'fx-991ex': {
+      modelName: 'Casio fx-991EX (ClassWiz)',
+      descriptionEn: 'Harris-Benedict BMR formula calculation.',
+      descriptionBn: 'হ্যারিস-বেনেডিক্ট বিএমআর সূত্র মূল্যায়ন।',
+      steps: [
+        {
+          labelEn: '1. Enter Multi-Variable Formula',
+          labelBn: '১. বিএমআর সূত্র ইনপুট',
+          keys: ['66', '+', '13.7', '×', '65', '+', '5', '×', '170', '-', '6.8', '×', '20', '='],
+          noteEn: 'Directly computes basal metabolic rate in kcal/day.',
+          noteBn: 'প্রতিদিন প্রয়োজনীয় বেসাল মেটাবলিক রেট পাওয়া যাবে।',
+        },
+      ],
+    },
+    'fx-991es': {
+      modelName: 'Casio fx-991ES PLUS / 2nd Edition',
+      descriptionEn: 'Genetic probability & Lindeman 10% energy pyramid.',
+      descriptionBn: 'জেনেটিক অনুপাত ও বাস্তুতন্ত্রের ১০% শক্তি স্থানান্তর হিসাব।',
+      steps: [
+        {
+          labelEn: '1. Compute 10% Energy Transfer',
+          labelBn: '১. ১০% ট্রফিক স্তর শক্তি হিসাব',
+          keys: ['1000', '×', '10', 'SHIFT', '(', '(%)', '='],
+          noteEn: 'Evaluates succeeding trophic level energy.',
+          noteBn: 'পরবর্তী ট্রফিক স্তরের শক্তি বের হবে।',
+        },
+      ],
+    },
+    'fx-100ms': {
+      modelName: 'Casio fx-100MS / fx-570MS',
+      descriptionEn: 'Standard arithmetic evaluation for biological ratios.',
+      descriptionBn: 'জীববিজ্ঞানের সাধারণ গাণিতিক অনুপাত ও বিএমআই হিসাব।',
+      steps: [
+        {
+          labelEn: '1. Calculate BMI',
+          labelBn: '১. বিএমআই নির্ণয়',
+          keys: ['60', '÷', '1.65', 'x²', '='],
+          noteEn: 'Gives the body mass index value.',
+          noteBn: 'বিএমআই মান পর্দায় আসবে।',
+        },
+      ],
+    },
+  },
+  'higher-math': {
+    'fx-991cw': {
+      modelName: 'Casio fx-991CW (New ClassWiz)',
+      descriptionEn: 'Vector magnitude, dot product, and complex roots in Higher Math.',
+      descriptionBn: 'ভেক্টর গুণন, মান নির্ণয় ও জটিল সংখ্যার সমাধান।',
+      steps: [
+        {
+          labelEn: '1. Access Vector App',
+          labelBn: '১. ভেক্টর অ্যাপ নির্বাচন',
+          keys: ['HOME', 'Vector', 'OK', 'VctA', '3 Dimension', 'OK'],
+          noteEn: 'Defines 2D or 3D vector components.',
+          noteBn: '২ডি বা ৩ডি ভেক্টরের সহগ ইনপুট দিন।',
+        },
+        {
+          labelEn: '2. Compute Modulus / Magnitude',
+          labelBn: '২. ভেক্টরের মান (Magnitude) নির্ণয়',
+          keys: ['CATALOG', 'Vector', 'Norm', '(', 'VctA', ')', 'EXE'],
+          noteEn: 'Evaluates |A| = √(x² + y² + z²).',
+          noteBn: 'ভেক্টরের মান সরাসরি স্ক্রিনে আসবে।',
+        },
+      ],
+    },
+    'fx-991ex': {
+      modelName: 'Casio fx-991EX (ClassWiz)',
+      descriptionEn: 'Vector and matrix calculations for Classes 9-10 & College.',
+      descriptionBn: 'উচ্চতর গণিতের ভেক্টর ডট গুণন ও ক্ষেত্রফল যাচাই।',
+      steps: [
+        {
+          labelEn: '1. Open Vector Mode',
+          labelBn: '১. ভেক্টর মোড চালু করুন',
+          keys: ['MENU', '5 (Vector)', '1 (VctA)', '3', '[Input i,j,k]', 'AC'],
+          noteEn: 'Stores vector A in memory.',
+          noteBn: 'ভেক্টর A এর মান মেমরিতে সংরক্ষিত হবে।',
+        },
+        {
+          labelEn: '2. Dot Product (VctA • VctB)',
+          labelBn: '২. ডট গুণন (VctA • VctB)',
+          keys: ['OPTN', '3 (VctA)', 'OPTN', '▼', '2 (Dot Product)', 'OPTN', '4 (VctB)', '='],
+          noteEn: 'Scalar dot product displayed immediately.',
+          noteBn: 'স্কেলার ডট গুণফলের মান সরাসরি পর্দায় আসবে।',
+        },
+      ],
+    },
+    'fx-991es': {
+      modelName: 'Casio fx-991ES PLUS / 2nd Edition',
+      descriptionEn: 'Vector and coordinate conversion on 991ES.',
+      descriptionBn: 'ভেক্টর ও স্থানাঙ্ক রূপান্তর (কার্তেসীয় থেকে পোলার)।',
+      steps: [
+        {
+          labelEn: '1. Convert Cartesian to Polar: Pol(x, y)',
+          labelBn: '১. কার্তেসীয় থেকে পোলার রূপান্তর: Pol(x, y)',
+          keys: ['SHIFT', '+ (Pol)', '3', 'SHIFT', ')', '4', ')', '='],
+          noteEn: 'Displays radius r = 5 and angle θ = 53.13°.',
+          noteBn: 'দূরত্ব r = 5 এবং কোণ θ = ৫৩.১৩° সরাসরি দেখাবে।',
+        },
+      ],
+    },
+    'fx-100ms': {
+      modelName: 'Casio fx-100MS / fx-570MS',
+      descriptionEn: 'Polar & Rectangular coordinates conversion on fx-100MS.',
+      descriptionBn: 'fx-100MS এ Pol( এবং Rec( কি-এর ব্যবহার।',
+      steps: [
+        {
+          labelEn: '1. Find Distance & Angle with Pol',
+          labelBn: '১. বিন্দুদ্বয়ের দূরত্ব ও কোণ নির্ণয়',
+          keys: ['Pol(', '3', ',', '4', ')', '='],
+          noteEn: 'Press RCL then F for the angle.',
+          noteBn: 'RCL চেপে F চাপলে কোণ প্রদর্শিত হবে।',
         },
       ],
     },

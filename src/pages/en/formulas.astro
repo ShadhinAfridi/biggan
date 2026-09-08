@@ -1,0 +1,290 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CURRICULUM_DATA } from '../../data/curriculum';
+import katex from 'katex';
+
+interface FormulaEntry {
+  subjectId: string;
+  subjectNameBn: string;
+  subjectNameEn: string;
+  chapterNumber: number;
+  chapterTitleBn: string;
+  chapterTitleEn: string;
+  nameBn: string;
+  nameEn: string;
+  latex: string;
+  html: string;
+  notesBn?: string;
+  notesEn?: string;
+  toolUrl?: string;
+}
+
+const formulas: FormulaEntry[] = [];
+
+for (const subject of CURRICULUM_DATA) {
+  for (const ch of subject.chapters) {
+    if (ch.coreFormulas && ch.coreFormulas.length > 0) {
+      for (const f of ch.coreFormulas) {
+        let html = '';
+        try {
+          html = katex.renderToString(f.latex, { displayMode: true, throwOnError: false });
+        } catch {
+          html = f.latex;
+        }
+
+        let toolUrl = '';
+        if (subject.id === 'physics') toolUrl = `/en/tools/physics#ch${ch.chapterNumber}`;
+        else if (subject.id === 'higher-math') toolUrl = `/en/tools/higher-math`;
+        else if (subject.id === 'general-math') toolUrl = `/en/tools/general-math`;
+        else if (subject.id === 'chemistry') toolUrl = `/en/tools/chemistry`;
+        else if (subject.id === 'biology') toolUrl = `/en/tools/biology`;
+        else if (subject.id === 'ict') toolUrl = `/en/tools/logic-gates`;
+
+        formulas.push({
+          subjectId: subject.id,
+          subjectNameBn: subject.nameBn,
+          subjectNameEn: subject.nameEn,
+          chapterNumber: ch.chapterNumber,
+          chapterTitleBn: ch.titleBn,
+          chapterTitleEn: ch.titleEn,
+          nameBn: f.nameBn,
+          nameEn: f.nameEn,
+          latex: f.latex,
+          html,
+          notesBn: f.notesBn,
+          notesEn: f.notesEn,
+          toolUrl,
+        });
+      }
+    }
+  }
+}
+
+const subjects = [
+  { id: 'all', name: 'All Subjects (' + formulas.length + ')' },
+  { id: 'physics', name: 'Physics' },
+  { id: 'higher-math', name: 'Higher Math' },
+  { id: 'general-math', name: 'General Math' },
+  { id: 'chemistry', name: 'Chemistry' },
+  { id: 'biology', name: 'Biology' },
+  { id: 'ict', name: 'ICT' },
+];
+---
+
+<BaseLayout
+  title="Complete Formula Reference Sheet (SSC & HSC) | Biggan.me"
+  description="All essential equations, scientific constants, and exam notes for Physics, Chemistry, General Math, Higher Math, and ICT under NCTB curriculum."
+  lang="en"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
+    {/* Page Header */}
+    <div class="text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        <span>📖</span>
+        <span>NCTB Curriculum Aligned Mathematical Reference Sheet</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        Complete Board Exam Formula Sheet
+      </h1>
+      <p class="max-w-2xl mx-auto text-sm sm:text-base text-slate-400 leading-relaxed">
+        Comprehensive equations, constants, and problem-solving rules for Physics, Chemistry, Higher Math, General Math, and Biology. Print or bookmark for quick exam revision.
+      </p>
+
+      {/* Action Buttons */}
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2 no-print">
+        <button
+          onclick="window.print()"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm transition shadow-lg shadow-amber-500/20 cursor-pointer"
+        >
+          <span>🖨️</span>
+          <span>Print / Save as PDF</span>
+        </button>
+        <a
+          href="/en/my-progress"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
+        >
+          <span>📊</span>
+          <span>My Revision Progress</span>
+        </a>
+      </div>
+    </div>
+
+    {/* Search and Subject Filter Controls */}
+    <div class="space-y-4 no-print">
+      {/* Search Input */}
+      <div class="relative max-w-xl mx-auto">
+        <input
+          type="text"
+          id="formulaSearch"
+          placeholder="Search formulas by name, variable, or chapter (e.g. F=ma, velocity, triangle, pH)..."
+          class="w-full bg-slate-900/90 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 transition shadow-inner"
+        />
+        <div class="absolute right-3.5 top-3.5 text-slate-400 text-xs font-mono">
+          🔍
+        </div>
+      </div>
+
+      {/* Subject Filter Tabs */}
+      <div class="flex flex-wrap justify-center gap-2">
+        {subjects.map((s, idx) => (
+          <button
+            class={`subject-filter-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+              idx === 0
+                ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
+                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+            }`}
+            data-subject={s.id}
+          >
+            {s.name}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    {/* Formula Cards Grid */}
+    <div
+      id="formulaGrid"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+    >
+      {formulas.map((f) => (
+        <div
+          class="formula-card bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-500/40 rounded-2xl p-5 space-y-3 transition duration-200 flex flex-col justify-between"
+          data-subject={f.subjectId}
+          data-keywords={`${f.subjectNameBn} ${f.subjectNameEn} ${f.chapterTitleBn} ${f.chapterTitleEn} ${f.nameBn} ${f.nameEn} ${f.notesEn || f.notesBn || ''}`.toLowerCase()}
+        >
+          <div class="space-y-3">
+            {/* Subject and Chapter Badges */}
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-slate-800 text-amber-300 border border-slate-700">
+                {f.subjectNameEn}
+              </span>
+              <span class="text-slate-400 font-medium">
+                {f.chapterNumber ? `Chapter ${f.chapterNumber}` : ''}
+              </span>
+            </div>
+
+            {/* Formula Title */}
+            <div>
+              <h2 class="text-base font-bold text-white tracking-tight">
+                {f.nameEn}
+              </h2>
+              <p class="text-xs text-slate-400 font-medium">
+                {f.nameBn}
+              </p>
+            </div>
+
+            {/* KaTeX Display */}
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800/80 overflow-x-auto text-center font-mono text-amber-200">
+              <Fragment set:html={f.html} />
+            </div>
+
+            {/* Notes & Boundary Conditions */}
+            {(f.notesEn || f.notesBn) && (
+              <p class="text-xs text-slate-400 italic bg-slate-950/40 p-2.5 rounded-lg border border-slate-850">
+                💡 <span class="font-medium text-slate-300">Note:</span> {f.notesEn || f.notesBn}
+              </p>
+            )}
+          </div>
+
+          {/* Calculator Link */}
+          {f.toolUrl && (
+            <div class="pt-2 border-t border-slate-800/60 no-print">
+              <a
+                href={f.toolUrl}
+                class="w-full inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-slate-800/60 hover:bg-amber-500 hover:text-slate-950 text-amber-400 text-xs font-semibold transition duration-150"
+              >
+                <span>Verify in Calculator</span>
+                <span>→</span>
+              </a>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    {/* Empty State */}
+    <div
+      id="noFormulaResults"
+      class="hidden p-12 text-center bg-slate-900/40 border border-dashed border-slate-800 rounded-3xl space-y-3"
+    >
+      <div class="text-3xl">🔍</div>
+      <h3 class="text-base font-bold text-white">No formulas found</h3>
+      <p class="text-xs text-slate-400">Please try searching with a different keyword or subject filter.</p>
+    </div>
+  </div>
+
+  <script is:inline>
+    const searchInput = document.getElementById('formulaSearch');
+    const filterBtns = document.querySelectorAll('.subject-filter-btn');
+    const cards = document.querySelectorAll('.formula-card');
+    const emptyState = document.getElementById('noFormulaResults');
+
+    let activeSubject = 'all';
+    let searchQuery = '';
+
+    function filterCards() {
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const cardSubject = card.getAttribute('data-subject');
+        const keywords = card.getAttribute('data-keywords') || '';
+
+        const matchesSubject = activeSubject === 'all' || cardSubject === activeSubject;
+        const matchesSearch = !searchQuery || keywords.includes(searchQuery.toLowerCase());
+
+        if (matchesSubject && matchesSearch) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.trim();
+        filterCards();
+      });
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-md', 'shadow-amber-500/20');
+          b.classList.add('bg-slate-900/80', 'text-slate-300', 'border', 'border-slate-800');
+        });
+        btn.classList.remove('bg-slate-900/80', 'text-slate-300', 'border', 'border-slate-800');
+        btn.classList.add('bg-amber-500', 'text-slate-950', 'font-bold', 'shadow-md', 'shadow-amber-500/20');
+
+        activeSubject = btn.getAttribute('data-subject') || 'all';
+        filterCards();
+      });
+    });
+  </script>
+
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .formula-card {
+        background: white !important;
+        color: black !important;
+        border: 1px solid #ccc !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .formula-card * {
+        color: black !important;
+      }
+    }
+  </style>
+</BaseLayout>

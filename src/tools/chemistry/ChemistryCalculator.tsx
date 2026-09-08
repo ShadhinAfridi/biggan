@@ -1,3 +1,4 @@
+import { RevisionTracker } from '../../components/tools/RevisionTracker';
 import React, { useState } from 'react';
 import {
   FlaskConical,
@@ -47,6 +48,103 @@ type ChemistryTab =
   | 'acid_base'
   | 'hydrocarbon'
   | 'atomic_structure';
+
+
+const PHRainbowGauge: React.FC<{ ph: number; lang?: 'bn' | 'en' }> = ({ ph, lang = 'bn' }) => {
+  const clampedPH = Math.max(0, Math.min(14, ph));
+  const percent = (clampedPH / 14) * 100;
+
+  let statusBn = 'নিরপেক্ষ (Neutral)';
+  let statusEn = 'Neutral';
+  let badgeColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+
+  if (clampedPH < 3) {
+    statusBn = 'তীব্র এসিডিক (Strongly Acidic)';
+    statusEn = 'Strongly Acidic';
+    badgeColor = 'bg-red-500/20 text-red-300 border-red-500/40';
+  } else if (clampedPH < 7) {
+    statusBn = 'মৃদু এসিডিক (Weakly Acidic)';
+    statusEn = 'Weakly Acidic';
+    badgeColor = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+  } else if (clampedPH === 7) {
+    statusBn = 'নিরপেক্ষ (Neutral)';
+    statusEn = 'Neutral';
+    badgeColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
+  } else if (clampedPH <= 11) {
+    statusBn = 'মৃদু ক্ষারীয় (Weakly Basic)';
+    statusEn = 'Weakly Basic';
+    badgeColor = 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
+  } else {
+    statusBn = 'তীব্র ক্ষারীয় (Strongly Basic)';
+    statusEn = 'Strongly Basic';
+    badgeColor = 'bg-purple-500/20 text-purple-300 border-purple-500/40';
+  }
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-teal-300">
+          {lang === 'bn' ? 'pH রেইনবো কালার স্কেল (pH Spectrum Gauge)' : 'pH Rainbow Color Gauge'}
+        </span>
+        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeColor}`}>
+          {lang === 'bn' ? statusBn : statusEn}
+        </span>
+      </div>
+
+      <div className="relative pt-3 pb-1">
+        <div
+          className="absolute top-0 -ml-1.5 transition-all duration-300 text-teal-300"
+          style={{ left: `${percent}%` }}
+        >
+          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white mx-auto drop-shadow" />
+        </div>
+
+        <div
+          className="w-full h-3.5 rounded-full shadow-inner border border-slate-700/60"
+          style={{
+            background: 'linear-gradient(to right, #ef4444 0%, #f97316 20%, #eab308 40%, #10b981 50%, #06b6d4 70%, #3b82f6 85%, #8b5cf6 100%)',
+          }}
+        />
+
+        <div className="flex justify-between text-[10px] font-mono text-slate-400 mt-1 px-0.5">
+          <span>0 (এসিড)</span>
+          <span className="text-amber-400 font-bold">3</span>
+          <span className="text-emerald-400 font-bold">7 (নিরপেক্ষ)</span>
+          <span className="text-cyan-400 font-bold">11</span>
+          <span>14 (ক্ষার)</span>
+        </div>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      {activeResult.success && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-teal-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-teal-400 font-semibold block uppercase tracking-wider">
+              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
+            </span>
+            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+              <span>
+                {typeof activeResult.value === 'number'
+                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
+                    ? activeResult.value.toExponential(4)
+                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+                  : activeResult.value}
+              </span>
+              {activeResult.unit && <span className="text-xs text-teal-300 font-normal">{activeResult.unit}</span>}
+            </div>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-teal-500/20"
+          >
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeTab, setActiveTab] = useState<ChemistryTab>('mole_molarity');
@@ -783,6 +881,7 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                       </button>
                     ))}
                   </div>
+                  <PHRainbowGauge ph={typeof activeResult.value === 'number' ? activeResult.value : (phInput > 0 ? -Math.log10(phInput) : 7)} lang={lang} />
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-3">
@@ -995,6 +1094,34 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      {activeResult.success && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-teal-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-teal-400 font-semibold block uppercase tracking-wider">
+              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
+            </span>
+            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+              <span>
+                {typeof activeResult.value === 'number'
+                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
+                    ? activeResult.value.toExponential(4)
+                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+                  : activeResult.value}
+              </span>
+              {activeResult.unit && <span className="text-xs text-teal-300 font-normal">{activeResult.unit}</span>}
+            </div>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-teal-500/20"
+          >
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

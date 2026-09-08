@@ -1,3 +1,4 @@
+import { RevisionTracker } from '../../components/tools/RevisionTracker';
 import React, { useState } from 'react';
 import {
   Layers,
@@ -70,6 +71,85 @@ type ModuleTab =
   | 'binomial'
   | 'coord_vec'
   | 'solid_prob';
+
+
+const ParabolaCurveDiagram: React.FC<{ a: number; b: number; c: number; lang?: 'bn' | 'en' }> = ({
+  a,
+  b,
+  c,
+  lang = 'bn',
+}) => {
+  if (a === 0) return null;
+
+  const d = b * b - 4 * a * c;
+  const vx = -b / (2 * a);
+  const vy = -d / (4 * a);
+  const opensUp = a > 0;
+
+  const svgW = 280;
+  const svgH = 130;
+  const centerX = svgW / 2;
+  const centerY = svgH / 2;
+  const scaleX = 20;
+  const scaleY = 10;
+
+  const points: { x: number; y: number }[] = [];
+  for (let dx = -4; dx <= 4; dx += 0.4) {
+    const worldX = vx + dx;
+    const worldY = a * worldX * worldX + b * worldX + c;
+    const screenX = centerX + dx * scaleX;
+    const screenY = centerY - (worldY - vy) * scaleY * (opensUp ? 1 : -1);
+    points.push({ x: screenX, y: Math.max(8, Math.min(svgH - 8, screenY)) });
+  }
+
+  const pathData = points.reduce((acc, p, idx) => (idx === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`), '');
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-indigo-300">
+          {lang === 'bn' ? 'দ্বিঘাত পরাবৃত্ত বক্ররেখা (Parabola Curve)' : 'Quadratic Parabola Visualizer'}
+        </span>
+        <span className="text-[10px] font-mono text-slate-400">
+          D = {d.toFixed(1)} {d >= 0 ? (lang === 'bn' ? '(বাস্তব মূল)' : '(Real Roots)') : (lang === 'bn' ? '(জটিল মূল)' : '(Complex Roots)')}
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-xs h-32 overflow-visible">
+          <line x1="20" y1={centerY} x2={svgW - 20} y2={centerY} stroke="#475569" strokeWidth="1.2" strokeDasharray="3 3" />
+          <line x1={centerX} y1="10" x2={centerX} y2={svgH - 10} stroke="#6366f1" strokeWidth="1" strokeDasharray="2 2" opacity="0.6" />
+          <path d={pathData} fill="none" stroke="#818cf8" strokeWidth="2.5" />
+          <circle cx={centerX} cy={centerY} r="4" fill="#f59e0b" stroke="#ffffff" strokeWidth="1.5" />
+          <text x={centerX + 8} y={centerY - 6} fill="#f59e0b" fontSize="9" fontWeight="bold" fontFamily="monospace">
+            V({vx.toFixed(1)}, {vy.toFixed(1)})
+          </text>
+          <text x="25" y="22" fill="#94a3b8" fontSize="9" fontFamily="monospace">
+            {opensUp ? 'a > 0 (Upward ∪)' : 'a < 0 (Downward ∩)'}
+          </text>
+        </svg>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] text-indigo-400 font-semibold block uppercase tracking-wider">
+            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
+          </span>
+          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+            {activeTab === 'geometry' && <span>d = {apolResult.medianLength.toFixed(2)}</span>}
+            {activeTab === 'equations' && eqSubTab === 'quadratic' && <span>{quadResult.natureBn}</span>}
+            {activeTab === 'series' && seriesSubTab === 'geometric' && <span>{geoResult.sum}</span>}
+            {activeTab === 'sets' && setsSubTab === 'venn' && <span>n(A∪B∪C) = {vennResult.totalUnion}</span>}
+            {activeTab === 'algebra' && algSubTab === 'remainder' && <span>R = {polyResult.remainder}</span>}
+            {activeTab === 'binomial' && <span>n={binN} ({binResult.totalTerms} terms)</span>}
+            {activeTab === 'coord_vec' && coordSubTab === 'line' && <span>d = {lineResult.distance.toFixed(2)}</span>}
+            {activeTab === 'solid_prob' && solidSubTab === 'prob' && <span>P = {probResult.fraction}</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeTab, setActiveTab] = useState<ModuleTab>('geometry');
@@ -224,6 +304,20 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         </div>
       </div>
 
+      {/* Revision Tracker */}
+      <div className="p-3 sm:p-4 bg-slate-950/40 border-b border-slate-800">
+        <RevisionTracker
+          toolId="higher-math"
+          currentChapterId={activeTab}
+          chapters={tabs.map((t) => ({
+            id: t.id,
+            title: lang === 'bn' ? t.nameBn : t.nameEn,
+          }))}
+          lang={lang}
+          accentColor="purple"
+        />
+      </div>
+
       {/* Preset Fast-Pick Ribbon */}
       <div className="bg-slate-950/60 border-b border-slate-800/80 px-4 py-2.5 flex items-center gap-2 overflow-x-auto text-xs">
         <span className="text-slate-400 flex items-center gap-1 shrink-0 font-medium">
@@ -366,6 +460,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                       />
                     </div>
                   </div>
+                  <ParabolaCurveDiagram a={quadA} b={quadB} c={quadC} lang={lang} />
                 </div>
               ) : (
                 <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
@@ -1546,6 +1641,87 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           <div className="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
             <span>কাসিও সাইন্টিফিক ক্যালকুলেটর শর্টকাটের জন্য নিচে দেখুন</span>
             <span className="text-indigo-400 font-mono">fx-991EX / ClassWiz</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] text-indigo-400 font-semibold block uppercase tracking-wider">
+            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
+          </span>
+          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+            {(() => {
+              try {
+                if (activeTab === 'geometry') {
+                  const r = solveApollonius(triA, triB, triC);
+                  return <span>dₐ = {r.medianA}, dᵦ = {r.medianB}</span>;
+                }
+                if (activeTab === 'equations') {
+                  if (eqSubTab === 'quadratic') {
+                    const r = solveQuadratic(quadA, quadB, quadC);
+                    return <span>{r.rootsDisplay}</span>;
+                  }
+                  const r = solveLinearInequality(ineqA, ineqB, ineqC);
+                  return <span>{r.solution}</span>;
+                }
+                if (activeTab === 'series') {
+                  if (seriesSubTab === 'geometric') {
+                    const r = solveInfiniteGeometricSum(geoA, geoR);
+                    return <span>S∞ = {r.sum}</span>;
+                  }
+                  const r = convertRecurringDecimal(recWhole, recNonRecur, recRecur);
+                  return <span>{r.fraction}</span>;
+                }
+                if (activeTab === 'sets') {
+                  if (setsSubTab === 'venn') {
+                    const r = solveThreeSetVenn(vennNA, vennNB, vennNC, vennNAB, vennNBC, vennNCA, vennNABC);
+                    return <span>n(A∪B∪C) = {r.totalUnion}</span>;
+                  }
+                  if (setsSubTab === 'inverse') {
+                    const r = solveFractionalInverse(invA, invB, invC, invD);
+                    return <span>f⁻¹: {r.latex}</span>;
+                  }
+                  return <span>2^{subsetsN} = {Math.pow(2, subsetsN)}</span>;
+                }
+                if (activeTab === 'algebra') {
+                  if (algSubTab === 'remainder') {
+                    const cList = polyCoeffs.split(',').map((s) => parseFloat(s.trim()) || 0);
+                    const r = evaluateRemainderTheorem(cList, polyA);
+                    return <span>R = {r.remainder}</span>;
+                  }
+                  const r = solveCyclicCubic(cycA, cycB, cycC);
+                  return <span>{r.value}</span>;
+                }
+                if (activeTab === 'binomial') {
+                  const r = expandBinomial(binA, binB, binN);
+                  return <span>(ax+by)^{binN} ({r.totalTerms} {lang === 'bn' ? 'পদ' : 'terms'})</span>;
+                }
+                if (activeTab === 'coord_vec') {
+                  if (coordSubTab === 'line') {
+                    const r = solveCoordinateLine(x1, y1, x2, y2);
+                    return <span>d = {r.distance.toFixed(2)}, m = {r.slope.toFixed(2)}</span>;
+                  }
+                  if (coordSubTab === 'vector') {
+                    const r = solveVector(vecX, vecY);
+                    return <span>|v| = {r.magnitude.toFixed(2)}</span>;
+                  }
+                  return <span>Polygon Area</span>;
+                }
+                if (activeTab === 'solid_prob') {
+                  if (solidSubTab === 'prob') {
+                    const r = solveProbability(probFav, probTot);
+                    return <span>P = {r.fraction} ({r.percentage}%)</span>;
+                  }
+                  const r = solveSolidGeometry(solidSubTab as any, { r: solidR, h: solidH });
+                  return <span>V = {r.volume.toFixed(2)}</span>;
+                }
+              } catch {
+                return <span>--</span>;
+              }
+              return null;
+            })()}
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { RevisionTracker } from '../../components/tools/RevisionTracker';
 import React, { useState } from 'react';
 import {
   Activity,
@@ -48,6 +49,46 @@ type BiologyTab =
   | 'sex_linked'
   | 'trophic_energy'
   | 'blood_matching';
+
+
+const BMIGaugeBar: React.FC<{ bmi: number; lang?: 'bn' | 'en' }> = ({ bmi, lang = 'bn' }) => {
+  const clampedBMI = Math.max(15, Math.min(35, bmi));
+  const percent = ((clampedBMI - 15) / (35 - 15)) * 100;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-emerald-300">
+          {lang === 'bn' ? 'BMI রেঞ্জ নির্দেশক (WHO & NCTB মানদণ্ড)' : 'BMI Range Spectrum (WHO & NCTB)'}
+        </span>
+        <span className="font-mono text-[10px] text-slate-400">BMI: {bmi}</span>
+      </div>
+
+      <div className="relative pt-3 pb-1">
+        <div
+          className="absolute top-0 -ml-1.5 transition-all duration-300 text-emerald-300"
+          style={{ left: `${percent}%` }}
+        >
+          <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-white mx-auto drop-shadow" />
+        </div>
+
+        <div className="flex h-3.5 rounded-full overflow-hidden border border-slate-700/60 shadow-inner">
+          <div className="w-[17.5%] bg-blue-500/80" title="Underweight (< 18.5)" />
+          <div className="w-[32.5%] bg-emerald-500/90" title="Normal (18.5 - 24.9)" />
+          <div className="w-[25%] bg-amber-500/80" title="Overweight (25 - 29.9)" />
+          <div className="w-[25%] bg-rose-500/80" title="Obese (>= 30)" />
+        </div>
+
+        <div className="flex justify-between text-[9px] font-mono text-slate-400 mt-1 px-0.5">
+          <span className="text-blue-300">&lt;18.5 ({lang === 'bn' ? 'কম ওজন' : 'Under'})</span>
+          <span className="text-emerald-300">18.5-24.9 ({lang === 'bn' ? 'স্বাভাবিক' : 'Normal'})</span>
+          <span className="text-amber-300">25-29.9 ({lang === 'bn' ? 'অতিরিক্ত' : 'Over'})</span>
+          <span className="text-rose-300">≥30 ({lang === 'bn' ? 'স্থূল' : 'Obese'})</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeTab, setActiveTab] = useState<BiologyTab>('bmi_bmr');
@@ -241,6 +282,18 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           })}
         </div>
       </div>
+
+      {/* Revision Tracker */}
+      <RevisionTracker
+        toolId="biology"
+        currentChapterId={activeTab}
+        chapters={tabs.map((t) => ({
+          id: t.id,
+          title: lang === 'bn' ? t.labelBn : t.labelEn,
+        }))}
+        lang={lang}
+        accentColor="emerald"
+      />
 
       {/* TAB 1: BMI & BMR */}
       {activeTab === 'bmi_bmr' && bmiRes && bmrRes && (
@@ -455,6 +508,7 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {lang === 'bn' ? bmiRes.explanationBn : bmiRes.explanationEn}
                 </p>
+                <BMIGaugeBar bmi={bmiRes.bmi} lang={lang} />
               </div>
 
               {/* BMR & TDEE Cards */}
@@ -719,20 +773,44 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                     <tbody>
                       <tr>
                         <td className="p-2 border border-slate-800 bg-teal-500/10 text-teal-300 font-bold">{monoRes.gametes1[0]}</td>
-                        <td className="p-3 border border-slate-800 bg-slate-950 font-extrabold text-white text-base">
-                          {monoRes.grid[0][0]}
+                        <td className={`p-3 border border-slate-800 font-extrabold text-base ${
+                          monoRes.grid[0][0] === 'TT' ? 'bg-emerald-950/60 text-emerald-300' :
+                          monoRes.grid[0][0] === 'tt' ? 'bg-rose-950/60 text-rose-300' : 'bg-teal-950/60 text-teal-300'
+                        }`}>
+                          <div>{monoRes.grid[0][0]}</div>
+                          <div className="text-[10px] font-normal opacity-80 mt-0.5">
+                            {monoRes.grid[0][0] === 'tt' ? (lang === 'bn' ? 'খাটো' : 'Dwarf') : (lang === 'bn' ? 'লম্বা' : 'Tall')}
+                          </div>
                         </td>
-                        <td className="p-3 border border-slate-800 bg-slate-950 font-extrabold text-white text-base">
-                          {monoRes.grid[0][1]}
+                        <td className={`p-3 border border-slate-800 font-extrabold text-base ${
+                          monoRes.grid[0][1] === 'TT' ? 'bg-emerald-950/60 text-emerald-300' :
+                          monoRes.grid[0][1] === 'tt' ? 'bg-rose-950/60 text-rose-300' : 'bg-teal-950/60 text-teal-300'
+                        }`}>
+                          <div>{monoRes.grid[0][1]}</div>
+                          <div className="text-[10px] font-normal opacity-80 mt-0.5">
+                            {monoRes.grid[0][1] === 'tt' ? (lang === 'bn' ? 'খাটো' : 'Dwarf') : (lang === 'bn' ? 'লম্বা' : 'Tall')}
+                          </div>
                         </td>
                       </tr>
                       <tr>
                         <td className="p-2 border border-slate-800 bg-teal-500/10 text-teal-300 font-bold">{monoRes.gametes1[1]}</td>
-                        <td className="p-3 border border-slate-800 bg-slate-950 font-extrabold text-white text-base">
-                          {monoRes.grid[1][0]}
+                        <td className={`p-3 border border-slate-800 font-extrabold text-base ${
+                          monoRes.grid[1][0] === 'TT' ? 'bg-emerald-950/60 text-emerald-300' :
+                          monoRes.grid[1][0] === 'tt' ? 'bg-rose-950/60 text-rose-300' : 'bg-teal-950/60 text-teal-300'
+                        }`}>
+                          <div>{monoRes.grid[1][0]}</div>
+                          <div className="text-[10px] font-normal opacity-80 mt-0.5">
+                            {monoRes.grid[1][0] === 'tt' ? (lang === 'bn' ? 'খাটো' : 'Dwarf') : (lang === 'bn' ? 'লম্বা' : 'Tall')}
+                          </div>
                         </td>
-                        <td className="p-3 border border-slate-800 bg-slate-950 font-extrabold text-white text-base">
-                          {monoRes.grid[1][1]}
+                        <td className={`p-3 border border-slate-800 font-extrabold text-base ${
+                          monoRes.grid[1][1] === 'TT' ? 'bg-emerald-950/60 text-emerald-300' :
+                          monoRes.grid[1][1] === 'tt' ? 'bg-rose-950/60 text-rose-300' : 'bg-teal-950/60 text-teal-300'
+                        }`}>
+                          <div>{monoRes.grid[1][1]}</div>
+                          <div className="text-[10px] font-normal opacity-80 mt-0.5">
+                            {monoRes.grid[1][1] === 'tt' ? (lang === 'bn' ? 'খাটো' : 'Dwarf') : (lang === 'bn' ? 'লম্বা' : 'Tall')}
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -1140,6 +1218,23 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       )}
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-emerald-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div>
+          <span className="text-[10px] text-emerald-400 font-semibold block uppercase tracking-wider">
+            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
+          </span>
+          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+            {activeTab === 'bmi_bmr' && bmiRes && <span>BMI: {bmiRes.bmi} ({lang === 'bn' ? bmiRes.category.categoryBn : bmiRes.category.categoryEn})</span>}
+            {activeTab === 'bioenergetics' && respRes && <span>{respRes.netTotalAtp} ATP ({respRes.totalKcal} kcal)</span>}
+            {activeTab === 'monohybrid' && monoRes && <span>{monoRes.dominantPercentage}% : {monoRes.recessivePercentage}%</span>}
+            {activeTab === 'sex_linked' && sexRes && <span>{sexRes.traitName}</span>}
+            {activeTab === 'trophic_energy' && trophicRes && <span>{trophicRes.apexPredatorEnergy} {trophicUnit} (0.1%)</span>}
+            {activeTab === 'blood_matching' && bloodRes && <span>{bloodRes.isCompatible ? '✓ Compatible' : '✗ Incompatible'}</span>}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

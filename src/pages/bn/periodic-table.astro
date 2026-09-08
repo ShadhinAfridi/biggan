@@ -2,64 +2,452 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSlot from '../../components/ads/AdSlot.astro';
 import { PeriodicTableIsland } from '../../components/periodic-table/PeriodicTableIsland';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "পর্যায় সারণিতে মোট কয়টি মৌল, পর্যায় এবং গ্রুপ রয়েছে?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "আধুনিক IUPAC অনুমোদিত পর্যায় সারণিতে সর্বমোট ১১৮টি মৌল রয়েছে। এর মধ্যে ৭টি আনুভূমিক পর্যায় (Periods) এবং ১৮টি খাড়া স্তম্ভ বা গ্রুপ (Groups) রয়েছে। ১ থেকে ৯৪ নং মৌল পর্যন্ত প্রকৃতিতে পাওয়া যায় এবং ৯৫ থেকে ১১৮ নং মৌলগুলো কৃত্রিম বা গবেষণাগারে তৈরি।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ক্রোমিয়াম (Cr) এবং কপার (Cu) এর ক্ষেত্রে আউফবাউ নীতির ব্যতিক্রম ঘটে কেন?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "সমশক্তি সম্পন্ন d-অরবিটাল অর্ধপূর্ণ (d⁵) বা সম্পূর্ণ পূর্ণ (d¹⁰) অবস্থায় সর্বাধিক প্রতিসাম্য এবং উচ্চ এক্সচেঞ্জ শক্তির কারণে বিশেষ স্থায়িত্ব অর্জন করে। তাই ক্রোমিয়ামের সাধারণ বিন্যাস [Ar] 3d⁴ 4s² না হয়ে 4s হতে একটি ইলেকট্রন 3d তে স্থানান্তরিত হয়ে অধিক স্থিতিশীল [Ar] 3d⁵ 4s¹ হয়। একইভাবে কপারের ক্ষেত্রে [Ar] 3d⁹ 4s² এর বদলে [Ar] 3d¹⁰ 4s¹ হয়।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ক্লোরিনের ইলেকট্রন আসক্তি ফ্লোরিনের চেয়ে বেশি হয় কেন?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ফ্লোরিনের পারমাণবিক আকার ২য় শক্তিস্তরে অত্যন্ত ক্ষুদ্র হওয়ায় এর সর্ববহিস্থ স্তরে ইলেকট্রন ঘনত্ব অনেক বেশি থাকে। ফলে নতুন ইলেকট্রন প্রবেশকালে তীব্র আন্তঃইলেকট্রনীয় বিকর্ষণ বল কাজ করে। পক্ষান্তরে ক্লোরিনের ৩য় শক্তিস্তরের আকার তুলনামূলক বড় হওয়ায় ইলেকট্রন ঘনত্ব অপেক্ষাকৃত কম এবং ইলেকট্রন সহজে প্রবেশ করতে পারে। ফলে ক্লোরিনের ইলেকট্রন আসক্তি (-৩৪৯ kJ/mol) ফ্লোরিনের (-৩২৮ kJ/mol) চেয়ে বেশি।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "কক্ষ তাপমাত্রায় (STP) তরল থাকে এমন মৌল কোনগুলো?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "কক্ষ তাপমাত্রায় স্বাভাবিকভাবে মাত্র দুটি মৌল তরল অবস্থায় থাকে: ধাতুর মধ্যে পারদ বা মার্কারি (Hg, পারমাণবিক সংখ্যা ৮০) এবং অধাতুর মধ্যে ব্রোমিন (Br, পারমাণবিক সংখ্যা ৩৫)। এছাড়া মানবদেহের সামান্য উষ্ণতায় গ্যালিয়াম (Ga) এবং সিজিয়াম (Cs) গলে তরল হয়ে যায়।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "পর্যায় সারণির কোন মৌলের তড়িৎ ঋণাত্মকতা সবচেয়ে বেশি?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "পাউলিং স্কেলে ফ্লোরিনের (F) তড়িৎ ঋণাত্মকতার মান ৩.৯৮ (বা প্রায় ৪.০), যা পর্যায় সারণির সমস্ত মৌলের মধ্যে সর্বোচ্চ। সমযোজী বন্ধনের ইলেকট্রন জোড়কে নিজের দিকে আকর্ষণ করার ক্ষমতা ফ্লোরিনের সবচেয়ে বেশি।"
+      }
+    }
+  ]
+};
+const datasetSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "118 IUPAC Elements Complete Periodic Table Dataset",
+  "description": "Comprehensive periodic table database featuring 118 chemical elements with IUPAC standard atomic weights, authentic Bengali phonetic names, Latin origins, electronegativity, atomic radii, ionization energies, and subshell electron configurations.",
+  "keywords": [
+    "periodic table",
+    "পর্যায় সারণি",
+    "IUPAC",
+    "chemistry",
+    "atomic mass",
+    "electron configuration",
+    "NCTB",
+    "SSC",
+    "HSC"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Biggan.me",
+    "url": "https://biggan.me"
+  },
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+};
 ---
 
 <BaseLayout
-  title="দ্বৈতভাষিক পর্যায় সারণী (Bilingual Periodic Table) — Biggan.me"
-  description="IUPAC স্বীকৃত পর্যায় সারণী, খাঁটি বাংলা উচ্চারণ, NCTB ৯ম-১০ম ও একাদশ-দ্বাদশ শ্রেণি ভিত্তিক বোর্ড পরীক্ষা মোড এবং ইলেকট্রন বিন্যাসের ব্যতিক্রমসমূহ।"
+  title="পর্যায় সারণি (১১৮টি মৌল): ছন্দ, যোজ্যতা ও ব্যতিক্রম — Biggan.me"
+  description="IUPAC স্বীকৃত পূর্ণাঙ্গ ১১৮টি মৌলের ইন্টারেক্টিভ পর্যায় সারণী। খাঁটি বাংলা উচ্চারণ, ছন্দে ছন্দে মনে রাখার টেকনিক, ল্যাটিন নাম, যোজ্যতা চার্ট ও NCTB বোর্ড পরীক্ষার আউফবাউ ব্যতিক্রম।"
   lang="bn"
 >
-  <div class="space-y-10">
-    <div class="space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        রসায়ন রেফারেন্স হাব
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
+
+  <div class="space-y-12 max-w-7xl mx-auto px-2 sm:px-4">
+    <!-- Header Section -->
+    <div class="space-y-4 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold">
+        রসায়ন রেফারেন্স হাব • NCTB ও IUPAC স্বীকৃত
       </div>
-      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        ইন্টারেক্টিভ দ্বৈতভাষিক পর্যায় সারণী
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+        ইন্টারেক্টিভ পর্যায় সারণি ও রসায়ন সহায়িকা
       </h1>
-      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
-        NCTB কারিকুলাম ও বোর্ড পরীক্ষার উপযোগী ১ থেকে ৩০ নং মৌলের বিশেষ ফিল্টার, ইলেকট্রন বিন্যাস এবং পারমাণবিক ভরের নির্ভরযোগ্য আন্তর্জাতিক মানদণ্ড।
+      <p class="text-base sm:text-lg text-slate-300 max-w-4xl leading-relaxed">
+        আধুনিক ১১৮টি মৌলের বিশদ ডেটাবেস, খাঁটি বাংলা উচ্চারণ, ছন্দে ছন্দে মুখস্থ করার উপায়, ল্যাটিন নামের চার্ট, আউফবাউ নিয়মের ব্যতিক্রম এবং এসএসসি ও এইচএসসি বোর্ড পরীক্ষার প্রস্তুতি কুইজ।
       </p>
     </div>
 
     <!-- Interactive Island -->
     <PeriodicTableIsland client:load lang="bn" />
 
-    <!-- Ad Placeholder -->
+    <!-- Ad Placeholder Mid-Content -->
     <AdSlot slotType="banner" slotId="ptable-mid" />
 
-    <!-- Pedagogical Content Section on Periodic Trends -->
-    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
-      <h2 class="text-xl font-bold text-white flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-        পর্যায়বৃত্ত ধর্ম ও পরীক্ষার জন্য গুরুত্বপূর্ণ ব্যতিক্রমসমূহ
-      </h2>
+    <!-- Section 1: Mnemonics / ছন্দে ছন্দে পর্যায় সারণি -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-7 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-cyan-400 font-mono text-xs uppercase tracking-wider block font-semibold">স্মৃতিসহায়ক টেকনিক</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+          ছন্দে ছন্দে পর্যায় সারণি মুখস্থ করার সহজ উপায়
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          NCTB এসএসসি ও এইচএসসি শিক্ষার্থীদের জন্য প্রতিটি গুরুত্বপূর্ণ গ্রুপ এবং পর্যায়ের মৌলসমূহ মনে রাখার ঐতিহ্যবাহী জনপ্রিয় ছন্দ:
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-cyan-400 text-sm">১. পারমাণবিক ব্যাসার্ধ (Atomic Radius)</h3>
-          <p>
-            একই পর্যায়ে বাম থেকে ডানে গেলে প্রোটন সংখ্যা ও কার্যকর নিউক্লিয়ার চার্জ বৃদ্ধির কারণে ব্যাসার্ধ হ্রাস পায়। একই গ্রুপে উপর থেকে নিচে গেলে নতুন শক্তিস্তর যুক্ত হওয়ায় ব্যাসার্ধ বৃদ্ধি পায়।
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs sm:text-sm">
+        <div class="p-5 bg-slate-950/70 border border-rose-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-rose-300 text-base">গ্রুপ ১ (ক্ষার ধাতু)</h3>
+            <span class="text-[11px] font-mono text-slate-500">H, Li, Na, K, Rb, Cs, Fr</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "হাই লিনা কে রুবি সাজাবে ফ্রান্সে"
           </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            H (হাই), Li (লি), Na (না), K (কে), Rb (রুবি), Cs (সাজাবে), Fr (ফ্রান্সে)
+          </div>
         </div>
 
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-emerald-400 text-sm">২. আয়नीकरण শক্তি (Ionization Energy)</h3>
-          <p>
-            গ্যাসীয় অবস্থায় ১ মোল পরমাণুর সর্ববহিস্থ শক্তিস্তর হতে ১ মোল ইলেকট্রন অপসারণে প্রয়োজনীয় শক্তি। ব্যাসার্ধ কমলে আয়নীকরণ শক্তি বৃদ্ধি পায়।
+        <div class="p-5 bg-slate-950/70 border border-amber-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-amber-300 text-base">গ্রুপ ২ (মৃৎক্ষার ধাতু)</h3>
+            <span class="text-[11px] font-mono text-slate-500">Be, Mg, Ca, Sr, Ba, Ra</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "বিরিয়ানি মোগলাই কাবাব সরিয়ে বাটিতে রাখো"
           </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            Be (বিরিয়ানি), Mg (মোগলাই), Ca (কাবাব), Sr (সরিয়ে), Ba (বাটিতে), Ra (রাখো)
+          </div>
         </div>
 
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-amber-400 text-sm">৩. তড়িৎ ঋণাত্মকতা (Electronegativity)</h3>
-          <p>
-            সমযোজী বন্ধনের শেয়ারকৃত ইলেকট্রন যুগলকে নিজের দিকে আকর্ষণ করার আপেক্ষিক ক্ষমতা। পাউলিং স্কেলে ফ্লুরিন (F) সর্বাধিক ৪.০।
+        <div class="p-5 bg-slate-950/70 border border-emerald-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-emerald-300 text-base">গ্রুপ ১৩ (বোরন গ্রুপ)</h3>
+            <span class="text-[11px] font-mono text-slate-500">B, Al, Ga, In, Tl</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "বাংলাদেশী আলী গেল ইন্ডিয়া ও থাইল্যান্ড"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            B (বাংলাদেশী), Al (আলী), Ga (গেল), In (ইন্ডিয়া), Tl (থাইল্যান্ড)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-teal-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-teal-300 text-base">গ্রুপ ১৪ (কার্বন গ্রুপ)</h3>
+            <span class="text-[11px] font-mono text-slate-500">C, Si, Ge, Sn, Pb</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "কাঁদলে সিলিকন জার্মেনিয়াম স্নেক পাবে"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            C (কাঁদলে), Si (সিলিকন), Ge (জার্মেনিয়াম), Sn (স্নেক), Pb (পাবে)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-sky-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sky-300 text-base">গ্রুপ ১৫ (নিকটোজেন)</h3>
+            <span class="text-[11px] font-mono text-slate-500">N, P, As, Sb, Bi</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "নাই প্রিয়া আজ সব ভুলেছি"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            N (নাই), P (প্রিয়া), As (আজ), Sb (সব), Bi (ভুলেছি)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-lime-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-lime-300 text-base">গ্রুপ ১৬ (চ্যালকোজেন)</h3>
+            <span class="text-[11px] font-mono text-slate-500">O, S, Se, Te, Po</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "ও এস এস সি তে পড়ে"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            O (ও), S (এস), Se (এস), Te (তে), Po (পড়ে)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-violet-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-violet-300 text-base">গ্রুপ ১৭ (হ্যালোজেন)</h3>
+            <span class="text-[11px] font-mono text-slate-500">F, Cl, Br, I, At</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "ফেল করলে ব্রাদার ইন্ডিয়া আসবে"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            F (ফেল), Cl (করলে), Br (ব্রাদার), I (ইন্ডিয়া), At (আসবে)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-indigo-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-indigo-300 text-base">গ্রুপ ১৮ (নিষ্ক্রিয় গ্যাস)</h3>
+            <span class="text-[11px] font-mono text-slate-500">He, Ne, Ar, Kr, Xe, Rn</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "হিলিয়াম নিয়ন আর ক্রিপ্টন জেনন রেডন"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            He (হিলিয়াম), Ne (নিয়ন), Ar (আর), Kr (ক্রিপ্টন), Xe (জেনন), Rn (রেডন)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-cyan-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-cyan-300 text-base">পর্যায় ২ ও ৩ (১-২০ মৌল)</h3>
+            <span class="text-[11px] font-mono text-slate-500">Li থেকে Ne এবং Na থেকে Ar</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            পর্যায় ২: "লি বে ব ক না ও ফ নি"<br/>
+            পর্যায় ৩: "না মগ আল সি ফ স কল আর"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            বোর্ড পরীক্ষায় বহুনির্বাচনি ও সৃজনশীল দ্রুত সমাধানের জন্য সর্বাধিক কার্যকরী।
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Latin Names & Variable Valency Table -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-6 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-amber-400 font-mono text-xs uppercase tracking-wider block font-semibold">পরীক্ষার কমন প্রশ্ন</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+          মৌলসমূহের ল্যাটিন নাম ও পরিবর্তনশীল যোজ্যতা চার্ট
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          বেশ কিছু মৌলের প্রতীক তাদের ইংরেজি নামের সাথে মিলে না, কারণ তাদের প্রতীক গৃহীত হয়েছে ল্যাটিন নাম থেকে। নিচে সর্বাধিক গুরুত্বপূর্ণ ১১টি মৌলের তালিকা দেওয়া হলো:
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse font-sans text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-mono text-xs">
+              <th class="p-3">মৌলের নাম</th>
+              <th class="p-3">প্রতীক</th>
+              <th class="p-3">ল্যাটিন নাম (Latin Name)</th>
+              <th class="p-3">পারমাণবিক সংখ্যা (Z)</th>
+              <th class="p-3">সাধারণ যোজ্যতা (Valency)</th>
+              <th class="p-3">সুপ্ত ও পরিবর্তনশীল যোজ্যতা</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300 font-mono">
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">সোডিয়াম</td>
+              <td class="p-3 text-cyan-400 font-bold">Na</td>
+              <td class="p-3 text-amber-300 italic font-serif">Natrium</td>
+              <td class="p-3">11</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">স্থির যোজ্যতা</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">পটাশিয়াম</td>
+              <td class="p-3 text-cyan-400 font-bold">K</td>
+              <td class="p-3 text-amber-300 italic font-serif">Kalium</td>
+              <td class="p-3">19</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">স্থির যোজ্যতা</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">লোহা (আয়রন)</td>
+              <td class="p-3 text-cyan-400 font-bold">Fe</td>
+              <td class="p-3 text-amber-300 italic font-serif">Ferrum</td>
+              <td class="p-3">26</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 3</td>
+              <td class="p-3 font-sans text-slate-400">ফেরাস (২) ও ফেরিক (৩)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">তামা (কপার)</td>
+              <td class="p-3 text-cyan-400 font-bold">Cu</td>
+              <td class="p-3 text-amber-300 italic font-serif">Cuprum</td>
+              <td class="p-3">29</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 2</td>
+              <td class="p-3 font-sans text-slate-400">কিউপ্রাস (১) ও কিউপ্রিক (২)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">রূপা (সিলভার)</td>
+              <td class="p-3 text-cyan-400 font-bold">Ag</td>
+              <td class="p-3 text-amber-300 italic font-serif">Argentum</td>
+              <td class="p-3">47</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">স্থির যোজ্যতা</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">টিন</td>
+              <td class="p-3 text-cyan-400 font-bold">Sn</td>
+              <td class="p-3 text-amber-300 italic font-serif">Stannum</td>
+              <td class="p-3">50</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 4</td>
+              <td class="p-3 font-sans text-slate-400">স্ট্যানাস (২) ও স্ট্যানিক (৪)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">অ্যান্টিমণি</td>
+              <td class="p-3 text-cyan-400 font-bold">Sb</td>
+              <td class="p-3 text-amber-300 italic font-serif">Stibium</td>
+              <td class="p-3">51</td>
+              <td class="p-3 text-emerald-300 font-bold">3, 5</td>
+              <td class="p-3 font-sans text-slate-400">পরিবর্তনশীল যোজ্যতা</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">টাংস্টেন</td>
+              <td class="p-3 text-cyan-400 font-bold">W</td>
+              <td class="p-3 text-amber-300 italic font-serif">Wolfram</td>
+              <td class="p-3">74</td>
+              <td class="p-3">2, 4, 6</td>
+              <td class="p-3 font-sans text-slate-400">বাল্বের ফিলামেন্টে ব্যবহৃত</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">স্বর্ণ (গোল্ড)</td>
+              <td class="p-3 text-cyan-400 font-bold">Au</td>
+              <td class="p-3 text-amber-300 italic font-serif">Aurum</td>
+              <td class="p-3">79</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 3</td>
+              <td class="p-3 font-sans text-slate-400">অরাস (১) ও অরিক (৩)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">পারদ (মার্কারি)</td>
+              <td class="p-3 text-cyan-400 font-bold">Hg</td>
+              <td class="p-3 text-amber-300 italic font-serif">Hydrargyrum</td>
+              <td class="p-3">80</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 2</td>
+              <td class="p-3 font-sans text-slate-400">মারকিউরাস (১) ও মারকিউরিক (২)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">সীসা (লেড)</td>
+              <td class="p-3 text-cyan-400 font-bold">Pb</td>
+              <td class="p-3 text-amber-300 italic font-serif">Plumbum</td>
+              <td class="p-3">82</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 4</td>
+              <td class="p-3 font-sans text-slate-400">প্লাম্বাস (২) ও প্লাম্বিক (৪)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Periodic Trends & Critical Exceptions -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-7 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-emerald-400 font-mono text-xs uppercase tracking-wider block font-semibold">তত্ত্ব ও সমীকরণ</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+          পর্যায়বৃত্ত ধর্ম ও বোর্ড পরীক্ষার শীর্ষ ব্যতিক্রমসমূহ
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          পর্যায় সারণির মৌলসমূহের ভৌত ও রাসায়নিক ধর্মসমূহ তাদের পারমাণবিক সংখ্যার বৃদ্ধির সাথে পর্যায়ক্রমে আবর্তিত হয়। নিচে প্রধান ধর্ম ও ব্যতিক্রমগুলো ব্যাখ্যা করা হলো:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs sm:text-sm text-slate-300">
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-cyan-400 text-base">১. পারমাণবিক ব্যাসার্ধ (Atomic Radius)</h3>
+          <p class="leading-relaxed">
+            একই পর্যায়ে বাম থেকে ডানে গেলে নতুন শক্তিস্তর যুক্ত হয় না কিন্তু প্রোটন ও ইলেকট্রন সংখ্যা বাড়ে। এর ফলে কার্যকর নিউক্লিয়ার চার্জ বৃদ্ধি পেয়ে ইলেকট্রন মেঘকে ভেতরে টানে এবং <strong>পারমাণবিক আকার হ্রাস পায়</strong>।
+          </p>
+          <div class="p-2.5 bg-slate-900 rounded-xl font-mono text-xs text-cyan-300 border border-slate-800">
+            পর্যায়ে: Li &gt; Be &gt; B &gt; C &gt; N &gt; O &gt; F
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-emerald-400 text-base">২. ১ম আয়নীকরণ শক্তি ও ব্যতিক্রম</h3>
+          <p class="leading-relaxed">
+            সাধারণ নিয়মে একই পর্যায়ে বাম থেকে ডানে আয়নীকরণ শক্তি বৃদ্ধি পায়। কিন্তু অর্ধপূর্ণ ও পূর্ণ অরবিটালের বিশেষ স্থিতিশীলতার কারণে দুটি প্রধান ব্যতিক্রম দেখা যায়:
+          </p>
+          <ul class="space-y-1.5 font-mono text-xs text-emerald-300">
+            <li>• Be (899 kJ) &gt; B (801 kJ) [Be এর 2s² পূর্ণ]</li>
+            <li>• N (1402 kJ) &gt; O (1314 kJ) [N এর 2p³ অর্ধপূর্ণ]</li>
+          </ul>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-amber-400 text-base">৩. ইলেকট্রন আসক্তি ও Cl-F ব্যতিক্রম</h3>
+          <p class="leading-relaxed">
+            পর্যায়ে বাম থেকে ডানে ইলেকট্রন আসক্তি বাড়ে এবং গ্রুপে উপর থেকে নিচে কমে। কিন্তু গ্রুপ ১৭ তে ফ্লোরিনের চেয়ে <strong>ক্লোরিনের ইলেকট্রন আসক্তি বেশি</strong>:
+          </p>
+          <div class="p-2.5 bg-slate-900 rounded-xl font-mono text-xs text-amber-300 border border-slate-800">
+            Cl (-349 kJ/mol) &gt; F (-328 kJ/mol)
+          </div>
+          <p class="text-slate-400 text-xs">
+            কারণ ফ্লোরিনের ২য় শক্তিস্তরের অতি ক্ষুদ্র আয়তনে তীব্র আন্তঃইলেকট্রনীয় বিকর্ষণ বল সৃষ্টি হয়।
           </p>
         </div>
       </div>
 
-      <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
-        <span class="font-bold text-amber-300">পরীক্ষার ব্যতিক্রম সতর্কতা:</span> ক্রোমিয়াম ($Z=24$) এবং কপার ($Z=29$) এর ক্ষেত্রে অর্ধপূর্ণ ($d^5$) ও পূর্ণ ($d^{10}$) অরবিটালের অধিক স্থিতিশীলতার কারণে আউফবাউ নীতির ব্যতিক্রম ঘটে। ক্রোমিয়ামের সঠিক বিন্যাস $[Ar] 3d^5 4s^1$ এবং কপারের $[Ar] 3d^{10} 4s^1$।
+      <div class="p-5 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-xs sm:text-sm text-amber-200 space-y-2">
+        <h4 class="font-bold text-amber-300 text-sm sm:text-base flex items-center gap-2">
+          <span>★</span> আউফবাউ নীতির ব্যতিক্রম (Chromium &amp; Copper Rule)
+        </h4>
+        <p class="leading-relaxed">
+          আউফবাউ নীতি অনুসারে নিম্ন শক্তির অরবিটাল আগে পূর্ণ হয়ে উচ্চ শক্তির অরবিটালে ইলেকট্রন প্রবেশের কথা। কিন্তু d-অরবিটাল অর্ধপূর্ণ (d⁵) বা সম্পূর্ণ পূর্ণ (d¹⁰) হলে উপশক্তিস্তরের প্রতিসাম্যতা এবং এক্সচেঞ্জ এনার্জি সর্বাধিক হয়। এজন্য:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 font-mono text-xs text-white">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-amber-500/20">
+            <strong>ক্রোমিয়াম (Cr, Z=24):</strong><br/>
+            প্রত্যাশিত: [Ar] 3d⁴ 4s²<br/>
+            <span class="text-emerald-400 font-bold">সঠিক বিন্যাস: [Ar] 3d⁵ 4s¹</span>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-amber-500/20">
+            <strong>কপার (Cu, Z=29):</strong><br/>
+            প্রত্যাশিত: [Ar] 3d⁹ 4s²<br/>
+            <span class="text-emerald-400 font-bold">সঠিক বিন্যাস: [Ar] 3d¹⁰ 4s¹</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Frequently Asked Questions (FAQ) -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-6 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-cyan-400 font-mono text-xs uppercase tracking-wider block font-semibold">সাধারণ জিজ্ঞাসা</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+          পর্যায় সারণি সম্পর্কিত সচরাচর জিজ্ঞাসিত প্রশ্নোত্তর
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {faqSchema.mainEntity.map((item, idx) => (
+          <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-2">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <span class="text-cyan-400 font-mono text-xs">Q{idx + 1}.</span>
+              {item.name}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pl-6">
+              {item.acceptedAnswer.text}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   </div>

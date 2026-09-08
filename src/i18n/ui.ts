@@ -21,6 +21,8 @@ export const ui = {
     'nav.glossary': 'বিজ্ঞান পরিভাষা',
     'nav.articles': 'টিউটোরিয়াল ও গাইড',
     'nav.curriculum': 'কারিকুলাম',
+    'nav.formulas': 'সূত্র সংকলন',
+    'nav.progress': 'আমার অগ্রগতি',
     'nav.about': 'পরিচিতি',
     'nav.methodology': 'পদ্ধতি ও নির্ভুলতা',
 
@@ -47,6 +49,14 @@ export const ui = {
     'tools.circuitSimulator.desc': 'লজিক গেট (AND, OR, NOT, XOR), হাফ/ফুল অ্যাডার এবং লাইভ ট্রুথ টেবিল সিমুলেটর।',
     'tools.generalMath.name': 'এসএসসি সাধারণ গণিত সমাধান ও সমীকরণ ইঞ্জিন',
     'tools.generalMath.desc': 'পরিসংখ্যান (গড়, মধ্যক, প্রচুরক), ত্রিকোণমিতি ও উচ্চতা, বীজগণিত ও পরিমিতির সম্পূর্ণ সমাধান।',
+    'tools.physics.name': 'এসএসসি পদার্থবিজ্ঞান সমাধান ইঞ্জিন',
+    'tools.physics.desc': '১৩টি অধ্যায়ের সম্পূর্ণ সমীকরণ সমাধান, কাসিও শর্টকাট ও বোর্ড প্রশ্নের অ্যানালাইসিস।',
+    'tools.chemistry.name': 'এসএসসি রসায়ন সমাধান ইঞ্জিন',
+    'tools.chemistry.desc': 'পরিমাণগত রসায়ন, ব্যাপন, মোল, মোলারিটি, সীমিত বিক্রিয়ক, ΔH ও pH সমাধানকারী।',
+    'tools.biology.name': 'এসএসসি জীববিজ্ঞান সমাধান ইঞ্জিন',
+    'tools.biology.desc': 'বিএমআই, বিএমআর, শ্বসন এটিপি, পুনেট স্কয়ার ও শক্তি পিরামিডের পুঙ্খানুপুঙ্খ হিসাব।',
+    'tools.higherMath.name': 'এসএসসি উচ্চতর গণিত প্রমাণ ইঞ্জিন',
+    'tools.higherMath.desc': '১৪টি অধ্যায়ের সম্পূর্ণ সমাধান: এ্যাপোলোনিওস, দ্বিঘাত, ধারা, দ্বিপদী বিস্তৃতি ও ক্ষেত্রফল।',
 
     // Casio
     'casio.guideTitle': 'কাসিও fx-991 ও fx-100MS ফিজিক্যাল ক্যালকুলেটর কি-স্ট্রোক গাইড',
@@ -98,6 +108,8 @@ export const ui = {
     'nav.glossary': 'Glossary',
     'nav.articles': 'Guides & Articles',
     'nav.curriculum': 'Curriculum',
+    'nav.formulas': 'Formula Sheet',
+    'nav.progress': 'My Progress',
     'nav.about': 'About',
     'nav.methodology': 'Methodology',
 
@@ -124,6 +136,14 @@ export const ui = {
     'tools.circuitSimulator.desc': 'Interactive logic gates, Half/Full Adders, universal gate circuits, and live truth tables.',
     'tools.generalMath.name': 'SSC General Mathematics Solver & Equation Engine',
     'tools.generalMath.desc': 'Step-by-step solver for grouped statistics (Mean, Median, Mode), trigonometry, algebra, and mensuration.',
+    'tools.physics.name': 'SSC Physics Equation Suite',
+    'tools.physics.desc': 'Complete solver covering all 13 NCTB chapters: Kinematics, Dynamics, Heat, Optics & Circuits.',
+    'tools.chemistry.name': 'SSC Chemistry Equation Suite',
+    'tools.chemistry.desc': 'Quantitative solver covering Graham’s Law, Bohr Model, Mole, Limiting Reactants, ΔH, and pH.',
+    'tools.biology.name': 'SSC Biology Solutions Suite',
+    'tools.biology.desc': 'Quantitative solver for BMI, BMR, Caloric Needs, Respiration ATP, Punnett squares, and Energy.',
+    'tools.higherMath.name': 'SSC Higher Math Solver & Proofs',
+    'tools.higherMath.desc': 'Comprehensive solver for all 14 NCTB chapters: Apollonius, quadratics, series, binomials & geometry.',
 
     // Casio
     'casio.guideTitle': 'Casio fx-991 & fx-100MS Hardware Keystroke Guide',

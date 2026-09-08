@@ -3,41 +3,125 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSlot from '../../components/ads/AdSlot.astro';
 import { getLocalizedPath } from '../../i18n/utils';
 
-const tools = [
+const stats = [
+  { value: '14+', label: 'Solvers & Simulators', icon: '⚡' },
+  { value: '6', label: 'STEM Disciplines', icon: '📚' },
+  { value: '100%', label: 'Step-by-Step KaTeX Proofs', icon: '📝' },
+  { value: '0ms', label: 'Client-Side Offline Engine', icon: '🚀' },
+];
+
+const subjectCategories = [
   {
-    id: 'molar-mass',
-    name: 'Molar Mass & Composition',
-    desc: 'Calculate molecular mass of hydrates, coordination complexes, and isotopic percent compositions.',
-    icon: '⚗️',
-    badge: 'Chemistry',
-  },
-  {
-    id: 'redox-balancer',
-    name: 'Ion-Electron Redox Balancer',
-    desc: 'Balance oxidation-reduction reactions in acidic and basic media via step-by-step half-reactions.',
+    id: 'physics',
+    name: 'Physics',
+    level: 'Secondary & Higher Sec',
     icon: '⚡',
-    badge: 'High School & College',
+    color: 'from-blue-600/20 to-cyan-600/20 border-cyan-500/30 text-cyan-400',
+    desc: 'Kinematics, Dynamics, Work-Energy, Heat, Waves, Optics, and Current Electricity.',
+    link: getLocalizedPath('/tools/physics', 'en'),
+    toolsCount: '3 Tools',
+    highlightTool: '13 Chapters Solver',
   },
   {
-    id: 'significant-figures',
-    name: 'Significant Figures Engine',
-    desc: 'Determine significant digits, scientific notation conversions, and precision-tracked arithmetic.',
-    icon: '📏',
-    badge: 'Measurement & Lab',
+    id: 'chemistry',
+    name: 'Chemistry',
+    level: 'Secondary & Higher Sec',
+    icon: '⚗️',
+    color: 'from-emerald-600/20 to-teal-600/20 border-emerald-500/30 text-emerald-400',
+    desc: 'Mole concept, molarity, Graham’s diffusion, Bohr model, limiting reagents, ΔH, and pH.',
+    link: getLocalizedPath('/tools/chemistry', 'en'),
+    toolsCount: '3 Tools',
+    highlightTool: 'Quantitative Chemistry Suite',
   },
   {
-    id: 'projectile-motion',
-    name: 'Kinematic Projectile Solver',
-    desc: 'Calculate maximum height, time of flight, range, and interactive 2D trajectory vector plots.',
-    icon: '🎯',
-    badge: 'Physics Mechanics',
-  },
-  {
-    id: 'quadratic-solver',
-    name: 'Procedural Quadratic Solver',
-    desc: 'Real and complex roots, discriminant analysis, and completing-the-square derivations.',
+    id: 'math',
+    name: 'General & Higher Math',
+    level: 'Classes 9-10 / High School',
     icon: '📐',
-    badge: 'Algebra',
+    color: 'from-amber-600/20 to-orange-600/20 border-amber-500/30 text-amber-400',
+    desc: 'Grouped statistics (Mean, Median, Mode), trigonometry, Apollonius, series, and geometry.',
+    link: getLocalizedPath('/tools/higher-math', 'en'),
+    toolsCount: '3 Tools',
+    highlightTool: '14 Chapters Higher Math',
+  },
+  {
+    id: 'biology',
+    name: 'Biology',
+    level: 'Classes 9-10 / High School',
+    icon: '🧬',
+    color: 'from-rose-600/20 to-pink-600/20 border-rose-500/30 text-rose-400',
+    desc: 'BMI, Harris-Benedict BMR, aerobic respiration ATP yields, Punnett squares, and ecology.',
+    link: getLocalizedPath('/tools/biology', 'en'),
+    toolsCount: '1 Flagship',
+    highlightTool: 'Quantitative Biology Suite',
+  },
+  {
+    id: 'ict',
+    name: 'ICT Laboratory',
+    level: 'HSC & College CS',
+    icon: '💻',
+    color: 'from-violet-600/20 to-purple-600/20 border-violet-500/30 text-violet-400',
+    desc: 'HTML5 editor, digital logic gate circuits, C memory tracer, and in-memory SQL simulator.',
+    link: getLocalizedPath('/tools/c-runner', 'en'),
+    toolsCount: '4 Simulators',
+    highlightTool: 'C Code Memory Trace',
+  },
+];
+
+const flagshipTools = [
+  {
+    id: 'physics',
+    name: 'SSC Physics Equation & Solution Suite',
+    desc: 'Bidirectional algebraic rearrangements covering all 13 chapters (F=ma, v=u+at, s=vt, H=msΔθ, V=IR).',
+    icon: '⚡',
+    badge: 'Flagship Engine',
+    tag: 'SSC Physics 1-13',
+    accent: 'cyan',
+  },
+  {
+    id: 'higher-math',
+    name: 'SSC Higher Mathematics Solver & Proofs',
+    desc: 'Apollonius theorem, quadratic equations, infinite geometric series, binomial expansion & Shoelace formula.',
+    icon: '📐',
+    badge: 'Flagship Math',
+    tag: 'SSC Higher Math 1-14',
+    accent: 'amber',
+  },
+  {
+    id: 'chemistry',
+    name: 'SSC Chemistry Quantitative Solution Suite',
+    desc: 'Molar mass, molarity, limiting reagents, bond energy enthalpy (ΔH), and aqueous pH solver.',
+    icon: '⚗️',
+    badge: 'Flagship Chemistry',
+    tag: 'SSC Chemistry 1-12',
+    accent: 'emerald',
+  },
+  {
+    id: 'general-math',
+    name: 'SSC General Mathematics & Statistics Solver',
+    desc: 'Grouped frequency distribution Mean, Median, Mode tables, heights & distances trigonometry, and mensuration.',
+    icon: '➕',
+    badge: 'Board Special',
+    tag: 'SSC General Math',
+    accent: 'blue',
+  },
+  {
+    id: 'biology',
+    name: 'SSC Biology Solutions & Calculations Suite',
+    desc: 'Harris-Benedict BMR & daily caloric needs, Krebs cycle net ATP yield, and 2x2 Punnett cross analysis.',
+    icon: '🧬',
+    badge: 'New Flagship',
+    tag: 'SSC Biology 1-14',
+    accent: 'rose',
+  },
+  {
+    id: 'c-runner',
+    name: 'C Programming Memory Tracer & Dry-Run Lab',
+    desc: 'Procedural step-by-step code execution, live RAM variable registers, and board examination dry-runs.',
+    icon: '💻',
+    badge: 'ICT Chapter 5',
+    tag: 'HSC ICT C-Code',
+    accent: 'violet',
   },
 ];
 ---
@@ -49,9 +133,10 @@ const tools = [
 >
   <div class="space-y-16">
     <!-- Hero Section -->
-    <section class="text-center space-y-6 pt-6 sm:pt-12 max-w-4xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        🚀 Bilingual STEM Educational Computational Platform
+    <section class="text-center space-y-6 pt-4 sm:pt-10 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        Bilingual STEM Educational Computational Platform
       </div>
 
       <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight sm:leading-tight">
@@ -61,41 +146,136 @@ const tools = [
         </span>
       </h1>
 
-      <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
         Full algebraic derivations rendered in KaTeX, dimensional unit validation, and physical Casio fx-991 hardware keystroke sequences for secondary and college scholars.
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
         <a
           href={getLocalizedPath('/tools', 'en')}
-          class="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:bg-cyan-700 text-white font-bold text-sm transition shadow-lg shadow-cyan-900/30"
+          class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 active:scale-95 text-white font-bold text-sm transition shadow-lg shadow-cyan-900/30 flex items-center gap-2"
         >
-          Explore All Calculators →
+          <span>🚀 Explore All Calculators</span>
+          <span>→</span>
         </a>
         <a
-          href={getLocalizedPath('/periodic-table', 'en')}
-          class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition"
+          href={getLocalizedPath('/formulas', 'en')}
+          class="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm transition flex items-center gap-2"
         >
-          Periodic Table Explorer
+          <span>📜 Formula Reference Sheet</span>
         </a>
       </div>
 
+      <!-- Live Stats Bar -->
+      <div class="pt-6 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto">
+        {stats.map((s) => (
+          <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm flex flex-col items-center justify-center hover:border-slate-700 transition">
+            <span class="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              {s.value}
+            </span>
+            <span class="text-xs text-slate-400 text-center mt-0.5">
+              {s.label}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <!-- Curriculum Trust Badges -->
-      <div class="pt-6 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
         <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          International & AP Curriculum
+          🇧🇩 NCTB (SSC & HSC)
         </span>
         <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          CBSE & NCERT (India)
+          🇮🇳 NCERT & WBCHSE
         </span>
         <span class="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800">
-          NCTB (Bangladesh)
+          🎓 BUET, DU & NEET/JEE
         </span>
       </div>
     </section>
 
     <!-- Ad Placeholder -->
     <AdSlot slotType="banner" slotId="home-hero-bottom" />
+
+    <!-- Subject Category Showcase Tiles -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+          <span>📚</span> Subject Curriculum Directory
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          Explore specialized equation solvers and laboratory simulators categorized by syllabus
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {subjectCategories.map((cat) => (
+          <a
+            href={cat.link}
+            class={`group relative p-5 rounded-2xl bg-gradient-to-br ${cat.color} bg-slate-900/70 border hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between shadow-lg`}
+          >
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-3xl p-2 rounded-xl bg-slate-950/80 border border-slate-800">
+                  {cat.icon}
+                </span>
+                <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-950/90 text-slate-300 border border-slate-800">
+                  {cat.level}
+                </span>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-cyan-300 transition">
+                {cat.name}
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                {cat.desc}
+              </p>
+            </div>
+            <div class="pt-4 mt-4 border-t border-slate-800/60 flex items-center justify-between text-xs font-semibold text-cyan-400">
+              <span>{cat.highlightTool}</span>
+              <span class="group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Featured Spotlight Tool Banner -->
+    <section class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-blue-950/50 via-slate-900 to-cyan-950/50 border border-cyan-500/30 space-y-4 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+            ⭐ Board Examination Spotlight
+          </span>
+          <span class="text-xs text-slate-400 font-mono">NCTB Secondary 2025/2026</span>
+        </div>
+        <span class="text-xs text-slate-400">Casio fx-991 Keystroke Bridge Included</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+        <div class="lg:col-span-2 space-y-2">
+          <h3 class="text-xl sm:text-2xl font-black text-white">
+            SSC Physics & Higher Mathematics Complete Solution Suite
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Every textbook equation across 13 Physics chapters and 14 Higher Math chapters with bidirectional rearrangements, step-by-step KaTeX proofs, and 10-year past board examination exemplars.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 justify-center">
+          <a
+            href={getLocalizedPath('/tools/physics', 'en')}
+            class="px-5 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs text-center transition shadow-lg shadow-cyan-950/50"
+          >
+            ⚡ Launch Physics Engine
+          </a>
+          <a
+            href={getLocalizedPath('/tools/higher-math', 'en')}
+            class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs text-center transition"
+          >
+            📐 Launch Higher Math Engine
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- Flagship Calculators Grid -->
     <section class="space-y-6">
@@ -107,15 +287,15 @@ const tools = [
           </p>
         </div>
         <a href={getLocalizedPath('/tools', 'en')} class="text-xs font-semibold text-cyan-400 hover:underline">
-          View All Tools ({tools.length}) →
+          View All 14 Tools →
         </a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
+        {flagshipTools.map((tool) => (
           <a
             href={getLocalizedPath(`/tools/${tool.id}`, 'en')}
-            class="group bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
+            class="group bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 flex flex-col justify-between"
           >
             <div class="space-y-3">
               <div class="flex items-center justify-between">
@@ -127,7 +307,7 @@ const tools = [
                 </span>
               </div>
 
-              <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition">
+              <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition leading-snug">
                 {tool.name}
               </h3>
 
@@ -137,8 +317,8 @@ const tools = [
             </div>
 
             <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-cyan-400 font-medium">
-              <span>Step-by-step solution</span>
-              <span class="group-hover:translate-x-1 transition-transform">→</span>
+              <span class="text-slate-400 text-[11px] font-mono">{tool.tag}</span>
+              <span class="group-hover:translate-x-1 transition-transform font-bold">Step-by-step solution →</span>
             </div>
           </a>
         ))}

@@ -2,64 +2,412 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AdSlot from '../../components/ads/AdSlot.astro';
 import { PeriodicTableIsland } from '../../components/periodic-table/PeriodicTableIsland';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many elements, periods, and groups are in the periodic table?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The modern IUPAC periodic table consists of 118 confirmed chemical elements organized into 7 horizontal rows (periods) and 18 vertical columns (groups). Elements 1 (Hydrogen) to 94 (Plutonium) occur naturally, while elements 95 to 118 are synthetic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do Chromium (Cr) and Copper (Cu) violate the Aufbau principle?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Subshells that are exactly half-filled (d\u2075) or completely filled (d\u00b9\u2070) gain anomalous stability due to spatial symmetry and maximized exchange energy. Chromium promotes a 4s electron to form [Ar] 3d\u2075 4s\u00b9 instead of [Ar] 3d\u2074 4s\u00b2, and Copper forms [Ar] 3d\u00b9\u2070 4s\u00b9 instead of [Ar] 3d\u2079 4s\u00b2."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is the electron affinity of Chlorine greater than Fluorine?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fluorine's valence electrons occupy a very compact 2p subshell with high electron charge density. When an extra electron approaches, strong inter-electronic repulsion weakens the net attraction. Chlorine's larger 3p subshell accommodates the incoming electron with less repulsion, giving Chlorine (-349 kJ/mol) a higher electron affinity than Fluorine (-328 kJ/mol)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which elements exist as liquids at room temperature (STP)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under standard temperature and pressure (STP, 25\u00b0C, 1 atm), only two elements are liquids: Mercury (Hg, a transition metal) and Bromine (Br, a halogen). Gallium (Ga) and Cesium (Cs) melt slightly above room temperature (29.8\u00b0C and 28.4\u00b0C)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which element has the highest electronegativity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fluorine (F) holds the highest electronegativity value on the Pauling scale at 3.98 (commonly approximated as 4.0), making it the most aggressively electron-withdrawing element in chemical bonding."
+      }
+    }
+  ]
+};
+const datasetSchema = {
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "118 IUPAC Elements Complete Periodic Table Dataset",
+  "description": "Comprehensive periodic table database featuring 118 chemical elements with IUPAC standard atomic weights, authentic Bengali phonetic names, Latin origins, electronegativity, atomic radii, ionization energies, and subshell electron configurations.",
+  "keywords": [
+    "periodic table",
+    "\u09aa\u09b0\u09cd\u09af\u09be\u09af\u09bc \u09b8\u09be\u09b0\u09a3\u09bf",
+    "IUPAC",
+    "chemistry",
+    "atomic mass",
+    "electron configuration",
+    "NCTB",
+    "SSC",
+    "HSC"
+  ],
+  "creator": {
+    "@type": "Organization",
+    "name": "Biggan.me",
+    "url": "https://biggan.me"
+  },
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+};
 ---
 
 <BaseLayout
-  title="Bilingual Interactive Periodic Table with IUPAC Data — Biggan.me"
-  description="IUPAC standard periodic table with authentic Bengali nomenclature, secondary school examination mode (elements 1-30), and periodic trend visualizer."
+  title="Interactive Periodic Table of Elements (118 IUPAC) — Biggan.me"
+  description="Explore the full 118-element IUPAC periodic table with heatmaps (electronegativity, atomic radius, ionization energy), board exam filters, Latin origins, and Aufbau exceptions."
   lang="en"
 >
-  <div class="space-y-10">
-    <div class="space-y-3">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-        Chemistry Reference Hub
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(datasetSchema)} />
+
+  <div class="space-y-12 max-w-7xl mx-auto px-2 sm:px-4">
+    <!-- Header Section -->
+    <div class="space-y-4 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold">
+        Chemistry Reference Hub • IUPAC Authoritative Data
       </div>
-      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        Interactive Bilingual Periodic Table
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+        Interactive Periodic Table of 118 Elements
       </h1>
-      <p class="text-base text-slate-400 max-w-3xl leading-relaxed">
-        Curriculum exam filter (elements 1 through 30), electron configuration anomalies, and IUPAC standard atomic weights with authentic Bengali terminology.
+      <p class="text-base sm:text-lg text-slate-300 max-w-4xl leading-relaxed">
+        Full 18-column IUPAC standard grid with real-time property heatmaps, secondary and higher secondary examination presets (Z=1 to 30), Latin name etymology, Aufbau principle exceptions, and curriculum quiz.
       </p>
     </div>
 
     <!-- Interactive Island -->
     <PeriodicTableIsland client:load lang="en" />
 
-    <!-- Ad Placeholder -->
+    <!-- Ad Placeholder Mid-Content -->
     <AdSlot slotType="banner" slotId="ptable-mid" />
 
-    <!-- Pedagogical Content Section on Periodic Trends -->
-    <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
-      <h2 class="text-xl font-bold text-white flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-        Periodic Trends & High-Yield Examination Exceptions
-      </h2>
+    <!-- Section 1: Mnemonics / Easy Memorization -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-7 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-cyan-400 font-mono text-xs uppercase tracking-wider block font-semibold">Memory Techniques</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+          Periodic Table Mnemonics &amp; Group Shortcuts
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          High-yield mnemonic sentences to effortlessly recall elements by group for competitive and board examinations:
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-cyan-400 text-sm">1. Atomic & Ionic Radii</h3>
-          <p>
-            Decreases across a period left-to-right as effective nuclear charge increases without adding shielding shells. Increases down groups as principal quantum shells expand.
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs sm:text-sm">
+        <div class="p-5 bg-slate-950/70 border border-rose-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-rose-300 text-base">Group 1 (Alkali Metals)</h3>
+            <span class="text-[11px] font-mono text-slate-500">H, Li, Na, K, Rb, Cs, Fr</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "Little Nasty Kids Rub Cats' Fur"
           </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            H (Hydrogen), Li (Lithium), Na (Sodium), K (Potassium), Rb (Rubidium), Cs (Cesium), Fr (Francium)
+          </div>
         </div>
 
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-emerald-400 text-sm">2. First Ionization Energy</h3>
-          <p>
-            The energy required to liberate one mole of electrons from one mole of isolated gaseous atoms. Highest for noble gases and lowest for alkali metals.
+        <div class="p-5 bg-slate-950/70 border border-amber-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-amber-300 text-base">Group 2 (Alkaline Earth)</h3>
+            <span class="text-[11px] font-mono text-slate-500">Be, Mg, Ca, Sr, Ba, Ra</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "Beer Mugs Can Serve Bar Rats"
           </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            Be (Beryllium), Mg (Magnesium), Ca (Calcium), Sr (Strontium), Ba (Barium), Ra (Radium)
+          </div>
         </div>
 
-        <div class="p-4 bg-slate-950/70 border border-slate-800 rounded-xl space-y-2">
-          <h3 class="font-bold text-amber-400 text-sm">3. Pauling Electronegativity</h3>
-          <p>
-            Measures the relative propensity of an atom to attract shared electron pairs in covalent chemical bonds. Fluorine (F) sits at maximum 3.98.
+        <div class="p-5 bg-slate-950/70 border border-emerald-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-emerald-300 text-base">Group 13 (Boron Family)</h3>
+            <span class="text-[11px] font-mono text-slate-500">B, Al, Ga, In, Tl</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "Bears Always Get In Trouble"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            B (Boron), Al (Aluminum), Ga (Gallium), In (Indium), Tl (Thallium)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-teal-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-teal-300 text-base">Group 14 (Carbon Family)</h3>
+            <span class="text-[11px] font-mono text-slate-500">C, Si, Ge, Sn, Pb</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "Can Simple Germans Snore Loudly?"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            C (Carbon), Si (Silicon), Ge (Germanium), Sn (Tin/Stannum), Pb (Lead/Plumbum)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-sky-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-sky-300 text-base">Group 15 (Pnictogens)</h3>
+            <span class="text-[11px] font-mono text-slate-500">N, P, As, Sb, Bi</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "Never Put Arsenic in Submarines or Boats"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            N (Nitrogen), P (Phosphorus), As (Arsenic), Sb (Antimony), Bi (Bismuth)
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-violet-500/30 rounded-2xl space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="font-bold text-violet-300 text-base">Group 17 (Halogens)</h3>
+            <span class="text-[11px] font-mono text-slate-500">F, Cl, Br, I, At</span>
+          </div>
+          <p class="text-slate-300 italic font-serif text-sm">
+            "First Class Biryani In Australia"
+          </p>
+          <div class="text-[11px] text-slate-400 pt-1 border-t border-slate-800 font-mono">
+            F (Fluorine), Cl (Chlorine), Br (Bromine), I (Iodine), At (Astatine)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Latin Names & Variable Valency Table -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-6 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-amber-400 font-mono text-xs uppercase tracking-wider block font-semibold">Etymology &amp; Cheat Sheet</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+          Latin Origins &amp; Variable Valency Reference Table
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          Chemical symbols derived from Latin root names with their common and variable valency states:
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse font-sans text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-950 text-slate-400 font-mono text-xs">
+              <th class="p-3">Common Name</th>
+              <th class="p-3">Symbol</th>
+              <th class="p-3">Latin Origin</th>
+              <th class="p-3">Atomic No. (Z)</th>
+              <th class="p-3">Valency States</th>
+              <th class="p-3">Nomenclature Suffixes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300 font-mono">
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Sodium</td>
+              <td class="p-3 text-cyan-400 font-bold">Na</td>
+              <td class="p-3 text-amber-300 italic font-serif">Natrium</td>
+              <td class="p-3">11</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">Fixed +1 oxidation state</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Potassium</td>
+              <td class="p-3 text-cyan-400 font-bold">K</td>
+              <td class="p-3 text-amber-300 italic font-serif">Kalium</td>
+              <td class="p-3">19</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">Fixed +1 oxidation state</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Iron</td>
+              <td class="p-3 text-cyan-400 font-bold">Fe</td>
+              <td class="p-3 text-amber-300 italic font-serif">Ferrum</td>
+              <td class="p-3">26</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 3</td>
+              <td class="p-3 font-sans text-slate-400">Ferrous (+2), Ferric (+3)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Copper</td>
+              <td class="p-3 text-cyan-400 font-bold">Cu</td>
+              <td class="p-3 text-amber-300 italic font-serif">Cuprum</td>
+              <td class="p-3">29</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 2</td>
+              <td class="p-3 font-sans text-slate-400">Cuprous (+1), Cupric (+2)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Silver</td>
+              <td class="p-3 text-cyan-400 font-bold">Ag</td>
+              <td class="p-3 text-amber-300 italic font-serif">Argentum</td>
+              <td class="p-3">47</td>
+              <td class="p-3">1</td>
+              <td class="p-3 font-sans text-slate-400">Argentous (+1)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Tin</td>
+              <td class="p-3 text-cyan-400 font-bold">Sn</td>
+              <td class="p-3 text-amber-300 italic font-serif">Stannum</td>
+              <td class="p-3">50</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 4</td>
+              <td class="p-3 font-sans text-slate-400">Stannous (+2), Stannic (+4)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Antimony</td>
+              <td class="p-3 text-cyan-400 font-bold">Sb</td>
+              <td class="p-3 text-amber-300 italic font-serif">Stibium</td>
+              <td class="p-3">51</td>
+              <td class="p-3 text-emerald-300 font-bold">3, 5</td>
+              <td class="p-3 font-sans text-slate-400">Antimonous (+3), Antimonic (+5)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Tungsten</td>
+              <td class="p-3 text-cyan-400 font-bold">W</td>
+              <td class="p-3 text-amber-300 italic font-serif">Wolfram</td>
+              <td class="p-3">74</td>
+              <td class="p-3">2, 4, 6</td>
+              <td class="p-3 font-sans text-slate-400">High melting point (3422°C)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Gold</td>
+              <td class="p-3 text-cyan-400 font-bold">Au</td>
+              <td class="p-3 text-amber-300 italic font-serif">Aurum</td>
+              <td class="p-3">79</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 3</td>
+              <td class="p-3 font-sans text-slate-400">Aurous (+1), Auric (+3)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Mercury</td>
+              <td class="p-3 text-cyan-400 font-bold">Hg</td>
+              <td class="p-3 text-amber-300 italic font-serif">Hydrargyrum</td>
+              <td class="p-3">80</td>
+              <td class="p-3 text-emerald-300 font-bold">1, 2</td>
+              <td class="p-3 font-sans text-slate-400">Mercurous (+1), Mercuric (+2)</td>
+            </tr>
+            <tr class="hover:bg-slate-850/50">
+              <td class="p-3 font-sans text-white font-semibold">Lead</td>
+              <td class="p-3 text-cyan-400 font-bold">Pb</td>
+              <td class="p-3 text-amber-300 italic font-serif">Plumbum</td>
+              <td class="p-3">82</td>
+              <td class="p-3 text-emerald-300 font-bold">2, 4</td>
+              <td class="p-3 font-sans text-slate-400">Plumbous (+2), Plumbic (+4)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3: Periodic Trends & Critical Exceptions -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-7 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-emerald-400 font-mono text-xs uppercase tracking-wider block font-semibold">Theoretical Insights</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+          Periodic Trends &amp; Critical Examination Anomalies
+        </h2>
+        <p class="text-sm text-slate-400 mt-2">
+          Key physical and chemical trends across periods and down groups, plus textbook anomalies tested in entrance exams:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs sm:text-sm text-slate-300">
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-cyan-400 text-base">1. Atomic Radius</h3>
+          <p class="leading-relaxed">
+            Decreases across a period left-to-right because nuclear charge increases while valence electrons enter the same principal quantum shell, pulling the electron cloud tighter.
+          </p>
+          <div class="p-2.5 bg-slate-900 rounded-xl font-mono text-xs text-cyan-300 border border-slate-800">
+            Period 2: Li &gt; Be &gt; B &gt; C &gt; N &gt; O &gt; F
+          </div>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-emerald-400 text-base">2. 1st Ionization Energy Anomalies</h3>
+          <p class="leading-relaxed">
+            Increases across a period generally, but subshell stability causes two notable exceptions:
+          </p>
+          <ul class="space-y-1.5 font-mono text-xs text-emerald-300">
+            <li>• Be (899 kJ) &gt; B (801 kJ) [Be has filled 2s²]</li>
+            <li>• N (1402 kJ) &gt; O (1314 kJ) [N has half-filled 2p³]</li>
+          </ul>
+        </div>
+
+        <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-3">
+          <h3 class="font-bold text-amber-400 text-base">3. Electron Affinity (Cl vs F)</h3>
+          <p class="leading-relaxed">
+            Usually increases towards the top-right. However, Chlorine's electron affinity exceeds Fluorine's:
+          </p>
+          <div class="p-2.5 bg-slate-900 rounded-xl font-mono text-xs text-amber-300 border border-slate-800">
+            Cl (-349 kJ/mol) &gt; F (-328 kJ/mol)
+          </div>
+          <p class="text-slate-400 text-xs">
+            Due to intense inter-electronic repulsion within Fluorine's extremely crowded 2p subshell.
           </p>
         </div>
       </div>
 
-      <div class="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200">
-        <span class="font-bold text-amber-300">Exam Exception Alert:</span> Chromium ($Z=24$) and Copper ($Z=29$) exhibit Aufbau exceptions due to enhanced exchange energy stability of half-filled ($d^5$) and fully-filled ($d^{10}$) subshells. Their ground state configurations are $[Ar] 3d^5 4s^1$ and $[Ar] 3d^{10} 4s^1$ respectively.
+      <div class="p-5 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-xs sm:text-sm text-amber-200 space-y-2">
+        <h4 class="font-bold text-amber-300 text-sm sm:text-base flex items-center gap-2">
+          <span>★</span> Aufbau Anomalies: The Half-Filled / Fully-Filled Rule
+        </h4>
+        <p class="leading-relaxed">
+          The heightened exchange energy of half-filled ($d^5$) and fully-filled ($d^{10}$) configurations overrides the Aufbau n+l ordering:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 font-mono text-xs text-white">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-amber-500/20">
+            <strong>Chromium (Cr, Z=24):</strong><br/>
+            Expected: [Ar] 3d⁴ 4s²<br/>
+            <span class="text-emerald-400 font-bold">Observed: [Ar] 3d⁵ 4s¹</span>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-amber-500/20">
+            <strong>Copper (Cu, Z=29):</strong><br/>
+            Expected: [Ar] 3d⁹ 4s²<br/>
+            <span class="text-emerald-400 font-bold">Observed: [Ar] 3d¹⁰ 4s¹</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Frequently Asked Questions (FAQ) -->
+    <section class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 space-y-6 shadow-xl">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-cyan-400 font-mono text-xs uppercase tracking-wider block font-semibold">Curriculum Inquiries</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-2.5 mt-1">
+          <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+          Frequently Asked Questions About the Periodic Table
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {faqSchema.mainEntity.map((item, idx) => (
+          <div class="p-5 bg-slate-950/70 border border-slate-800 rounded-2xl space-y-2">
+            <h3 class="font-bold text-white text-base flex items-center gap-2">
+              <span class="text-cyan-400 font-mono text-xs">Q{idx + 1}.</span>
+              {item.name}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed pl-6">
+              {item.acceptedAnswer.text}
+            </p>
+          </div>
+        ))}
       </div>
     </section>
   </div>

@@ -1,3 +1,4 @@
+import { RevisionTracker } from '../../components/tools/RevisionTracker';
 import React, { useState, useEffect } from 'react';
 import {
   Calculator,
@@ -88,6 +89,125 @@ interface ChapterTab {
   titleEn: string;
   icon: React.ReactNode;
 }
+
+
+const ForceVectorDiagram: React.FC<{ m: number; a: number; lang?: 'bn' | 'en' }> = ({ m, a, lang = 'bn' }) => {
+  const force = m * a;
+  const isPositive = force >= 0;
+  const absForce = Math.abs(force);
+  const arrowLength = Math.min(Math.max(absForce * 1.5, 30), 90);
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'বল ও ত্বরণ ভেক্টর চিত্র (Force Vector Diagram)' : 'Force & Acceleration Vector Diagram'}
+        </span>
+        <span className="font-mono text-[10px] text-slate-500">F = ma</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+          <defs>
+            <marker id="arrow-f" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+            </marker>
+            <marker id="arrow-a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+            </marker>
+          </defs>
+          <line x1="20" y1="90" x2="300" y2="90" stroke="#475569" strokeWidth="2" />
+          {[30, 60, 90, 120, 150, 180, 210, 240, 270].map((x) => (
+            <line key={x} x1={x} y1="90" x2={x - 10} y2="102" stroke="#334155" strokeWidth="1.5" />
+          ))}
+          <rect x="130" y="50" width="60" height="40" rx="4" fill="#1e293b" stroke="#f59e0b" strokeWidth="2" />
+          <text x="160" y="74" textAnchor="middle" fill="#f8fafc" fontSize="11" fontWeight="bold" fontFamily="monospace">
+            m = {m} kg
+          </text>
+          {absForce > 0 && (
+            <>
+              <line
+                x1={isPositive ? 190 : 130}
+                y1="70"
+                x2={isPositive ? 190 + arrowLength : 130 - arrowLength}
+                y2="70"
+                stroke="#f59e0b"
+                strokeWidth="2.5"
+                markerEnd="url(#arrow-f)"
+              />
+              <text
+                x={isPositive ? 190 + arrowLength / 2 : 130 - arrowLength / 2}
+                y="62"
+                textAnchor="middle"
+                fill="#f59e0b"
+                fontSize="10"
+                fontWeight="bold"
+                fontFamily="monospace"
+              >
+                F = {force.toFixed(1)} N
+              </text>
+              {a !== 0 && (
+                <>
+                  <line
+                    x1="130"
+                    y1="36"
+                    x2={isPositive ? 130 + Math.min(Math.abs(a) * 8 + 20, 60) : 130 - Math.min(Math.abs(a) * 8 + 20, 60)}
+                    y2="36"
+                    stroke="#38bdf8"
+                    strokeWidth="1.5"
+                    strokeDasharray="3 2"
+                    markerEnd="url(#arrow-a)"
+                  />
+                  <text
+                    x="160"
+                    y="30"
+                    textAnchor="middle"
+                    fill="#38bdf8"
+                    fontSize="9"
+                    fontFamily="monospace"
+                  >
+                    a = {a} m/s²
+                  </text>
+                </>
+              )}
+            </>
+          )}
+          <line x1="160" y1="50" x2="160" y2="24" stroke="#64748b" strokeWidth="1.5" />
+          <line x1="160" y1="90" x2="160" y2="114" stroke="#64748b" strokeWidth="1.5" />
+          <text x="160" y="20" textAnchor="middle" fill="#94a3b8" fontSize="8" fontFamily="monospace">N</text>
+          <text x="160" y="116" textAnchor="middle" fill="#94a3b8" fontSize="8" fontFamily="monospace">W=mg</text>
+        </svg>
+      </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      {activeResult.success && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-amber-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-amber-400 font-semibold block uppercase tracking-wider">
+              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
+            </span>
+            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+              <span>
+                {typeof activeResult.value === 'number'
+                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
+                    ? activeResult.value.toExponential(4)
+                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+                  : activeResult.value}
+              </span>
+              {activeResult.unit && <span className="text-xs text-amber-300 font-normal">{activeResult.unit}</span>}
+            </div>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-amber-500/20"
+          >
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeChapter, setActiveChapter] = useState<ChapterId>('ch2');
@@ -622,15 +742,18 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </div>
 
               {ch3SubTab === 'f_ma' && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">ভর m (kg)</label>
-                    <input type="number" value={ch3M} onChange={(e) => setCh3M(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">ভর m (kg)</label>
+                      <input type="number" value={ch3M} onChange={(e) => setCh3M(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">ত্বরণ a (m/s²)</label>
+                      <input type="number" value={ch3A} onChange={(e) => setCh3A(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">ত্বরণ a (m/s²)</label>
-                    <input type="number" value={ch3A} onChange={(e) => setCh3A(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
+                  <ForceVectorDiagram m={ch3M} a={ch3A} lang={lang} />
                 </div>
               )}
 
@@ -1377,6 +1500,34 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Sticky Floating Answer Bar */}
+      {activeResult.success && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-amber-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+          <div>
+            <span className="text-[10px] text-amber-400 font-semibold block uppercase tracking-wider">
+              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
+            </span>
+            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
+              <span>
+                {typeof activeResult.value === 'number'
+                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
+                    ? activeResult.value.toExponential(4)
+                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
+                  : activeResult.value}
+              </span>
+              {activeResult.unit && <span className="text-xs text-amber-300 font-normal">{activeResult.unit}</span>}
+            </div>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-amber-500/20"
+          >
+            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };
