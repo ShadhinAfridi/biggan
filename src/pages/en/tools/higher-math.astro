@@ -1,0 +1,139 @@
+---
+import ToolLayout, { type SolvedExemplar, type ToolFaqItem } from '../../../layouts/ToolLayout.astro';
+import { HigherMathCalculator } from '../../../tools/higher-math/HigherMathCalculator';
+
+const exemplars: SolvedExemplar[] = [
+  {
+    level: 'Board Exam Standard (CQ Part C — Chapter 3: Geometry)',
+    levelBadge: 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20',
+    problemText: 'In ΔABC, the sides are a = 6 cm, b = 5 cm, and c = 7 cm. Find the length of median AD on side BC and verify that 3(a² + b² + c²) = 4(da² + db² + dc²).',
+    givenData: [
+      'Triangle sides: a = 6 cm, b = 5 cm, c = 7 cm',
+      'Median on side a: da = AD',
+    ],
+    solutionSteps: [
+      "According to Apollonius's Theorem: b² + c² = 2[da² + (a/2)²]",
+      'Substituting given values: 5² + 7² = 2[da² + (6/2)²] ⇒ 25 + 49 = 2[da² + 9]',
+      '74 = 2(da² + 9) ⇒ da² + 9 = 37 ⇒ da² = 28 ⇒ da = √28 ≈ 5.292 cm.',
+      'Similarly, db² = (2a² + 2c² - b²)/4 = (72 + 98 - 25)/4 = 36.25 and dc² = (2a² + 2b² - c²)/4 = (72 + 50 - 49)/4 = 18.25.',
+      'LHS = 3(a² + b² + c²) = 3(36 + 25 + 49) = 3(110) = 330.',
+      'RHS = 4(da² + db² + dc²) = 4(28 + 36.25 + 18.25) = 4(82.5) = 330. (Verified)',
+    ],
+    finalAnswer: 'Median da = 5.292 cm and 3Σa² = 4Σd² = 330 (Verified).',
+  },
+  {
+    level: 'Board Exam Standard (CQ Part B — Chapter 7: Infinite Series)',
+    levelBadge: 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20',
+    problemText: 'Convert the recurring decimal 0.12̇ into an irreducible common fraction using the infinite geometric series formula.',
+    givenData: ['Repeating decimal: 0.12̇ = 0.1222...'],
+    solutionSteps: [
+      'Decompose the decimal: 0.12̇ = 0.1 + 0.02 + 0.002 + 0.0002 + ...',
+      'Non-repeating portion: 0.1 = 1/10.',
+      'Repeating portion is an infinite geometric series with first term a = 0.02 = 2/100 and common ratio r = 0.1 = 1/10 (|r| < 1).',
+      'Sum to infinity: S∞ = a / (1 - r) = (2/100) / (1 - 1/10) = (2/100) / (9/10) = 2/90 = 1/45.',
+      'Total value: 1/10 + 1/45 = (9 + 2)/90 = 11/90.',
+    ],
+    finalAnswer: 'Common fraction = 11/90.',
+  },
+  {
+    level: 'Board Exam Standard (CQ Part C — Chapter 11: Coordinate Geometry)',
+    levelBadge: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+    problemText: 'Find the area of ΔABC with vertices A(2, 3), B(5, 7), and C(-2, 4) using the Shoelace formula.',
+    givenData: ['Vertices: A(2, 3), B(5, 7), C(-2, 4) in counter-clockwise order'],
+    solutionSteps: [
+      'Shoelace area formula: Δ = 1/2 |(x1·y2 + x2·y3 + x3·y1) - (y1·x2 + y2·x3 + y3·x1)|',
+      'Step 1 (downward products): (2×7 + 5×4 + (-2)×3) = (14 + 20 - 6) = 28.',
+      'Step 2 (upward products): (3×5 + 7×(-2) + 4×2) = (15 - 14 + 8) = 9.',
+      'Area calculation: Δ = 1/2 |28 - 9| = 1/2 |19| = 9.5 square units.',
+    ],
+    finalAnswer: 'Area of ΔABC = 9.5 square units.',
+  },
+  {
+    level: 'Board Exam Standard (CQ Part B — Chapter 10: Binomial Expansion)',
+    levelBadge: 'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    problemText: 'Expand (1 + 2x)⁵ using the Binomial Theorem and determine the coefficient of x³.',
+    givenData: ['Binomial expression: (1 + 2x)⁵', 'Index n = 5'],
+    solutionSteps: [
+      'General term: T(r+1) = ⁵Cr (1)⁵⁻ʳ (2x)ʳ = ⁵Cr · 2ʳ · xʳ',
+      'r = 0: ⁵C0 · 1 = 1',
+      'r = 1: ⁵C1 · 2x = 10x',
+      'r = 2: ⁵C2 · 4x² = 40x²',
+      'r = 3: ⁵C3 · 8x³ = 10 × 8x³ = 80x³ ⇒ Coefficient of x³ is 80',
+      'r = 4: ⁵C4 · 16x⁴ = 80x⁴',
+      'r = 5: ⁵C5 · 32x⁵ = 32x⁵',
+      'Full expansion: 1 + 10x + 40x² + 80x³ + 80x⁴ + 32x⁵.',
+    ],
+    finalAnswer: 'Expansion = 1 + 10x + 40x² + 80x³ + 80x⁴ + 32x⁵; Coefficient of x³ = 80.',
+  },
+];
+
+const faqs: ToolFaqItem[] = [
+  {
+    question: "When and how is Apollonius's Theorem applied?",
+    answer: "Apollonius's Theorem relates the lengths of the sides of any triangle to the length of a median: AB² + AC² = 2(AD² + BD²). It also yields the fundamental relation that three times the sum of the squares of the sides equals four times the sum of the squares of the medians: 3(a² + b² + c²) = 4(da² + db² + dc²).",
+  },
+  {
+    question: 'How do recurring decimals convert to fractions using geometric series?',
+    answer: 'A repeating decimal like 0.12̇ splits into a finite decimal 0.1 (1/10) and an infinite geometric series 0.02 + 0.002 + ... with first term a = 0.02 and ratio r = 0.1. Because |r| < 1, the sum S∞ = a / (1 - r) yields 1/45. Adding both portions produces 11/90.',
+  },
+  {
+    question: 'Why must polygon vertices be ordered counter-clockwise in the Shoelace formula?',
+    answer: 'Arranging vertices in counter-clockwise (CCW) order ensures the determinant summation evaluates to a positive area. Clockwise ordering results in an identical magnitude but negative sign, requiring an absolute value operation.',
+  },
+  {
+    question: 'How do Casio fx-991EX and fx-991CW calculators solve quadratic equations?',
+    answer: 'On the fx-991EX ClassWiz, navigate to Menu > A (Equation/Func) > 2 (Polynomial) > 2 (Degree 2), input coefficients a, b, and c, and press = to inspect both real/complex roots and the vertex of the corresponding parabola.',
+  },
+];
+---
+
+<ToolLayout
+  title="SSC Higher Mathematics Problem Solver & Equation Engine — Biggan.me"
+  metaDescription="Comprehensive procedural equation solver and geometric proof engine for NCTB SSC Higher Mathematics (Classes 9-10). Covers all 14 chapters including Apollonius theorem, quadratic equations, infinite geometric series, binomial expansion, coordinate geometry, and probability."
+  toolName="SSC Higher Mathematics Solver & Proof Engine"
+  toolCategory="Higher Mathematics (SSC Classes 9-10)"
+  curriculumTags={[
+    'NCTB Higher Mathematics (Classes 9-10)',
+    "Apollonius's Theorem & Medians",
+    'Quadratic Equations & Discriminants',
+    'Infinite Geometric Series & Recurring Decimals',
+    'Binomial Theorem & Pascal Triangle',
+    'Shoelace Area & Vector Analysis',
+  ]}
+  topicId="quadratic"
+  exemplars={exemplars}
+  faqs={faqs}
+>
+  <div slot="calculator">
+    <HigherMathCalculator client:visible lang="en" />
+  </div>
+
+  <div slot="derivation">
+    <div class="space-y-4">
+      <h3 class="text-base font-bold text-white">NCTB Higher Mathematics Curricular Framework</h3>
+      <p class="text-slate-300">
+        Class 9-10 Higher Mathematics requires rigorous mathematical proofs, exact analytical derivations, and bidirectional geometric and algebraic operations. This engine renders complete KaTeX steps for every NCTB textbook problem type across all 14 chapters.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-indigo-400 font-bold block">Chapter 3 (Apollonius Theorem):</span>
+          <p>• b² + c² = 2[da² + (a/2)²]</p>
+          <p>• da² = (2b² + 2c² - a²) / 4</p>
+          <p>• 3(a² + b² + c²) = 4(da² + db² + dc²)</p>
+        </div>
+        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+          <span class="text-indigo-400 font-bold block">Chapters 7 & 10 (Series & Binomial):</span>
+          <p>• S∞ = a / (1 - r) for |r| &lt; 1</p>
+          <p>• (ax + by)ⁿ = ∑ ⁿCr (ax)ⁿ⁻ʳ (by)ʳ</p>
+          <p>• General term Tr+1 = ⁿCr aⁿ⁻ʳ bʳ</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="applications">
+    <p class="text-slate-300">
+      Higher mathematics forms the foundational engine of modern computer vision, 3D rendering (coordinate geometry & vectors), structural civil engineering (Apollonius medians & solid geometry), quantitative finance (probability & infinite series), and digital signal processing.
+    </p>
+  </div>
+</ToolLayout>
