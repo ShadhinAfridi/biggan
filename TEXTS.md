@@ -1,339 +1,324 @@
-# Biggan.me — Platform Text & Test Directory (প্ল্যাটফর্ম টেক্সট ও টেস্ট সূচি)
+# Biggan.me — প্ল্যাটফর্মের ইন্টারফেস ও টেস্ট ডিরেক্টরি (Platform Text & Test Directory)
 
-> **Bilingual Educational Catalog (ইংরেজি ও বাংলা সমন্বিত বিবরণ)**  
-> Directory of user interface copy, navigation labels, tool overviews, curriculum summaries, scientific terminology, and unit test specifications across `biggan.me`.  
-> *biggan.me ওয়েবসাইটের ইন্টারফেস টেক্সট, ক্যালকুলেটর বিবরণ, শিক্ষাক্রম সূচি, বিজ্ঞান পরিভাষা এবং স্বয়ংক্রিয় টেস্টের সহজবোধ্য দ্বৈতভাষিক তালিকা।*
-
----
-
-## 📊 Overview (একনজরে তথ্য)
-
-| পরিমাপক (Metric) | সংখ্যা (Count) | বিবরণ (Details) |
-| :--- | :--- | :--- |
-| **UI টেক্সট কি (Localization Keys)** | **72 Keys** | বাংলা ও ইংরেজি উভয় ভাষায় (`src/i18n/ui.ts`) |
-| **শিক্ষাক্রম বিষয় (Core Subjects)** | **6 Subjects** | এসএসসি (৯ম-১০ম) ও এইচএসসি (১১শ-১২শ) |
-| **বিজ্ঞান পরিভাষা (Glossary Terms)** | **10 Terms** | সংজ্ঞা, একক, মাত্রা ও সমীকরণ |
-| **ইউনিট টেস্ট (Unit Tests)** | **98 Tests** | ৭টি টেস্ট ফাইলে ১০০% সফল টেস্ট |
-| **কারিকুলাম মানদণ্ড (Standard)** | **NCTB Bangladesh** | জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড নির্দেশিত |
+> **দ্বিভাষিক এডুকেশনাল ক্যাটালগ (Bilingual Educational Catalog)**  
+> biggan.me ওয়েবসাইটের সম্পূর্ণ ইন্টারফেস, ক্যালকুলেটরের বিবরণ, পাঠ্যক্রম, বিজ্ঞানের বিভিন্ন টার্ম এবং অটোমেটেড টেস্টের একটি পূর্ণাঙ্গ, প্রাঞ্জল ও ছাত্রবান্ধব গাইড।
 
 ---
 
-## 🧭 Table of Contents (সূচিপত্র)
+## 📊 একনজরে (Overview)
 
-1. [Part 1: UI & Navigation Copy (ইন্টারফেস ও মেনু টেক্সট)](#part-1-ui--navigation-copy-ইন্টারফেস-ও-মেনু-টেক্সট)
-   - [1.1 Brand & Site Description (সাইটের পরিচিতি)](#11-brand--site-description-সাইটের-পরিচিতি)
-   - [1.2 Navigation Links (প্রধান মেনু)](#12-navigation-links-প্রধান-মেনু)
-   - [1.3 Calculator Names & Descriptions (ক্যালকুলেটরের নাম ও বিবরণ)](#13-calculator-names--descriptions-ক্যালকুলেটরের-নাম-ও-বিবরণ)
-   - [1.4 Page Sections (পাতার মূল অংশ)](#14-page-sections-পাতার-মূল-অংশ)
-   - [1.5 Casio Keystroke Guide (কাসিও ক্যালকুলেটরের ধাপ)](#15-casio-keystroke-guide-কাসিও-ক্যালকুলেটরের-ধাপ)
-   - [1.6 Action Buttons & Microcopy (বাটন ও অ্যাকশন টেক্সট)](#16-action-buttons--microcopy-বাটন-ও-অ্যাকশন-টেক্সট)
-   - [1.7 Footer & Policies (ফুটার ও নীতিমালা)](#17-footer--policies-ফুটার-ও-নীতিমালা)
-2. [Part 2: Curriculum Overview (শিক্ষাক্রম পাঠ্যক্রমের বিষয়সূচি)](#part-2-curriculum-overview-শিক্ষাক্রম-পাঠ্যক্রমের-বিষয়সূচি)
-3. [Part 3: Scientific Glossary (বিজ্ঞান পরিভাষা ও সংজ্ঞা)](#part-3-scientific-glossary-বিজ্ঞান-পরিভাষা-ও-সংজ্ঞা)
-4. [Part 4: All 98 Unit Tests Normalized (সকল ৯৮টি টেস্টের তালিকা)](#part-4-all-98-unit-tests-normalized-সকল-৯৮টি-টেস্টের-তালিকা)
-   - [4.1 SSC Physics Engine (১৩টি টেস্ট)](#41-ssc-physics-engine-testsphysicstestts--13-tests)
-   - [4.2 SSC Chemistry Engine (১১টি টেস্ট)](#42-ssc-chemistry-engine-testschemistrytestts--11-tests)
-   - [4.3 SSC Biology Engine (১০টি টেস্ট)](#43-ssc-biology-engine-testsbiologytestts--10-tests)
-   - [4.4 SSC General Math Engine (১৭টি টেস্ট)](#44-ssc-general-math-engine-testsgeneral-mathtestts--17-tests)
-   - [4.5 SSC Higher Math Engine (১৭টি টেস্ট)](#45-ssc-higher-math-engine-testshigher-mathtestts--17-tests)
-   - [4.6 HSC ICT Simulator Engine (১৫টি টেস্ট)](#46-hsc-ict-simulator-engine-testsict-enginestestts--15-tests)
-   - [4.7 Core Solvers Engine (১৫টি টেস্ট)](#47-core-solvers-engine-testsenginestestts--15-tests)
+| পরিমাপক (Metric) | সংখ্যা (Count) | বিস্তারিত (Details) |
+| :--- | :--- | :--- |
+| **ওয়েবসাইটের ভাষা (UI Keys)** | **৭২টি** | বাংলা ও ইংরেজি দুই ভাষাতেই পাওয়া যাবে (`src/i18n/ui.ts`)। |
+| **মূল বিষয়সমূহ (Core Subjects)** | **৬টি** | নবম-দশম (SSC) এবং একাদশ-দ্বাদশ (HSC) শ্রেণির জন্য। |
+| **বিজ্ঞানের পরিভাষা (Glossary)** | **১০টি** | সংজ্ঞা, একক, মাত্রা ও সমীকরণসহ সহজ ব্যাখ্যা। |
+| **অটোমেটেড টেস্ট (Unit Tests)** | **৯৮টি** | ৭টি আলাদা ফাইলে ১০০% সফল ও নির্ভুল টেস্ট। |
+| **মানদণ্ড (Standard)** | **NCTB** | জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ডের সিলেবাস অনুযায়ী তৈরি। |
 
 ---
 
-## Part 1: UI & Navigation Copy (ইন্টারফেস ও মেনু টেক্সট)
+## 🧭 সূচিপত্র (Table of Contents)
 
-### 1.1 Brand & Site Description (সাইটের পরিচিতি)
+1. [Part 1: ইন্টারফেস ও মেনু টেক্সট (UI & Navigation Copy)](#part-1-ইন্টারফেস-ও-মেনু-টেক্সট-ui--navigation-copy)
+   - [1.1 সাইটের পরিচিতি (Brand & Site Description)](#11-সাইটের-পরিচিতি-brand--site-description)
+   - [1.2 প্রধান মেনু (Navigation Links)](#12-প্রধান-মেনু-navigation-links)
+   - [1.3 ক্যালকুলেটরের নাম ও বিবরণ (Calculator Names & Descriptions)](#13-ক্যালকুলেটরের-নাম-ও-বিবরণ-calculator-names--descriptions)
+   - [1.4 পেজের অন্যান্য সেকশন (Page Sections)](#14-পেজের-অন্যান্য-সেকশন-page-sections)
+   - [1.5 কাসিও ক্যালকুলেটরের ব্যবহার (Casio Keystroke Guide)](#15-কাসিও-ক্যালকুলেটরের-ব্যবহার-casio-keystroke-guide)
+   - [1.6 অ্যাকশন বাটন (Action Buttons & Microcopy)](#16-অ্যাকশন-বাটন-action-buttons--microcopy)
+   - [1.7 ফুটার ও নীতিমালা (Footer & Policies)](#17-ফুটার-ও-নীতিমালা-footer--policies)
+2. [Part 2: শিক্ষাক্রম ও সিলেবাস (Curriculum Overview)](#part-2-শিক্ষাক্রম-ও-সিলেবাস-curriculum-overview)
+3. [Part 3: বিজ্ঞানের পরিভাষা ও সংজ্ঞা (Scientific Glossary)](#part-3-বিজ্ঞানের-পরিভাষা-ও-সংজ্ঞা-scientific-glossary)
+4. [Part 4: ৯৮টি ইউনিট টেস্টের বিস্তারিত তালিকা (All 98 Unit Tests)](#part-4-৯৮টি-ইউনিট-টেস্টের-বিস্তারিত-তালিকা-all-98-unit-tests)
+   - [4.1 এসএসসি পদার্থবিজ্ঞান ইঞ্জিন (tests/physics.test.ts — ১৩টি টেস্ট)](#41-এসএসসি-পদার্থবিজ্ঞান-ইঞ্জিন-testsphysicstestts--১৩টি-টেস্ট)
+   - [4.2 এসএসসি রসায়ন ইঞ্জিন (tests/chemistry.test.ts — ১১টি টেস্ট)](#42-এসএসসি-রসায়ন-ইঞ্জিন-testschemistrytestts--১১টি-টেস্ট)
+   - [4.3 এসএসসি জীববিজ্ঞান ইঞ্জিন (tests/biology.test.ts — ১০টি টেস্ট)](#43-এসএসসি-জীববিজ্ঞান-ইঞ্জিন-testsbiologytestts--১০টি-টেস্ট)
+   - [4.4 এসএসসি সাধারণ গণিত ইঞ্জিন (tests/general-math.test.ts — ১৭টি টেস্ট)](#44-এসএসসি-সাধারণ-গণিত-ইঞ্জিন-testsgeneral-mathtestts--১৭টি-টেস্ট)
+   - [4.5 এসএসসি উচ্চতর গণিত ইঞ্জিন (tests/higher-math.test.ts — ১৭টি টেস্ট)](#45-এসএসসি-উচ্চতর-গণিত-ইঞ্জিন-testshigher-mathtestts--১৭টি-টেস্ট)
+   - [4.6 এইচএসসি আইসিটি (ICT) সিমুলেটর ইঞ্জিন (tests/ict-engines.test.ts — ১৫টি টেস্ট)](#46-এইচএসসি-আইসিটি-ict-সিমুলেটর-ইঞ্জিন-testsict-enginestestts--১৫টি-টেস্ট)
+   - [4.7 কোর সলভার ইঞ্জিন (tests/engines.test.ts — ১৫টি টেস্ট)](#47-কোর-সলভার-ইঞ্জিন-testsenginestestts--১৫টি-টেস্ট)
 
-| Key | English Text | বাংলা টেক্সট |
+---
+
+## Part 1: ইন্টারফেস ও মেনু টেক্সট (UI & Navigation Copy)
+
+### 1.1 সাইটের পরিচিতি (Brand & Site Description)
+
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
-| `site.title` | Biggan.me — Science & Math Calculators with Step-by-Step Solutions | Biggan.me — বিজ্ঞান ও গণিত ক্যালকুলেটর (ধাপে ধাপে সমাধান) |
-| `site.description` | Calculators for SSC and HSC science and math, with step-by-step derivations, Casio fx-991 steps, and bilingual notes. | এসএসসি ও এইচএসসি বিজ্ঞান ও গণিতের ক্যালকুলেটর। সাথে প্রতিটি ধাপের সমীকরণ, কাসিও fx-991 নির্দেশিকা এবং বিষয়ভিত্তিক আলোচনা। |
-| `site.tagline` | Step-by-step solutions for class 9–12 science and math | ৯ম–১২শ শ্রেণির বিজ্ঞান ও গণিতের প্রতিটি ধাপের সমাধান |
+| `site.title` | Biggan.me — Science & Math Calculators with Step-by-Step Solutions | Biggan.me — বিজ্ঞান ও গণিতের ক্যালকুলেটর (ধাপে ধাপে সমাধান) |
+| `site.description` | Step-by-step calculators for SSC and HSC science and math, complete with Casio fx-991 keystroke guides and detailed bilingual notes. | এসএসসি ও এইচএসসি বিজ্ঞান ও গণিতের সব সমস্যার ধাপে ধাপে সমাধান। সাথে থাকছে কাসিও fx-991 ব্যবহারের দারুণ সব ট্রিকস এবং বিষয়ভিত্তিক সহজ আলোচনা। |
+| `site.tagline` | Step-by-step solutions for class 9–12 science and math. | ৯ম-১২শ শ্রেণির বিজ্ঞান ও গণিতের যেকোনো অঙ্কের স্টেপ-বাই-স্টেপ সমাধান। |
 
-### 1.2 Navigation Links (প্রধান মেনু)
+### 1.2 প্রধান মেনু (Navigation Links)
 
-| Key | English Text | বাংলা টেক্সট |
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
-| `nav.home` | Home | মূলপাতা |
-| `nav.tools` | Calculators | ক্যালকুলেটর সমূহ |
+| `nav.home` | Home | হোমপেজ |
+| `nav.tools` | Calculators | কাজের টুলস / ক্যালকুলেটর |
 | `nav.periodicTable` | Periodic Table | পর্যায় সারণি |
-| `nav.glossary` | Glossary | বিজ্ঞান পরিভাষা |
-| `nav.articles` | Guides & Articles | টিউটোরিয়াল ও গাইড |
-| `nav.curriculum` | Curriculum | পাঠ্যক্রম |
-| `nav.formulas` | Formula Sheet | সূত্র সংকলন |
-| `nav.progress` | My Progress | পড়ালেখার অগ্রগতি |
-| `nav.about` | About | আমাদের কথা |
-| `nav.methodology` | Methodology | পদ্ধতি ও নির্ভুলতা |
+| `nav.glossary` | Glossary | বিজ্ঞানের পরিভাষা |
+| `nav.articles` | Guides & Articles | গাইড ও টিউটোরিয়াল |
+| `nav.curriculum` | Curriculum | সিলেবাস ও পাঠ্যক্রম |
+| `nav.formulas` | Formula Sheet | প্রয়োজনীয় সূত্র |
+| `nav.progress` | My Progress | পড়াশোনার অগ্রগতি |
+| `nav.about` | About Us | আমাদের সম্পর্কে |
+| `nav.methodology` | Methodology | কাজের ধরন ও নির্ভুলতা |
 
-### 1.3 Calculator Names & Descriptions (ক্যালকুলেটরের নাম ও বিবরণ)
+### 1.3 ক্যালকুলেটরের নাম ও বিবরণ (Calculator Names & Descriptions)
 
-| Key | English Name & Summary | বাংলা নাম ও বিবরণ |
+| Identifier | English Name & Summary | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
-| `tools.title` | **Science & Math Calculators** | **বিজ্ঞান ও গণিত ক্যালকুলেটর** |
-| `tools.subtitle` | Step-by-step equations, unit breakdowns, and Casio fx-991 calculator steps for each problem. | প্রতিটি গণনার সূত্রের ধাপ, এককের হিসাব এবং কাসিও fx-991 ক্যালকুলেটর ব্যবহারের নিয়ম। |
-| `tools.molarMass.name` | Molar Mass & Mass Percent | মোলার ভর ও শতকরা সংযুতি |
-| `tools.molarMass.desc` | Find molar mass for hydrates, coordination compounds, and isotopic mixtures. | যৌগের সংকেত থেকে প্রতিটি মৌলের পরমাণু সংখ্যা বের করে এবং কেলাস পানিসহ মোট মোলার ভর হিসাব করে। |
-| `tools.redox.name` | Redox Equation Balancer | আয়ন-ইলেকট্রন জারণ-বিজারণ সমতা |
-| `tools.redox.desc` | Balance redox reactions in acidic or basic solutions using the half-reaction method. | অম্লীয় বা ক্ষারীয় মাধ্যমে অর্ধ-বিক্রিয়া পদ্ধতিতে জারণ-বিজারণ সমীকরণ সমতা করে। |
-| `tools.sigFigs.name` | Significant Figures Calculator | তাৎপর্যপূর্ণ অঙ্ক (Sig Figs) ক্যালকুলেটর |
-| `tools.sigFigs.desc` | Count significant digits, convert to scientific notation, and apply rounding rules in arithmetic. | তাৎপর্যপূর্ণ অঙ্ক গণনা, বৈজ্ঞানিক রূপান্তর এবং যোগ ও গুণের রাউন্ডিং নিয়ম প্রয়োগ করে। |
-| `tools.projectile.name` | Projectile Motion Calculator | প্রাসের গতি ক্যালকুলেটর |
-| `tools.projectile.desc` | Find maximum height, time of flight, horizontal range, and trajectory coordinates. | নিক্ষেপণ বেগ ও কোণ থেকে সর্বোচ্চ উচ্চতা, বিচরণকাল এবং অনুভূমিক পাল্লা হিসাব করে। |
-| `tools.quadratic.name` | Quadratic Equation Solver | দ্বিঘাত সমীকরণ সমাধান |
-| `tools.quadratic.desc` | Find real and complex roots, discriminant value, and step-by-step factoring. | নিশ্চায়ক বের করে সমীকরণের মূলের প্রকৃতি জানায় এবং বাস্তব ও জটিল মূলের মান দেখায়। |
-| `tools.htmlRunner.name` | HTML Code Playground | এইচটিএমএল কোড প্র্যাকটিস ও রানার |
-| `tools.htmlRunner.desc` | Write and preview HTML, test table layouts with rowspan and colspan, and check tags. | সরাসরি ব্রাউজারে কোড লিখে প্রিভিউ দেখা, টেবিল (rowspan/colspan) তৈরি ও ট্যাগ যাচাইয়ের সুযোগ। |
-| `tools.cRunner.name` | C Code Simulator & Variable Tracer | সি প্রোগ্রামিং সিমুলেটর ও ভ্যারিয়েবল ট্রেসার |
-| `tools.cRunner.desc` | Step through loops and conditionals while watching variable values change line by line. | লুপ ও শর্তযুক্ত কোডের প্রতি লাইনে ভ্যারিয়েবলের মান কীভাবে বদলায় তা ধাপে ধাপে দেখায়। |
-| `tools.dbSimulator.name` | SQL Database Simulator | এসকিউএল ডেটাবেজ সিমুলেটর |
-| `tools.dbSimulator.desc` | Run SELECT, WHERE, ORDER BY, and JOIN queries on sample student database tables. | ব্রাউজারে সরাসরি SELECT, WHERE, ORDER BY ও JOIN কুয়েরি চালিয়ে ডেটাবেজ প্র্যাকটিস করার টুল। |
-| `tools.circuitSimulator.name` | Logic Gate & Circuit Simulator | লজিক গেট ও সার্কিট সিমুলেটর |
-| `tools.circuitSimulator.desc` | Test basic and universal logic gates, build Half and Full Adders, and view truth tables. | মৌলিক ও সার্বজনীন গেট পরীক্ষা, হাফ ও ফুল অ্যাডার বর্তনী তৈরি এবং ট্রুথ টেবিল দেখার সিমুলেটর। |
-| `tools.generalMath.name` | SSC General Math Solver | এসএসসি সাধারণ গণিত সমাধানকারী |
-| `tools.generalMath.desc` | Solve problems in grouped statistics (mean, median, mode), height-distance, algebra, and mensuration. | শ্রেণিকৃত উপাত্তের পরিসংখ্যান (গড়, মধ্যক, প্রচুরক), ত্রিকোণমিতিক উচ্চতা, বীজগণিত ও পরিমিতির সমস্যা সমাধান। |
-| `tools.physics.name` | SSC Physics Calculator | এসএসসি পদার্থবিজ্ঞান ক্যালকুলেটর |
-| `tools.physics.desc` | Solvers for all 13 textbook chapters: kinematics, work-power, heat, optics, circuits, and decay. | পাঠ্যবইয়ের ১৩টি অধ্যায়ের গাণিতিক সমীকরণ সমাধান, সূত্রের ধাপ এবং ক্যালকুলেটর ব্যবহারের নির্দেশিকা। |
-| `tools.chemistry.name` | SSC Chemistry Calculator | এসএসসি রসায়ন ক্যালকুলেটর |
-| `tools.chemistry.desc` | Solvers for gas diffusion, mole conversions, solution molarity, limiting reactants, ΔH, and pH. | গ্যাসের ব্যাপন, মোলের রূপান্তর, দ্রবণের মোলারিটি, লিমিটিং বিক্রিয়ক, বিক্রিয়া তাপ ও pH সমাধান। |
-| `tools.biology.name` | SSC Biology Calculator | এসএসসি জীববিজ্ঞান ক্যালকুলেটর |
-| `tools.biology.desc` | Calculators for BMI, BMR, daily calories, respiration ATP yield, Punnett squares, and energy flow. | বিএমআই, বিএমআর, দৈনিক ক্যালরি চাহিদা, শ্বসনে এটিপি উৎপাদন, জেনেটিক ক্রস ও বাস্তুতন্ত্রের শক্তি হিসাব। |
-| `tools.higherMath.name` | SSC Higher Math Calculator | এসএসসি উচ্চতর গণিত সমাধানকারী |
-| `tools.higherMath.desc` | Solvers for all 14 chapters: Venn sets, Apollonius medians, quadratics, series, binomials, and vectors. | পাঠ্যবইয়ের ১৪টি অধ্যায়ের সমাধান: ভেনচিত্র, অ্যাপোলোনিয়াস উপপাদ্য, দ্বিঘাত, অনন্ত ধারা ও স্থানাঙ্ক জ্যামিতি। |
+| `tools.title` | Science & Math Calculators | বিজ্ঞান ও গণিতের ক্যালকুলেটর |
+| `tools.subtitle` | Get step-by-step equations, unit breakdowns, and exact Casio fx-991 calculator steps for every problem. | প্রতিটি অঙ্কের সূত্রের বিস্তারিত ধাপ, এককের হিসাব এবং কাসিও fx-991 ক্যালকুলেটরে কীভাবে সলভ করবেন, তার একদম সঠিক নিয়ম। |
+| `tools.molarMass` | Molar Mass & Mass Percent: Easily find the molar mass for hydrates, coordination compounds, and isotopic mixtures. | মোলার ভর ও শতকরা সংযুতি: যেকোনো যৌগের সংকেত থেকে পরমাণুর সংখ্যা ও কেলাস পানিসহ মোট মোলার ভর এক ক্লিকেই বের করুন। |
+| `tools.redox` | Redox Equation Balancer: Balance complex redox reactions in acidic or basic solutions using the half-reaction method. | জারণ-বিজারণ সমতা: অম্লীয় বা ক্ষারীয় মাধ্যমে অর্ধ-বিক্রিয়া পদ্ধতিতে যেকোনো জটিল জারণ-বিজারণ সমীকরণ সহজেই ব্যালেন্স করুন। |
+| `tools.sigFigs` | Significant Figures Calculator: Count significant digits, convert to scientific notation, and perfectly apply rounding rules. | সিগনিফিক্যান্ট ফিগার (Sig Figs): তাৎপর্যপূর্ণ অঙ্ক গোনা, সায়েন্টিফিক মোডে নেওয়া এবং যোগ-গুণের রাউন্ডিংয়ের নিয়মগুলো নিখুঁতভাবে অ্যাপ্লাই করুন। |
+| `tools.projectile` | Projectile Motion Calculator: Calculate maximum height, time of flight, horizontal range, and exact trajectory coordinates. | প্রাসের গতি (Projectile): কত বেগে বা কোণে ছুড়লে কত উঁচুতে যাবে, কতক্ষণ বাতাসে ভাসবে বা কত দূরে গিয়ে পড়বে—সব নির্ভুলভাবে বের করুন। |
+| `tools.quadratic` | Quadratic Equation Solver: Find real and complex roots, determine the discriminant value, and see step-by-step factoring. | দ্বিঘাত সমীকরণ সমাধান: নিশ্চায়ক বের করে সমীকরণের মূলের প্রকৃতি জানুন এবং বাস্তব ও জটিল মূলের মানগুলো ধাপে ধাপে বের করুন। |
+| `tools.htmlRunner` | HTML Code Playground: Write and preview HTML in real-time, test complex table layouts, and validate your tags. | এইচটিএমএল (HTML) রানার: সরাসরি ব্রাউজারে কোড লিখে আউটপুট দেখুন। টেবিল বানানো (rowspan/colspan) বা ট্যাগগুলো ঠিক আছে কিনা চেক করার দারুণ জায়গা। |
+| `tools.cRunner` | C Code Simulator: Step through loops and conditionals to watch variable values change line-by-line. | সি (C) প্রোগ্রামিং সিমুলেটর: লুপ আর কন্ডিশনাল কোডগুলো লাইন-বাই-লাইন রান করে দেখুন ভ্যারিয়েবলের মান কীভাবে বদলায়। |
+| `tools.dbSimulator` | SQL Database Simulator: Practice by running SELECT, WHERE, ORDER BY, and JOIN queries on sample student databases. | এসকিউএল (SQL) প্র্যাকটিস: ব্রাউজারেই স্টুডেন্ট ডাটাবেজ নিয়ে SELECT, WHERE, ORDER BY বা JOIN কুয়েরি চালিয়ে ডেটাবেজ প্র্যাকটিস করুন। |
+| `tools.circuitSimulator` | Logic Gate Simulator: Test logic gates, build Half and Full Adders, and instantly generate truth tables. | লজিক গেট সিমুলেটর: বেসিক ও সার্বজনীন গেটগুলো টেস্ট করুন, হাফ/ফুল অ্যাডার বানান এবং নিমিষেই ট্রুথ টেবিল মিলিয়ে নিন। |
+| `tools.generalMath` | SSC General Math Solver: Solve problems in grouped statistics, heights and distances, algebra, and mensuration. | সাধারণ গণিত সমাধান: পরিসংখ্যানের সারণি (গড়, মধ্যক, প্রচুরক), ত্রিকোণমিতির উচ্চতা ও দূরত্ব এবং পরিমিতির কঠিন অঙ্কগুলোর সহজ সমাধান। |
+| `tools.physics` | SSC Physics Calculator: Step-by-step solvers for all 13 textbook chapters, covering kinematics to modern physics. | পদার্থবিজ্ঞান ক্যালকুলেটর: গতিবিদ্যা থেকে শুরু করে আধুনিক পদার্থবিজ্ঞানের ১৩টি অধ্যায়ের গাণিতিক সমস্যার ধাপে ধাপে সমাধান। |
+| `tools.chemistry` | SSC Chemistry Calculator: Master gas diffusion, mole conversions, molarity, limiting reactants, $\Delta H$, and pH. | রসায়ন ক্যালকুলেটর: গ্যাসের ব্যাপন, মোল, মোলারিটি, লিমিটিং বিক্রিয়ক, বিক্রিয়া তাপ ও pH-এর যেকোনো অঙ্ক সলভ করুন নিমেষেই। |
+| `tools.biology` | SSC Biology Calculator: Calculate BMI, BMR, ATP yields in respiration, Punnett squares, and ecological energy flow. | জীববিজ্ঞান ক্যালকুলেটর: বিএমআই, বিএমআর, শ্বসনে কত এটিপি (ATP) তৈরি হয়, মেন্ডেলের ক্রস বা বাস্তুতন্ত্রের শক্তির হিসাব—সব এক জায়গায়। |
+| `tools.higherMath` | SSC Higher Math Calculator: Detailed solvers for Venn sets, Apollonius medians, quadratics, series, and vectors. | উচ্চতর গণিত ক্যালকুলেটর: ভেনচিত্র, অ্যাপোলোনিয়াসের উপপাদ্য, ধারা, দ্বিপদী বিস্তৃতি এবং ভেক্টরের মতো টপিকগুলোর স্টেপ-বাই-স্টেপ সমাধান। |
 
-### 1.4 Page Sections (পাতার মূল অংশ)
+### 1.4 পেজের অন্যান্য সেকশন (Page Sections)
 
-| Key | English Text | বাংলা টেক্সট |
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
 | `section.calculator` | Calculator | ক্যালকুলেটর |
-| `section.derivation` | Formula & Derivation | সূত্র ও গাণিতিক প্রতিপাদন |
-| `section.examples` | Solved Textbook Examples | পাঠ্যবই ও বোর্ড পরীক্ষার উদাহরণ |
-| `section.casio` | Casio Calculator Guide | কাসিও ক্যালকুলেটর গাইড |
-| `section.applications` | Practical Applications | ব্যবহারিক প্রয়োগ |
-| `section.faq` | Frequently Asked Questions | সাধারণ জিজ্ঞাসা (FAQ) |
+| `section.derivation` | Formula & Derivation | সূত্র ও গাণিতিক প্রমাণ |
+| `section.examples` | Solved Textbook Examples | বই ও বোর্ড পরীক্ষার সলভড উদাহরণ |
+| `section.casio` | Casio Calculator Guide | কাসিও ক্যালকুলেটর হ্যাকস |
+| `section.applications` | Practical Applications | বাস্তব জীবনে এর ব্যবহার |
+| `section.faq` | Frequently Asked Questions | সচরাচর জিজ্ঞাসা (FAQ) |
 
-### 1.5 Casio Keystroke Guide (কাসিও ক্যালকুলেটরের ধাপ)
+### 1.5 কাসিও ক্যালকুলেটরের ব্যবহার (Casio Keystroke Guide)
 
-| Key | English Text | বাংলা টেক্সট |
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
 | `casio.guideTitle` | Casio fx-991 & fx-100MS Keystroke Guide | কাসিও fx-991 ও fx-100MS ক্যালকুলেটরে হিসাব করার নিয়ম |
-| `casio.guideSubtitle` | Button sequences for standard scientific calculators allowed in board exams: | বোর্ড ও ভর্তি পরীক্ষায় অনুমোদিত সায়েন্টিফিক ক্যালকুলেটরে একই হিসাব করার ধাপসমূহ: |
+| `casio.guideSubtitle` | Follow these exact button sequences for standard scientific calculators allowed in board exams: | বোর্ড বা অ্যাডমিশন টেস্টে যেসব সায়েন্টিফিক ক্যালকুলেটর ব্যবহার করা যায়, সেগুলোতে খুব সহজে হিসাব মেলানোর স্টেপ-বাই-স্টেপ গাইড: |
 | `casio.model.cw` | fx-991CW (New ClassWiz) | fx-991CW (নতুন ক্লাসউইজ) |
 | `casio.model.ex` | fx-991EX (ClassWiz) | fx-991EX (ক্লাসউইজ) |
 | `casio.model.es` | fx-991ES PLUS / 2nd Edition | fx-991ES PLUS / 2nd Edition |
 | `casio.model.ms` | fx-100MS / fx-570MS | fx-100MS / fx-570MS |
 
-### 1.6 Action Buttons & Microcopy (বাটন ও অ্যাকশন টেক্সট)
+### 1.6 অ্যাকশন বাটন (Action Buttons & Microcopy)
 
-| Key | English Text | বাংলা টেক্সট |
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
-| `ui.calculate` | Calculate | হিসাব করো |
-| `ui.clear` | Clear | মুছে ফেলো |
-| `ui.copy` | Copy | কপি করো |
-| `ui.copied` | Copied! | কপি হয়েছে |
-| `ui.share` | Share | শেয়ার করো |
-| `ui.print` | Print / Save PDF | প্রিন্ট বা PDF সংরক্ষণ |
+| `ui.calculate` | Calculate | হিসাব করুন |
+| `ui.clear` | Clear | ক্লিয়ার করুন |
+| `ui.copy` | Copy | কপি করুন |
+| `ui.copied` | Copied! | কপি হয়েছে! |
+| `ui.share` | Share | বন্ধুদের সাথে শেয়ার করুন |
+| `ui.print` | Print / Save PDF | পিডিএফ সেভ / প্রিন্ট করুন |
 | `ui.steps` | Step-by-Step Solution | ধাপে ধাপে সমাধান |
-| `ui.result` | Result | ফলাফল |
-| `ui.input` | Input | মান লিখুন |
-| `ui.example` | Load Example | উদাহরণ দেখুন |
+| `ui.result` | Result | চূড়ান্ত ফলাফল |
+| `ui.input` | Input | মান বসান |
+| `ui.example` | Load Example | একটি উদাহরণ দেখুন |
 | `ui.curriculum.nctb` | NCTB (Bangladesh) | এনসিটিবি (বাংলাদেশ) |
 | `ui.curriculum.ncert` | NCERT / WBCHSE (India) | এনসিইআরটি / পশ্চিমবঙ্গ বোর্ড |
 
-### 1.7 Footer & Policies (ফুটার ও নীতিমালা)
+### 1.7 ফুটার ও নীতিমালা (Footer & Policies)
 
-| Key | English Text | বাংলা টেক্সট |
+| Identifier | English Text | সাবলীল বাংলা রূপান্তর |
 | :--- | :--- | :--- |
-| `footer.disclaimer` | Biggan.me is a free educational tool for science and math. Formulas follow NCTB and international textbook standards. | Biggan.me বিজ্ঞান ও গণিত শিক্ষার উন্মুক্ত প্ল্যাটফর্ম। সমস্ত গণনা ও সূত্র NCTB পাঠ্যবইয়ের মানদণ্ড অনুযায়ী তৈরি। |
-| `footer.privacy` | Privacy Policy | গোপনীয়তা নীতি |
-| `footer.terms` | Terms of Service | ব্যবহারের নিয়মাবলী |
+| `footer.disclaimer` | Biggan.me is a free educational tool for science and math. All formulas strictly follow NCTB textbook standards. | Biggan.me বিজ্ঞান ও গণিত শেখার একটি ফ্রি প্ল্যাটফর্ম। এখানকার সমস্ত গণনা ও সূত্র NCTB পাঠ্যবইয়ের মানদণ্ড মেনে তৈরি। |
+| `footer.privacy` | Privacy Policy | প্রাইভেসি পলিসি |
+| `footer.terms` | Terms of Service | ব্যবহারের শর্তাবলি |
 | `footer.editorial` | Editorial Standards | সম্পাদকীয় নীতিমালা |
 | `footer.rights` | All rights reserved. | সর্বস্বত্ব সংরক্ষিত। |
 
 ---
 
-## Part 2: Curriculum Overview (শিক্ষাক্রম পাঠ্যক্রমের বিষয়সূচি)
+## Part 2: শিক্ষাক্রম ও সিলেবাস (Curriculum Overview)
 
-| Level | Code | Subject Name | বাংলা বিষয়ের নাম | English Scope | বাংলা বিবরণ |
-| :---: | :---: | :--- | :--- | :--- | :--- |
-| **SSC** | 136 | **Physics** | **পদার্থবিজ্ঞান** | Kinematics, dynamics, heat, waves, optics, current electricity, and modern physics. | গতিবিদ্যা, বল, কাজ-শক্তি, তরঙ্গ, আলো, চলতড়িৎ এবং আধুনিক পদার্থবিজ্ঞান। |
-| **SSC** | 137 | **Chemistry** | **রসায়ন** | Atomic structure, periodic table, mole concept, chemical bonds, reactions, and acid-bases. | পরমাণুর গঠন, পর্যায় সারণি, মোলের ধারণা, রাসায়নিক বন্ধন, বিক্রিয়া এবং এসিড-ক্ষারক। |
-| **SSC** | 138 | **Biology** | **জীববিজ্ঞান** | Cell structure, bioenergetics, nutrition, circulatory system, genetics, and ecology. | কোষ কাঠামো, জৈবশক্তি, খাদ্য ও পুষ্টি, রক্ত সংবহন, বংশগতি এবং বাস্তুতন্ত্র। |
-| **SSC** | 109 | **General Mathematics** | **সাধারণ গণিত** | Sets, algebraic expressions, exponents, logarithms, trigonometry, mensuration, and statistics. | সেট ও ফাংশন, বীজগণিতীয় রাশি, সূচক, লগারিদম, ত্রিকোণমিতি, পরিমিতি এবং পরিসংখ্যান। |
-| **SSC** | 126 | **Higher Mathematics** | **উচ্চতর গণিত** | Apollonius theorem, quadratics, infinite series, binomial expansion, coordinate geometry, and vectors. | অ্যাপোলোনিয়াসের উপপাদ্য, দ্বিঘাত সমীকরণ, অনন্ত ধারা, দ্বিপদী বিস্তৃতি, স্থানাঙ্ক জ্যামিতি ও ভেক্টর। |
-| **HSC** | 275 | **Information & Communication Technology (ICT)** | **তথ্য ও যোগাযোগ প্রযুক্তি** | Boolean logic gates, number systems, HTML web design, C programming, and SQL database management. | বুলিয়ান লজিক গেট, সংখ্যা পদ্ধতি, এইচটিএমএল ওয়েব ডিজাইন, সি প্রোগ্রামিং এবং এসকিউএল ডেটাবেজ। |
-
----
-
-## Part 3: Scientific Glossary (বিজ্ঞান পরিভাষা ও সংজ্ঞা)
-
-| Identifier | Term | বাংলা পরিভাষা | English Definition | বাংলা প্রমিত সংজ্ঞা |
-| :---: | :--- | :--- | :--- | :--- |
-| `molar-mass` | **Molar Mass** ($M = \frac{m}{n}$) | **মোলার ভর** | Mass of a substance divided by its amount in moles, measured in g/mol. | কোনো পদার্থের এক মোল বা $৬.০২৩ \times ১০^{২৩}$ টি কণার সামগ্রিক ভরকে মোলার ভর বলে। |
-| `velocity` | **Velocity** ($\vec{v} = \frac{d\vec{r}}{dt}$) | **বেগ** | Rate of change of position in a specific direction with time. | নির্দিষ্ট দিকে সময়ের সাথে বস্তুর অবস্থানের পরিবর্তনের হারকে বেগ বলে। |
-| `acceleration` | **Acceleration** ($\vec{a} = \frac{d\vec{v}}{dt}$) | **ত্বরণ** | Rate of change of velocity over time. | সময়ের সাথে বস্তুর বেগ বৃদ্ধির হারকে ত্বরণ বলে। |
-| `force` | **Force** ($\vec{F} = m\vec{a}$) | **বল** | An interaction that changes or tends to change the motion of an object. | যা কোনো স্থির বস্তুর উপর কাজ করে তাকে গতিশীল করে বা করতে চায়, অথবা গতিশীল বস্তুর গতির পরিবর্তন ঘটায়। |
-| `kinetic-energy` | **Kinetic Energy** ($E_k = \frac{1}{2}mv^2$) | **গতিশক্তি** | Energy an object has due to its motion. | কোনো গতিশীল বস্তু তার গতির জন্য কাজ করার যে সামর্থ্য লাভ করে তাকে গতিশক্তি বলে। |
-| `power` | **Power** ($P = \frac{W}{t}$) | **ক্ষমতা** | Rate at which work is done or energy is transferred. | কোনো ব্যক্তি বা উৎসের কাজ করার সময়ভিত্তিক হারকে ক্ষমতা বলে। |
-| `electronegativity` | **Electronegativity** | **তড়িৎ ঋণাত্মকতা** | Tendency of an atom in a covalent bond to attract the shared pair of electrons. | সমযোজী বন্ধনের ইলেকট্রন জোড়কে নিজের দিকে টেনে নেওয়ার আপেক্ষিক ক্ষমতাকে তড়িৎ ঋণাত্মকতা বলে। |
-| `planck-constant` | **Planck Constant** ($h = 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$) | **প্লাঙ্কের ধ্রুবক** | Constant relating a photon's energy to its frequency. | ফোটনের শক্তি ও কম্পাঙ্কের মধ্যকার অনুপাতের মৌলিক ধ্রুবক। |
+| লেভেল | কোড | বিষয় (Subject Name) | সিলেবাসে যা যা থাকছে |
+| :---: | :---: | :--- | :--- |
+| **SSC** | ১৩৬ | **পদার্থবিজ্ঞান (Physics)** | গতিবিদ্যা, বল, কাজ-ক্ষমতা-শক্তি, তরঙ্গ ও শব্দ, আলো, চলতড়িৎ এবং আধুনিক পদার্থবিজ্ঞানের বিস্তারিত বেসিক ও অঙ্ক। |
+| **SSC** | ১৩৭ | **রসায়ন (Chemistry)** | পরমাণুর গঠন, পর্যায় সারণি, মোলের ধারণা, রাসায়নিক বন্ধন, বিক্রিয়ার সমতা এবং এসিড-ক্ষারকের খুঁটিনাটি। |
+| **SSC** | ১৩৮ | **জীববিজ্ঞান (Biology)** | কোষ কাঠামো, সালোকসংশ্লেষণ ও শ্বসন, পুষ্টি, রক্ত সংবহন, বংশগতি (জেনেটিক্স) এবং বাস্তুতন্ত্রের বৈজ্ঞানিক বিশ্লেষণ। |
+| **SSC** | ১০৯ | **সাধারণ গণিত (General Math)** | সেট-ফাংশন, বীজগণিত, সূচক-লগারিদম, ত্রিকোণমিতি, পরিমিতি এবং পরিসংখ্যানের সকল গাণিতিক সমাধান। |
+| **SSC** | ১২৬ | **উচ্চতর গণিত (Higher Math)** | অ্যাপোলোনিয়াসের উপপাদ্য, দ্বিঘাত সমীকরণ, অনন্ত ধারা, দ্বিপদী বিস্তৃতি, স্থানাঙ্ক জ্যামিতি ও ভেক্টর অ্যানালাইসিস। |
+| **HSC** | ২৭৫ | **আইসিটি (ICT)** | বুলিয়ান লজিক গেট, সংখ্যা পদ্ধতি, এইচটিএমএল, সি (C) প্রোগ্রামিং এবং এসকিউএল (SQL) ডেটাবেজ ম্যানেজমেন্ট। |
 
 ---
 
-## Part 4: All 98 Unit Tests Normalized (সকল ৯৮টি টেস্টের তালিকা)
+## Part 3: বিজ্ঞানের পরিভাষা ও সংজ্ঞা (Scientific Glossary)
 
-### 4.1 SSC Physics Engine (`tests/physics.test.ts` — 13 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এসএসসি পদার্থবিজ্ঞান পাঠ্যবইয়ের ১ম থেকে ১৩শ অধ্যায়
-
-| # | অধ্যায় ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | **অধ্যায় ১:** ভৌত রাশি ও পরিমাপ | Calculates vernier constant, slide calipers reading, screw gauge least count, and sphere volume. | ভার্নিয়ার ধ্রুবক, স্লাইড ক্যালিপার্সের মোট দৈর্ঘ্য, স্ক্রু গজের লঘিষ্ঠ গণন এবং গোলকের আয়তন হিসাব করে। | ✅ Passed |
-| 02 | **অধ্যায় ২:** গতি | Solves linear motion formulas ($v = u + at$, $s = ut + \frac{1}{2}at^2$) and vertical throw metrics ($H_{max}, T$). | সরলরৈখিক গতির সমীকরণ এবং খাড়া উপরের দিকে নিক্ষিপ্ত বস্তুর সর্বোচ্চ উচ্চতা ও বিচরণকাল বের করে। | ✅ Passed |
-| 03 | **অধ্যায় ৩:** বল | Computes force ($F = ma$), momentum in inelastic collisions, and gravitational attraction. | বলের মান ($F = ma$), সংঘর্ষের পর মিলিত বস্তুর বেগ এবং দুটি বস্তুর মধ্যকার মহাকর্ষ বল হিসাব করে। | ✅ Passed |
-| 04 | **অধ্যায় ৪:** কাজ, ক্ষমতা ও শক্তি | Calculates work at an angle, kinetic and potential energy, and machine efficiency percentage. | কোণযুক্ত কাজ, গতিশক্তি, বিভবশক্তি এবং প্রদত্ত ক্ষমতা সাপেক্ষে ইঞ্জিনের কর্মদক্ষতা হিসাব করে। | ✅ Passed |
-| 05 | **অধ্যায় ৫:** পদার্থের অবস্থা ও চাপ | Computes solid pressure, liquid pressure at depth, hydraulic press force, and Young's modulus. | চাপ, তরলের তলদেশে চাপ, হাইড্রোলিক প্রেসের বল এবং তারের প্রসারণে ইয়ং-এর গুণাঙ্ক বের করে। | ✅ Passed |
-| 06 | **অধ্যায় ৬:** বস্তুর উপর তাপের প্রভাব | Converts temperatures across C, F, and K, and calculates linear expansion and sensible/latent heat. | সেলসিয়াস, ফারেনহাইট ও কেলভিন স্কেল রূপান্তর এবং দৈর্ঘ্য প্রসারণ, তাপ ও সুপ্ততাপ হিসাব করে। | ✅ Passed |
-| 07 | **অধ্যায় ৭:** তরঙ্গ ও শব্দ | Calculates wave speed ($v = f\lambda$), sound speed at given temperature, and minimum echo distance. | তরঙ্গের বেগ, তাপমাত্রার পরিবর্তনের সাথে শব্দের বেগ এবং প্রতিধ্বনি শোনার ন্যূনতম দূরত্ব বের করে। | ✅ Passed |
-| 08 | **অধ্যায় ৮:** আলোর প্রতিফলন | Determines image position, magnification, and orientation in concave and convex spherical mirrors. | অবতল ও উত্তল দর্পণে প্রতিবিম্বের অবস্থান, রৈখিক বিবর্ধন এবং প্রতিবিম্ব বাস্তব না অবাস্তব তা নির্ধারণ করে। | ✅ Passed |
-| 09 | **অধ্যায় ৯:** আলোর প্রতিসরণ | Solves Snell's law, finds critical angle for total reflection, and calculates lens power in diopters. | স্নেলের সূত্রে প্রতিসরণ কোণ, পূর্ণ অভ্যন্তরীণ প্রতিফলনের সংকট কোণ এবং লেন্সের ক্ষমতা ডায়োপ্টারে বের করে। | ✅ Passed |
-| 10 | **অধ্যায় ১০:** স্থির তড়িৎ | Computes Coulomb force between charges, electric field strength, potential, and capacitance. | দুটি আধানের মধ্যকার কুলম্ব বল, তড়িৎ প্রাবল্য, তড়িৎ বিভব এবং ধারকের ধারকত্ব হিসাব করে। | ✅ Passed |
-| 11 | **অধ্যায় ১১:** চল তড়িৎ | Applies Ohm's law, calculates wire resistivity, series/parallel equivalent resistance, and power bills. | ওহমের সূত্র, তারের আপেক্ষিক রোধ, তুল্যরোধ এবং কিলোওয়াট-ঘণ্টা ইউনিটে মাসিক বিদ্যুৎ বিল বের করে। | ✅ Passed |
-| 12 | **অধ্যায় ১২:** বিদ্যুতের চৌম্বক ক্রিয়া | Calculates step-up and step-down transformer turns ratio, secondary voltage, and current. | ট্রান্সফরমারের পাকসংখ্যার অনুপাত থেকে গৌণ কুণ্ডলীর ভোল্টেজ ও তড়িৎপ্রবাহ হিসাব করে। | ✅ Passed |
-| 13 | **অধ্যায় ১৩:** আধুনিক পদার্থবিজ্ঞান | Computes mass-energy conversion ($E = mc^2$) and radioactive mass remaining after half-lives. | ভর থেকে শক্তি রূপান্তর ($E = mc^2$) এবং অর্ধায়ুর পর তেজস্ক্রিয় পদার্থের অবশিষ্ট ভর বের করে। | ✅ Passed |
+| Identifier | Term (English) | পরিভাষা | ছাত্রবান্ধব প্রমিত সংজ্ঞা |
+| :---: | :--- | :--- | :--- |
+| `molar-mass` | **Molar Mass** ($M = \frac{m}{n}$) | **মোলার ভর** | কোনো পদার্থের এক মোল বা $৬.০২৩ \times ১০^{২৩}$ টি কণার মোট ভরটাই হলো এর মোলার ভর। |
+| `velocity` | **Velocity** ($\vec{v} = \frac{d\vec{r}}{dt}$) | **বেগ** | নির্দিষ্ট দিকে সময়ের সাথে কোনো বস্তুর অবস্থানের পরিবর্তনের হারকেই বেগ বলে। |
+| `acceleration` | **Acceleration** ($\vec{a} = \frac{d\vec{v}}{dt}$) | **ত্বরণ** | সময়ের সাথে কোনো বস্তুর বেগ বৃদ্ধির হারটাই হলো ত্বরণ। |
+| `force` | **Force** ($\vec{F} = m\vec{a}$) | **বল** | যা কোনো স্থির বস্তুকে গতিশীল করে (বা করতে চায়) অথবা গতিশীল বস্তুর গতির পরিবর্তন ঘটায়, তাকেই বল বলে। |
+| `kinetic-energy` | **Kinetic Energy** ($E_k = \frac{1}{2}mv^2$) | **গতিশক্তি** | গতিশীল থাকার কারণে কোনো বস্তু কাজ করার যে সামর্থ্য লাভ করে, সেটাই তার গতিশক্তি। |
+| `power` | **Power** ($P = \frac{W}{t}$) | **ক্ষমতা** | কোনো ব্যক্তি বা উৎসের কাজ করার সময়ভিত্তিক হারকে (কত দ্রুত কাজ করতে পারে) ক্ষমতা বলে। |
+| `electronegativity` | **Electronegativity** | **তড়িৎ ঋণাত্মকতা** | সমযোজী বন্ধনের শেয়ার করা ইলেকট্রন জোড়কে নিজের দিকে টেনে নেওয়ার আপেক্ষিক ক্ষমতাকে তড়িৎ ঋণাত্মকতা বলে। |
+| `planck-constant` | **Planck Constant** ($h = 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$) | **প্লাঙ্কের ধ্রুবক** | ফোটনের শক্তি ও কম্পাঙ্কের মধ্যকার অনুপাত নির্দেশকারী একটি মৌলিক ধ্রুবক। |
 
 ---
 
-### 4.2 SSC Chemistry Engine (`tests/chemistry.test.ts` — 11 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এসএসসি রসায়ন পাঠ্যবইয়ের পরিমাণগত রসায়ন ও সমীকরণ
+## Part 4: ৯৮টি ইউনিট টেস্টের বিস্তারিত তালিকা (All 98 Unit Tests)
 
-| # | মডিউল ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | সংকেত পার্সার | Parses formulas with brackets and crystal hydrates, calculating exact molar mass. | বন্ধনী ও কেলাস পানিসহ রাসায়নিক সংকেতের পরমাণু সংখ্যা ও মোট মোলার ভর হিসাব করে। | ✅ Passed |
-| 02 | মডিউল A: গ্যাস ব্যাপন | Calculates gas diffusion ratios using Graham's law ($r_1 / r_2 = \sqrt{M_2 / M_1}$). | গ্রাহামের সূত্রে দুটি গ্যাসের আণবিক ভর তুলনা করে ব্যাপন হারের অনুপাত বের করে। | ✅ Passed |
-| 03 | মডিউল B: পরমাণুর গঠন | Finds average atomic mass from isotopic abundances and electron angular momentum in orbits. | আইসোটোপের শতকরা প্রাচুর্য থেকে গড় আপেক্ষিক ভর এবং বোর কক্ষপথের কৌণিক ভরবেগ বের করে। | ✅ Passed |
-| 04 | মডিউল C1: মোল রূপান্তর | Converts between grams, moles, STP volume (22.4 L), and particle counts ($6.023 \times 10^{23}$). | গ্রাম ভর, মোল সংখ্যা, প্রমাণ অবস্থায় লিটার আয়তন এবং অণু সংখ্যার মধ্যে পারস্পরিক রূপান্তর করে। | ✅ Passed |
-| 05 | মডিউল C2: দ্রবণ ও মোলারিটি | Solves for solute mass or solution molarity using $W = \frac{SMV}{1000}$. | নির্দিষ্ট আয়তন ও ঘনমাত্রার দ্রবণ তৈরিতে প্রয়োজনীয় দ্রবের ভর বা দ্রবণের মোলারিটি হিসাব করে। | ✅ Passed |
-| 06 | মডিউল C4: স্থূল ও আণবিক সংকেত | Synthesizes empirical and molecular formulas from mass percentages and molar mass. | মৌলের শতকরা সংযুতি ও আণবিক ভর থেকে স্থূল সংকেত এবং চূড়ান্ত আণবিক সংকেত নির্ণয় করে। | ✅ Passed |
-| 07 | মডিউল C5: লিমিটিং বিক্রিয়ক | Identifies the limiting reactant and finds theoretical product yield from reactant masses. | প্রদত্ত ভরের বিক্রিয়কের মধ্যে কোনটি আগে নিঃশেষ হবে এবং কত গ্রাম উৎপাদ তৈরি হবে তা বের করে। | ✅ Passed |
-| 08 | মডিউল D: জারণ সংখ্যা | Finds unknown oxidation states algebraically in neutral compounds and radicals. | যৌগের মোট চার্জ হিসাব করে নির্দিষ্ট কোনো মৌলের অজানা জারণ সংখ্যা সমাধান করে। | ✅ Passed |
-| 09 | মডিউল E: বিক্রিয়া তাপ ($\Delta H$) | Calculates enthalpy change from broken and formed bond energies and notes exothermic reactions. | ভাঙা ও গড়া বন্ধন শক্তির বিয়োগফল থেকে বিক্রিয়া তাপ ($\Delta H$) হিসাব করে তাপমোচী প্রকৃতি যাচাই করে। | ✅ Passed |
-| 10 | মডিউল F: pH ও টাইট্রেশন | Computes pH/pOH from $[H^+]$ and finds required volume in acid-base neutralization. | হাইড্রোজেন আয়ন থেকে pH ও pOH এবং এসিড-ক্ষার প্রশমনের সমীকরণ থেকে প্রয়োজনীয় আয়তন বের করে। | ✅ Passed |
-| 11 | মডিউল G: হাইড্রোকার্বন | Generates molecular and condensed structural formulas for alkane and alkene series. | কার্বন সংখ্যা অনুযায়ী অ্যালকেন ও অ্যালকিনের আণবিক ও সংক্ষিপ্ত গাঠনিক সংকেত তৈরি করে। | ✅ Passed |
+### 4.1 এসএসসি পদার্থবিজ্ঞান ইঞ্জিন (`tests/physics.test.ts` — ১৩টি টেস্ট)
+**পরিধি:** পদার্থবিজ্ঞান বইয়ের ১ম থেকে ১৩শ অধ্যায়।
 
----
-
-### 4.3 SSC Biology Engine (`tests/biology.test.ts` — 10 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এসএসসি জীববিজ্ঞান পুষ্টি, শ্বসন, বংশগতি ও বাস্তুতন্ত্র
-
-| # | মডিউল ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | মডিউল A: পুষ্টি ও বিএমআই | Calculates BMI and identifies normal, healthy weight boundaries for age and height. | ওজন ও উচ্চতা থেকে বিএমআই হিসাব করে এবং স্বাভাবিক স্বাস্থ্যকর ওজনের সীমা দেখায়। | ✅ Passed |
-| 02 | মডিউল A: ওজন ঘাটতি/স্থূলতা | Identifies underweight and overweight categories and calculates required weight changes. | কম ওজন বা অতিরিক্ত ওজন শনাক্ত করে স্বাভাবিক ওজনে পৌঁছাতে কত কেজি বাড়াতে/কমাতে হবে তা জানায়। | ✅ Passed |
-| 03 | মডিউল A: বিএমআর ও ক্যালরি | Computes gender-specific BMR and daily calorie requirements (TDEE) based on activity. | ছেলে ও মেয়েদের জন্য আলাদা সূত্রে মৌলিক বিপাকীয় হার (BMR) ও দৈনিক ক্যালরি চাহিদা (TDEE) হিসাব করে। | ✅ Passed |
-| 04 | মডিউল B: সবাত শ্বসন (প্রাচীন) | Verifies the 38 ATP balance sheet across Glycolysis, Acetyl-CoA, and Krebs cycle for 1 mol glucose. | ১ মোল গ্লুকোজ জারণে ৩টি ধাপে মোট ৩৮টি ATP, ৬ অণু $CO_2$ এবং উৎপন্ন ক্যালরি শক্তি হিসাব করে। | ✅ Passed |
-| 05 | মডিউল B: সবাত শ্বসন (আধুনিক) | Computes the modern 36 ATP yield model and scales proportionally for fractional glucose amounts. | আধুনিক ৩৬ ATP মডেল এবং একাধিক বা ভগ্নাংশ মোল গ্লুকোজের ক্ষেত্রে মোট শক্তি উৎপাদন হিসাব করে। | ✅ Passed |
-| 06 | মডিউল C: মেন্ডেলের ১ম সূত্র | Solves monohybrid cross ($Tt \times Tt$), producing a 3:1 phenotypic and 1:2:1 genotypic ratio. | একসংকর ক্রস ($Tt \times Tt$) সমাধান করে ৩:১ ফিনোটাইপ এবং ১:২:১ জিনোটাইপ অনুপাত প্রদর্শন করে। | ✅ Passed |
-| 07 | মডিউল C: সেক্স-লিংকড বংশগতি | Solves carrier mother $\times$ normal father cross, showing affected status for sons and daughters. | বাহক মা ও সুস্থ বাবার মিলনে কন্যারা সুস্থ/বাহক এবং ৫০% পুত্রসন্তান বর্ণান্ধ হওয়ার হিসাব দেখায়। | ✅ Passed |
-| 08 | মডিউল C: ক্রিস-ক্রস ইনহেরিটেন্স | Demonstrates criss-cross inheritance (color-blind mother passing condition to all sons). | বর্ণান্ধ মা ও স্বাভাবিক বাবার মিলনে ক্রিস-ক্রস নীতি অনুযায়ী সকল পুত্রের বর্ণান্ধতা নিশ্চিত করে। | ✅ Passed |
-| 09 | মডিউল D: খাদ্য শিকলে শক্তি প্রবাহ | Applies Lindeman's 10% energy transfer rule across trophic levels and tallies 90% heat loss. | খাদ্য শিকলের প্রতিটি ট্রফিক স্তরে ১০% শক্তি স্থানান্তর এবং ৯০% তাপীয় শক্তি অপচয় হিসাব করে। | ✅ Passed |
-| 10 | মডিউল E: রক্তের গ্রুপ সামঞ্জস্যতা | Checks ABO and Rh compatibility, confirming universal donor ($O^-$) and recipient ($AB^+$). | লোহিত রক্তকণিকার অ্যান্টিজেন বিচার করে রক্তের গ্রুপের সামঞ্জস্যতা ও রক্ত জমাট বাঁধার ঝুঁকি পরীক্ষা করে। | ✅ Passed |
+| # | অধ্যায় ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | অধ্যায় ১: ভৌত রাশি ও পরিমাপ | ভার্নিয়ার ধ্রুবক, স্লাইড ক্যালিপার্সের রিডিং, স্ক্রু গজের লঘিষ্ঠ গণন এবং গোলকের আয়তন একদম নিখুঁতভাবে বের করে। | ✅ Passed |
+| ০২ | অধ্যায় ২: গতি | গতির সাধারণ সূত্রগুলো সলভ করে এবং খাড়া উপরের দিকে ছোড়া বস্তুর সর্বোচ্চ উচ্চতা ও কতক্ষণ বাতাসে ভাসবে তা বের করে। | ✅ Passed |
+| ০৩ | অধ্যায় ৩: বল | বলের মান ($F=ma$), ধাক্কা বা সংঘর্ষের পর মিলিত বস্তুর বেগ এবং মহাকর্ষ বলের মান হিসাব করে। | ✅ Passed |
+| ০৪ | অধ্যায় ৪: কাজ, ক্ষমতা ও শক্তি | কোণ করে বল প্রয়োগে কাজ, গতি ও বিভবশক্তি এবং ইঞ্জিনের কর্মদক্ষতা (Efficiency) কত শতাংশ তা বের করে। | ✅ Passed |
+| ০৫ | অধ্যায় ৫: পদার্থের অবস্থা ও চাপ | সাধারণ চাপ, পানির নিচে চাপ, হাইড্রোলিক প্রেসের বল এবং তার টেনে বড় করলে ইয়ং-এর গুণাঙ্ক হিসাব করে দেয়। | ✅ Passed |
+| ০৬ | অধ্যায় ৬: বস্তুর উপর তাপের প্রভাব | সেলসিয়াস, ফারেনহাইট ও কেলভিন স্কেলে তাপমাত্রা কনভার্ট করে এবং দৈর্ঘ্য প্রসারণ ও সুপ্ততাপের নিখুঁত পরিমাপ করে। | ✅ Passed |
+| ০৭ | অধ্যায় ৭: তরঙ্গ ও শব্দ | তরঙ্গের বেগ, তাপমাত্রার সাথে শব্দের বেগ কীভাবে বদলায় এবং প্রতিধ্বনি শোনার ন্যূনতম দূরত্ব কত হবে তা বের করে। | ✅ Passed |
+| ০৮ | অধ্যায় ৮: আলোর প্রতিফলন | অবতল ও উত্তল আয়নায় প্রতিবিম্ব কোথায় তৈরি হবে, কতগুণ বড় হবে এবং উল্টো নাকি সোজা হবে তা বলে দেয়। | ✅ Passed |
+| ০৯ | অধ্যায় ৯: আলোর প্রতিসরণ | স্নেলের সূত্র দিয়ে প্রতিসরণ কোণ, পূর্ণ অভ্যন্তরীণ প্রতিফলনের সংকট কোণ এবং লেন্সের ক্ষমতা (ডায়োপ্টার) বের করে। | ✅ Passed |
+| ১০ | অধ্যায় ১০: স্থির তড়িৎ | দুটি আধানের মধ্যকার কুলম্ব বল, তড়িৎ প্রাবল্য, বিভব এবং ধারকের ধারকত্ব সহজেই হিসাব করে দেয়। | ✅ Passed |
+| ১১ | অধ্যায় ১১: চল তড়িৎ | ওহমের সূত্র, তারের আপেক্ষিক রোধ, সার্কিটের তুল্যরোধ এবং মাস শেষে আপনার বিদ্যুৎ বিল কত আসবে তা হিসাব করে। | ✅ Passed |
+| ১২ | অধ্যায় ১২: বিদ্যুতের চৌম্বক ক্রিয়া | স্টেপ-আপ ও স্টেপ-ডাউন ট্রান্সফরমারের কুণ্ডলীর পাকসংখ্যার অনুপাত দিয়ে সেকেন্ডারি ভোল্টেজ ও কারেন্ট বের করে। | ✅ Passed |
+| ১৩ | অধ্যায় ১৩: আধুনিক পদার্থবিজ্ঞান | আইনস্টাইনের $E=mc^2$ সূত্রে ভরের শক্তিতে রূপান্তর এবং অর্ধায়ুর পর তেজস্ক্রিয় পদার্থের কতটুকু বাকি থাকবে তা নির্ণয় করে। | ✅ Passed |
 
 ---
 
-### 4.4 SSC General Math Engine (`tests/general-math.test.ts` — 17 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এসএসসি সাধারণ গণিত সেট, বীজগণিত, ত্রিকোণমিতি, পরিমিতি ও পরিসংখ্যান
+### 4.2 এসএসসি রসায়ন ইঞ্জিন (`tests/chemistry.test.ts` — ১১টি টেস্ট)
+**পরিধি:** পরিমাণগত রসায়ন ও রাসায়নিক সমীকরণ।
 
-| # | অধ্যায় ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | অধ্যায় ২: শক্তি সেট | Finds power set element count ($2^n$) and proper subsets ($2^n - 1$). | সেটের উপাদান সংখ্যা হতে শক্তি সেটের উপাদান ($2^n$) ও প্রকৃত উপসেট সংখ্যা ($2^n-1$) বের করে। | ✅ Passed |
-| 02 | অধ্যায় ২: কার্তেসীয় গুণজ | Generates Cartesian product ordered pairs and verifies cardinality $n(A \times B)$. | দুটি সেটের কার্তেসীয় গুণজের ক্রোমজোড় তৈরি করে এবং মোট উপাদান সংখ্যা হিসাব করে। | ✅ Passed |
-| 03 | অধ্যায় ৩: বর্গের অনুসিদ্ধান্ত | Computes $a^2 + b^2$ and $(a-b)^2$ from given sum $(a+b)$ and product $(ab)$. | দুটি রাশির যোগফল ও গুণফল দেওয়া থাকলে বর্গের যোগফল ও বিয়োগফলের বর্গের মান বের করে। | ✅ Passed |
-| 04 | অধ্যায় ৩: ঘনের অনুসিদ্ধান্ত | Solves $a^3 + b^3 = (a+b)^3 - 3ab(a+b)$ from sum and product. | ঘনের অনুসিদ্ধান্ত ব্যবহার করে দুটি রাশির ঘনকের সমষ্টির মান হিসাব করে। | ✅ Passed |
-| 05 | অধ্যায় ৩: ত্রিপদী রাশির বর্গ | Evaluates $a^2 + b^2 + c^2$ from $(a+b+c)$ and pairwise products $(ab+bc+ca)$. | $(a+b+c)$ ও $(ab+bc+ca)$-এর মান থেকে তিনটি রাশির বর্গের যোগফলের মান নির্ণয় করে। | ✅ Passed |
-| 06 | অধ্যায় ৪: সূচকীয় নিয়ম | Evaluates powers and prevents undefined terms ($0^{-n}$). | সূচকীয় রাশির মান হিসাব করে এবং শূন্যের ঋণাত্মক ঘাত ইনপুট দিলে সতর্কতা বার্তা দেখায়। | ✅ Passed |
-| 07 | অধ্যায় ৪: লগারিদম | Computes logarithm values and enforces base rules ($b > 0, b \ne 1, N > 0$). | লগারিদমের মান বের করে এবং ভিত্তি ও সংখ্যার শর্তাবলি ($a > 0, a \ne 1, N > 0$) যাচাই করে। | ✅ Passed |
-| 08 | অধ্যায় ৪: বৈজ্ঞানিক রূপ | Converts large or small numbers into scientific notation ($A \times 10^n$). | যেকোনো বাস্তব সংখ্যাকে পাঠ্যবই নির্ধারিত আদর্শ বা বৈজ্ঞানিক রূপে ($A \times 10^n$) রূপান্তর করে। | ✅ Passed |
-| 09 | অধ্যায় ৯-১০: কোণ ও উচ্চতা | Finds height from distance and elevation angle ($h = d \tan\theta$). | ভূমির দূরত্ব ও উন্নতি কোণ দেওয়া থাকলে সমকোণী ত্রিভুজের সূত্রের সাহায্যে উচ্চতা বের করে। | ✅ Passed |
-| 10 | অধ্যায় ৯-১০: দুই বিন্দু থেকে উচ্চতা | Solves tower height observed from two observation points on same or opposite sides. | নদীর এক তীরে বা বিপরীত দুই বিন্দু হতে ভিন্ন উন্নতি কোণে মিনার পর্যবেক্ষণের উচ্চতা বের করে। | ✅ Passed |
-| 11 | অধ্যায় ৯-১০: ভাঙা গাছ | Solves the classic storm-broken tree problem for broken and standing heights. | ঝড়ে ভাঙা গাছের অটুট অংশ ও ভূমিতে স্পর্শ করা অংশের উচ্চতা কোণ সাপেক্ষে হিসাব করে। | ✅ Passed |
-| 12 | অধ্যায় ১১: যোজন-বিয়োজন | Applies componendo-dividendo $\frac{a+b}{a-b}$ and prevents zero denominator ($a=b$). | অনুপাতের সমীকরণে যোজন-বিয়োজন রূপান্তর করে এবং হর শূন্য হওয়ার ক্ষেত্রে সতর্কবার্তা দেয়। | ✅ Passed |
-| 13 | অধ্যায় ১৬: সমবাহু ত্রিভুজ | Calculates equilateral triangle area using $\frac{\sqrt{3}}{4}a^2$. | বাহুর দৈর্ঘ্য দেওয়া থাকলে সমবাহু ত্রিভুজের ক্ষেত্রফল ($\frac{\sqrt{3}}{4}a^2$) নির্ণয় করে। | ✅ Passed |
-| 14 | অধ্যায় ১৬: হেরনের সূত্র | Computes triangle area with Heron's formula and enforces triangle inequality ($a+b > c$). | ৩টি বাহু হতে হেরনের সূত্রে ক্ষেত্রফল বের করে এবং ত্রিভুজ অসমতা না মানলে তা আটকে দেয়। | ✅ Passed |
-| 15 | অধ্যায় ১৬: সুষম ষড়ভুজ | Calculates regular hexagon area from side length. | প্রতি বাহুর দৈর্ঘ্য দেওয়া থাকলে সুষম বহুভুজ সূত্রের সাহায্যে ষড়ভুজের ক্ষেত্রফল হিসাব করে। | ✅ Passed |
-| 16 | অধ্যায় ১৭: গড়, মধ্যক, প্রচুরক | Computes mean, median, and mode from grouped frequency distribution tables. | শ্রেণিকৃত উপাত্তের সারণি থেকে সংক্ষিপ্ত পদ্ধতিতে গড়, মধ্যক ও প্রচুরক শ্রেণির মান বের করে। | ✅ Passed |
-| 17 | অধ্যায় ১৭: প্রচুরক প্রান্তিক কেস | Handles modal calculations when the first interval is the modal class ($f_1 = f_m - 0$). | প্রথম শ্রেণিতে প্রচুরক থাকলে পূর্ববর্তী শ্রেণির গণসংখ্যা শূন্য ধরে প্রচুরক সঠিকভাবে সমাধান করে। | ✅ Passed |
+| # | মডিউল ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | সংকেত পার্সার | ব্র্যাকেট বা পানিযুক্ত কঠিন রাসায়নিক সংকেত ভেঙে পরমাণুর সংখ্যা ও মোট মোলার ভর চমৎকারভাবে হিসাব করে। | ✅ Passed |
+| ০২ | মডিউল A: গ্যাসের ব্যাপন | গ্রাহামের সূত্র ব্যবহার করে দুটি গ্যাসের আণবিক ভর তুলনা করে কোনটা দ্রুত ছড়াবে (ব্যাপন হার), তার অনুপাত বের করে। | ✅ Passed |
+| ০৩ | মডিউল B: পরমাণুর গঠন | আইসোটোপের শতকরা পরিমাণ থেকে গড় আপেক্ষিক ভর এবং বোর মডেলে ইলেকট্রনের কৌণিক ভরবেগ হিসাব করে। | ✅ Passed |
+| ০৪ | মডিউল C1: মোল কনভার্সন | ভর, মোল, লিটার আয়তন (STP তে) এবং অণুর সংখ্যার মধ্যে খুব দ্রুত এবং নির্ভুলভাবে কনভার্ট করে দেয়। | ✅ Passed |
+| ০৫ | মডিউল C2: দ্রবণের মোলারিটি | একটি নির্দিষ্ট মোলারিটির দ্রবণ বানাতে ঠিক কত গ্রাম পদার্থ লাগবে বা বর্তমান মোলারিটি কত, তা হিসাব করে দেয়। | ✅ Passed |
+| ০৬ | মডিউল C4: স্থূল ও আণবিক সংকেত | মৌলগুলোর শতকরা সংযুতি ব্যবহার করে স্থূল সংকেত এবং সেখান থেকে চূড়ান্ত আণবিক সংকেত বের করে। | ✅ Passed |
+| ০৭ | মডিউল C5: লিমিটিং বিক্রিয়ক | বিক্রিয়ায় কোনটি লিমিটিং বিক্রিয়ক হবে এবং ঠিক কতটুকু উৎপাদ তৈরি হবে, তা আগেভাগেই জানিয়ে দেয়। | ✅ Passed |
+| ০৮ | মডিউল D: জারণ সংখ্যা | কোনো যৌগের মোট চার্জ হিসাব করে নির্দিষ্ট একটা মৌলের অজানা জারণ সংখ্যা খুব সহজেই বের করে ফেলে। | ✅ Passed |
+| ০৯ | মডিউল E: এনথালপি ($\Delta H$) | বন্ধন ভাঙা-গড়ার শক্তির হিসাব কষে বিক্রিয়া তাপ ($\Delta H$) বের করে এবং বিক্রিয়াটি তাপোৎপাদী নাকি তাপহারী তা জানায়। | ✅ Passed |
+| ১০ | মডিউল F: pH ও টাইট্রেশন | হাইড্রোজেন আয়নের ঘনমাত্রা থেকে pH বা pOH বের করে এবং এসিড-ক্ষার প্রশমন সমীকরণ থেকে দরকারি আয়তন হিসাব করে। | ✅ Passed |
+| ১১ | মডিউল G: হাইড্রোকার্বন | কার্বনের সংখ্যার ওপর ভিত্তি করে অ্যালকেন ও অ্যালকিনের আণবিক ও গাঠনিক সংকেত অটোমেটিকভাবে তৈরি করে দেয়। | ✅ Passed |
 
 ---
 
-### 4.5 SSC Higher Math Engine (`tests/higher-math.test.ts` — 17 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এসএসসি উচ্চতর গণিত ১৪টি অধ্যায়ের সূত্র ও প্রমাণ
+### 4.3 এসএসসি জীববিজ্ঞান ইঞ্জিন (`tests/biology.test.ts` — ১০টি টেস্ট)
+**পরিধি:** পুষ্টি, শ্বসন, বংশগতিবিদ্যা এবং বাস্তুতন্ত্র।
 
-| # | অধ্যায় ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | অধ্যায় ১: ৩-সেট ভেনচিত্র | Solves 3-set inclusion-exclusion and finds disjoint region counts ($A$ only, $B$ only, $C$ only). | ৩টি সেটের ভেনচিত্রে সংযোগের উপাদান সংখ্যা এবং কেবল একটি সেটের স্বতন্ত্র অঞ্চলের মান বের করে। | ✅ Passed |
-| 02 | অধ্যায় ১: বিপরীত ফাংশন | Inverts rational functions $f(x) = \frac{ax+b}{cx+d}$ and finds restricted domain/range values. | ভগ্নাংশ ফাংশনের বিপরীত ফাংশন নির্ণয় করে এবং হর শূন্য হওয়া বিন্দু বাদ দিয়ে ডোমেন-রেঞ্জ দেখায়। | ✅ Passed |
-| 03 | অধ্যায় ২: ভাগশেষ উপপাদ্য | Evaluates polynomial remainder $P(a)$ when divided by $(x - a)$ and checks if it is a factor. | বহুপদীকে $(x-a)$ দ্বারা ভাগ করলে ভাগশেষ $P(a)$ কত হবে এবং তা উৎপাদক কি না তা পরীক্ষা করে। | ✅ Passed |
-| 04 | অধ্যায় ২: চক্র-ক্রমিক ঘন অভেদ | Evaluates cyclic cubic identity $a^3+b^3+c^3-3abc$ and checks the zero-sum condition. | চক্র-ক্রমিক বহুপদীর মান এবং $a+b+c=0$ হলে রাশিটির মান শূন্য হওয়ার শর্ত প্রমাণ করে। | ✅ Passed |
-| 05 | অধ্যায় ৩: অ্যাপোলোনিয়াসের উপপাদ্য | Calculates triangle medians and verifies $3\sum\text{sides}^2 = 4\sum\text{medians}^2$. | ৩টি বাহু হতে অ্যাপোলোনিয়াসের সূত্রে মধ্যমা ৩টির দৈর্ঘ্য ও মৌলিক সম্পর্ক যাচাই করে। | ✅ Passed |
-| 06 | অধ্যায় ৫: দ্বিঘাত সমীকরণ | Solves quadratics and determines roots (real distinct, equal, or complex conjugate). | নিশ্চায়ক ($D = b^2 - 4ac$) বিচার করে সমীকরণের মূলের বাস্তব, সমান বা জটিল প্রকৃতি নির্ধারণ করে। | ✅ Passed |
-| 07 | অধ্যায় ৬: অসমতা সমাধান | Solves linear inequalities, reversing direction when dividing by negative coefficients. | একচলক অসমতা সমাধান করে এবং ঋণাত্মক সংখ্যা দ্বারা ভাগ করলে চিহ্নের দিক পরিবর্তন করে। | ✅ Passed |
-| 08 | অধ্যায় ৭: অসীম গুণোত্তর ধারা | Finds sum of infinite geometric series ($S_\infty = \frac{a}{1-r}$) when $|r| < 1$. | সাধারণ অনুপাত $|r| < 1$ হলে অসীমতক সমষ্টি বের করে এবং $|r| \ge 1$ হলে অপসারিতা জানায়। | ✅ Passed |
-| 09 | অধ্যায় ৭: পৌনঃপুনিক দশমিক | Converts recurring decimals ($0.333\dots, 0.1666\dots$) into irreducible fractions ($1/3, 1/6$). | পৌনঃপুনিক দশমিক সংখ্যাকে অসীম গুণোত্তর ধারার নিয়মে সাধারণ ভগ্নাংশে রূপান্তর করে। | ✅ Passed |
-| 10 | অধ্যায় ৮-৯: বৃত্তচাপ ও ক্ষেত্রফল | Calculates arc length ($s = r\theta$) and sector area with degree-to-radian conversion. | কোণকে রেডিয়ানে রূপান্তর করে বৃত্তচাপের দৈর্ঘ্য ($s=r\theta$) এবং বৃত্তকলার ক্ষেত্রফল হিসাব করে। | ✅ Passed |
-| 11 | অধ্যায় ৮-৯: ভিত্তি পরিবর্তন | Computes logarithms with arbitrary bases using base change formulas. | ভিত্তি পরিবর্তন সূত্রের সাহায্যে যেকোনো ভিত্তির লগারিদমিক মান সমাধান করে। | ✅ Passed |
-| 12 | অধ্যায় ১০: দ্বিপদী বিস্তৃতি | Computes combination $nCr$ and binomial coefficients for expansion powers $(x+y)^n$. | সমাবেশ সংখ্যা এবং দ্বিপদী উপপাদ্যের সাহায্যে পদের সহগসমূহ নির্ভুলভাবে তৈরি করে। | ✅ Passed |
-| 13 | অধ্যায় ১১: বহুভুজের ক্ষেত্রফল | Computes polygon area using the coordinate Shoelace method for ordered vertices. | শীর্ষবিন্দুগুলোকে ঘড়ির কাঁটার বিপরীত ক্রমে সাজিয়ে শু-লেস পদ্ধতিতে ক্ষেত্রফল বের করে। | ✅ Passed |
-| 14 | অধ্যায় ১১: রেখার দূরত্ব ও ঢাল | Calculates Euclidean distance, line slope ($m$), and point-slope linear equation. | দুটি বিন্দুর মধ্যবর্তী দূরত্ব, সরলরেখার ঢাল এবং সরলরেখার সমীকরণ বের করে। | ✅ Passed |
-| 15 | অধ্যায় ১২: ভেক্টর বিশ্লেষণ | Computes 2D vector magnitude $|\vec{v}|$ and directional angle in degrees. | দ্বিমাত্রিক ভেক্টরের পরম মান এবং অনুভূমিক অক্ষের সাথে দিক নির্দেশক কোণ ডিগ্রি এককে বের করে। | ✅ Passed |
-| 16 | অধ্যায় ১৩: ঘন জ্যামিতি (কোণক) | Calculates cone slant height, curved surface area, and solid volume. | সমবৃত্তভূমিক কোণকের ব্যাসার্ধ ও উচ্চতা হতে হেলানো উচ্চতা এবং আয়তন হিসাব করে। | ✅ Passed |
-| 17 | অধ্যায় ১৪: সম্ভাবনা ও অনুপাত | Computes theoretical probability $P(E) = \frac{n(E)}{n(S)}$ and percentage odds. | অনুকূল ও মোট ফলাফলের অনুপাত হতে ক্লাসিক্যাল সম্ভাবনা ও শতকরা হার নির্ধারণ করে। | ✅ Passed |
+| # | মডিউল ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | মডিউল A: পুষ্টি ও বিএমআই | ওজন ও উচ্চতা দিয়ে বিএমআই (BMI) মাপে এবং আপনার বয়স অনুযায়ী স্বাস্থ্যকর ওজনের রেঞ্জটা দেখিয়ে দেয়। | ✅ Passed |
+| ০২ | মডিউল A: ওজন ঠিক করা | ওজন কম নাকি বেশি তা ধরে ফেলে এবং নরমাল ওজনে আসতে ঠিক কত কেজি বাড়াতে বা কমাতে হবে তার টিপস দেয়। | ✅ Passed |
+| ০৩ | মডিউল A: বিএমআর ও ক্যালরি | আপনি দিনে কতটুকু পরিশ্রম করেন, তার ওপর ভিত্তি করে আপনার BMR ও প্রতিদিন কত ক্যালরি খাবার দরকার তা হিসাব করে। | ✅ Passed |
+| ০৪ | মডিউল B: শ্বসন (সনাতন মডেল) | ১ মোল গ্লুকোজ জারণে ৩টি ধাপে মোট ৩৮টি এটিপি (ATP) ও ৬ অণু $CO_2$ কীভাবে তৈরি হয়, তার পুরা হিসাব তুলে ধরে। | ✅ Passed |
+| ০৫ | মডিউল B: শ্বসন (আধুনিক মডেল) | আধুনিক ৩৬ ATP মডেল অনুযায়ী গ্লুকোজ ভেঙে মোট শক্তি উৎপাদনের হিসাব করে (ভগ্নাংশ মোলের জন্যও কাজ করে)। | ✅ Passed |
+| ০৬ | মডিউল C: মেন্ডেলের ১ম সূত্র | একসংকর ক্রস ($Tt \times Tt$) সলভ করে মেন্ডেলের বিখ্যাত ৩:১ ফিনোটাইপ এবং ১:২:১ জিনোটাইপ অনুপাতটি দেখায়। | ✅ Passed |
+| ০৭ | মডিউল C: সেক্স-লিংকড জেনেটিক্স | বাহক মা ও সুস্থ বাবার মিলনে কন্যারা সুস্থ বা বাহক এবং ৫০% ছেলে বর্ণান্ধ হওয়ার সম্ভাবনাটুকু নিখুঁতভাবে দেখায়। | ✅ Passed |
+| ০৮ | মডিউল C: ক্রিস-ক্রস ইনহেরিটেন্স | বর্ণান্ধ মা ও স্বাভাবিক বাবার মিলনে 'ক্রিস-ক্রস' নীতি অনুযায়ী সকল ছেলেই যে বর্ণান্ধ হবে, সেটি প্রমাণ করে দেয়। | ✅ Passed |
+| ০৯ | মডিউল D: বাস্তুতন্ত্রে শক্তির প্রবাহ | লিন্ডেম্যানের '১০% শক্তি স্থানান্তর' নিয়ম অনুযায়ী খাদ্য শিকলের প্রতি স্তরে কতটুকু শক্তি যায় আর কতটুকু তাপ হয়ে হারায়, তা মাপে। | ✅ Passed |
+| ১০ | মডিউল E: ব্লাড গ্রুপ ম্যাচিং | রক্ত দেওয়ার সময় অ্যান্টিজেন বিচার করে ABO এবং Rh গ্রুপের ম্যাচিং করে এবং রক্ত জমাট বাঁধার কোনো ঝুঁকি আছে কিনা চেক করে। | ✅ Passed |
 
 ---
 
-### 4.6 HSC ICT Simulator Engine (`tests/ict-engines.test.ts` — 15 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** এইচএসসি আইসিটি বুলিয়ান অ্যালজেবরা, সার্কিট, এসকিউএল, সি ল্যাঙ্গুয়েজ ও এইচটিএমএল
+### 4.4 এসএসসি সাধারণ গণিত ইঞ্জিন (`tests/general-math.test.ts` — ১৭টি টেস্ট)
+**পরিধি:** সেট, বীজগণিত, ত্রিকোণমিতি, পরিমিতি ও পরিসংখ্যান।
 
-| # | ইঞ্জিন ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | লজিক গেট সিমুলেটর | Evaluates truth tables for basic and universal gates: AND, OR, NOT, XOR, NAND, NOR, XNOR. | মৌলিক ও যৌগিক লজিক গেটের সত্যক সারণি সকল বাইনারি ইনপুটের জন্য যাচাই করে। | ✅ Passed |
-| 02 | হাফ অ্যাডার সার্কিট | Computes 2-bit Half Adder Sum ($A \oplus B$) and Carry ($A \cdot B$). | হাফ অ্যাডার বর্তনীতে দুটি বাইনারি বিটের যোগফল ও ক্যারির মান হিসাব করে। | ✅ Passed |
-| 03 | ফুল অ্যাডার সার্কিট | Computes 3-bit Full Adder outputs with input carry ($C_{in}$), producing Sum and $C_{out}$. | ইনপুট ক্যারি সহ ফুল অ্যাডারের তিন বিট যোগফল ও ক্যারির আউটপুট বের করে। | ✅ Passed |
-| 04 | এসকিউএল সিমুলেটর | Executes `SELECT *` on relational tables, returning all rows and schema columns. | রিলেশনাল ডাটাবেজে সম্পূর্ণ টেবিলের সকল সারি ও কলাম প্রদর্শন করে। | ✅ Passed |
-| 05 | এসকিউএল ফিল্টারিং | Filters database records using conditional `WHERE` predicates (e.g. `GPA >= 5.00`). | নির্দিষ্ট শর্ত পূরণকারী রেকর্ডগুলো ফিল্টার করে সঠিক ফলাফল প্রদর্শন করে। | ✅ Passed |
-| 06 | এসকিউএল বাছাইকরণ | Sorts numeric and text table records using `ORDER BY` ascending and descending. | কলামের মানের ভিত্তিতে রেকর্ডগুলোকে ঊর্ধ্বক্রম বা নিম্নক্রমে সাজায়। | ✅ Passed |
-| 07 | এসকিউএল রিলেশন | Performs relational `INNER JOIN` across primary-foreign keys (Student $\leftrightarrow$ Result). | প্রাইমারি ও ফরেন কি মিলিয়ে দুটি টেবিলকে যুক্ত করে সমন্বিত ফলাফল তৈরি করে। | ✅ Passed |
-| 08 | এসকিউএল গ্রুপিং | Computes aggregate counts grouped by categories using `GROUP BY` and `COUNT`. | বিভাগ অনুযায়ী উপাত্তগুলোকে দলবদ্ধ করে শিক্ষার্থীদের মোট সংখ্যা হিসাব করে। | ✅ Passed |
-| 09 | এসকিউএল ত্রুটি হ্যান্ডলিং | Catches syntax errors gracefully and displays readable instructional feedback. | কুয়েরিতে ব্যাকরণগত ভুল থাকলে ব্রাউজার না থামিয়ে স্পষ্ট বার্তা দেখায়। | ✅ Passed |
-| 10 | সি ট্রেসার (ফিবোনাচ্চি) | Generates step-by-step memory variable traces during Fibonacci sequence loops. | ফিবোনাচ্চি ধারার লুপ চলার সময় ভ্যারিয়েবলের মান পরিবর্তন ধাপে ধাপে ট্রেস করে। | ✅ Passed |
-| 11 | সি ট্রেসার (মৌলিক সংখ্যা) | Traces variable updates and condition branches during prime number testing in C. | সংখ্যা মৌলিক কি না তা পরীক্ষার লুপের প্রতিটি ধাপ ও ভ্যারিয়েবলের মান দেখায়। | ✅ Passed |
-| 12 | সি ট্রেসার (ফ্যাক্টোরিয়াল) | Traces multiplication accumulator across loop iterations for $n!$ computation. | ১ থেকে $n$ পর্যন্ত ক্রমিক গুণের ধাপে ধাপে মান বৃদ্ধি এবং চূড়ান্ত ফলাফল রেকর্ড করে। | ✅ Passed |
-| 13 | এইচটিএমএল টেবিল | Verifies board exam templates with table cells spanning multiple rows and columns. | এইচএসসি উপযোগী টেবিল কাঠামো এবং rowspan ও colspan ট্যাগের সঠিকতা নিশ্চিত করে। | ✅ Passed |
-| 14 | পাঠ্যক্রম ডাটাবেজ | Asserts taxonomy completeness across 6 core subjects for both SSC and HSC levels. | ডাটাবেজে এসএসসি ও এইচএসসি স্তরের সকল বিষয়ের তথ্য মজুত থাকা নিশ্চিত করে। | ✅ Passed |
-| 15 | অধ্যায় তথ্য উত্তোলন | Tests lookup of localized chapter names, core formulas, and interactive tool routes. | প্রতিটি অধ্যায়ের নাম, সূত্র এবং সংশ্লিষ্ট ক্যালকুলেটর লিঙ্ক নির্ভরযোগ্যভাবে উত্তোলন করে। | ✅ Passed |
-
----
-
-### 4.7 Core Solvers Engine (`tests/engines.test.ts` — 15 Tests)
-**অধ্যায়ভিত্তিক পরিধি:** আণবিক ভর, জারণ-বিজারণ সমতা, তাৎপর্যপূর্ণ অঙ্ক, প্রক্ষেপক ও দ্বিঘাত মূল
-
-| # | ইঞ্জিন ও বিষয় | English Description | বাংলা বিবরণ | অবস্থা |
-| :-: | :--- | :--- | :--- | :-: |
-| 01 | মোলার ভর ($H_2O$) | Calculates molar mass of simple binary compounds ($18.015\text{ g/mol}$). | সংকেত ভেঙে হাইড্রোজেন ও অক্সিজেনের পরমাণু গণনা এবং মোলার ভর হিসাব করে। | ✅ Passed |
-| 02 | কেলাস লবণ ($CuSO_4\cdot 5H_2O$) | Calculates mass and elemental percentage for copper sulfate pentahydrate. | তুঁতের ৫ অণু কেলাস পানির সংযুক্তি ও তামার শতকরা সংযুতি বের করে। | ✅ Passed |
-| 03 | বন্ধনীযুক্ত সংকেত | Handles nested radical multipliers like $Ca(OH)_2$ properly. | ব্র্যাকেটযুক্ত যৌগের বন্ধনীর ভিতরের পরমাণু সঠিক গুণকে প্রসারিত করে ভর যোগ করে। | ✅ Passed |
-| 04 | অজানা প্রতীক প্রতিরোধ | Guards against invalid chemical formula typos by throwing descriptive errors. | পর্যায় সারণির বাইরে কোনো ভুল প্রতীক ইনপুট দিলে সিস্টেম সতর্কবার্তা দেখায়। | ✅ Passed |
-| 05 | জারণ-বিজারণ (অম্লীয়) | Balances acidic redox half-reactions for $KMnO_4 + FeSO_4$. | অম্লীয় মাধ্যমে পটাশিয়াম পারম্যাঙ্গানেট ও ফেরাস সালফেটের অর্ধ-বিক্রিয়া সমতা করে। | ✅ Passed |
-| 06 | জারণ-বিজারণ (ক্ষারীয়) | Balances basic redox half-reactions for $KMnO_4 + KI$ using $OH^-$ ions. | ক্ষারীয় মাধ্যমে পারম্যাঙ্গানেট ও আয়োডাইডের বিক্রিয়ায় হাইড্রোক্সাইড আয়ন সমতা করে। | ✅ Passed |
-| 07 | তাৎপর্যপূর্ণ অঙ্ক (শূন্য নিয়ম) | Identifies non-significant leading zeros and significant trailing decimals. | সংখ্যার শুরুর অ-তাৎপর্যপূর্ণ শূন্য এবং দশমিকের পরের তাৎপর্যপূর্ণ শূন্য শনাক্ত করে। | ✅ Passed |
-| 08 | তাৎপর্যপূর্ণ অঙ্ক (যোগ) | Enforces addition rounding constrained by the term with fewest decimal places. | যোগ ও বিয়োগের ক্ষেত্রে ফলাফল সর্বনিম্ন দশমিক স্থান বিশিষ্ট রাশির সমানে রাউন্ড করে। | ✅ Passed |
-| 09 | তাৎপর্যপূর্ণ অঙ্ক (গুণ) | Enforces multiplication rounding limited by the term with fewest sig figs. | গুণ ও ভাগে ফলাফল সর্বনিম্ন তাৎপর্যপূর্ণ অঙ্ক বিশিষ্ট ইনপুটের সমানে রাউন্ড করে। | ✅ Passed |
-| 10 | প্রক্ষেপক গতিপথ | Calculates launch range, maximum height, and coordinate trajectories. | নির্দিষ্ট বেগে ও কোণে নিক্ষিপ্ত বস্তুর অনুভূমিক পাল্লা, উচ্চতা এবং গতিপথ বের করে। | ✅ Passed |
-| 11 | অবাস্তব ইনপুট গার্ড | Rejects unphysical inputs such as negative launch velocities or angles over $90^\circ$. | ঋণাত্মক বেগ বা ৯০ ডিগ্রির বেশি নিক্ষেপণ কোণ দিলে ক্যালকুলেটর সতর্কবার্তা দেখায়। | ✅ Passed |
-| 12 | দ্বিঘাত মূল (ভিন্ন বাস্তব) | Solves equations with positive discriminants ($D > 0$), yielding distinct real roots. | নিশ্চায়ক ধনাত্মক হলে দ্বিঘাত সমীকরণের দুটি ভিন্ন বাস্তব মূল সমাধান করে। | ✅ Passed |
-| 13 | দ্বিঘাত মূল (সমান বাস্তব) | Solves equations with zero discriminants ($D = 0$), yielding repeated roots. | নিশ্চায়ক শূন্য হলে সমীকরণের পুনরাবৃত্ত একটিমাত্র বাস্তব মূল বের করে। | ✅ Passed |
-| 14 | দ্বিঘাত মূল (জটিল অনুবন্ধী) | Solves equations with negative discriminants ($D < 0$), yielding complex roots ($\alpha \pm i\beta$). | নিশ্চায়ক ঋণাত্মক হলে কাল্পনিক একক ($i$) সহ অনুবন্ধী জটিল মূল হিসাব করে। | ✅ Passed |
-| 15 | দ্বিঘাত সহগ ($a \neq 0$) | Enforces quadratic definition by rejecting $a = 0$. | শীর্ষ সহগ শূন্য ($a=0$) হলে সমীকরণটি দ্বিঘাত না হওয়ায় যথাযথ সতর্কবার্তা প্রদান করে। | ✅ Passed |
+| # | অধ্যায় ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | অধ্যায় ২: পাওয়ার সেট | যেকোনো সেটের উপাদান সংখ্যা থেকে তার পাওয়ার সেটের উপাদান ($2^n$) ও প্রকৃত উপসেট সংখ্যা ($2^n-1$) বের করে। | ✅ Passed |
+| ০২ | অধ্যায় ২: কার্তেসীয় গুণজ | দুটি সেটের ক্রস গুণন (কার্তেসীয় গুণজ) করে ক্রোমজোড়গুলো তৈরি করে এবং মোট উপাদানের সংখ্যা মিলিয়ে দেখে। | ✅ Passed |
+| ০৩ | অধ্যায় ৩: বর্গের অনুসিদ্ধান্ত | দুটি রাশির যোগফল ও গুণফল দেওয়া থাকলে, অনুসিদ্ধান্ত ফেলে খুব সহজেই তাদের বর্গের যোগফল ও বিয়োগফল বের করে। | ✅ Passed |
+| ০৪ | অধ্যায় ৩: ঘনের অনুসিদ্ধান্ত | মান দেওয়া থাকলে ঘনের অনুসিদ্ধান্ত ($a^3 + b^3$) ব্যবহার করে দুটি রাশির ঘনকের সমষ্টির মান হিসাব করে ফেলে। | ✅ Passed |
+| ০৫ | অধ্যায় ৩: ত্রিপদী রাশির বর্গ | $(a+b+c)$ ও $(ab+bc+ca)$-এর মান থেকে তিনটি রাশির বর্গের যোগফলের মান মুহূর্তের মধ্যেই নির্ণয় করে। | ✅ Passed |
+| ০৬ | অধ্যায় ৪: সূচক (Exponents) | সূচকের জটিল মান হিসাব করে এবং শূন্যের পাওয়ার মাইনাস দেওয়ার মতো ভুল করলে ইউজারকে অ্যালার্ট করে দেয়। | ✅ Passed |
+| ০৭ | অধ্যায় ৪: লগারিদম | লগারিদমের মান বের করে এবং ম্যাথের নিয়ম অনুযায়ী ভিত্তি ও সংখ্যার শর্তগুলো ($b > 0, b \ne 1$) ঠিক আছে কিনা চেক করে। | ✅ Passed |
+| ০৮ | অধ্যায় ৪: সায়েন্টিফিক রূপ | অনেক বড় বা অনেক ছোট সংখ্যাকে পাঠ্যবইয়ের নিয়ম অনুযায়ী আদর্শ বৈজ্ঞানিক রূপে ($A \times 10^n$) কনভার্ট করে দেয়। | ✅ Passed |
+| ০৯ | অধ্যায় ৯-১০: দূরত্ব ও উন্নতি কোণ | ভূমির দূরত্ব আর উন্নতি কোণ দেওয়া থাকলে সমকোণী ত্রিভুজের সূত্র ($h = d \tan\theta$) দিয়ে বিল্ডিং বা মিনারের উচ্চতা মাপে। | ✅ Passed |
+| ১০ | অধ্যায় ৯-১০: ডাবল অবজারভেশন | নদীর এক তীরে বা দুই পাশের ভিন্ন ভিন্ন উন্নতি কোণ থেকে মিনার বা টাওয়ারের উচ্চতা নিখুঁতভাবে বের করে। | ✅ Passed |
+| ১১ | অধ্যায় ৯-১০: ঝড়ে ভাঙা গাছ | "ঝড়ে একটি গাছ এমনভাবে ভেঙে গেল..."—বইয়ের এই বিখ্যাত অঙ্কের ভাঙা ও দাঁড়িয়ে থাকা অংশের উচ্চতা বের করে। | ✅ Passed |
+| ১২ | অধ্যায় ১১: যোজন-বিয়োজন | অনুপাতের অঙ্কে যোজন-বিয়োজন ($\frac{a+b}{a-b}$) করে দেয় এবং নিচে শূন্য চলে এলে এরর মেসেজ দিয়ে সতর্ক করে। | ✅ Passed |
+| ১৩ | অধ্যায় ১৬: সমবাহু ত্রিভুজ | শুধু এক বাহুর দৈর্ঘ্য ইনপুট দিলেই সমবাহু ত্রিভুজের ক্ষেত্রফলের সূত্র ফেলে একদম সঠিক মানটা বের করে দেয়। | ✅ Passed |
+| ১৪ | অধ্যায় ১৬: হেরনের সূত্র | ৩টি বাহুর দৈর্ঘ্য দিলে হেরনের সূত্রে ক্ষেত্রফল মাপে। তবে বাহুগুলো দিয়ে ত্রিভুজ বানানো সম্ভব না হলে আটকে দেয়। | ✅ Passed |
+| ১৫ | অধ্যায় ১৬: সুষম ষড়ভুজ | সুষম বহুভুজের সূত্র ব্যবহার করে শুধুমাত্র প্রতি বাহুর দৈর্ঘ্য থেকেই যেকোনো ষড়ভুজের ক্ষেত্রফল হিসাব করে দেয়। | ✅ Passed |
+| ১৬ | অধ্যায় ১৭: পরিসংখ্যান (সারি) | শ্রেণিকৃত উপাত্তের টেবিল বা সারণি থেকে সংক্ষিপ্ত পদ্ধতিতে গড়, মধ্যক ও প্রচুরক শ্রেণির মান অত্যন্ত দ্রুত বের করে। | ✅ Passed |
+| ১৭ | অধ্যায় ১৭: প্রচুরকের ব্যতিক্রম | প্রথম শ্রেণিতেই প্রচুরক থাকলে, আগের শ্রেণির গণসংখ্যা শূন্য ধরে নিয়ে প্রচুরকের অঙ্কটি একদম ঠিকঠাক সলভ করে। | ✅ Passed |
 
 ---
 
-*Cleaned and normalized text directory for biggan.me.*
+### 4.5 এসএসসি উচ্চতর গণিত ইঞ্জিন (`tests/higher-math.test.ts` — ১৭টি টেস্ট)
+**পরিধি:** ভেনচিত্র, ধারা, দ্বিঘাত সমীকরণ এবং স্থানাঙ্ক জ্যামিতিসহ ১৪টি অধ্যায়।
+
+| # | অধ্যায় ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | অধ্যায় ১: ৩-সেট ভেনচিত্র | ৩টি সেটের ভেনচিত্র থেকে সংযোগের উপাদান এবং কেবল একটি সেটে থাকা স্বতন্ত্র অংশের মান খুব সহজেই বের করে। | ✅ Passed |
+| ০২ | অধ্যায় ১: বিপরীত ফাংশন | ভগ্নাংশ ফাংশনের বিপরীত ফাংশন নির্ণয় করে এবং ডোমেন ও রেঞ্জের শর্তগুলো (কোথায় হর শূন্য হবে) দেখিয়ে দেয়। | ✅ Passed |
+| ০৩ | অধ্যায় ২: ভাগশেষ উপপাদ্য | বহুপদীকে $(x-a)$ দিয়ে ভাগ করলে ভাগশেষ কত থাকবে এবং সেটি আসলেই উৎপাদক কিনা, তা চমৎকারভাবে টেস্ট করে। | ✅ Passed |
+| ০৪ | অধ্যায় ২: চক্র-ক্রমিক রাশি | চক্র-ক্রমিক বহুপদীর মান বের করে এবং $a+b+c=0$ হলে রাশিটির মান যে শূন্য হবে—তা গাণিতিকভাবে প্রমাণ করে। | ✅ Passed |
+| ০৫ | অধ্যায় ৩: অ্যাপোলোনিয়াস | ৩টি বাহু থেকে অ্যাপোলোনিয়াসের সূত্রে মধ্যমাগুলোর দৈর্ঘ্য মাপে এবং বাহু ও মধ্যমার মধ্যকার মূল সম্পর্কটি মিলিয়ে দেখে। | ✅ Passed |
+| ০৬ | অধ্যায় ৫: দ্বিঘাত সমীকরণ | নিশ্চায়ক ($D$) বিচার করে সমীকরণের মূলগুলো বাস্তব, সমান নাকি জটিল সংখ্যা হবে, তা চেক করে অ্যানসার দেয়। | ✅ Passed |
+| ০৭ | অধ্যায় ৬: অসমতা (Inequalities) | একচলকের অসমতা সলভ করে এবং মাইনাস সংখ্যা দিয়ে ভাগ করার সময় নিয়ম অনুযায়ী অসমতার চিহ্ন উল্টে দেয়। | ✅ Passed |
+| ০৮ | অধ্যায় ৭: অসীম গুণোত্তর ধারা | অসীমতক সমষ্টি বের করে এবং সাধারণ অনুপাত ১ এর সমান বা বড় হলে সিরিজটি যে 'অপসারী' (Divergent) তা জানিয়ে দেয়। | ✅ Passed |
+| ০৯ | অধ্যায় ৭: পৌনঃপুনিক দশমিক | পৌনঃপুনিক দশমিক সংখ্যাকে (যেমন: $০.১৬৬৬\dots$) অসীম গুণোত্তর ধারার নিয়ম খাটিয়ে সাধারণ ভগ্নাংশে কনভার্ট করে। | ✅ Passed |
+| ১০ | অধ্যায় ৮-৯: বৃত্তকলা ও চাপ | ডিগ্রিকে রেডিয়ানে কনভার্ট করে বৃত্তচাপের দৈর্ঘ্য ($s=r\theta$) এবং বৃত্তকলার ক্ষেত্রফলের হিসাবগুলো মুহূর্তেই করে দেয়। | ✅ Passed |
+| ১১ | অধ্যায় ৮-৯: লগারিদমের ভিত্তি | লগারিদমের অংক করার সময় 'ভিত্তি পরিবর্তন সূত্র' (Base Change) ব্যবহার করে যেকোনো বেসের মান সহজে সলভ করে। | ✅ Passed |
+| ১২ | অধ্যায় ১০: দ্বিপদী বিস্তৃতি | সমাবেশ ($nCr$) এবং দ্বিপদী উপপাদ্যের সূত্র ব্যবহার করে বিস্তৃতির পদগুলোর সহগ একদম নির্ভুলভাবে বের করে আনে। | ✅ Passed |
+| ১৩ | অধ্যায় ১১: বহুভুজের ক্ষেত্রফল | শীর্ষবিন্দুগুলোকে ঘড়ির কাঁটার উল্টো দিকে সাজিয়ে 'শু-লেস' (Shoelace) পদ্ধতিতে যেকোনো বহুভুজের ক্ষেত্রফল বের করে। | ✅ Passed |
+| १४ | অধ্যায় ১১: দূরত্ব ও রেখার ঢাল | স্থানাঙ্কের দুটি বিন্দুর মধ্যবর্তী দূরত্ব, সরলরেখার ঢাল ($m$) এবং সরলরেখার সমীকরণ চমৎকারভাবে বের করে দেয়। | ✅ Passed |
+| ১৫ | অধ্যায় ১২: ভেক্টর অ্যানালাইসিস | দ্বিমাত্রিক ভেক্টরের মান (Magnitude) মাপে এবং এটি এক্স-অক্ষের সাথে কত ডিগ্রি কোণ করে আছে তা নির্ণয় করে। | ✅ Passed |
+| ১৬ | অধ্যায় ১৩: ঘন জ্যামিতি (কোণক) | সমবৃত্তভূমিক কোণকের ব্যাসার্ধ ও উচ্চতা দিলে এর হেলানো উচ্চতা, বক্রতলের ক্ষেত্রফল এবং আয়তন হিসাব করে দেয়। | ✅ Passed |
+| ১৭ | অধ্যায় ১৪: সম্ভাবনা (Probability) | অনুকূল ও মোট ফলাফলের অনুপাত থেকে ক্লাসিক্যাল সম্ভাবনা বের করে এবং পার্সেন্টেজে এর জেতার চান্স দেখিয়ে দেয়। | ✅ Passed |
+
+---
+
+### 4.6 এইচএসসি আইসিটি (ICT) সিমুলেটর ইঞ্জিন (`tests/ict-engines.test.ts` — ১৫টি টেস্ট)
+**পরিধি:** বুলিয়ান অ্যালজেবরা, সার্কিট, এসকিউএল, সি প্রোগ্রামিং এবং এইচটিএমএল।
+
+| # | ইঞ্জিন ও টপিক | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | লজিক গেট সিমুলেটর | AND, OR, NOT থেকে শুরু করে XOR, NAND, NOR—সবগুলো লজিক গেটের সত্যক সারণি (Truth Table) যাচাই করে। | ✅ Passed |
+| ০২ | হাফ অ্যাডার সার্কিট | হাফ অ্যাডার বর্তনীতে দুটি বাইনারি বিট ইনপুট দিলে তার যোগফল (Sum) ও ক্যারির (Carry) মান ঠিকঠাক বের করে দেয়। | ✅ Passed |
+| ০৩ | ফুল অ্যাডার সার্কিট | ইনপুট ক্যারি সহ ফুল অ্যাডারের তিন বিটের যোগফল ও চূড়ান্ত ক্যারির আউটপুট একদম লজিক অনুযায়ী বের করে। | ✅ Passed |
+| ০৪ | এসকিউএল (SQL) ডাটাবেজ | রিলেশনাল ডাটাবেজে SELECT * কুয়েরি চালিয়ে সম্পূর্ণ টেবিলের সকল সারি ও কলাম প্রিভিউ হিসেবে প্রদর্শন করে। | ✅ Passed |
+| ০৫ | এসকিউএল ফিল্টারিং | WHERE কন্ডিশন ব্যবহার করে বিশাল ডেটাবেজ থেকে নির্দিষ্ট শর্ত পূরণ করা রেকর্ডগুলো আলাদা করে ফিল্টার করে আনে। | ✅ Passed |
+| ০৬ | এসকিউএল সর্টিং | ORDER BY ব্যবহার করে যেকোনো কলামের ভ্যালুকে ছোট থেকে বড় বা বড় থেকে ছোট আকারে সুন্দরভাবে সাজিয়ে দেয়। | ✅ Passed |
+| ০৭ | এসকিউএল JOIN অপারেশন | প্রাইমারি ও ফরেন কি (Key) মিলিয়ে INNER JOIN-এর মাধ্যমে দুটি আলাদা টেবিলকে যুক্ত করে একটি রেজাল্ট বানায়। | ✅ Passed |
+| ০৮ | এসকিউএল গ্রুপিং | GROUP BY এবং COUNT ফাংশন চালিয়ে বিভাগ অনুযায়ী ডেটাকে গ্রুপ করে মোট শিক্ষার্থীর সংখ্যা গুনে দেখায়। | ✅ Passed |
+| ০৯ | এসকিউএল এরর হ্যান্ডলিং | কুয়েরি লিখতে কোনো ভুল হলে ব্রাউজার ক্র্যাশ না করিয়ে, কোথায় ভুল হয়েছে তা স্পষ্টভাবে ইউজারকে মেসেজ দিয়ে জানায়। | ✅ Passed |
+| ১০ | সি ট্রেসার (ফিবোনাচ্চি) | ফিবোনাচ্চি ধারার লুপ চলার সময় মেমোরিতে ভ্যারিয়েবলের মান কীভাবে পাল্টাচ্ছে, তা ধাপে ধাপে ভিজ্যুয়ালি দেখায়। | ✅ Passed |
+| ১১ | সি ট্রেসার (প্রাইম নাম্বার) | মৌলিক সংখ্যা চেক করার প্রোগ্রামে লুপের প্রতিটি স্টেপ ও কন্ডিশন কীভাবে কাজ করছে তার লাইভ পরিবর্তন দেখায়। | ✅ Passed |
+| ১২ | সি ট্রেসার (ফ্যাক্টোরিয়াল) | ১ থেকে $n$ পর্যন্ত ক্রমিক গুণের সময় ($n!$) লুপের প্রতিটি ইটারেশনে ভ্যালু কীভাবে বাড়ে তা রেকর্ড করে রাখে। | ✅ Passed |
+| ১৩ | এইচটিএমএল (HTML) টেবিল | এইচএসসি বোর্ডের প্যাটার্ন অনুযায়ী টেবিল বানানো এবং rowspan ও colspan ট্যাগের সঠিকতা নিখুঁতভাবে চেক করে। | ✅ Passed |
+| ১৪ | শিক্ষাক্রম ডাটাবেজ চেক | ডাটাবেজে এসএসসি ও এইচএসসি স্তরের ৬টি মেইন সাবজেক্টের সবগুলো চ্যাপ্টারের ডেটা ঠিকমতো আছে কিনা তা ভেরিফাই করে। | ✅ Passed |
+| ১৫ | অধ্যায় ডেটা এক্সট্রাকশন | প্রতিটি অধ্যায়ের নাম, মেইন সূত্রগুলো এবং ক্যালকুলেটরের সঠিক লিঙ্ক ডাটাবেজ থেকে ঠিকঠাক ফেচ করতে পারে। | ✅ Passed |
+
+---
+
+### 4.7 কোর সলভার ইঞ্জিন (`tests/engines.test.ts` — ১৫টি টেস্ট)
+**পরিধি:** ব্যাকএন্ডের ভারী ফাংশন যেমন- আণবিক ভর, জারণ-বিজারণ সমতা, সিগনিফিক্যান্ট ফিগার এবং দ্বিঘাতের মূল।
+
+| # | ইঞ্জিন ও বিষয় | সাবলীল টেস্ট ডেসক্রিপশন | স্ট্যাটাস |
+| :-: | :--- | :--- | :-: |
+| ০১ | মোলার ভর ($H_2O$) | যৌগের সংকেত ভেঙে হাইড্রোজেন ও অক্সিজেনের পরমাণু আলাদা করে গুনে মোলার ভর চমৎকারভাবে হিসাব করে দেয়। | ✅ Passed |
+| ০২ | কেলাস লবণ ($CuSO_4$) | তুঁতের মতো জটিল কেলাস যৌগের মোট ভর, ৫ অণু পানির পরিমাণ এবং তামার শতকরা সংযুতি একদম নিখুঁতভাবে বের করে। | ✅ Passed |
+| ০৩ | ব্র্যাকেট যুক্ত সংকেত | $Ca(OH)_2$-এর মতো ব্র্যাকেটযুক্ত যৌগের সংকেত পার্স করে বন্ধনীর ভেতরের পরমাণুকে সঠিক সংখ্যা দিয়ে গুণ করে ভর মাপে। | ✅ Passed |
+| ০৪ | ইনভ্যালিড সিম্বল গার্ড | পর্যায় সারণির বাইরে কোনো উল্টাপাল্টা প্রতীক বা বানান ভুল ইনপুট দিলে সিস্টেম নিজে থেকেই এরর মেসেজ দিয়ে থামিয়ে দেয়। | ✅ Passed |
+| ০৫ | জারণ-বিজারণ (অম্লীয়) | অম্লীয় মাধ্যমে পটাশিয়াম পারম্যাঙ্গানেট ও ফেরাস সালফেটের মতো জটিল অর্ধ-বিক্রিয়াগুলোকে স্টেপ-বাই-স্টেপ সমতা করে। | ✅ Passed |
+| ০৬ | জারণ-বিজারণ (ক্ষারীয়) | ক্ষারীয় মাধ্যমে বিক্রিয়ার ক্ষেত্রে ঠিক যেখানে যতটুকু দরকার, সেখানে হাইড্রোক্সাইড ($OH^-$) আয়ন দিয়ে বিক্রিয়া ব্যালেন্স করে। | ✅ Passed |
+| ০৭ | সিগনিফিক্যান্ট ফিগার (জিরো) | সংখ্যার শুরুর দামহীন শূন্যগুলো (Leading Zeros) বাদ দেয় এবং দশমিকের পরের দামি শূন্যগুলোকে স্মার্টলি কাউন্ট করে। | ✅ Passed |
+| ০৮ | সিগ ফিগ (যোগ-বিয়োগ) | যোগ ও বিয়োগের সময় রুলস মেনে, সবচেয়ে কম দশমিক ঘর থাকা সংখ্যাটির সমান করে ফাইনাল রেজাল্ট রাউন্ড করে দেয়। | ✅ Passed |
+| ০৯ | সিগ ফিগ (গুণ-ভাগ) | গুণ ও ভাগের ক্ষেত্রে সবচেয়ে কম সিগনিফিক্যান্ট ফিগার থাকা ইনপুটটির সাথে মিলিয়ে চূড়ান্ত ফলাফল রাউন্ড করে। | ✅ Passed |
+| ১০ | প্রজেক্টাইল ট্র্যাজেক্টরি | কত বেগে আর কত ডিগ্রি কোণে ছুড়লে অনুভূমিক পাল্লা, সর্বোচ্চ উচ্চতা আর গতিপথ কেমন হবে তা নিমেষেই বের করে ফেলে। | ✅ Passed |
+| ১১ | আনফিজিক্যাল ইনপুট গার্ড | মাইনাস বেগ বা ৯০ ডিগ্রির বেশি নিক্ষেপণ কোণের মতো অবাস্তব ইনপুট দিলে ক্যালকুলেটর যৌক্তিক সতর্কবার্তা দিয়ে আটকে দেয়। | ✅ Passed |
+| ১২ | দ্বিঘাত মূল (ভিন্ন বাস্তব) | নিশ্চায়ক পজিটিভ ($D > 0$) হলে দ্বিঘাত সমীকরণের দুটি ভিন্ন ভিন্ন বাস্তব মূল খুব সুন্দরভাবে ধাপে ধাপে বের করে আনে। | ✅ Passed |
+| ১৩ | দ্বিঘাত মূল (সমান বাস্তব) | নিশ্চায়ক শূন্য ($D = 0$) হয়ে গেলে সমীকরণের পুনরাবৃত্ত একটিমাত্র বাস্তব মূল সমাধান করে দেখিয়ে দেয়। | ✅ Passed |
+| ১৪ | দ্বিঘাত মূল (জটিল সংখ্যা) | নিশ্চায়ক নেগেটিভ ($D < 0$) হলে অবাস্তব বা কাল্পনিক একক ($i$) সহ অনুবন্ধী জটিল মূলগুলো নিখুঁতভাবে হিসাব করে দেয়। | ✅ Passed |
+| ১৫ | দ্বিঘাত সমীকরণ গার্ড | $ax^2$ এর জায়গায় $a=0$ বসালে সমীকরণটি আর দ্বিঘাত থাকে না, তাই ক্যালকুলেটর ইউজারকে সুন্দরভাবে অ্যালার্ট করে দেয়। | ✅ Passed |
+
+---
+
+*Natural educational bilingual directory for biggan.me.*
