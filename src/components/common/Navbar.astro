@@ -1,6 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -157,6 +158,8 @@ const ictTools = [
       </a>
 
       <LanguageSwitcher />
+
+      <ThemeToggle />
 
       <!-- Mobile Menu Button -->
       <button

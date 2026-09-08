@@ -1,0 +1,68 @@
+
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark Deep Background -->
+  <rect width="1200" height="630" fill="#020617"/>
+  
+  <!-- Subtle Glowing Tech Grids & Accents -->
+  <circle cx="150" cy="120" r="300" fill="#0891b2" opacity="0.15" filter="blur(80px)"/>
+  <circle cx="1050" cy="500" r="350" fill="#0284c7" opacity="0.12" filter="blur(90px)"/>
+  <circle cx="950" cy="150" r="200" fill="#10b981" opacity="0.08" filter="blur(70px)"/>
+
+  <!-- Border Card Frame -->
+  <rect x="40" y="40" width="1120" height="550" rx="24" fill="#0b1329" fill-opacity="0.8" stroke="#1e293b" stroke-width="2"/>
+  
+  <!-- Top Brand Row -->
+  <g transform="translate(80, 85)">
+    <!-- Logo Icon Box -->
+    <rect width="56" height="56" rx="14" fill="#06b6d4"/>
+    <text x="28" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#020617" text-anchor="middle">B</text>
+    
+    <!-- Brand Name -->
+    <text x="74" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="800" fill="#ffffff">
+      Biggan<tspan fill="#22d3ee">.me</tspan>
+    </text>
+    
+    <!-- Curriculum Pill -->
+    <rect x="290" y="10" width="220" height="36" rx="18" fill="#0e2a47" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="400" y="33" font-family="monospace, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8" text-anchor="middle">NCTB • SSC • HSC</text>
+  </g>
+
+  <!-- Main Headline -->
+  <text x="80" y="240" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="900" fill="#ffffff" letter-spacing="-1">
+    বিজ্ঞান ও গণিত সমস্যা সমাধান
+  </text>
+  <text x="80" y="305" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="38" font-weight="800" fill="#38bdf8" letter-spacing="-0.5">
+    Step-by-Step Science &amp; Math Solvers
+  </text>
+
+  <!-- Subtitle Description -->
+  <text x="80" y="375" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="400" fill="#94a3b8">
+    পদার্থবিজ্ঞান • রসায়ন • উচ্চতর গণিত • জীববিজ্ঞান • আইসিটি
+  </text>
+  <text x="80" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="400" fill="#64748b">
+    Full Derivations • SI Unit Checks • Casio fx-991 Keystroke Bridge
+  </text>
+
+  <!-- Feature Badges Row -->
+  <g transform="translate(80, 480)">
+    <!-- Badge 1 -->
+    <rect x="0" y="0" width="180" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <text x="90" y="26" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">⚡ পদার্থবিজ্ঞান ১৩ অধ্যায়</text>
+
+    <!-- Badge 2 -->
+    <rect x="195" y="0" width="180" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <text x="285" y="26" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">⚗️ রসায়ন ১২ অধ্যায়</text>
+
+    <!-- Badge 3 -->
+    <rect x="390" y="0" width="190" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <text x="485" y="26" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">📐 উচ্চতর গণিত ১৪ অধ্যায়</text>
+
+    <!-- Badge 4 -->
+    <rect x="595" y="0" width="180" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <text x="685" y="26" font-family="-apple-system, sans-serif" font-size="14" font-weight="600" fill="#e2e8f0" text-anchor="middle">💻 HSC ICT সিমুলেটর</text>
+
+    <!-- Badge 5 -->
+    <rect x="790" y="0" width="220" height="42" rx="10" fill="#042f2e" stroke="#0d9488" stroke-width="1.5"/>
+    <text x="900" y="26" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#2dd4bf" text-anchor="middle">✓ ১০০% নির্ভুল বোর্ড সমাধান</text>
+  </g>
+</svg>
