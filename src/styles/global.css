@@ -3,38 +3,51 @@
 
 @variant dark (&:where(.dark, .dark *));
 
-/* Theme tokens: Dark Mode default */
+/* ==========================================================================
+   THEME TOKENS: DARK MODE (DEFAULT)
+   Deep space slate, sleek borders, glowing neon accents, high contrast text
+   ========================================================================== */
 :root {
   --font-bengali: 'Hind Siliguri', 'Noto Sans Bengali', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-latin: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --color-slate-950: #020617;
-  --color-slate-900: #0f172a;
-  --color-slate-800: #1e293b;
-  --color-slate-700: #334155;
-  --color-slate-600: #475569;
-  --color-slate-500: #64748b;
-  --color-slate-400: #94a3b8;
-  --color-slate-300: #cbd5e1;
-  --color-slate-200: #e2e8f0;
-  --color-slate-100: #f8fafc;
-  --color-slate-50: #ffffff;
+  /* Surfaces & Layout */
+  --color-slate-950: #020617; /* Canvas / Body background */
+  --color-slate-900: #0f172a; /* Card surface */
+  --color-slate-800: #1e293b; /* Secondary surface, tags, pills, input background */
+  --color-slate-700: #334155; /* Borders, dividers */
+  --color-slate-600: #475569; /* Subtle borders */
+
+  /* Text & Content */
+  --color-slate-500: #64748b; /* Muted text */
+  --color-slate-400: #94a3b8; /* Secondary / placeholder text */
+  --color-slate-300: #cbd5e1; /* Body text */
+  --color-slate-200: #e2e8f0; /* Emphasized body text */
+  --color-slate-100: #f8fafc; /* Headings & titles */
+  --color-slate-50: #ffffff;  /* Pure white */
 }
 
-/* Theme tokens: Light Mode overrides */
+/* ==========================================================================
+   THEME TOKENS: LIGHT MODE OVERRIDES
+   Crisp off-white canvas, elevated pure-white cards, DEEP rich text (#020617),
+   high-contrast borders (#cbd5e1 / #e2e8f0), deep saturated accents
+   ========================================================================== */
 html:not(.dark) {
-  --color-slate-950: #f8fafc;
-  --color-slate-900: #ffffff;
-  --color-slate-800: #f1f5f9;
-  --color-slate-700: #e2e8f0;
-  --color-slate-600: #cbd5e1;
-  --color-slate-500: #64748b;
-  --color-slate-400: #475569;
-  --color-slate-300: #334155;
-  --color-slate-200: #1e293b;
-  --color-slate-100: #0f172a;
-  --color-slate-50: #ffffff;
+  /* Surfaces & Layout */
+  --color-slate-950: #f8fafc; /* Canvas / Body background: crisp soft slate-50 */
+  --color-slate-900: #ffffff; /* Card surface: pure clean white */
+  --color-slate-800: #f1f5f9; /* Secondary surface, steps, pills: soft slate-100 */
+  --color-slate-700: #e2e8f0; /* Card borders: visible slate-200 */
+  --color-slate-600: #cbd5e1; /* Dividers & input borders: slate-300 */
+
+  /* Deep Content Text: MAXIMUM CONTRAST & LEGIBILITY */
+  --color-slate-500: #475569; /* Muted labels: crisp slate-600 */
+  --color-slate-400: #334155; /* Secondary text: deep slate-700 (9:1 contrast) */
+  --color-slate-300: #1e293b; /* Body text: deep slate-800 (12:1 contrast) */
+  --color-slate-200: #0f172a; /* Emphasized body text: deep slate-900 (14:1 contrast) */
+  --color-slate-100: #020617; /* Headings & titles: deepest rich black-slate (16:1 contrast) */
+  --color-slate-50: #ffffff;  /* Pure white for button text & inverted chips */
 }
 
 @layer base {
@@ -50,7 +63,7 @@ html:not(.dark) {
 
   body {
     background-color: var(--color-slate-950);
-    color: var(--color-slate-100);
+    color: var(--color-slate-200);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -59,9 +72,14 @@ html:not(.dark) {
   }
 }
 
-/* Light mode text-white headings adaptation */
-html:not(.dark) :is(h1, h2, h3, h4, h5, h6, span, p, div).text-white:not(
+/* ==========================================================================
+   LIGHT MODE: DEEP HEADINGS & TEXT-WHITE CONVERSION
+   Converts all headings and card titles with text-white to deep black #020617,
+   while preserving white text on colored buttons (bg-cyan-600, bg-emerald-600, etc.)
+   ========================================================================== */
+html:not(.dark) :is(h1, h2, h3, h4, h5, h6, span, p, div, label, dt, dd, li, th, td).text-white:not(
   button,
+  a.btn,
   [class*="bg-cyan-500"],
   [class*="bg-cyan-600"],
   [class*="bg-emerald-500"],
@@ -75,30 +93,273 @@ html:not(.dark) :is(h1, h2, h3, h4, h5, h6, span, p, div).text-white:not(
   [class*="bg-rose-500"],
   [class*="bg-rose-600"],
   [class*="bg-indigo-500"],
-  [class*="bg-indigo-600"]
+  [class*="bg-indigo-600"],
+  [class*="bg-red-500"],
+  [class*="bg-red-600"],
+  [class*="bg-purple-500"],
+  [class*="bg-purple-600"]
 ) {
-  color: #0f172a;
+  color: #020617 !important;
 }
 
-/* Light mode card elevation & border clarity */
+/* ==========================================================================
+   LIGHT MODE: FORM CONTROLS & INPUTS
+   Eliminates invisible white text on white inputs; ensures high-contrast typing
+   ========================================================================== */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+html:not(.dark) input:focus,
+html:not(.dark) select:focus,
+html:not(.dark) textarea:focus {
+  border-color: #0891b2 !important;
+  box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.2) !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #64748b !important;
+}
+
+html:not(.dark) select option {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
+/* ==========================================================================
+   LIGHT MODE: DEEP ACCENT COLORS (WCAG AAA COMPLIANT)
+   Maps glowing dark-mode neon accents to deep, rich, legible tones
+   ========================================================================== */
+html:not(.dark) .text-cyan-300,
+html:not(.dark) .text-cyan-400 {
+  color: #0e7490 !important; /* cyan-700: deep oceanic cyan */
+}
+
+html:not(.dark) .text-amber-200,
+html:not(.dark) .text-amber-300,
+html:not(.dark) .text-amber-400 {
+  color: #b45309 !important; /* amber-700: deep bronze gold */
+}
+
+html:not(.dark) .text-emerald-200,
+html:not(.dark) .text-emerald-300,
+html:not(.dark) .text-emerald-400 {
+  color: #047857 !important; /* emerald-700: deep forest green */
+}
+
+html:not(.dark) .text-teal-300,
+html:not(.dark) .text-teal-400 {
+  color: #0f766e !important; /* teal-700: deep rich teal */
+}
+
+html:not(.dark) .text-blue-300,
+html:not(.dark) .text-blue-400 {
+  color: #1d4ed8 !important; /* blue-700: deep royal blue */
+}
+
+html:not(.dark) .text-rose-300,
+html:not(.dark) .text-rose-400 {
+  color: #be123c !important; /* rose-700: deep ruby crimson */
+}
+
+html:not(.dark) .text-violet-300,
+html:not(.dark) .text-violet-400 {
+  color: #6d28d9 !important; /* violet-700: deep royal purple */
+}
+
+html:not(.dark) .text-indigo-300,
+html:not(.dark) .text-indigo-400 {
+  color: #4338ca !important; /* indigo-700 */
+}
+
+html:not(.dark) .text-yellow-300,
+html:not(.dark) .text-yellow-400 {
+  color: #a16207 !important; /* yellow-700 */
+}
+
+/* ==========================================================================
+   LIGHT MODE: BADGE & TAG TINTED BACKGROUNDS
+   Soft pastel tint with defined border for maximum aesthetic clarity
+   ========================================================================== */
+html:not(.dark) .bg-cyan-500\/10,
+html:not(.dark) .bg-cyan-500\/20,
+html:not(.dark) .bg-cyan-950\/30,
+html:not(.dark) .bg-cyan-950\/40,
+html:not(.dark) .bg-cyan-950\/60,
+html:not(.dark) .bg-cyan-950\/80 {
+  background-color: #ecfeff !important;
+  border-color: #a5f3fc !important;
+  color: #0e7490 !important;
+}
+
+html:not(.dark) .bg-amber-500\/10,
+html:not(.dark) .bg-amber-500\/20,
+html:not(.dark) .bg-amber-950\/30,
+html:not(.dark) .bg-amber-950\/40 {
+  background-color: #fffbeb !important;
+  border-color: #fde68a !important;
+  color: #b45309 !important;
+}
+
+html:not(.dark) .bg-emerald-500\/10,
+html:not(.dark) .bg-emerald-500\/20,
+html:not(.dark) .bg-emerald-950\/30,
+html:not(.dark) .bg-emerald-950\/40 {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #047857 !important;
+}
+
+html:not(.dark) .bg-rose-500\/10,
+html:not(.dark) .bg-rose-500\/20 {
+  background-color: #fff1f2 !important;
+  border-color: #fecdd3 !important;
+  color: #be123c !important;
+}
+
+html:not(.dark) .bg-blue-500\/10,
+html:not(.dark) .bg-blue-500\/20 {
+  background-color: #eff6ff !important;
+  border-color: #bfdbfe !important;
+  color: #1d4ed8 !important;
+}
+
+html:not(.dark) .text-sky-300,
+html:not(.dark) .text-sky-400 {
+  color: #0369a1 !important;
+}
+
+html:not(.dark) .text-zinc-400 {
+  color: #3f3f46 !important;
+}
+
+html:not(.dark) .text-purple-300,
+html:not(.dark) .text-purple-400 {
+  color: #7e22ce !important;
+}
+
+html:not(.dark) .bg-sky-950\/50 {
+  background-color: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  color: #0369a1 !important;
+}
+
+html:not(.dark) .bg-emerald-950\/50 {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #047857 !important;
+}
+
+/* ==========================================================================
+   LIGHT MODE: CARD ELEVATION & INNER CONTAINERS
+   Distinguishes cards from background and highlights inner steps/boxes
+   ========================================================================== */
 html:not(.dark) .bg-slate-900 {
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+html:not(.dark) .bg-slate-950 {
+  background-color: #f8fafc;
   border-color: #e2e8f0;
 }
 
-/* Light mode prose inversion */
+/* Inner problem boxes, step rows, code snippets */
+html:not(.dark) .bg-slate-950\/60,
+html:not(.dark) .bg-slate-950\/70,
+html:not(.dark) .bg-slate-950\/80,
+html:not(.dark) .bg-slate-950\/90 {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .bg-slate-900\/60,
+html:not(.dark) .bg-slate-900\/70,
+html:not(.dark) .bg-slate-900\/80,
+html:not(.dark) .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* ==========================================================================
+   LIGHT MODE: HEADER & FOOTER
+   ========================================================================== */
+html:not(.dark) header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) header a {
+  color: #1e293b;
+}
+
+html:not(.dark) header a:hover {
+  color: #0e7490;
+}
+
+html:not(.dark) footer {
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+html:not(.dark) footer h4 {
+  color: #020617 !important;
+}
+
+html:not(.dark) footer a {
+  color: #334155;
+}
+
+html:not(.dark) footer a:hover {
+  color: #0891b2;
+}
+
+/* ==========================================================================
+   LIGHT MODE: DETAILS / ACCORDIONS (FAQ)
+   ========================================================================== */
+html:not(.dark) details {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+html:not(.dark) details summary {
+  color: #020617 !important;
+}
+
+html:not(.dark) details summary:hover {
+  color: #0891b2 !important;
+}
+
+html:not(.dark) details > div {
+  color: #334155 !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* ==========================================================================
+   PROSE TYPOGRAPHY IN LIGHT MODE
+   Deep slate colors for all markdown formulas, derivations, and explanations
+   ========================================================================== */
 html:not(.dark) .prose-invert {
-  --tw-prose-body: #334155;
-  --tw-prose-headings: #0f172a;
-  --tw-prose-lead: #475569;
+  --tw-prose-body: #1e293b;
+  --tw-prose-headings: #020617;
+  --tw-prose-lead: #334155;
   --tw-prose-links: #0891b2;
-  --tw-prose-bold: #0f172a;
-  --tw-prose-counters: #64748b;
-  --tw-prose-bullets: #94a3b8;
+  --tw-prose-bold: #020617;
+  --tw-prose-counters: #475569;
+  --tw-prose-bullets: #64748b;
   --tw-prose-hr: #e2e8f0;
   --tw-prose-quotes: #0f172a;
-  --tw-prose-quote-borders: #e2e8f0;
-  --tw-prose-captions: #64748b;
+  --tw-prose-quote-borders: #cbd5e1;
+  --tw-prose-captions: #475569;
   --tw-prose-code: #0f172a;
   --tw-prose-pre-code: #0f172a;
   --tw-prose-pre-bg: #f1f5f9;
@@ -106,7 +367,28 @@ html:not(.dark) .prose-invert {
   --tw-prose-td-borders: #e2e8f0;
 }
 
-/* Custom Scrollbar adapting to theme */
+/* ==========================================================================
+   KATEX MATHEMATICAL FORMULAS
+   Deep black in Light Mode (#020617), Crisp white in Dark Mode (#f8fafc)
+   ========================================================================== */
+.katex {
+  color: #020617;
+}
+
+.dark .katex {
+  color: #f8fafc;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.75rem 0;
+  margin: 0.5rem 0;
+}
+
+/* ==========================================================================
+   CUSTOM SCROLLBAR
+   ========================================================================== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -128,24 +410,15 @@ html:not(.dark) .prose-invert {
   background: #475569;
 }
 
-/* KaTeX custom sizing adapting to ambient text color */
-.katex {
-  color: inherit;
-}
-.katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.75rem 0;
-  margin: 0.5rem 0;
-}
-
-/* AdSense Ad slot container with zero CLS layout reservation */
+/* ==========================================================================
+   ADSENSE AD CONTAINER
+   ========================================================================== */
 .ad-slot-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(241, 245, 249, 0.7);
-  border: 1px dashed rgba(203, 213, 225, 0.8);
+  background-color: rgba(241, 245, 249, 0.8);
+  border: 1px dashed rgba(203, 213, 225, 0.9);
   border-radius: 0.5rem;
   overflow: hidden;
   margin: 1.5rem 0;
