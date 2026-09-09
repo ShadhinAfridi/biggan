@@ -21,7 +21,8 @@ import {
   Eye,
   ArrowRight,
   Sun,
-  Moon
+  Moon,
+  Hash
 } from 'lucide-react';
 import { HTML_TEMPLATES, type HtmlTemplate } from './templates';
 import {
@@ -52,11 +53,16 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(HTML_TEMPLATES[0].id);
   const [code, setCode] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      const saved = sessionStorage.getItem('biggan_html_runner_code');
-      if (saved) return saved;
+      try {
+        const saved = sessionStorage.getItem('biggan_html_runner_code');
+        if (saved) return saved;
+      } catch (_) {}
     }
     return HTML_TEMPLATES[0].code;
   });
+
+  // Rendered code passed to srcDoc of iframe
+  const [renderedCode, setRenderedCode] = useState<string>(code);
   const [copied, setCopied] = useState(false);
   const [autoRun, setAutoRun] = useState(true);
   const [hasUnrunChanges, setHasUnrunChanges] = useState(false);
@@ -71,36 +77,35 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
   // Modal State
   const [modalItem, setModalItem] = useState<{ type: 'tag' | 'css'; data: HtmlTag | CssProp } | null>(null);
 
-  const iframeRef = useRef<HTMLIFrameElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Sync to sessionStorage so language change or tab navigation does not wipe code
+  // Sync to sessionStorage safely so language change or tab navigation does not wipe code
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem('biggan_html_runner_code', code);
+      try {
+        sessionStorage.setItem('biggan_html_runner_code', code);
+      } catch (_) {}
     }
   }, [code]);
 
-  // Execute preview
-  const renderPreview = () => {
-    if (iframeRef.current) {
-      const doc = iframeRef.current.contentDocument;
-      if (doc) {
-        doc.open();
-        doc.write(code);
-        doc.close();
-      }
-    }
+  // Execute preview: update renderedCode
+  const handleRun = () => {
+    setRenderedCode(code);
     setHasUnrunChanges(false);
   };
 
+  // Debounced auto-run when code changes
   useEffect(() => {
     if (autoRun) {
-      renderPreview();
+      const timer = setTimeout(() => {
+        setRenderedCode(code);
+        setHasUnrunChanges(false);
+      }, 200);
+      return () => clearTimeout(timer);
     } else {
       setHasUnrunChanges(true);
     }
-  }, [code, viewport, previewTheme]);
+  }, [code, autoRun]);
 
   // Template Change
   const handleTemplateChange = (templateId: string) => {
@@ -108,6 +113,8 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
     if (template) {
       setSelectedTemplateId(templateId);
       setCode(template.code);
+      setRenderedCode(template.code);
+      setHasUnrunChanges(false);
     }
   };
 
@@ -118,8 +125,8 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
       setActiveTab('editor');
       return;
     }
-    const start = textareaRef.current.selectionStart || code.length;
-    const end = textareaRef.current.selectionEnd || code.length;
+    const start = textareaRef.current.selectionStart ?? code.length;
+    const end = textareaRef.current.selectionEnd ?? code.length;
     const newCode = code.substring(0, start) + snippet + code.substring(end);
     setCode(newCode);
     setActiveTab('editor');
@@ -135,8 +142,8 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Tab') {
       e.preventDefault();
-      const start = e.currentTarget.selectionStart;
-      const end = e.currentTarget.selectionEnd;
+      const start = e.currentTarget.selectionStart ?? 0;
+      const end = e.currentTarget.selectionEnd ?? 0;
       const newCode = code.substring(0, start) + '  ' + code.substring(end);
       setCode(newCode);
       setTimeout(() => {
@@ -196,6 +203,8 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
   const handleReset = () => {
     const template = HTML_TEMPLATES.find((t) => t.id === selectedTemplateId) || HTML_TEMPLATES[0];
     setCode(template.code);
+    setRenderedCode(template.code);
+    setHasUnrunChanges(false);
   };
 
   const activeTemplate = HTML_TEMPLATES.find((t) => t.id === selectedTemplateId);
@@ -252,6 +261,8 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
     { label: '<table>', code: '<table border="1">\n  <tr>\n    <th>Header</th>\n  </tr>\n  <tr>\n    <td>Data</td>\n  </tr>\n</table>' },
     { label: 'rowspan', code: '<td rowspan="2">Merged Row</td>' },
     { label: 'colspan', code: '<th colspan="2">Merged Col</th>' },
+    { label: 'id="..."', code: 'id="section-1"' },
+    { label: 'class="..."', code: 'class="highlight"' },
     { label: '<form>', code: '<form action="#" method="POST">\n  <input type="text" placeholder="Name">\n  <button type="submit">Submit</button>\n</form>' },
     { label: '<input>', code: '<input type="text" name="name" placeholder="Enter text">' },
     { label: '<a> লিংক', code: '<a href="https://biggan.me" target="_blank">Biggan.me</a>' },
@@ -361,7 +372,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
             {/* Run Button (Manual) */}
             <button
               type="button"
-              onClick={renderPreview}
+              onClick={handleRun}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition shadow ${
                 hasUnrunChanges
                   ? 'bg-emerald-500 hover:bg-emerald-600 text-slate-950 animate-pulse'
@@ -520,7 +531,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
             </div>
           </div>
 
-          {/* Right Pane: Live Iframe Preview */}
+          {/* Right Pane: Live Iframe Preview with srcDoc */}
           <div className="flex flex-col bg-slate-950 flex-1 items-center justify-start overflow-auto p-4">
             <div className="w-full pb-2 flex items-center justify-between text-xs font-mono text-slate-400">
               <span className="flex items-center gap-1.5">
@@ -529,9 +540,12 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
                   {lang === 'bn' ? 'লাইভ প্রিভিউ উইন্ডো' : 'Live Browser Preview'}
                 </span>
               </span>
-              <span className="text-[11px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
-                {viewport.toUpperCase()}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-emerald-400 font-mono">● LIVE</span>
+                <span className="text-[11px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800 font-mono">
+                  {viewport.toUpperCase()}
+                </span>
+              </div>
             </div>
 
             {/* Simulated Browser Frame */}
@@ -552,11 +566,11 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
                 </div>
               </div>
 
-              {/* Sandboxed Live Output Iframe */}
+              {/* Sandboxed Live Output Iframe using srcDoc for bulletproof cross-origin rendering */}
               <iframe
-                ref={iframeRef}
+                srcDoc={renderedCode}
                 title="HTML Output Preview"
-                sandbox="allow-scripts allow-modals"
+                sandbox="allow-scripts allow-modals allow-same-origin"
                 className={`w-full flex-1 min-h-[460px] border-0 ${
                   previewTheme === 'light' ? 'bg-white text-slate-900' : 'bg-slate-900 text-slate-100'
                 }`}
