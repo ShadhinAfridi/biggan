@@ -196,6 +196,11 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
         const rel = path.relative(distPath, file).replace(/\\/g, '/');
         const content = fs.readFileSync(file, 'utf8');
 
+        // Skip verification files
+        if (rel.startsWith('google') && rel.endsWith('.html')) {
+          continue;
+        }
+
         // index.html redirect and 404.html are the ONLY files allowed to have noindex
         if (rel === 'index.html' || rel === '404.html') {
           expect(content).toContain('noindex');
