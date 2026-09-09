@@ -42,6 +42,11 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       const content = fs.readFileSync(redirectsPath, 'utf8');
       expect(content).toMatch(/\/html-runner\s+\/bn\/tools\/html-runner\/\s+301/);
     });
+
+    it('contains clean edge 302 redirect for root / to /bn/', () => {
+      const content = fs.readFileSync(redirectsPath, 'utf8');
+      expect(content).toMatch(/^\/\s+\/bn\/\s+302/m);
+    });
   });
 
   describe('Cloudflare Pages security and cache headers (_headers)', () => {
