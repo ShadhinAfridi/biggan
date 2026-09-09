@@ -220,7 +220,7 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       }
     });
 
-    it('verifies sitemap-0.xml contains exactly 204 indexable URLs, all with lastmod timestamps', () => {
+    it('verifies sitemap-0.xml contains exactly 206 indexable URLs, all with lastmod timestamps', () => {
       const sitemapPath = path.join(distPath, 'sitemap-0.xml');
       if (!fs.existsSync(sitemapPath)) return;
 
@@ -228,8 +228,8 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       const locs = (sitemapContent.match(/<loc>/g) || []).length;
       const lastmods = (sitemapContent.match(/<lastmod>/g) || []).length;
 
-      expect(locs).toBe(204);
-      expect(lastmods).toBe(204);
+      expect(locs).toBe(206);
+      expect(lastmods).toBe(206);
       expect(sitemapContent).not.toContain('<loc>https://biggan.me/</loc>');
       expect(sitemapContent).not.toContain('404');
     });

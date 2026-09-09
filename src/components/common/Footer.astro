@@ -178,14 +178,41 @@ const currentYear = new Date().getFullYear();
               {t('footer.terms')}
             </a>
           </li>
+          <li>
+            <a href={getLocalizedPath('/disclaimer', lang)} class="hover:text-cyan-400 transition text-amber-400/90 font-medium">
+              {lang === 'bn' ? '⚠️ দায়মুক্তি (Disclaimer)' : '⚠️ Disclaimer'}
+            </a>
+          </li>
         </ul>
       </div>
     </div>
 
     <!-- Bottom Legal Line -->
     <div class="mt-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-500 text-[11px]">
-      <div>
-        © {currentYear} Biggan.me. {t('footer.rights')}
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span>© {currentYear} Biggan.me. {t('footer.rights')}</span>
+        <span>•</span>
+        <a href={getLocalizedPath('/privacy', lang)} class="hover:text-slate-400 underline transition">
+          {lang === 'bn' ? 'গোপনীয়তা' : 'Privacy'}
+        </a>
+        <span>•</span>
+        <a href={getLocalizedPath('/terms', lang)} class="hover:text-slate-400 underline transition">
+          {lang === 'bn' ? 'শর্তাবলী' : 'Terms'}
+        </a>
+        <span>•</span>
+        <a href={getLocalizedPath('/disclaimer', lang)} class="hover:text-slate-400 underline transition">
+          {lang === 'bn' ? 'দায়মুক্তি' : 'Disclaimer'}
+        </a>
+        <span>•</span>
+        <button
+          type="button"
+          id="footer-cookie-settings-btn"
+          onclick="window.openCookieSettings && window.openCookieSettings()"
+          class="hover:text-cyan-400 underline transition cursor-pointer inline-flex items-center gap-1"
+        >
+          <span>🍪</span>
+          <span>{lang === 'bn' ? 'কুকি সেটিংস' : 'Cookie Settings'}</span>
+        </button>
       </div>
       <div>
         {t('footer.disclaimer')}

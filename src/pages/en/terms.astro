@@ -1,13 +1,49 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/en/terms`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${siteUrl}/en`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Terms of Service',
+      item: canonicalUrl,
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="Terms of Service — Biggan.me"
-  description="Terms and conditions governing the use of Biggan.me computational STEM tools, content licensing, and academic disclaimers."
+  description="Terms and conditions governing the use of Biggan.me calculators, curriculum resources, intellectual property, and limitations of liability."
   lang="en"
+  jsonLd={breadcrumbSchema}
 >
   <div class="max-w-4xl mx-auto space-y-8">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <li>
+          <a href={getLocalizedPath('/', 'en')} class="hover:text-cyan-400 transition">Home</a>
+        </li>
+        <li>/</li>
+        <li class="text-cyan-400 font-semibold">Terms of Service</li>
+      </ol>
+    </nav>
+
+    <!-- Header Section -->
     <div class="space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
         Terms & Conditions
@@ -16,24 +52,35 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         Terms of Service
       </h1>
       <p class="text-base text-slate-400 leading-relaxed">
-        By accessing or using Biggan.me, you agree to be bound by these Terms of Service.
+        Last updated: September 2026. By accessing or using Biggan.me, you agree to comply with and be bound by the following terms.
       </p>
     </div>
 
-    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8">
+    <!-- Main Content -->
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
       <h2 class="text-xl font-bold text-white">1. Permitted Educational Use</h2>
       <p>
-        Biggan.me provides free digital STEM calculation utilities, worked derivations, and hardware keystroke guides. You are granted a personal, non-exclusive license to use these resources for personal study, homework verification, and non-commercial classroom instruction.
+        Biggan.me is an open educational computing resource. All mathematical solvers, physics kinematics models, chemistry titration balancers, and ICT simulators are provided free of charge for student revision, homework validation, and classroom instruction. Automated scraping, bulk unauthorized copying, or commercial re-hosting without attribution is strictly prohibited.
       </p>
 
-      <h2 class="text-xl font-bold text-white mt-6">2. Intellectual Property</h2>
+      <h2 class="text-xl font-bold text-white mt-6">2. Intellectual Property Rights</h2>
       <p>
-        The underlying procedural engines, interactive visual components, bilingual translations, and hardware keystroke tutorials are the intellectual property of Biggan.me. Automated scraping, unauthorized mirroring, and repackaging behind paywalls are strictly prohibited.
+        Website frontend engineering, UI designs, bilingual terminology compilations, pedagogical worked solutions, and Casio calculator bridges are the intellectual property of Biggan.me. Printing or saving PDF copies for private personal study is unconditionally permitted.
       </p>
 
-      <h2 class="text-xl font-bold text-white mt-6">3. Academic Disclaimer</h2>
+      <h2 class="text-xl font-bold text-white mt-6">3. Disclaimer & Limitation of Liability</h2>
       <p>
-        While all models are rigorously validated against standardized curricula and peer-reviewed constants, Biggan.me provides these utilities "as-is" without warranty of any kind. Users are advised to cross-check computational outputs against their official examination board guidelines.
+        While computational algorithms undergo rigorous verification against IUPAC and board exam syllabi, all calculations are provided on an "as is" basis. Biggan.me disclaims all liability for academic examination marks or real-world application outcomes. Please consult our complete <a href={getLocalizedPath('/disclaimer', 'en')} class="text-cyan-400 underline font-semibold">Legal & Educational Disclaimer</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">4. Privacy & Advertising Standards</h2>
+      <p>
+        For detailed information regarding our data minimization practices, browser LocalStorage usage, and programmatic advertising disclosures, please review our <a href={getLocalizedPath('/privacy', 'en')} class="text-cyan-400 underline font-semibold">Privacy Policy</a>.
+      </p>
+
+      <h2 class="text-xl font-bold text-white mt-6">5. Inquiries & Legal Contact</h2>
+      <p>
+        For copyright, licensing, or terms of service clarifications, reach out via our <a href={getLocalizedPath('/contact', 'en')} class="text-cyan-400 underline font-semibold">Contact & Support Desk</a>.
       </p>
     </div>
   </div>

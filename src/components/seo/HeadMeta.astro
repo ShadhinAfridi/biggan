@@ -112,10 +112,42 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 <!-- Bing Webmaster Verification -->
 {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
 
-<!-- Deferred Third-Party Services (GA4 & AdSense) to protect Critical Rendering & Fast Interaction -->
+<!-- Deferred Third-Party Services (GA4 & AdSense) with Google Consent Mode v2 -->
 {(adsenseClientId || gaId) && (
   <script is:inline define:vars={{ adsenseClientId, gaId }}>
     (() => {
+      // 1. Establish dataLayer and Consent Mode v2 defaults immediately
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      window.gtag = gtag;
+
+      let savedConsent = null;
+      try {
+        savedConsent = localStorage.getItem('biggan_consent');
+      } catch (e) {}
+
+      if (savedConsent === 'all') {
+        gtag('consent', 'default', {
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted',
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'ad_user_data': 'denied',
+          'ad_personalization': 'denied',
+          'analytics_storage': 'denied'
+        });
+      }
+
+      // 2. Configure AdSense non-personalized ads if consent is essential-only
+      if (savedConsent === 'essential') {
+        (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+      }
+
+      // 3. Deferred execution to protect critical render path & tool interactivity
       let loaded = false;
       function loadThirdParty() {
         if (loaded) return;
@@ -126,10 +158,6 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
           gaScript.async = true;
           gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
           document.head.appendChild(gaScript);
-
-          window.dataLayer = window.dataLayer || [];
-          function gtag() { window.dataLayer.push(arguments); }
-          window.gtag = gtag;
           gtag('js', new Date());
           gtag('config', gaId);
         }

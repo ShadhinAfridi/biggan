@@ -1,48 +1,170 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/bn/privacy`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: `${siteUrl}/bn`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'গোপনীয়তা নীতি (Privacy Policy)',
+      item: canonicalUrl,
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="গোপনীয়তা নীতি (Privacy Policy) — Biggan.me"
-  description="Biggan.me এর গোপনীয়তা নীতি। গুগল অ্যাডসেন্স (Google AdSense), কুকিজ ও ব্যবহারকারীর তথ্যের সুরক্ষা ও ব্যবহার সংক্রান্ত নীতিমালা।"
+  title="গোপনীয়তা নীতি (Privacy Policy) — Biggan.me"
+  description="Biggan.me এর পূর্ণাঙ্গ গোপনীয়তা নীতি। গুগল অ্যাডসেন্স (Google AdSense), কুকিজ, লোকাল স্টোরেজ এবং ব্যবহারকারীর তথ্যের সুরক্ষা সংক্রান্ত নীতিমালা।"
   lang="bn"
+  jsonLd={breadcrumbSchema}
 >
   <div class="max-w-4xl mx-auto space-y-8">
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <li>
+          <a href={getLocalizedPath('/', 'bn')} class="hover:text-cyan-400 transition">হোম</a>
+        </li>
+        <li>/</li>
+        <li class="text-cyan-400 font-semibold">গোপনীয়তা নীতি</li>
+      </ol>
+    </nav>
+
+    <!-- Header Section -->
     <div class="space-y-3">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
         আইনি ও ডেটা সুরক্ষা
       </div>
       <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-        গোপনীয়তা নীতি (Privacy Policy)
+        গোপনীয়তা নীতি (Privacy Policy)
       </h1>
       <p class="text-base text-slate-400 leading-relaxed">
-        সর্বশেষ সংস্করণ: ৮ সেপ্টেম্বর ২০২৬। Biggan.me তে আপনার তথ্যের সুরক্ষা আমাদের প্রধান অগ্রাধিকার।
+        সর্বশেষ সংস্করণ: সেপ্টেম্বর ২০২৬। Biggan.me তে শিক্ষার্থী ও পরিদর্শকদের ব্যক্তিগত গোপনীয়তা এবং তথ্যের সুরক্ষা আমাদের সর্বোচ্চ অগ্রাধিকার।
       </p>
     </div>
 
-    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-2xl p-6 sm:p-8">
-      <h2 class="text-xl font-bold text-white">১. সংগৃহীত তথ্যাবলী</h2>
-      <p>
-        Biggan.me একটি উন্মুক্ত বিজ্ঞান প্ল্যাটফর্ম। আমাদের কোনো ক্যালকুলেটর বা টুলস ব্যবহারের জন্য কোনো অ্যাকাউন্ট খোলা বা ব্যক্তিগত তথ্য (নাম, ফোন নম্বর ইত্যাদি) প্রদানের প্রয়োজন হয় না। সকল গাণিতিক ইনপুট সরাসরি আপনার ব্রাউজারে প্রসেস করা হয় এবং আমাদের সার্ভারে সংরক্ষিত হয় না।
-      </p>
+    <!-- Main Content Policy -->
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      
+      <!-- Section 1 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          ১. ব্যক্তিগত তথ্য সংগ্রহহীন ক্লায়েন্ট-সাইড প্রযুক্তি
+        </h2>
+        <p>
+          Biggan.me একটি উন্মুক্ত শিক্ষামূলক বিজ্ঞান প্ল্যাটফর্ম। আমাদের কোনো ক্যালকুলেটর, পর্যায় সারণী বা আইসিটি সিমুলেটর ব্যবহারের জন্য ব্যবহারকারীকে কোনো অ্যাকাউন্ট তৈরি বা নিবন্ধন করতে হয় না। আপনার নাম, মোবাইল নম্বর বা পাসওয়ার্ডের মতো কোনো সংবেদনশীল ব্যক্তিগত তথ্য আমরা গ্রহণ বা সংরক্ষণ করি না।
+        </p>
+        <p>
+          আপনার প্রদত্ত সকল গাণিতিক ইনপুট (যেমন: রাসায়নিক সংকেত, প্রাসের কোণ, দ্বিঘাত সমীকরণের সহগ) সম্পূর্ণভাবে আপনার ডিভাইসের ওয়েব ব্রাউজারে স্থানীয়ভাবে প্রসেস করা হয়। এই ইনপুটগুলো কখনোই আমাদের সার্ভারে পাঠানো হয় না।
+        </p>
+      </section>
 
-      <h2 class="text-xl font-bold text-white mt-6">২. কুকিজ ও অ্যাডভারটাইজিং (Google AdSense)</h2>
-      <p>
-        আমাদের প্ল্যাটফর্মে প্রদর্শিত বিজ্ঞাপন পরিবেশনের জন্য গুগল (Google) সহ তৃতীয় পক্ষের বিজ্ঞাপন প্রদানকারী প্রতিষ্ঠান কুকিজ (যেমন DoubleClick cookie) ব্যবহার করতে পারে। গুগল এবং এর অংশীদাররা ব্যবহারকারীর পূর্ববর্তী ব্রাউজিং ইতিহাসের ভিত্তিতে প্রাসঙ্গিক বিজ্ঞাপন প্রদর্শন করতে পারে।
-      </p>
-      <p>
-        ব্যবহারকারীগণ চাইলে গুগলের <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">বিজ্ঞাপন সেটিংস (Ads Settings)</a> পেইজে গিয়ে ব্যক্তিগতকৃত বিজ্ঞাপন নিষ্ক্রিয় (Opt-out) করতে পারেন।
-      </p>
+      <hr class="border-slate-800 my-6" />
 
-      <h2 class="text-xl font-bold text-white mt-6">৩. লগ ফাইল ও অ্যানালিটিক্স</h2>
-      <p>
-        অন্যান্য ওয়েবসাইটের ন্যায় আমরা ওয়েবসাইটের নিরাপত্তা ও ট্রাফিক পর্যালোচনার জন্য সাধারণ লগ ডেটা (যেমন আইপি অ্যাড্রেস, ব্রাউজারের ধরণ, পরিদর্শনের সময়) ব্যবহার করি। এই তথ্য দ্বারা কোনো নির্দিষ্ট ব্যক্তিকে ব্যক্তিগতভাবে চিহ্নিত করা যায় না।
-      </p>
+      <!-- Section 2 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          ২. লোকাল স্টোরেজ (Local Storage) এর ব্যবহার
+        </h2>
+        <p>
+          আপনার ব্রাউজিং অভিজ্ঞতাকে নিরবচ্ছিন্ন ও ব্যক্তিগতকৃত রাখতে আমাদের ওয়েবসাইট ব্রাউজারের নিজস্ব <code>localStorage</code> মেমরি ব্যবহার করে:
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+          <li><code>theme</code>: আপনার নির্বাচিত লাইট মোড বা ডার্ক মোড কালার স্কিম সংরক্ষণ করতে।</li>
+          <li><code>biggan_consent</code>: কুকিজ ও গোপনীয়তা সম্পর্কিত আপনার সম্মতি বা অপ্ট-আউট পছন্দ সংরক্ষণ করতে।</li>
+          <li><code>ssc_progress_*</code>: 'আমার রিভিশন প্রগ্রেস' পেজে আপনার সম্পন্নকৃত বোর্ড সিলেবাসের টিকচিহ্নগুলো নিরাপদে অফলাইনে সংরক্ষণ করতে।</li>
+        </ul>
+        <p class="text-xs text-slate-400">
+          উল্লেখ্য, লোকাল স্টোরেজের এই তথ্যগুলো সম্পূর্ণ আপনার ডিভাইসে সংরক্ষিত থাকে এবং আমাদের বা কোনো তৃতীয় পক্ষের কাছে প্রেরিত হয় না। আপনি ব্রাউজারের হিস্টোরি ও ডেটা ক্লিয়ার করার মাধ্যমে যেকোনো সময় এগুলো মুছে ফেলতে পারেন।
+        </p>
+      </section>
 
-      <h2 class="text-xl font-bold text-white mt-6">৪. শিশুদের গোপনীয়তা (COPPA Compliance)</h2>
-      <p>
-        Biggan.me ১৩ বছরের কম বয়সী শিশুদের কাছ থেকে জেনেশুনে কোনো ব্যক্তিগত তথ্য সংগ্রহ করে না। এটি একটি বিশুদ্ধ শিক্ষামূলক বিজ্ঞান প্ল্যাটফর্ম।
-      </p>
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 3 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          ৩. গুগল অ্যাডসেন্স ও তৃতীয় পক্ষের বিজ্ঞাপন কুকিজ (Google AdSense)
+        </h2>
+        <p>
+          সার্ভার ব্যবস্থাপনা ও নিখরচায় শিক্ষা প্রদান সচল রাখতে Biggan.me গুগল (Google LLC) এবং এর সার্টিফায়েড পার্টনার নেটওয়ার্কের মাধ্যমে তৃতীয় পক্ষের অ-অনুপ্রবেশকারী বিজ্ঞাপন প্রদর্শন করতে পারে।
+        </p>
+        <p>
+          গুগল সহ তৃতীয় পক্ষের বিজ্ঞাপন প্রদানকারীরা আমাদের ওয়েবসাইট এবং ইন্টারনেটের অন্যান্য সাইটে আপনার পূর্ববর্তী পরিদর্শনের ভিত্তিতে বিজ্ঞাপন পরিবেশন করার জন্য কুকিজ (যেমন: <code>__gads</code>, <code>__gpi</code>, বা DoubleClick cookie) ব্যবহার করতে পারে।
+        </p>
+        <p>
+          <strong>আপনার নিয়ন্ত্রণ ও অপ্ট-আউট সুবিধা:</strong>
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+          <li>আপনি চাইলে গুগলের <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">Google Ads Settings</a> পেজে গিয়ে ব্যক্তিগতকৃত বিজ্ঞাপন (Personalized Ads) নিষ্ক্রিয় করতে পারেন।</li>
+          <li>আন্তর্জাতিক অপ্ট-আউট পোর্টাল <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">aboutads.info</a> এর মাধ্যমেও তৃতীয় পক্ষের বিজ্ঞাপন ট্র্যাকিং বন্ধ করা যায়।</li>
+          <li>আমাদের পেজের নিচে থাকা <strong>"কুকি সেটিংস"</strong> বাটনে ক্লিক করে আপনি যেকোনো সময় কেবল প্রয়োজনীয় কুকিজ অনুমোদন করে বিজ্ঞাপন ব্যক্তিগতকরণ নিষ্ক্রিয় করতে পারেন।</li>
+        </ul>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 4 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          ৪. ওয়েব অ্যানালিটিক্স ও ডায়াগনস্টিক লগ (Google Analytics 4)
+        </h2>
+        <p>
+          ওয়েবসাইটের কার্যকারিতা বৃদ্ধি, ধীরগতির 3G/4G নেটওয়ার্কে পেজ লোডিং সময় অপ্টিমাইজেশন এবং জনপ্রিয় টুলগুলোর চাহিদা পর্যালোচনার উদ্দেশ্যে আমরা গুগল অ্যানালিটিক্স ৪ (GA4) ব্যবহার করি।
+        </p>
+        <p>
+          এর মাধ্যমে সম্পূর্ণ বেনামী (Anonymized) প্রযুক্তিগত তথ্য (যেমন: ব্রাউজারের ধরণ, ডিভাইসের ধরণ, স্ক্রিন রেজোলিউশন, পরিদর্শনকৃত পৃষ্ঠা) সংগৃহীত হয়। কোনো ব্যক্তির পরিচয় চিহ্নিত করার মতো তথ্য অ্যানালিটিক্সে সংগ্রহ করা হয় না।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 5 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+          ৫. শিশুদের গোপনীয়তা সুরক্ষা (COPPA ও GDPR-K)
+        </h2>
+        <p>
+          Biggan.me একটি সর্বজনীন শিক্ষামূলক প্ল্যাটফর্ম এবং এটি ১৩ বছরের কম বয়সী শিশুদের কাছ থেকে কোনো ব্যক্তিগত শনাক্তকরণযোগ্য তথ্য (PII) সংগ্রহ করে না। আপনি যদি অভিভাবক বা শিক্ষক হিসেবে মনে করেন যে কোনো অপ্রাপ্তবয়স্ক ভুলবশত আমাদের কাছে তথ্য পাঠিয়েছে, তবে অবিলম্বে আমাদের সাথে যোগাযোগ করুন, আমরা সঙ্গে সঙ্গে তা ডেটাবেজ থেকে অপসারণ করব।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 6 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+          ৬. ব্যবহারকারীর অধিকার ও যোগাযোগ
+        </h2>
+        <p>
+          আপনার ব্যক্তিগত গোপনীয়তা বা ডেটা হ্যান্ডলিং সম্পর্কিত যেকোনো প্রশ্ন, মতামত বা সংশোধনের জন্য আমাদের গোপনীয়তা ও কমপ্লায়েন্স টিমের সাথে সরাসরি যোগাযোগ করতে পারেন:
+        </p>
+        <div class="bg-slate-950/70 p-4 rounded-xl border border-slate-800 text-xs sm:text-sm font-mono space-y-1">
+          <div>ইমেইল: <a href="mailto:privacy@biggan.me" class="text-cyan-400 underline">privacy@biggan.me</a></div>
+          <div>সহায়তা: <a href="mailto:support@biggan.me" class="text-cyan-400 underline">support@biggan.me</a></div>
+          <div>ওয়েবসাইট: <a href="https://biggan.me/bn/contact" class="text-cyan-400 underline">biggan.me/bn/contact</a></div>
+        </div>
+      </section>
+
     </div>
   </div>
 </BaseLayout>

@@ -1,43 +1,55 @@
----
+﻿---
+import { getLangFromUrl } from '../../i18n/utils';
+
 interface Props {
   slotType?: 'banner' | 'sidebar' | 'in-content';
   slotId?: string;
+  label?: string;
   className?: string;
 }
 
-const { slotType = 'banner', slotId = '', className = '' } = Astro.props;
+const { slotType = 'banner', slotId = '', label, className = '' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 const clientId = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '';
 const isLive = Boolean(clientId && slotId);
+const isPreview = import.meta.env.DEV && import.meta.env.PUBLIC_ADSENSE_PREVIEW === 'true';
 
 const containerClasses = {
-  banner: 'min-h-[90px] max-w-[728px] w-full',
-  sidebar: 'min-h-[250px] w-full max-w-[300px]',
-  'in-content': 'min-h-[120px] w-full max-w-[640px]',
+  banner: 'min-h-[100px] max-w-[728px] w-full',
+  sidebar: 'min-h-[260px] w-full max-w-[300px]',
+  'in-content': 'min-h-[260px] w-full max-w-[640px]',
 }[slotType];
+
+const defaultLabel = lang === 'bn' ? 'বিজ্ঞাপন' : 'Advertisement';
 ---
 
-<div class={`ad-slot-container ${containerClasses} ${className} mx-auto my-6 flex flex-col items-center justify-center`} aria-hidden={!isLive ? "true" : "false"}>
-  {isLive ? (
-    <ins
-      class="adsbygoogle"
-      style="display:block"
-      data-ad-client={clientId}
-      data-ad-slot={slotId}
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
-    <script>
-      // @ts-ignore
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  ) : (
-    <div class="text-center p-3">
-      <span class="text-[10px] uppercase font-mono tracking-widest text-slate-500 block">
-        Advertisement Placement
-      </span>
-      <span class="text-[9px] text-slate-600 font-mono">
-        (CLS = 0 Reserved Dimension • {slotType})
-      </span>
+{isLive ? (
+  <div class={`ad-slot-wrapper w-full mx-auto my-8 print:hidden flex flex-col items-center ${className}`}>
+    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-500 mb-1 select-none">
+      {label || defaultLabel}
+    </span>
+    <div class={`ad-slot-container ${containerClasses} bg-slate-950/40 border border-slate-800/60 rounded-xl overflow-hidden flex items-center justify-center`}>
+      <ins
+        class="adsbygoogle"
+        style="display:block; width:100%;"
+        data-ad-client={clientId}
+        data-ad-slot={slotId}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+      <script is:inline>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
-  )}
-</div>
+  </div>
+) : isPreview ? (
+  <div class={`ad-slot-preview w-full mx-auto my-6 print:hidden flex flex-col items-center ${className}`}>
+    <span class="text-[10px] uppercase font-mono tracking-widest text-slate-600 mb-1 select-none">
+      {defaultLabel} (Dev Preview)
+    </span>
+    <div class={`ad-slot-container ${containerClasses} border border-dashed border-slate-800 rounded-xl flex flex-col items-center justify-center p-4 text-center text-slate-600 text-xs font-mono`}>
+      <span>AdSlot Placeholder ({slotType})</span>
+      <span class="text-[10px] text-slate-700 mt-0.5">Slot ID: {slotId || 'none'} • CLS Reserved</span>
+    </div>
+  </div>
+) : null}

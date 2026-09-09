@@ -1,3 +1,13 @@
+﻿# ==============================================================================
 # Biggan.me — Authorized Digital Sellers (ads.txt)
-# Replace pub-0000000000000000 with your active Google AdSense Publisher ID upon account setup.
+# Specification: IAB Tech Lab ads.txt v1.1
+# ==============================================================================
+# INSTRUCTIONS FOR SITE OWNER:
+# 1. When your Google AdSense account is approved, copy your unique Publisher ID
+#    (e.g., pub-1234567890123456) from your AdSense dashboard > Account > Settings.
+# 2. Replace "pub-0000000000000000" below with your actual Publisher ID.
+# 3. Also update the environment variable in Cloudflare Pages:
+#    PUBLIC_ADSENSE_CLIENT_ID = "ca-pub-1234567890123456"
+# 4. Verify access at: https://biggan.me/ads.txt
+# ==============================================================================
 google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

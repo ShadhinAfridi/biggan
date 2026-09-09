@@ -1,0 +1,171 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/bn/disclaimer`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: `${siteUrl}/bn`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'দায়মুক্তি (Disclaimer)',
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'দায়মুক্তি ও আইনি সতর্কতা (Disclaimer) — Biggan.me',
+  description: 'Biggan.me-এর শিক্ষামূলক গণনার নির্ভুলতা, ল্যাবরেটরি নিরাপত্তা, ট্রেডমার্ক ও বিজ্ঞাপন সংক্রান্ত আনুষ্ঠানিক দায়মুক্তি নীতিমালা।',
+  url: canonicalUrl,
+  inLanguage: 'bn-BD',
+};
+---
+
+<BaseLayout
+  title="দায়মুক্তি ও আইনি সতর্কতা (Disclaimer) — Biggan.me"
+  description="Biggan.me-এর শিক্ষামূলক গণনার নির্ভুলতা, ল্যাবরেটরি নিরাপত্তা, কাসিও ট্রেডমার্ক ও বিজ্ঞাপন সংক্রান্ত আনুষ্ঠানিক দায়মুক্তি নীতিমালা।"
+  lang="bn"
+  jsonLd={[breadcrumbSchema, webPageSchema]}
+>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <li>
+          <a href={getLocalizedPath('/', 'bn')} class="hover:text-cyan-400 transition">হোম</a>
+        </li>
+        <li>/</li>
+        <li class="text-cyan-400 font-semibold">দায়মুক্তি (Disclaimer)</li>
+      </ol>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        আইনি ও শিক্ষামূলক নীতিমালা
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        দায়মুক্তি ও আইনি সতর্কতা (Disclaimer)
+      </h1>
+      <p class="text-base text-slate-400 leading-relaxed">
+        সর্বশেষ সংস্করণ: সেপ্টেম্বর ২০২৬। Biggan.me প্ল্যাটফর্ম ব্যবহারের পূর্বে অনুগ্রহ করে এই সতর্কতা ও ব্যবহারের সীমাবদ্ধতাগুলো মনোযোগ দিয়ে পড়ুন।
+      </p>
+    </div>
+
+    <!-- Main Content Cards -->
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      
+      <!-- Section 1 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          ১. শিক্ষামূলক উদ্দেশ্য ও অ-পেশাদারী পরামর্শ
+        </h2>
+        <p>
+          Biggan.me একটি সম্পূর্ণ উন্মুক্ত, অবাণিজ্যিক মনোভাবাপন্ন বিজ্ঞান শিক্ষা প্ল্যাটফর্ম। এই ওয়েবসাইটে প্রদত্ত সমস্ত ক্যালকুলেটর, গাণিতিক সমাধান, পর্যায় সারণী, আণবিক মডেল এবং ব্যাখ্যা কেবল শিক্ষার্থী ও শিক্ষকদের ব্যক্তিগত শিখন, স্ব-মূল্যায়ন এবং ক্লাসরুম ডেমোস্ট্রেশনের উদ্দেশ্যে তৈরি করা হয়েছে।
+        </p>
+        <p class="text-slate-400 text-xs sm:text-sm bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+          ⚠️ <strong>সতর্কতা:</strong> এই সাইটের কোনো তথ্য বা সমাধানকে পেশাদার রাসায়নিক প্রকৌশল, বাণিজ্যিক ম্যানুফ্যাকচারিং, চিকিৎসা নির্দেশিকা, ঔষধের সঠিক মাত্রা (Dosage) বা আইনি পরামর্শ হিসেবে বিবেচনা করা যাবে না।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 2 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          ২. গাণিতিক নির্ভুলতা ও যাচাইকরণের দায়িত্ব
+        </h2>
+        <p>
+          আমরা সর্বোচ্চ বৈজ্ঞানিক মান নিশ্চিত করতে আমাদের সমীকরণ ও ধ্রুবকসমূহকে <strong>IUPAC (CIAAW)</strong>, <strong>NIST</strong>, <strong>CODATA (2018)</strong> এবং বাংলাদেশ জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) অনুমোদিত পাঠ্যসূচির সাথে সঙ্গতিপূর্ণ রেখেছি। 
+        </p>
+        <p>
+          তথাপি, ডিজিটাল অ্যালগরিদম, ফ্লোটিং পয়েন্ট গাণিতিক আসন্নমান বা অনাকাঙ্ক্ষিত প্রোগ্রামিং ত্রুটির কারণে ফলাফলে ক্ষুদ্র পার্থক্য দেখা দিতে পারে। তাই বোর্ড পরীক্ষা বা প্রতিযোগিতামূলক পরীক্ষার ক্ষেত্রে শিক্ষার্থীদের নিজ দায়িত্বে বোর্ড অনুমোদিত মূল পাঠ্যপুস্তকের সাথে ফলাফল পুনরায় মিলিয়ে নেওয়ার পরামর্শ দেওয়া হচ্ছে। কোনো গাণিতিক ভুলের জন্য Biggan.me কর্তৃপক্ষ কোনো একাডেমিক ফলাফল বা আর্থিক ক্ষতির দায় বহন করবে না।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 3 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+          ৩. ল্যাবরেটরি ও রাসায়নিক নিরাপত্তা
+        </h2>
+        <p>
+          আমাদের রসায়ন ক্যালকুলেটরসমূহে (যেমন: মোলার ভর, দ্রবণ লঘুকরণ, রেডক্স সমতাকরণ) প্রদর্শিত বিক্রিয়া ও দ্রবণ প্রস্তুতি তাত্ত্বিক নির্দেশিকা মাত্র। বাস্তব ল্যাবরেটরিতে যেকোনো এসিড, ক্ষার বা জারক পদার্থের সাথে কাজ করার পূর্বে অবশ্যই দক্ষ শিক্ষকের তত্ত্বাবধান ও ব্যক্তিগত সুরক্ষা সরঞ্জাম (ল্যাব কোট, সুরক্ষা চশমা ও গ্লাভস) ব্যবহার বাধ্যতামূলক। বিপজ্জনক রাসায়নিক দ্রব্যের অসতর্ক ব্যবহারের ফলে কোনো দুর্ঘটনা বা শারীরিক ক্ষতির জন্য Biggan.me দায়ী নয়।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 4 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          ৪. কাসিও (Casio®) ট্রেডমার্ক দায়মুক্তি
+        </h2>
+        <p>
+          এই ওয়েবসাইটে উল্লিখিত "Casio", "fx-991EX ClassWiz", "fx-991CW", "fx-991MS" এবং "fx-100MS" হলো Casio Computer Co., Ltd.-এর নিবন্ধিত ট্রেডমার্ক। Biggan.me একটি সম্পূর্ণ স্বাধীন শিক্ষামূলক প্রকল্প এবং এটি কোনোভাবেই Casio Computer Co., Ltd. বা এর অঙ্গসংগঠন কর্তৃক অনুমোদিত, স্পনসরকৃত বা তাদের সাথে সম্পর্কিত নয়। 
+        </p>
+        <p>
+          শিক্ষার্থীরা যেন পরীক্ষার হলে অনুমোদিত ক্যালকুলেটর ব্যবহারে দক্ষ হতে পারে, কেবলমাত্র সেই ন্যায্য শিক্ষামূলক রেফারেন্স (Fair Use) হিসেবে এই কি-স্ট্রোক গাইডগুলো প্রস্তুত করা হয়েছে।
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 5 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          ৫. বিজ্ঞাপন ও তৃতীয় পক্ষের লিঙ্ক
+        </h2>
+        <p>
+          সার্ভার পরিচালন ব্যয় ও নিখরচায় শিক্ষা কার্যক্রম চালু রাখার স্বার্থে আমাদের ওয়েবসাইটে গুগল অ্যাডসেন্স (Google AdSense) বা সার্টিফায়েড বিজ্ঞাপন নেটওয়ার্কের মাধ্যমে তৃতীয় পক্ষের বিজ্ঞাপন প্রদর্শিত হতে পারে। 
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+          <li>প্রদর্শিত বিজ্ঞাপনগুলোতে স্পষ্ট <strong>"বিজ্ঞাপন"</strong> বা <strong>"Advertisement"</strong> লেবেল থাকবে।</li>
+          <li>কোনো বিজ্ঞাপনে প্রদর্শিত পণ্য বা সেবাকে Biggan.me সমর্থন বা সত্যায়িত করে না।</li>
+          <li>বিজ্ঞাপনী লিঙ্কে ক্লিক করার পর ব্যবহারকারী তৃতীয় পক্ষের ওয়েবসাইটে প্রবেশ করবেন, যার গোপনীয়তা নীতি ও বিষয়বস্তু তাদের নিজস্ব নিয়ন্ত্রাধীন।</li>
+        </ul>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 6 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+          ৬. যোগাযোগ ও সংশোধন
+        </h2>
+        <p>
+          আপনি যদি আমাদের কোনো গণনায় অসঙ্গতি বা তথ্যের ত্রুটি খুঁজে পান, অনুগ্রহ করে আমাদের জানান। আমরা দ্রুততম সময়ে তা যাচাই করে সংশোধন করব।
+        </p>
+        <div class="pt-2">
+          <a
+            href={getLocalizedPath('/contact', 'bn')}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
+          >
+            <span>📬 যোগাযোগ ও সম্পাদনা ডেস্কে লিখুন</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>

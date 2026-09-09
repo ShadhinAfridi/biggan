@@ -1,0 +1,171 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocalizedPath } from '../../i18n/utils';
+
+const siteUrl = 'https://biggan.me';
+const canonicalUrl = `${siteUrl}/en/disclaimer`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: `${siteUrl}/en`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Disclaimer',
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Legal & Educational Disclaimer — Biggan.me',
+  description: 'Formal disclaimer regarding computational accuracy, non-professional advice, laboratory safety, Casio trademarks, and transparent advertising on Biggan.me.',
+  url: canonicalUrl,
+  inLanguage: 'en-US',
+};
+---
+
+<BaseLayout
+  title="Legal & Educational Disclaimer — Biggan.me"
+  description="Formal disclaimer regarding computational accuracy, laboratory safety, Casio trademarks, and transparent advertising on Biggan.me."
+  lang="en"
+  jsonLd={[breadcrumbSchema, webPageSchema]}
+>
+  <div class="max-w-4xl mx-auto space-y-8">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex items-center gap-2 text-xs font-mono text-slate-400">
+        <li>
+          <a href={getLocalizedPath('/', 'en')} class="hover:text-cyan-400 transition">Home</a>
+        </li>
+        <li>/</li>
+        <li class="text-cyan-400 font-semibold">Disclaimer</li>
+      </ol>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+        Legal & Compliance
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Legal & Educational Disclaimer
+      </h1>
+      <p class="text-base text-slate-400 leading-relaxed">
+        Last updated: September 2026. Please read this disclaimer carefully before utilizing our scientific computation solvers and instructional guides.
+      </p>
+    </div>
+
+    <!-- Main Content Cards -->
+    <div class="prose prose-invert max-w-none text-slate-300 text-sm sm:text-base space-y-6 leading-relaxed bg-slate-900/60 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+      
+      <!-- Section 1 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          1. Educational Intent & Non-Professional Advice
+        </h2>
+        <p>
+          Biggan.me is an open-access, independent educational platform engineered to assist students and instructors with homework verification, exam revision, and conceptual STEM learning. The mathematical models, chemical solvers, physics simulators, and step-by-step proofs provided are solely for pedagogical reference.
+        </p>
+        <p class="text-slate-400 text-xs sm:text-sm bg-slate-950/70 p-4 rounded-xl border border-slate-800">
+          ⚠️ <strong>Notice:</strong> Nothing on this website constitutes certified professional engineering, industrial chemical synthesis, medical diagnostic, pharmaceutical dosage, or formal legal advice.
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 2 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          2. Computational Precision & Independent Verification
+        </h2>
+        <p>
+          We benchmark all numerical constants, atomic weights, and governing formulas against globally recognized standards, including <strong>IUPAC (CIAAW)</strong>, <strong>NIST</strong>, and <strong>CODATA (2018)</strong>, as well as secondary curriculum syllabi (NCTB and NCERT).
+        </p>
+        <p>
+          Nevertheless, automated algorithms, floating-point arithmetic rounding, and browser runtime discrepancies may occasionally yield minor variations. Candidates preparing for standardized board or entrance examinations are strongly encouraged to cross-reference solutions with authorized curriculum textbooks. Biggan.me and its contributors assume no liability for academic test results, competitive outcomes, or consequential damages.
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 3 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
+          3. Laboratory & Chemical Safety Precautions
+        </h2>
+        <p>
+          All stoichiometry, solution dilution formulas, and redox balancing steps are theoretical abstractions. Handling concentrated acids, strong alkalis, oxidizers, or electrical apparatus in a physical laboratory requires certified instructor supervision, well-ventilated fume hoods, and standard Personal Protective Equipment (PPE). Biggan.me expressly disclaims liability for any physical injury, property damage, or chemical accidents resulting from experimental recreation.
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 4 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          4. Casio® Trademark Notice & Fair Use
+        </h2>
+        <p>
+          "Casio", "fx-991EX ClassWiz", "fx-991CW", "fx-991MS", and "fx-100MS" are registered trademarks of Casio Computer Co., Ltd. Biggan.me is an independent educational portal and is not affiliated with, endorsed by, or sponsored by Casio Computer Co., Ltd.
+        </p>
+        <p>
+          All calculator keystroke sequences, display simulations, and hardware comparisons are provided under fair use principles strictly for non-commercial student instruction on exam-authorized hardware.
+        </p>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 5 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          5. Advertising & Third-Party Sponsorship Disclosure
+        </h2>
+        <p>
+          To maintain free open access for students and support high-speed CDN infrastructure, Biggan.me may display third-party programmatic advertisements through Google AdSense and certified ad networks.
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+          <li>All advertising placements are prominently labeled as <strong>"Advertisement"</strong> or <strong>"বিজ্ঞাপন"</strong>.</li>
+          <li>Advertisements are strictly segregated from calculation buttons and academic content to prevent unintentional interaction.</li>
+          <li>Biggan.me does not endorse, verify, or guarantee any external products, services, or software advertised.</li>
+        </ul>
+      </section>
+
+      <hr class="border-slate-800 my-6" />
+
+      <!-- Section 6 -->
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span>
+          6. Editorial Inquiries & Corrections
+        </h2>
+        <p>
+          If you detect any numerical error, formula typographical error, or ambiguous derivation, please contact our academic review board. We prioritize verifying and remediating reported scientific discrepancies promptly.
+        </p>
+        <div class="pt-2">
+          <a
+            href={getLocalizedPath('/contact', 'en')}
+            class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
+          >
+            <span>📬 Contact Editorial & Support Desk</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>

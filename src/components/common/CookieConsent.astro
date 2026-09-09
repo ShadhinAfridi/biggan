@@ -1,0 +1,142 @@
+﻿---
+import { getLangFromUrl, getLocalizedPath } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const privacyUrl = getLocalizedPath('/privacy', lang);
+---
+
+<!-- Floating Privacy & Cookie Consent Banner -->
+<div
+  id="cookie-consent-banner"
+  class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden opacity-0 transition-all duration-300 transform translate-y-4"
+  role="region"
+  aria-label={lang === 'bn' ? 'কুকি ও গোপনীয়তা সম্মতি' : 'Cookie & Privacy Consent'}
+>
+  <div class="bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-2xl p-5 shadow-2xl shadow-cyan-950/40 text-slate-300 space-y-4">
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-400 text-lg">
+        🍪
+      </div>
+      <div class="space-y-1">
+        <h3 class="text-sm font-bold text-white tracking-tight">
+          {lang === 'bn' ? 'গোপনীয়তা ও কুকি সেটিংস' : 'Privacy & Cookie Choices'}
+        </h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          {lang === 'bn'
+            ? 'আমরা ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে, সাইটের ট্রাফিক বিশ্লেষণ (GA4) এবং বিজ্ঞাপন (Google AdSense) পরিবেশনের জন্য কুকিজ ও লোকাল স্টোরেজ ব্যবহার করি।'
+            : 'We use cookies and local storage to personalize theme settings, analyze traffic via Google Analytics, and serve relevant educational advertisements via Google AdSense.'}
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-1">
+      <a
+        href={privacyUrl}
+        class="text-[11px] font-mono text-cyan-400 hover:underline self-center sm:self-auto py-1"
+      >
+        {lang === 'bn' ? 'নীতিমালা পড়ুন →' : 'Read Policy →'}
+      </a>
+      <div class="flex items-center gap-2">
+        <button
+          id="cookie-essential-btn"
+          type="button"
+          class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition"
+        >
+          {lang === 'bn' ? 'প্রয়োজনীয় শুধু' : 'Essential Only'}
+        </button>
+        <button
+          id="cookie-accept-btn"
+          type="button"
+          class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-cyan-900/30"
+        >
+          {lang === 'bn' ? 'সব অনুমোদন' : 'Accept All'}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const banner = document.getElementById('cookie-consent-banner');
+    const acceptBtn = document.getElementById('cookie-accept-btn');
+    const essentialBtn = document.getElementById('cookie-essential-btn');
+
+    function showBanner() {
+      if (!banner) return;
+      banner.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        banner.classList.remove('opacity-0', 'translate-y-4');
+        banner.classList.add('opacity-100', 'translate-y-0');
+      });
+    }
+
+    function hideBanner() {
+      if (!banner) return;
+      banner.classList.remove('opacity-100', 'translate-y-0');
+      banner.classList.add('opacity-0', 'translate-y-4');
+      setTimeout(() => {
+        banner.classList.add('hidden');
+      }, 300);
+    }
+
+    function applyConsent(type) {
+      try {
+        localStorage.setItem('biggan_consent', type);
+        localStorage.setItem('biggan_consent_date', new Date().toISOString());
+      } catch (e) {}
+
+      // Inform Google Consent Mode v2 & AdSense
+      if (typeof window.gtag === 'function') {
+        if (type === 'all') {
+          window.gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        } else {
+          window.gtag('consent', 'update', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied'
+          });
+        }
+      }
+
+      // AdSense Non-Personalized Ads flag
+      if (type === 'essential') {
+        (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 1;
+      } else {
+        (window.adsbygoogle = window.adsbygoogle || []).requestNonPersonalizedAds = 0;
+      }
+
+      window.dispatchEvent(new CustomEvent('biggan:consent-changed', { detail: { consent: type } }));
+      hideBanner();
+    }
+
+    // Expose openCookieSettings globally for the footer trigger
+    window.openCookieSettings = () => {
+      showBanner();
+    };
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => applyConsent('all'));
+    }
+    if (essentialBtn) {
+      essentialBtn.addEventListener('click', () => applyConsent('essential'));
+    }
+
+    // Initial check: if no consent recorded, reveal smoothly after a short non-blocking delay
+    try {
+      const saved = localStorage.getItem('biggan_consent');
+      if (!saved) {
+        setTimeout(showBanner, 1200);
+      }
+    } catch (e) {
+      showBanner();
+    }
+  })();
+</script>
