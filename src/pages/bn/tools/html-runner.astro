@@ -59,10 +59,10 @@ const faqs: ToolFaqItem[] = [
 
 <ToolLayout
   title="এইচটিএমএল (HTML) কোড এডিটর ও রানার — Biggan.me"
-  metaDescription="এইচএসসি আইসিটি ৪র্থ অধ্যায়ের জন্য লাইভ HTML কোড এডিটর ও রানার। জটিল টেবিল (rowspan/colspan), ফর্ম ডিজাইন ও বোর্ড পরীক্ষার ভুল সংশোধনের রিয়েল-টাইম প্লেগ্রাউন্ড।"
+  metaDescription="এইচএসসি আইসিটি ৪র্থ অধ্যায়ের জন্য লাইভ HTML কোড এডিটর ও রানার। জটিল টেবিল (rowspan/colspan), ফর্ম ডিজাইন, ওয়েবসাইট কাঠামো এবং বোর্ড পরীক্ষার CQ সমাধানের রিয়েল-টাইম প্লেগ্রাউন্ড।"
   toolName="এইচটিএমএল (HTML) কোড এডিটর ও রানার"
   toolCategory="তথ্য ও যোগাযোগ প্রযুক্তি (HSC ICT)"
-  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৪)', 'CBSE Class 10/12 Web Applications', 'টেবিল ও ফর্ম']}
+  curriculumTags={['NCTB এইচএসসি আইসিটি (অধ্যায় ৪)', 'ওয়েব ডিজাইন পরিচিতি এবং HTML', 'টেবিল ও ফর্ম', 'বোর্ড CQ স্পেশাল']}
   topicId="html-runner"
   exemplars={exemplars}
   faqs={faqs}
@@ -72,31 +72,140 @@ const faqs: ToolFaqItem[] = [
   </div>
 
   <div slot="derivation">
-    <div class="space-y-4">
-      <h3 class="text-base font-bold text-white">এইচটিএমএল টেবিল কাঠামো ও মার্জিং নিয়মাবলী</h3>
-      <p>
-        এইচএসসি বোর্ড পরীক্ষায় ৪র্থ অধ্যায় (ওয়েব ডিজাইন পরিচিতি এবং HTML) থেকে প্রতি বছর সৃজনশীল প্রশ্নে একটি জটিল টেবিলের দৃশ্যপট থাকে। টেবিল গঠনের মূল কাঠামো:
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
-        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-          <span class="text-cyan-400 font-bold block">রো মার্জিং (Rowspan):</span>
-          <p class="text-slate-400 font-sans">
-            যখন কোনো একটি সেলের তথ্য নিচের রো-গুলোতেও একই থাকে, তখন প্রথম সেলে <code class="text-cyan-300">&lt;td rowspan="n"&gt;</code> লিখতে হয় এবং নিচের রো-গুলো থেকে ওই সেলটি বাদ দিতে হয়।
-          </p>
+    <div class="space-y-6 text-slate-300">
+      <!-- 1. WWW and History -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          ১. ওয়ার্ল্ড ওয়াইড ওয়েব (WWW) ও HTML-এর ইতিহাস
+        </h3>
+        <p class="text-xs sm:text-sm leading-relaxed">
+          ১৯৮৯ সালে সুইজারল্যান্ডের সার্ন (CERN)-এ কর্মরত ব্রিটিশ পদার্থবিদ <strong>টিম বার্নার্স-লি (Tim Berners-Lee)</strong> বিশ্বব্যাপী বিজ্ঞানীদের মধ্যে গবেষণা তথ্য বিনিময়ের সুবিধার্থে <strong>ওয়ার্ল্ড ওয়াইড ওয়েব (WWW)</strong> আবিষ্কার করেন। পরবর্তীতে ১৯৯০ সালে তিনি ওয়েব পেজ প্রদর্শনের জন্য <strong>HTML (HyperText Markup Language)</strong> উদ্ভাবন করেন। ১৯৯৩ সালে মার্ক অ্যান্ড্রিসেন প্রথম গ্রাফিক্যাল ব্রাউজার <em>Mosaic</em> তৈরি করেন এবং ১৯৯৪ সালে টিম বার্নার্স-লি <strong>W3C (World Wide Web Consortium)</strong> প্রতিষ্ঠা করেন। বর্তমানে <strong>HTML5</strong> হলো ইন্টারনেটের সার্বজনীন আদর্শ সংস্করণ।
+        </p>
+      </div>
+
+      <!-- 2. Static vs Dynamic Website Table -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          ২. স্ট্যাটিক (Static) বনাম ডায়নামিক (Dynamic) ওয়েব পেজ তুলনা
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border border-slate-700 rounded-xl overflow-hidden">
+            <thead class="bg-slate-950 text-slate-200 font-semibold border-b border-slate-700">
+              <tr>
+                <th class="p-3 border-r border-slate-700">বৈশিষ্ট্য / তুলনার বিষয়</th>
+                <th class="p-3 border-r border-slate-700 text-cyan-400">স্ট্যাটিক ওয়েব পেজ (Static)</th>
+                <th class="p-3 text-emerald-400">ডায়নামিক ওয়েব পেজ (Dynamic)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 bg-slate-900/50 font-mono text-[11px]">
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">কন্টেন্ট পরিবর্তন</td>
+                <td class="p-2.5 border-r border-slate-800">নির্দিষ্ট, ব্রাউজারে দ্রুত লোড হয় কিন্তু সরাসরি বদলায় না।</td>
+                <td class="p-2.5">ব্যবহারকারী ও সময়ের সাথে ডেটা পরিবর্তনশীল।</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">ব্যবহৃত ভাষা</td>
+                <td class="p-2.5 border-r border-slate-800">HTML, CSS, ক্লায়েন্ট-সাইড JS</td>
+                <td class="p-2.5">PHP, Python, Node.js, ASP.NET</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">ডেটাবেজ সংযোগ</td>
+                <td class="p-2.5 border-r border-slate-800">কোনো ডেটাবেজ সংযোগ প্রয়োজন হয় না।</td>
+                <td class="p-2.5">MySQL, PostgreSQL বা MongoDB ডেটাবেজ অপরিহার্য।</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">বিকাশ খরচ ও নিরাপত্তা</td>
+                <td class="p-2.5 border-r border-slate-800">কম ব্যয়বহুল ও উচ্চ নিরাপত্তা সম্পন্ন।</td>
+                <td class="p-2.5">তুলনামূলক বেশি ব্যয় ও রক্ষণাবেক্ষণ প্রয়োজন।</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-          <span class="text-cyan-400 font-bold block">কলাম মার্জিং (Colspan):</span>
-          <p class="text-slate-400 font-sans">
-            যখন একটি হেডার বা সেল পাশাপাশি একাধিক কলাম জুড়ে বিস্তৃত হয়, তখন <code class="text-cyan-300">&lt;th colspan="n"&gt;</code> ব্যবহার করা হয় এবং একই রো-এর পরবর্তী সেলগুলোর সংখ্যা কমে যায়।
-          </p>
+      </div>
+
+      <!-- 3. Website Structures -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          ৩. ওয়েবসাইটের কাঠামো (Website Structures)
+        </h3>
+        <p class="text-xs sm:text-sm leading-relaxed">
+          ওয়েব পেজগুলোর পারস্পরিক লিংকিং পদ্ধতির উপর ভিত্তি করে কাঠামোকে ৪ ভাগে ভাগ করা হয়:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">১. লিনিয়ার / সিকোয়েন্সিয়াল (Linear):</span>
+            <p class="text-slate-400">পেজগুলো ক্রমানুসারে একটির পর একটি (Next / Previous) সাজানো থাকে। যেমন: অনলাইন টিউটোরিয়াল বা বই।</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">২. ট্রি / হায়ারার্কিক্যাল (Tree / Hierarchical):</span>
+            <p class="text-slate-400">হোম পেজ থেকে শাখা-প্রশাখায় সাব-মেনু বিভক্ত থাকে। অধিকাংশ প্রাতিষ্ঠানিক ও শিক্ষাবোর্ড ওয়েবসাইট এই ধরনের।</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">৩. নেটওয়ার্ক / ওয়েব-লিঙ্কড (Network):</span>
+            <p class="text-slate-400">সবগুলো পেজ পরস্পরের সাথে সরাসরি সংযুক্ত থাকে। ফলে যেকোনো পেজ থেকে যেকোনো পেজে যাওয়া যায়।</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">৪. হাইব্রিড / কম্বিনেশন (Hybrid):</span>
+            <p class="text-slate-400">একাধিক কাঠামোর (যেমন ট্রি ও লিনিয়ার) সমন্বয়ে গঠিত জটিল আধুনিক ওয়েব পোর্টাল।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Table Merging Rules (Rowspan & Colspan) -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          ৪. এইচটিএমএল টেবিল কাঠামো ও মার্জিং নিয়মাবলী (Rowspan ও Colspan)
+        </h3>
+        <p class="text-xs sm:text-sm leading-relaxed">
+          এইচএসসি বোর্ড পরীক্ষায় ৪র্থ অধ্যায় থেকে প্রতি বছর সৃজনশীল প্রশ্নে একটি জটিল টেবিলের দৃশ্যপট থাকে। টেবিল নির্ভুলভাবে তৈরি করার নিয়ম:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+            <span class="text-cyan-400 font-bold block">রো মার্জিং (Rowspan):</span>
+            <p class="text-slate-400 font-sans leading-relaxed">
+              যখন কোনো একটি সেলের তথ্য উল্লম্বভাবে নিচের সারিতেও একই থাকে, তখন প্রথম সেলে <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">&lt;td rowspan="n"&gt;</code> লিখতে হয় এবং পরবর্তী <code class="text-cyan-300">n-1</code> টি সারি (Row) থেকে ওই সেলটি বাদ দিতে হয়।
+            </p>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+            <span class="text-cyan-400 font-bold block">কলাম মার্জিং (Colspan):</span>
+            <p class="text-slate-400 font-sans leading-relaxed">
+              যখন একটি হেডার বা সেল অনুভূমিকভাবে পাশাপাশি একাধিক কলাম জুড়ে বিস্তৃত হয়, তখন <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">&lt;th colspan="n"&gt;</code> ব্যবহার করা হয় এবং একই সারির মোট সেলের সংখ্যা হ্রাস পায়।
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Website Publishing Steps -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          ৫. ওয়েবসাইট পাবলিশিং-এর ৩টি মৌলিক ধাপ
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">ধাপ ১: ডোমেইন নিবন্ধন</span>
+            <p class="text-slate-400">ICANN অনুমোদিত রেজিস্ট্রারের মাধ্যমে ওয়েবসাইটের অনন্য নাম (যেমন: biggan.me) নিবন্ধন করা।</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">ধাপ ২: ওয়েব হোস্টিং ক্রয়</span>
+            <p class="text-slate-400">ইন্টারনেটে সার্বক্ষণিক সংযুক্ত ওয়েব সার্ভারে পেজ ও ডেটাবেজ সংরক্ষণের জন্য মেমোরি স্পেস ভাড়া নেওয়া।</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">ধাপ ৩: ফাইল আপলোড (FTP)</span>
+            <p class="text-slate-400">FileZilla বা Git-এর মাধ্যমে লোকাল কম্পিউটার থেকে HTML/CSS ফাইল সার্ভারে স্থানান্তর ও সার্চ ইঞ্জিনে সাবমিট করা।</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div slot="applications">
-    <p>
-      HTML হলো পৃথিবীর সকল ওয়েবসাইট ও ওয়েব অ্যাপ্লিকেশনের ভিত্তিপ্রস্তর। আধুনিক যুগে শুধু ব্রাউজার ডিসপ্লে নয়, মোবাইল অ্যাপ্লিকেশন ডিজাইন (React Native, Capacitor), রেসপনসিভ ইমেইল মার্কেটিং এবং ডিজিটাল পাবলিশিংয়ে HTML5 ও CSS3 এর বিকল্প নেই। আমাদের এই ইন্টারেক্টিভ রানারে প্র্যাকটিস করে শিক্ষার্থীরা সরাসরি পরীক্ষার হলের জন্য নির্ভুল কোড লেখার দক্ষতা অর্জন করতে পারে।
+    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+      HTML5 ও CSS3 হলো বর্তমান বিশ্বের সকল ডিজিটাল ইন্টারফেসের মেরুদণ্ড। আধুনিক প্রযুক্তি জগতে শুধু সাধারণ ওয়েবসাইট নির্মাণ নয়, বরং অ্যান্ড্রয়েড ও আইওএস হাইব্রিড মোবাইল অ্যাপ্লিকেশন ডেভেলপমেন্ট (React Native, Capacitor), ইমেইল মার্কেটিং টেমপ্লেট ডিজাইন, ইন্টারঅ্যাক্টিভ ড্যাশবোর্ড এবং ক্লাউড সফটওয়্যারের ফ্রন্টএন্ড তৈরিতে এটি অপরিহার্য। শিক্ষার্থীদের জন্য বিগ্গান.মি-র এই ইন্টারঅ্যাক্টিভ রানারে প্র্যাকটিস করে বোর্ড পরীক্ষার খাতায় নির্ভুল কোডিং ও ভবিষ্যতের সফটওয়্যার ক্যারিয়ারের শক্ত ভিত্তি গড়া সম্ভব।
     </p>
   </div>
 </ToolLayout>

@@ -62,7 +62,7 @@ const faqs: ToolFaqItem[] = [
   metaDescription="Interactive dual-pane HTML code editor with live sandboxed preview, device frames, and HSC Board exam table templates (colspan/rowspan)."
   toolName="HTML Code Playground & Live Runner"
   toolCategory="Information & Communication Technology (ICT)"
-  curriculumTags={['NCTB HSC ICT Chapter 4', 'CBSE Web Applications', 'HTML Tables & Forms']}
+  curriculumTags={['NCTB HSC ICT Chapter 4', 'Web Design Foundations', 'HTML Tables & Forms', 'Board Exam CQ']}
   topicId="html-runner"
   exemplars={exemplars}
   faqs={faqs}
@@ -72,31 +72,137 @@ const faqs: ToolFaqItem[] = [
   </div>
 
   <div slot="derivation">
-    <div class="space-y-4">
-      <h3 class="text-base font-bold text-white">HTML Table Architecture & Merging Rules</h3>
-      <p>
-        In secondary ICT exams, questions testing HTML tables with irregular grids are among the most frequent. Understanding row and column spans requires visualizing grid coordinates:
-      </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs text-slate-300">
-        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-          <span class="text-cyan-400 font-bold block">Rowspan (Vertical Span):</span>
-          <p class="text-slate-400 font-sans">
-            Increases the height of a cell downwards across <code class="text-cyan-300">n</code> rows. The succeeding rows must omit this cell from their definition.
-          </p>
+    <div class="space-y-6 text-slate-300">
+      <!-- 1. WWW and Origins -->
+      <div class="space-y-2">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          1. Origin of WWW & History of HTML
+        </h3>
+        <p class="text-xs sm:text-sm leading-relaxed">
+          In 1989, British physicist <strong>Tim Berners-Lee</strong> at CERN invented the <strong>World Wide Web (WWW)</strong> to facilitate global information sharing among scientists. In 1990, he authored the initial draft of <strong>HTML (HyperText Markup Language)</strong>. Marc Andreessen created the graphical <em>Mosaic</em> browser in 1993, and in 1994, Berners-Lee founded the <strong>W3C (World Wide Web Consortium)</strong>. Today, <strong>HTML5</strong> stands as the universal living standard for digital content delivery.
+        </p>
+      </div>
+
+      <!-- 2. Static vs Dynamic Comparison -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          2. Static vs. Dynamic Web Pages Comparison
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left border border-slate-700 rounded-xl overflow-hidden">
+            <thead class="bg-slate-950 text-slate-200 font-semibold border-b border-slate-700">
+              <tr>
+                <th class="p-3 border-r border-slate-700">Evaluation Criteria</th>
+                <th class="p-3 border-r border-slate-700 text-cyan-400">Static Web Page</th>
+                <th class="p-3 text-emerald-400">Dynamic Web Page</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 bg-slate-900/50 font-mono text-[11px]">
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">Content Nature</td>
+                <td class="p-2.5 border-r border-slate-800">Fixed HTML; identical content delivered to all visitors.</td>
+                <td class="p-2.5">Adaptive; dynamically compiled based on user sessions and DB state.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">Technology Stack</td>
+                <td class="p-2.5 border-r border-slate-800">HTML5, CSS3, Client-side JavaScript.</td>
+                <td class="p-2.5">Node.js, Python, PHP, Java, ASP.NET.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">Database Layer</td>
+                <td class="p-2.5 border-r border-slate-800">No database required; fast CDN caching.</td>
+                <td class="p-2.5">Requires relational (PostgreSQL, MySQL) or NoSQL storage.</td>
+              </tr>
+              <tr>
+                <td class="p-2.5 font-bold font-sans text-slate-200 border-r border-slate-800">Maintenance & Cost</td>
+                <td class="p-2.5 border-r border-slate-800">Low deployment overhead; high inherent security.</td>
+                <td class="p-2.5">Higher maintenance overhead; requires server monitoring.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-          <span class="text-cyan-400 font-bold block">Colspan (Horizontal Span):</span>
-          <p class="text-slate-400 font-sans">
-            Expands a cell sideways across <code class="text-cyan-300">n</code> columns within the same row, reducing the remaining cell count in that row accordingly.
-          </p>
+      </div>
+
+      <!-- 3. Website Structures -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          3. Website Architectural Topologies
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">1. Linear / Sequential:</span>
+            <p class="text-slate-400">Pages are navigated sequentially in an orderly forward/back progression (e.g. step-by-step documentation, wizard flows).</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">2. Tree / Hierarchical:</span>
+            <p class="text-slate-400">Top-level homepage diverges into categorized branches and sub-pages. Standard for corporate and educational portals.</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">3. Network / Web-Linked:</span>
+            <p class="text-slate-400">Every page maintains cross-links to all others, granting visitors complete traversal freedom.</p>
+          </div>
+          <div class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold block font-mono">4. Hybrid / Composite:</span>
+            <p class="text-slate-400">Blends tree hierarchies with linear sub-sections for complex enterprise web applications.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Table Merging Rules -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          4. HTML Table Architecture & Merging Rules (Rowspan & Colspan)
+        </h3>
+        <p class="text-xs sm:text-sm leading-relaxed">
+          Secondary ICT exams frequently test irregular tables. Merging rules demand strict coordinate bookkeeping:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+            <span class="text-cyan-400 font-bold block">Rowspan (Vertical Merge):</span>
+            <p class="text-slate-400 font-sans leading-relaxed">
+              Increases the downward span across <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">&lt;td rowspan="n"&gt;</code> rows. The succeeding <code class="text-cyan-300">n-1</code> row tags must omit this cell definition.
+            </p>
+          </div>
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5">
+            <span class="text-cyan-400 font-bold block">Colspan (Horizontal Merge):</span>
+            <p class="text-slate-400 font-sans leading-relaxed">
+              Expands a cell sideways across <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">&lt;th colspan="n"&gt;</code> columns in the same row, proportionately decreasing the remaining cell count in that row.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Publishing Steps -->
+      <div class="space-y-3">
+        <h3 class="text-base sm:text-lg font-bold text-slate-100 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+          5. Three Pillars of Website Publishing
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">Step 1: Domain Name</span>
+            <p class="text-slate-400">Registering a unique, memorable address (e.g., biggan.me) with an ICANN-accredited registrar.</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">Step 2: Web Hosting</span>
+            <p class="text-slate-400">Procuring persistent server storage space connected 24/7 to the internet backbone.</p>
+          </div>
+          <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-cyan-400 font-bold font-mono block">Step 3: FTP & Deployment</span>
+            <p class="text-slate-400">Uploading static assets and code bundles via secure FTP/Git workflows and registering search indexers.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div slot="applications">
-    <p>
-      HTML is the universal structural language powering millions of web applications, hybrid mobile frameworks, responsive email templates, and digital publishing. Practicing in this client-side sandbox provides students with immediate tactile feedback, reinforcing clean semantic code habits for exams and real software projects.
+    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+      HTML5 and CSS3 serve as the universal foundation powering the modern web, hybrid mobile platforms (React Native, Capacitor, Electron), responsive corporate email templates, and cloud interfaces. Practicing inside this client-side sandbox equips students with real tactile coding muscle memory, ensuring accurate syntax for secondary board examinations and modern full-stack development.
     </p>
   </div>
 </ToolLayout>
