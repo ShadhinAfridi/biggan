@@ -3,6 +3,7 @@
 
 export const HTML_CATEGORIES = [
   { id: 'all', nameEn: 'All Elements', nameBn: 'সকল ট্যাগ' },
+  { id: 'hsc', nameEn: 'HSC Chapter 4 (NCTB)', nameBn: 'এইচএসসি ৪র্থ অধ্যায়' },
   { id: 'metadata', nameEn: 'Document & Metadata', nameBn: 'ডকুমেন্ট ও মেটাডাটা' },
   { id: 'sections', nameEn: 'Sections & Layout', nameBn: 'সেকশন ও লেআউট' },
   { id: 'grouping', nameEn: 'Content Grouping', nameBn: 'কন্টেন্ট গ্রুপিং' },
@@ -931,37 +932,44 @@ function calculateGPA(marks) {
   // 7. TABULAR DATA (TABLES)
   {
     tag: '<table>',
-    name: 'Data Table Container',
+    name: 'Data Table Container (HSC Board Core)',
     category: 'tables',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: 'Represents tabular data — that is, information presented in a two-dimensional grid consisting of rows and columns of cells.',
-    attributes: [],
-    a11yNotes: 'Tables should ONLY be used for structured data, NEVER for webpage layouts.',
-    exampleCode: `<table style="width: 100%; border-collapse: collapse; text-align: left;">
-  <caption>Employee Directory</caption>
-  <thead>
-    <tr style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
-      <th style="padding: 8px;">ID</th>
-      <th style="padding: 8px;">Name</th>
-      <th style="padding: 8px;">Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid #e2e8f0;">
-      <td style="padding: 8px;">101</td>
-      <td style="padding: 8px;">Nusrat Jahan</td>
-      <td style="padding: 8px;">Lead Engineer</td>
-    </tr>
-  </tbody>
+    description: 'Represents tabular data in a 2D grid of rows and columns. Heavily tested in HSC ICT Chapter 4.',
+    attributes: [
+      { name: 'border', desc: 'Sets border thickness in pixels (e.g., border="1" or "2"). Frequently asked in board exams.' },
+      { name: 'cellpadding', desc: 'Sets space between the cell border and cell content in pixels (e.g., cellpadding="10").' },
+      { name: 'cellspacing', desc: 'Sets distance between adjacent table cells in pixels (e.g., cellspacing="0").' },
+      { name: 'width / height', desc: 'Sets table dimensions in pixels or percentages (e.g., width="100%" or "400").' },
+      { name: 'bgcolor', desc: 'Sets background color of the table using color names or hex codes (e.g., bgcolor="#f8fafc").' },
+      { name: 'align', desc: 'Sets horizontal alignment of table on the page: "left", "center", "right".' }
+    ],
+    a11yNotes: 'Tables should ONLY be used for structured data, NEVER for webpage layouts. Use <caption> for screen reader context.',
+    exampleCode: `<table border="2" cellpadding="8" cellspacing="2" align="center" bgcolor="#f8fafc" style="border-collapse: collapse; width: 100%; max-width: 480px;">
+  <caption>HSC ICT Exam Student Roster</caption>
+  <tr bgcolor="#0284c7">
+    <th style="color: white;">Roll</th>
+    <th style="color: white;">Student Name</th>
+    <th style="color: white;">GPA</th>
+  </tr>
+  <tr align="center">
+    <td>101</td>
+    <td>Nusrat Jahan</td>
+    <td>5.00</td>
+  </tr>
 </table>`
   },
   {
     tag: '<caption>',
     name: 'Table Caption / Title',
     category: 'tables',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: 'Specifies the caption (title) of a table. Must be the first child element of a <table>.',
-    attributes: [],
+    description: 'Specifies the caption (title) of a table. Placed directly after the opening <table> tag. Taught in HSC ICT Chapter 4.',
+    attributes: [
+      { name: 'align', desc: 'Legacy attribute to place caption at "top" or "bottom".' }
+    ],
     a11yNotes: 'Crucial for assistive tech; provides immediate context before iterating through cells.',
     exampleCode: `<table>
   <caption style="font-weight: bold; margin-bottom: 8px; color: #0284c7;">HSC ICT Exam Result Summary</caption>
@@ -972,22 +980,26 @@ function calculateGPA(marks) {
     tag: '<tr>, <th>, <td>',
     name: 'Table Rows, Headers, and Data Cells',
     category: 'tables',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: '<tr> defines a table row. <th> defines a table header cell (bold and centered by default). <td> defines a standard data cell.',
+    description: '<tr> defines a table row. <th> defines a bold, centered header cell. <td> defines a standard data cell. Rowspan and Colspan are the most tested concepts in HSC ICT exams.',
     attributes: [
-      { name: 'scope (on <th>)', desc: '"col", "row", "colgroup", "rowgroup" to define header association.' },
-      { name: 'colspan', desc: 'Number of columns a cell should span horizontally.' },
-      { name: 'rowspan', desc: 'Number of rows a cell should span vertically.' }
+      { name: 'colspan="n"', desc: 'Merges n columns horizontally across the row. Most common HSC board exam question.' },
+      { name: 'rowspan="n"', desc: 'Merges n rows vertically down consecutive rows.' },
+      { name: 'align', desc: 'Sets horizontal alignment of text inside cell: "left", "center", "right".' },
+      { name: 'valign', desc: 'Sets vertical alignment of text inside cell: "top", "middle", "bottom".' },
+      { name: 'bgcolor', desc: 'Sets background color for the individual row or cell.' },
+      { name: 'scope (on <th>)', desc: '"col", "row", "colgroup", "rowgroup" to define header association for screen readers.' }
     ],
     a11yNotes: 'Always specify scope="col" or scope="row" on <th> elements.',
-    exampleCode: `<table border="1" style="border-collapse: collapse; width: 100%; text-align: center;">
-  <tr>
-    <th rowspan="2" style="background: #0284c7; color: white;">Roll</th>
-    <th colspan="2" style="background: #0284c7; color: white;">Marks</th>
+    exampleCode: `<table border="2" cellpadding="8" style="border-collapse: collapse; width: 100%; text-align: center;">
+  <tr bgcolor="#0284c7" style="color: white;">
+    <th rowspan="2">Roll</th>
+    <th colspan="2">Marks</th>
   </tr>
-  <tr>
-    <th style="background: #38bdf8; color: white;">Theory</th>
-    <th style="background: #38bdf8; color: white;">Lab</th>
+  <tr bgcolor="#38bdf8" style="color: black;">
+    <th>Theory</th>
+    <th>Practical</th>
   </tr>
   <tr>
     <td>101</td>
@@ -1279,69 +1291,108 @@ function calculateGPA(marks) {
   // 10. DEPRECATED / OBSOLETE TAGS & MODERN ALTERNATIVES
   {
     tag: '<marquee>',
-    name: 'Marquee Scrolling Text (Obsolete)',
+    name: 'Marquee Scrolling Animation (HSC Chapter 4)',
     category: 'deprecated',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: 'OBSOLETE. Used to insert a scrolling area of text. Deprecated because of terrible accessibility, distraction, and inability to pause.',
-    attributes: [],
-    a11yNotes: 'Violates WCAG 2.2.2 (Pause, Stop, Hide). Use CSS @keyframes animations with prefers-reduced-motion instead.',
-    exampleCode: `<!-- DO NOT USE IN PRODUCTION -->
-<!-- Modern Replacement using pure CSS: -->
-<div style="overflow: hidden; white-space: nowrap; border: 1px solid #38bdf8; padding: 8px; border-radius: 6px;">
-  <span style="display: inline-block; animation: scrollText 10s linear infinite; font-weight: bold; color: #0284c7;">
-    Modern Accessible Marquee Replacement via CSS Keyframes
-  </span>
-</div>
-<style>
-@keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  span { animation: none !important; }
-}
-</style>`
-  },
-  {
-    tag: '<center>',
-    name: 'Center Tag (Obsolete)',
-    category: 'deprecated',
-    syntax: 'pair',
-    description: 'OBSOLETE. Centered its enclosed content horizontally. Removed in HTML5 in favor of CSS.',
-    attributes: [],
-    a11yNotes: 'Use CSS display: flex; justify-content: center; or text-align: center; instead.',
-    exampleCode: `<!-- Obsolete: <center>Text</center> -->
-<!-- Modern Replacement: -->
-<div style="text-align: center; padding: 16px; background: #f1f5f9; border-radius: 6px;">
-  <p style="margin: 0; font-weight: bold;">Modern CSS Centering (text-align: center)</p>
-</div>`
+    description: 'Taught in NCTB HSC ICT Chapter 4 for creating dynamic scrolling text or image banners. In modern HTML5, CSS @keyframes animation is preferred.',
+    attributes: [
+      { name: 'direction', desc: 'Sets scroll direction: "left" (default), "right", "up", "down".' },
+      { name: 'behavior', desc: '"scroll" (continuous loop), "slide" (scrolls once and stops), "alternate" (bounces back and forth between edges).' },
+      { name: 'scrollamount', desc: 'Speed of scrolling in pixels per movement step (e.g. "5", "10").' },
+      { name: 'bgcolor', desc: 'Background color of the marquee strip (e.g. "#e0f2fe", "yellow").' },
+      { name: 'width / height', desc: 'Dimensions of the marquee container.' }
+    ],
+    a11yNotes: 'Can cause disorientation for reading-impaired users. Modern responsive sites use CSS keyframes with prefers-reduced-motion.',
+    exampleCode: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Marquee Animation Demo</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+  <!-- HSC ICT Board Exam Format: -->
+  <marquee direction="left" behavior="alternate" bgcolor="#e0f2fe" scrollamount="6" style="padding: 10px; font-weight: bold; color: #0284c7; border: 1px solid #38bdf8; border-radius: 6px;">
+    📢 Welcome to HSC ICT Chapter 4: Introduction to Web Design and HTML!
+  </marquee>
+</body>
+</html>`
   },
   {
     tag: '<font>',
-    name: 'Font Tag (Obsolete)',
+    name: 'Font Styling (HSC Chapter 4 Special)',
     category: 'deprecated',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: 'OBSOLETE. Defined font face, size, and color. Completely deprecated in HTML 4.01 and obsolete in HTML5.',
+    description: 'A key text-formatting tag covered in HSC ICT Chapter 4. Modifies typeface (face), text color, and relative font size (1 to 7). In modern web standards, CSS font-family, color, and font-size are used.',
+    attributes: [
+      { name: 'color', desc: 'Sets font color using names (e.g. "red", "blue") or hex codes (e.g. "#0284c7").' },
+      { name: 'size', desc: 'Sets relative font size from 1 (smallest) to 7 (largest); standard default size is 3.' },
+      { name: 'face', desc: 'Sets typeface or font family name (e.g. "Arial", "Times New Roman", "Kalpurush").' }
+    ],
+    a11yNotes: 'Hardcoding visual presentation directly in HTML prevents responsive device scaling and theming. Use CSS in production.',
+    exampleCode: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Font Tag Demo</title>
+</head>
+<body style="padding: 20px;">
+  <!-- 1. HSC Board Exam Style: -->
+  <font face="Arial" color="blue" size="5">
+    HSC ICT Chapter 4: Font Element
+  </font>
+  <br><br>
+  <!-- 2. Modern HTML5/CSS Equivalent: -->
+  <span style="font-family: Arial, sans-serif; color: #0284c7; font-size: 1.5rem; font-weight: bold;">
+    Modern CSS Equivalent (font-family, color, font-size)
+  </span>
+</body>
+</html>`
+  },
+  {
+    tag: '<strike>',
+    name: 'Strikethrough Text (HSC Chapter 4)',
+    category: 'text',
+    isHscChapter4: true,
+    syntax: 'pair',
+    description: 'Renders text with a line drawn through it. Covered in HSC ICT Chapter 4. In modern HTML5, <s> or <del> is preferred.',
     attributes: [],
-    a11yNotes: 'Mixing presentation in HTML makes theming and dark mode impossible. Use CSS classes and font-family instead.',
-    exampleCode: `<!-- Obsolete: <font color="red" size="5">Old</font> -->
-<!-- Modern Replacement: -->
-<span style="color: #ef4444; font-size: 1.25rem; font-family: sans-serif; font-weight: bold;">
-  Modern CSS Styled Text
-</span>`
+    a11yNotes: 'Use <del> if communicating editorial deletion with datetime attributes.',
+    exampleCode: `<p>Special Offer: Regular Admission Fee <strike>5000 Tk</strike> <strong>Discounted: 3500 Tk</strong></p>`
+  },
+  {
+    tag: '<big>',
+    name: 'Large Text (HSC Chapter 4)',
+    category: 'text',
+    isHscChapter4: true,
+    syntax: 'pair',
+    description: 'Enlarges text relative to surrounding text. Covered in HSC ICT Chapter 4. In modern HTML5, CSS font-size is preferred.',
+    attributes: [],
+    a11yNotes: 'Use CSS font-size for predictable, accessible typography scaling.',
+    exampleCode: `<p>Standard text containing a <big>Big Word</big> in between.</p>`
   },
   {
     tag: '<frameset> & <frame>',
-    name: 'Frameset (Obsolete)',
+    name: 'Multi-Window Frameset (HSC Chapter 4)',
     category: 'deprecated',
+    isHscChapter4: true,
     syntax: 'pair',
-    description: 'OBSOLETE. Partitioned the browser window into multiple independent HTML documents. Obsolete in HTML5.',
-    attributes: [],
-    a11yNotes: 'Broke bookmarks, navigation history, and screen reader access. Use CSS Grid or Flexbox layouts, or <iframe> if true isolation is needed.',
-    exampleCode: `<!-- Modern Layout Replacement: -->
-<div style="display: grid; grid-template-columns: 200px 1fr; height: 160px; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
-  <div style="background: #1e293b; color: white; padding: 12px;">Sidebar Frame</div>
-  <div style="background: #f8fafc; padding: 12px;">Main Content Frame</div>
+    description: 'Covered in HSC ICT Chapter 4. Divides a browser window into independent horizontal rows or vertical columns of documents.',
+    attributes: [
+      { name: 'rows', desc: 'Height distribution of horizontal frame windows (e.g. "30%,70%").' },
+      { name: 'cols', desc: 'Width distribution of vertical frame windows (e.g. "200,*").' },
+      { name: 'border', desc: 'Thickness of frame borders in pixels.' },
+      { name: 'src (on <frame>)', desc: 'URL of the document to load into the frame.' }
+    ],
+    a11yNotes: 'Obsolete in modern HTML5. Breaks bookmarks and screen readers. Use CSS Grid or <iframe> instead.',
+    exampleCode: `<!-- Legacy HSC Concept Simulation using Modern CSS Grid: -->
+<div style="display: grid; grid-template-rows: 60px 1fr; height: 200px; border: 2px solid #0284c7; border-radius: 8px; overflow: hidden; font-family: sans-serif;">
+  <div style="background: #0284c7; color: white; padding: 12px; font-weight: bold;">Header Frame (Row 1: 60px)</div>
+  <div style="display: grid; grid-template-columns: 140px 1fr;">
+    <div style="background: #1e293b; color: #94a3b8; padding: 12px;">Menu Frame (Col 1)</div>
+    <div style="background: #f8fafc; padding: 12px; color: #334155;">Main Content Frame (Col 2)</div>
+  </div>
 </div>`
   }
 ];

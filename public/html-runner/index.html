@@ -1,11 +1,137 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="bn" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML & CSS Runner — Interactive Code Sandbox & Complete Tutorial</title>
-  <meta name="description" content="Independent, zero-dependency HTML runner, live preview playground, and exhaustive tutorial for all 110+ HTML elements and modern CSS properties.">
+  <title>HTML &amp; CSS Runner + HSC ICT Chapter 4 Complete Guide — Biggan.me</title>
+  
+  <!-- Primary SEO Meta Tags -->
+  <meta name="title" content="HTML &amp; CSS Runner + HSC ICT Chapter 4 Complete Guide — Biggan.me">
+  <meta name="description" content="ইন্টারঅ্যাক্টিভ HTML ও CSS রানার এবং জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) প্রণীত এইচএসসি আইসিটি ৪র্থ অধ্যায় 'ওয়েব ডিজাইন পরিচিতি এবং HTML' এর পূর্ণাঙ্গ স্টাডি গাইড, ট্যাগ চিটশিট ও বিগত বোর্ড পরীক্ষার প্রশ্নোত্তর।">
+  <meta name="keywords" content="HSC ICT Chapter 4, Web Design and HTML, ওয়েব ডিজাইন পরিচিতি এবং HTML, HTML runner, HTML editor online, NCTB HSC ICT, HTML tags list, HTML table rowspan colspan, static vs dynamic website, domain hosting, Biggan">
+  <meta name="author" content="Biggan.me">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://biggan.me/html-runner/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://biggan.me/html-runner/">
+  <meta property="og:title" content="HTML &amp; CSS Runner + HSC ICT Chapter 4 Complete Guide — Biggan.me">
+  <meta property="og:description" content="লাইভ HTML ও CSS রানার সহ HSC ICT ৪র্থ অধ্যায়ের সম্পূর্ণ সিলেবাস: ইতিহাস, স্ট্যাটিক বনাম ডায়নামিক ওয়েবসাইট, কাঠামো, ডোমেন ও হোস্টিং, টেবিল (rowspan/colspan) এবং বোর্ড সমাধান।">
+  <meta property="og:site_name" content="Biggan.me">
+  <meta property="og:locale" content="bn_BD">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://biggan.me/favicon.svg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://biggan.me/html-runner/">
+  <meta name="twitter:title" content="HTML &amp; CSS Runner + HSC ICT Chapter 4 Guide">
+  <meta name="twitter:description" content="এইচএসসি আইসিটি ৪র্থ অধ্যায়: ওয়েব ডিজাইন ও HTML সম্পূর্ণ গাইড এবং অনলাইন কোড রানার।">
+  <meta name="twitter:image" content="https://biggan.me/favicon.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="./styles.css">
+
+  <!-- Google AdSense Ready: Replace ca-pub-XXXXXXXXXXXXXXXX with active publisher ID upon approval -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <!-- JSON-LD Structured Data: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Biggan HTML Runner",
+    "operatingSystem": "All modern browsers (Chrome, Firefox, Safari, Edge)",
+    "applicationCategory": "EducationalApplication",
+    "applicationSubCategory": "Code Sandbox & Web Design IDE",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Zero-dependency, browser-based HTML5 and CSS3 live runner with instant sandbox rendering, responsive viewport switcher, virtual console, and exhaustive element reference."
+  }
+  </script>
+
+  <!-- JSON-LD Structured Data: Course / LearningResource -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "HSC ICT Chapter 4: Introduction to Web Design and HTML (ওয়েব ডিজাইন পরিচিতি এবং HTML)",
+    "description": "Comprehensive textbook curriculum, theory, definitions, tag references, and interactive board exam code examples aligned with NCTB Bangladesh Higher Secondary Certificate (Classes 11-12).",
+    "provider": {
+      "@type": "Organization",
+      "name": "Biggan.me",
+      "url": "https://biggan.me"
+    },
+    "educationalLevel": "Higher Secondary Certificate (HSC) / Grades 11-12",
+    "inLanguage": ["bn", "en"],
+    "audience": {
+      "@type": "Audience",
+      "educationalRole": "student"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "courseWorkload": "PT10H"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD Structured Data: FAQPage for High-Value Search Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "ওয়েব পেজ (Web Page) এবং হোম পেজ (Home Page)-এর মধ্যে পার্থক্য কী?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ওয়েব পেজ হলো ইন্টারনেটে কোনো ওয়েব সার্ভারে সংরক্ষিত যেকোনো একক ইলেকট্রনিক বা ডিজিটাল ডকুমেন্ট যা ব্রাউজার দিয়ে প্রদর্শন করা যায়। আর হোম পেজ হলো কোনো ওয়েবসাইটে প্রবেশ করলে ব্যবহারকারীর সামনে প্রথম যে মূল বা প্রারম্ভিক পেজটি প্রদর্শিত হয় (সাধারণত index.html নামে সংরক্ষিত থাকে)।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "স্ট্যাটিক ওয়েবসাইট ও ডায়নামিক ওয়েবসাইটের প্রধান পার্থক্যগুলো কী কী?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "স্ট্যাটিক ওয়েবসাইটের ডেটা বা কন্টেন্ট ফিক্সড থাকে, ব্রাউজারে দ্রুত লোড হয় এবং সরাসরি ডেটাবেজের সাথে সংযুক্ত থাকে না (শুধুমাত্র HTML ও CSS দিয়ে তৈরি)। অন্যদিকে ডায়নামিক ওয়েবসাইটে ডেটাবেজ যুক্ত থাকে (যেমন MySQL, PostgreSQL), ব্যবহারকারীর চাহিদামতো কন্টেন্ট রিয়েল-টাইমে পরিবর্তিত হয় এবং সার্ভার-সাইড স্ক্রিপ্টিং (PHP, Python, Node.js) প্রয়োজন হয়।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "HTML এ টেবিল তৈরিতে rowspan এবং colspan অ্যাট্রিবিউটের কাজ কী?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HTML টেবিলে একাধিক সারি বা রো (Row) কে উল্লম্বভাবে একত্রিত করতে rowspan অ্যাট্রিবিউট ব্যবহার করা হয় (যেমন: <td rowspan=\"2\">)। পক্ষান্তরে, একাধিক কলাম (Column) কে পাশাপাশি আনুভূমিকভাবে একত্রিত করতে colspan অ্যাট্রিবিউট ব্যবহার করা হয় (যেমন: <td colspan=\"3\">)।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "একটি ওয়েবসাইট তৈরি ও ইন্টারনেটে প্রকাশের (Website Publishing) ৩টি মৌলিক ধাপ কী কী?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ওয়েবসাইট পাবলিশিংয়ের তিনটি প্রধান ধাপ হলো: ১. ডোমেইন নেম রেজিস্ট্রেশন (একটি অনন্য নাম বা ওয়েব ঠিকানা নির্দিষ্ট করা), ২. ওয়েব হোস্টিং (সার্বক্ষণিকভাবে ইন্টারনেটে সংযুক্ত সার্ভার কম্পিউটারে ফাইলসমূহ সংরক্ষণ করা), এবং ৩. সার্চ ইঞ্জিন অপটিমাইজেশন (SEO) ও সাবমিশন (গুগল বা অন্যান্য সার্চ ইঞ্জিনে সাইটটি ইনডেক্স করানো)।"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "HTML কি কোনো প্রোগ্রামিং ভাষা (Programming Language)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "না, HTML কোনো প্রোগ্রামিং ভাষা নয়। এটি একটি স্ট্যান্ডার্ড মার্কআপ ভাষা (HyperText Markup Language)। এতে কোনো লুপ, কন্ডিশনাল লজিক বা ভ্যারিয়েবল নেই; এটি ওয়েব পেজের স্ট্রাকচার বা কাঠামো নির্ধারণ করতে বিভিন্ন ট্যাগ ও অ্যাট্রিবিউট ব্যবহার করে।"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Top App Navigation Header -->
@@ -17,7 +143,7 @@
       <div class="brand-logo">&lt;/&gt;</div>
       <div class="brand-title">
         HTML Runner
-        <span class="brand-badge">HTML5 + CSS3</span>
+        <span class="brand-badge">HTML5 + HSC Ch4</span>
       </div>
     </div>
 
@@ -27,8 +153,11 @@
       <select id="templateSelect" class="template-dropdown" title="Choose a pre-built template"></select>
     </div>
 
-    <!-- Actions & Theme Toggle -->
+    <!-- Actions & Quick Links -->
     <div class="header-actions">
+      <a href="#hsc-curriculum-guide" class="btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;" title="Jump to HSC ICT Chapter 4 Board Textbook Notes">
+        📚 HSC Guide
+      </a>
       <button class="btn btn-primary" id="runBtn" title="Execute Code (Ctrl+Enter)">
         ▶ Run
       </button>
@@ -47,20 +176,37 @@
     </div>
   </header>
 
+  <!-- Google AdSense Top Leaderboard Ad Unit Container -->
+  <aside class="ad-unit-container" id="ad-header-slot" aria-label="Sponsored Advertisement">
+    <div class="ad-unit-label">Sponsored Advertisement</div>
+    <div class="ad-slot-leaderboard">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </aside>
+
   <!-- Main Split-Screen Container -->
   <div class="app-container">
     <!-- Left Drawer: Tutorial, Cheatsheet & Search -->
     <aside class="sidebar" id="sidebar">
       <!-- Tabs -->
       <div class="sidebar-tabs">
-        <button class="sidebar-tab-btn active" data-tab="html">HTML Elements</button>
+        <button class="sidebar-tab-btn active" data-tab="html">HTML Tags</button>
         <button class="sidebar-tab-btn" data-tab="css">CSS Guide</button>
         <button class="sidebar-tab-btn" data-tab="templates">Templates</button>
+        <button class="sidebar-tab-btn" data-tab="glossary">HSC ICT 📖</button>
       </div>
 
       <!-- Search Box -->
       <div class="sidebar-search-box">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search tags, selectors, attributes...">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search tags, selectors, terms...">
         <button id="searchClearBtn" class="search-clear-btn" title="Clear Search">✕</button>
       </div>
 
@@ -69,6 +215,20 @@
 
       <!-- Tag & Concept Cards List -->
       <div class="sidebar-items-list" id="sidebarItemsList"></div>
+
+      <!-- Google AdSense Sidebar Display Ad Slot -->
+      <div class="ad-unit-container" id="ad-sidebar-slot" aria-label="Advertisement">
+        <div class="ad-unit-label">Advertisement</div>
+        <div class="ad-slot-sidebar">
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:300px;height:250px"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="0987654321"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
     </aside>
 
     <!-- Workspace Area (Editor & Runner) -->
@@ -165,6 +325,585 @@
 
   <!-- Toast Notification System -->
   <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==========================================================================
+       HSC ICT CHAPTER 4 COMPLETE TEXTBOOK CURRICULUM, THEORY & BOARD GUIDE
+       (SEO Crawlable Static Content for Google Search & AdSense Value Compliance)
+       ========================================================================== -->
+  <article class="seo-curriculum-wrapper" id="hsc-curriculum-guide">
+    <div class="curriculum-container">
+      
+      <!-- Curriculum Header -->
+      <header class="curriculum-header">
+        <span class="curriculum-badge">NCTB বাংলাদেশ জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড অনুমোদিত</span>
+        <h1 class="curriculum-title">এইচএসসি আইসিটি ৪র্থ অধ্যায়: ওয়েব ডিজাইন পরিচিতি এবং HTML</h1>
+        <p class="curriculum-subtitle">
+          উচ্চ মাধ্যমিক (একাদশ-দ্বাদশ শ্রেণি) তথ্য ও যোগাযোগ প্রযুক্তি বিষয়ের চতুর্থ অধ্যায়ের তাত্ত্বিক ধারণা, ডোমেন-হোস্টিং, টেবিল ফরম্যাটিং, হাইপারলিংক, কাঠামো এবং বিগত বোর্ড পরীক্ষার সমাধান সম্বলিত পূর্ণাঙ্গ ও সার্বজনীন গাইড।
+        </p>
+      </header>
+
+      <!-- Section 1: ইতিহাস ও ওয়ার্ল্ড ওয়াইড ওয়েবের সূচনা -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">১. ওয়েব ডিজাইনের ইতিহাস ও ওয়ার্ল্ড ওয়াইড ওয়েব (WWW) এর সূচনা</h2>
+        <div class="curriculum-text">
+          <p>
+            বিশ্বজুড়ে ইন্টারনেটের মাধ্যমে তথ্য আদান-প্রদানের ক্ষেত্রে যুগান্তকারী বিপ্লব ঘটে ১৯৮৯ সালে। সুইজারল্যান্ডের জেনেভায় অবস্থিত বিখ্যাত পারমাণবিক গবেষণা সংস্থা <strong>CERN (European Organization for Nuclear Research)</strong>-এ কর্মরত ব্রিটিশ বিজ্ঞানী <strong>স্যার টিম বার্নার্স-লি (Sir Tim Berners-Lee)</strong> সর্বপ্রথম ওয়ার্ল্ড ওয়াইড ওয়েব (World Wide Web - WWW) এবং হাইপারটেক্সট ট্রান্সফার প্রোটোকলের (HTTP) প্রস্তাব করেন।
+          </p>
+          <p>
+            ১৯৯০ সালে তিনি বিশ্বের প্রথম ওয়েব ব্রাউজার ও এডিটর তৈরি করেন, যার নাম ছিল <em>WorldWideWeb</em> (পরবর্তীতে বিভ্রান্তি এড়াতে এর নাম পরিবর্তন করে <em>Nexus</em> রাখা হয়)। এরপর ১৯৯৪ সালে তিনি ওয়েব স্ট্যান্ডার্ড ও নীতিমালার উন্নয়নে প্রতিষ্ঠা করেন <strong>W3C (World Wide Web Consortium)</strong>।
+          </p>
+          <p>
+            এইচটিএমএল (HTML) কোনো প্রোগ্রামিং ভাষা নয়; বরং এটি একটি স্ট্যান্ডার্ড <strong>মার্কআপ ভাষা (HyperText Markup Language)</strong>। এটি বিভিন্ন ট্যাগ (Tag) এবং অ্যাট্রিবিউট (Attribute) ব্যবহারের মাধ্যমে ডকুমেন্টের কাঠামো বা কাঠামোবিন্যাস ব্রাউজারে উপস্থাপন করে।
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: ওয়েব পেজ, ওয়েবসাইট ও ক্লায়েন্ট-সার্ভার আর্কিটেকচার -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">২. ওয়েব পেজ, ওয়েবসাইট ও ক্লায়েন্ট-সার্ভার মডেল</h2>
+        <div class="curriculum-text">
+          <p>
+            ইন্টারনেটে তথ্য উপস্থাপনার মৌলিক একক হলো <strong>ওয়েব পেজ (Web Page)</strong>। এটি এমন একটি ডিজিটাল বা ইলেকট্রনিক ফাইল যা এইচটিএমএল বা সংশ্লিষ্ট প্রযুক্তিতে তৈরি এবং ইন্টারনেটের সাথে যুক্ত কোনো ওয়েব সার্ভারে সংরক্ষিত থাকে।
+          </p>
+          <p>
+            একই ডোমেন নামের অধীনে পরস্পরের সাথে হাইপারলিংক দ্বারা সংযুক্ত একাধিক ওয়েব পেজের সামগ্রিক বিন্যাসকে <strong>ওয়েবসাইট (Website)</strong> বলে। কোনো ওয়েবসাইটে প্রবেশ করলে ব্যবহারকারীর ব্রাউজারে সর্বপ্রথম যে প্রারম্ভিক পাতাটি খোলে তাকে <strong>হোম পেজ (Home Page)</strong> বলা হয় (যা সাধারণত <code>index.html</code> নামে সংরক্ষিত থাকে)।
+          </p>
+          <p>
+            ওয়েবের সামগ্রিক কার্যপ্রণালী পরিচালিত হয় <strong>ক্লায়েন্ট-সার্ভার (Client-Server)</strong> স্থাপত্যে:
+          </p>
+          <ul>
+            <li><strong>ক্লায়েন্ট (Client):</strong> ব্যবহারকারীর কম্পিউটার, ট্যাবলেট বা স্মার্টফোন যেখানে ওয়েব ব্রাউজার (যেমন Google Chrome, Mozilla Firefox) ইনস্টল থাকে। ব্রাউজার সার্ভারের কাছে নির্দিষ্ট পেজের জন্য HTTP/HTTPS রিকোয়েস্ট পাঠায়।</li>
+            <li><strong>সার্ভার (Web Server):</strong> ইন্টারনেটে সার্বক্ষণিক সংযুক্ত উচ্চক্ষমতাসম্পন্ন কম্পিউটার, যা ক্লায়েন্টের পাঠানো অনুরোধ যাচাই করে সংশ্লিষ্ট এইচটিএমএল, সিএসএস ও মাল্টিমিডিয়া ফাইল রেসপন্স হিসেবে ব্রাউজারে পাঠায়।</li>
+            <li><strong>ইউআরএল (URL):</strong> Uniform Resource Locator — ইন্টারনেটের যেকোনো ওয়েব পেজ বা ফাইলের নির্দিষ্ট ঠিকানা (যেমন: <code>https://biggan.me/html-runner/index.html</code>)। এর চারটি প্রধান অংশ থাকে: প্রোটোকল (https://), ডোমেন নাম (biggan.me), পাথ ডিরেক্টরি (/html-runner/) এবং ফাইল নেম (index.html)।</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Section 3: স্ট্যাটিক বনাম ডায়নামিক ওয়েবসাইট তুলনামূলক বিশ্লেষণ -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৩. স্ট্যাটিক বনাম ডায়নামিক ওয়েবসাইট (Static vs Dynamic Website)</h2>
+        <div class="curriculum-text">
+          <p>
+            উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি বোর্ড পরীক্ষায় প্রায় প্রতি বছর স্ট্যাটিক ও ডায়নামিক ওয়েবসাইটের পার্থক্য বিষয়ক প্রশ্ন এসে থাকে। নিচে শিক্ষার্থীদের জন্য এদের মৌলিক তুলনামূলক পার্থক্য ছক আকারে তুলে ধরা হলো:
+          </p>
+          <div class="cheat-table-wrapper">
+            <table class="cheat-table">
+              <thead>
+                <tr>
+                  <th>তুলনার মানদণ্ড</th>
+                  <th>স্ট্যাটিক ওয়েবসাইট (Static Website)</th>
+                  <th>ডায়নামিক ওয়েবসাইট (Dynamic Website)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>কন্টেন্ট পরিবর্তন</strong></td>
+                  <td>পেজ লোড হওয়ার পর কন্টেন্ট অপরিবর্তিত থাকে। পরিবর্তন করতে মূল কোড এডিট করতে হয়।</td>
+                  <td>ব্যবহারকারীর ইনপুট বা সার্ভারের ডেটার ওপর ভিত্তি করে রিয়েল-টাইমে পেজের কন্টেন্ট পরিবর্তিত হয়।</td>
+                </tr>
+                <tr>
+                  <td><strong>ডেটাবেজ নির্ভরতা</strong></td>
+                  <td>সাধারণত কোনো ডেটাবেজের সাথে সরাসরি যুক্ত থাকে না।</td>
+                  <td>ডেটাবেজের (যেমন MySQL, PostgreSQL, MongoDB) সাথে সরাসরি সংযুক্ত থাকে।</td>
+                </tr>
+                <tr>
+                  <td><strong>ব্যবহৃত প্রযুক্তি</strong></td>
+                  <td>HTML, CSS এবং সাধারণ ক্লায়েন্ট-সাইড JavaScript।</td>
+                  <td>HTML/CSS ছাড়াও সার্ভার-সাইড স্ক্রিপ্টিং (PHP, Python, Node.js, ASP.NET) ও SQL প্রয়োজন হয়।</td>
+                </tr>
+                <tr>
+                  <td><strong>লোডিং গতি ও খরচ</strong></td>
+                  <td>সার্ভারে কম প্রসেসিং প্রয়োজন হওয়ায় অত্যন্ত দ্রুত লোড হয় এবং হোস্টিং খরচ খুব কম।</td>
+                  <td>সার্ভারে কোয়েরি প্রসেস হওয়ায় অপেক্ষাকৃত ধীরগতি হতে পারে এবং হোস্টিং ও রক্ষণাবেক্ষণ খরচ বেশি।</td>
+                </tr>
+                <tr>
+                  <td><strong>নিরাপত্তা (Security)</strong></td>
+                  <td>ডেটাবেজ ও সার্ভার-সাইড স্ক্রিপ্ট না থাকায় হ্যাকিং বা ডেটা চুরির ঝুঁকি অনেক কম।</td>
+                  <td>ডেটাবেজ কানেক্টিভিটি থাকার কারণে SQL Injection বা XSS আক্রমণের ঝুঁকি থাকে।</td>
+                </tr>
+                <tr>
+                  <td><strong>উদাহরণ</strong></td>
+                  <td>পোর্টফোলিও সাইট, প্রাতিষ্ঠানিক পরিচিতিমূলক পেজ, সাধারণ তথ্যের পাতা।</td>
+                  <td>ফেসবুক, ই-কমার্স ওয়েবসাইট (দারাজ, অ্যামাজন), সংবাদপত্র পোর্টাল, অনলাইন ব্যাংকিং।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: ওয়েবসাইটের কাঠামো ও ওয়্যারফ্রেম -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৪. ওয়েবসাইটের কাঠামো (Website Structures) ও ওয়্যারফ্রেম (Wireframe)</h2>
+        <div class="curriculum-text">
+          <p>
+            কোনো ওয়েবসাইটের বিভিন্ন পেজগুলো পরস্পরের সাথে কীভাবে বিন্যস্ত ও সংযুক্ত থাকবে তার নকশাকে <strong>ওয়েবসাইটের কাঠামো (Website Structure)</strong> বলে। এনসিটিবি পাঠ্যপুস্তক অনুযায়ী ওয়েবসাইট কাঠামো মূলত ৪ প্রকার:
+          </p>
+          <ol>
+            <li>
+              <strong>১. লিনিয়ার বা সিকোয়েন্সিয়াল কাঠামো (Linear / Sequential Structure):</strong>
+              <p>যখন কোনো ওয়েবসাইটের পেজগুলো একটির পর একটি ক্রমানুসারে ভিজিট করতে হয় (যেমন: পেজ ১ &rarr; পেজ ২ &rarr; পেজ ৩)। অনলাইন পরীক্ষা, বইয়ের অধ্যায়ভিত্তিক রিডিং বা ধাপে ধাপে রেজিস্ট্রেশন প্রক্রিয়ায় এটি ব্যবহৃত হয়।</p>
+            </li>
+            <li>
+              <strong>২. হায়ারার্কিক্যাল বা ট্রি কাঠামো (Hierarchical / Tree Structure):</strong>
+              <p>এটি ওয়েব ডিজাইনের সবচেয়ে জনপ্রিয় ও বহুল ব্যবহৃত কাঠামো। এতে একটি মূল হোম পেজ থাকে, হোম পেজ থেকে সাব-মেনু বা প্রধান শাখা এবং শাখা থেকে উপশাখায় পেজগুলো বিন্যস্ত থাকে (যেমন: স্কুল, কলেজ বা বিশ্ববিদ্যালয়ের ওয়েবসাইট)।</p>
+            </li>
+            <li>
+              <strong>৩. নেটওয়ার্ক বা ওয়েব-লিংকড কাঠামো (Network / Web-Linked Structure):</strong>
+              <p>যে কাঠামোতে ওয়েবসাইটের প্রতিটি পেজ অন্য সকল পেজের সাথে সরাসরি হাইপারলিংক দ্বারা সংযুক্ত থাকে, ফলে যেকোনো পেজ থেকে সরাসরি অন্য যেকোনো পেজে যাওয়া যায়।</p>
+            </li>
+            <li>
+              <strong>৪. কম্বিনেশন বা হাইব্রিড কাঠামো (Combination / Hybrid Structure):</strong>
+              <p>বাস্তব ক্ষেত্রে একাধিক কাঠামোর (যেমন ট্রি ও লিনিয়ার কাঠামোর সংমিশ্রণে) সমন্বয়ে যে কাঠামো গড়ে ওঠে তাকে হাইব্রিড কাঠামো বলে।</p>
+            </li>
+          </ol>
+          <p>
+            <strong>ওয়্যারফ্রেম (Wireframe):</strong> কোনো ওয়েব পেজের চূড়ান্ত কোডিং শুরু করার পূর্বে ওয়েবসাইটের উপাদানসমূহ (হেডার, লোগো, নেভিগেশন বার, ব্যানার, কনটেন্ট এরিয়া, সাইডবার ও ফুটার) কোন স্থানে কীভাবে সজ্জিত থাকবে তার যে প্রাথমিক খসড়া ব্লুপ্রিন্ট বা স্কেচ তৈরি করা হয় তাকে ওয়্যারফ্রেম বলে।
+          </p>
+        </div>
+      </section>
+
+      <!-- Mid-Page Google AdSense Responsive Ad Unit Container -->
+      <aside class="ad-unit-container" id="ad-mid-slot" aria-label="Sponsored Advertisement">
+        <div class="ad-unit-label">Sponsored Advertisement</div>
+        <div class="ad-slot-leaderboard">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="1122334455"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </aside>
+
+      <!-- Section 5: ওয়েবসাইট পাবলিশিং-এর ৩টি মৌলিক ধাপ -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৫. ওয়েবসাইট তৈরি ও পাবলিশিং-এর ৩টি মৌলিক ধাপ (Website Publishing Steps)</h2>
+        <div class="curriculum-text">
+          <p>
+            একটি ওয়েবসাইট স্থানীয় কম্পিউটারে তৈরি করার পর তা বিশ্বব্যাপী ইন্টারনেটের সকল ব্যবহারকারীর জন্য উন্মুক্ত করতে তিনটি আবশ্যিক ধাপ অনুসরণ করতে হয়:
+          </p>
+          <div class="glossary-grid">
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ধাপ ১: ডোমেইন নেম রেজিস্ট্রেশন</span>
+                <span class="badge-tag-type badge-container">Domain Registration</span>
+              </div>
+              <p class="def-desc">
+                ইন্টারনেটে ওয়েবসাইটের স্বতন্ত্র পরিচিতির জন্য একটি অনন্য আলফানিউমেরিক নাম (যেমন <code>bangladesh.gov.bd</code> বা <code>biggan.me</code>) আইক্যান (ICANN) অনুমোদিত রেজিস্ট্রারের মাধ্যমে নির্দিষ্ট সময়ের জন্য নিবন্ধন করা। DNS (Domain Name System) সার্ভার এই ডোমেইন নামকে সংশ্লিষ্ট সার্ভারের সংখ্যাভিত্তিক আইপি অ্যাড্রেসে (IP Address) রূপান্তরিত করে।
+              </p>
+            </div>
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ধাপ ২: ওয়েব হোস্টিং</span>
+                <span class="badge-tag-type badge-container">Web Hosting</span>
+              </div>
+              <p class="def-desc">
+                তৈরিকৃত ওয়েবসাইটের সমস্ত ফাইল (HTML, CSS, জাভাস্ক্রিপ্ট, ইমেজ, ভিডিও) ইন্টারনেটে ২৪ ঘণ্টা নিরবচ্ছিন্নভাবে চালু থাকা একটি সার্বজনীন ওয়েব সার্ভারে পর্যাপ্ত মেমোরি স্পেস ও ব্যান্ডউইথ সহকারে সংরক্ষণ করা।
+              </p>
+            </div>
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ধাপ ৩: সার্চ ইঞ্জিন সাবমিশন ও এসইও</span>
+                <span class="badge-tag-type badge-container">SEO &amp; Indexing</span>
+              </div>
+              <p class="def-desc">
+                ওয়েবসাইটটি যেন গুগল (Google), বিং (Bing) বা পিপীলিকার মতো সার্চ ইঞ্জিনে ব্যবহারকারীর অনুসন্ধানে সহজে খুঁজে পাওয়া যায়, সেজন্য সার্চ ইঞ্জিনের ইনডেক্সে সাবমিট করা এবং মেটা ট্যাগ, কিওয়ার্ড ও দ্রুত লোডিংয়ের জন্য অন-পেজ অপটিমাইজেশন নিশ্চিত করা।
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6: বোর্ড পরীক্ষার জন্য গুরুত্বপূর্ণ HTML ট্যাগ ও অ্যাট্রিবিউট চিটশিট -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৬. এইচএসসি বোর্ড পরীক্ষার অপরিহার্য HTML ট্যাগ চিটশিট (Board Exam Cheatsheet)</h2>
+        <div class="curriculum-text">
+          <p>
+            এইচএসসি বোর্ড পরীক্ষায় সাধারণত দুই ধরনের ট্যাগ থেকে প্রশ্ন আসে: <strong>কন্টেইনার ট্যাগ (Container Tag)</strong> যার ওপেনিং ও ক্লোজিং উভয় ট্যাগ থাকে, এবং <strong>এম্পটি বা ভয়েড ট্যাগ (Empty Tag)</strong> যার কোনো ক্লোজিং ট্যাগ থাকে না। নিচে বহুল প্রচলিত ট্যাগসমূহের তালিকা দেওয়া হলো:
+          </p>
+          <div class="cheat-table-wrapper">
+            <table class="cheat-table">
+              <thead>
+                <tr>
+                  <th>ট্যাগ (Tag)</th>
+                  <th>ধরন</th>
+                  <th>কাজের বিবরণ ও ব্যবহার</th>
+                  <th>গুরুত্বপূর্ণ অ্যাট্রিবিউট (Attributes)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code class="cheat-tag">&lt;!DOCTYPE html&gt;</code></td>
+                  <td><span class="badge-tag-type badge-empty">Empty</span></td>
+                  <td>ডকুমেন্টটি HTML5 স্ট্যান্ডার্ডে লেখা তা ব্রাউজারকে নির্দেশ করে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;html&gt; ... &lt;/html&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>এইচটিএমএল ডকুমেন্টের মূল রুট এলিমেন্ট।</td>
+                  <td><code>lang="bn"</code>, <code>dir="ltr"</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;head&gt; ... &lt;/head&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>ডকুমেন্টের মেটাডাটা, টাইটেল ও সিএসএস লিংক ধারণ করে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;body&gt; ... &lt;/body&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>ব্রাউজারের মূল স্ক্রিনে দৃশ্যমান সকল কনটেন্ট ধারণ করে।</td>
+                  <td><code>bgcolor</code>, <code>text</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;h1&gt; to &lt;h6&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>শিরোনাম বা হেডিং তৈরির ট্যাগ (h1 সবচেয়ে বড়, h6 সবচেয়ে ছোট)।</td>
+                  <td><code>align="center|left|right"</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;p&gt; ... &lt;/p&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>অনুচ্ছেদ বা প্যারাগ্রাফ তৈরির জন্য ব্যবহৃত হয়।</td>
+                  <td><code>align</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;br&gt;</code></td>
+                  <td><span class="badge-tag-type badge-empty">Empty</span></td>
+                  <td>লাইন ব্রেক বা পরবর্তী লাইনে যাওয়ার জন্য ব্যবহৃত হয়।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;hr&gt;</code></td>
+                  <td><span class="badge-tag-type badge-empty">Empty</span></td>
+                  <td>আনুভূমিক বিভাজক রেখা (Horizontal Line) প্রদর্শনের জন্য।</td>
+                  <td><code>color</code>, <code>size</code>, <code>width</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;b&gt; / &lt;strong&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেক্সটকে বোল্ড বা মোটা অক্ষরে প্রদর্শন করতে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;i&gt; / &lt;em&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেক্সটকে ইটালিক বা বাঁকা অক্ষরে প্রদর্শন করতে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;u&gt; / &lt;ins&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেক্সটের নিচে আন্ডারলাইন বা রেখা টানতে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;sub&gt; ও &lt;sup&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>সাবস্ক্রিপ্ট (H<sub>2</sub>O) এবং সুপারস্ক্রিপ্ট (a<sup>2</sup>+b<sup>2</sup>) তৈরিতে।</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;font&gt; ... &lt;/font&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>ফন্ট পরিবর্তন (বোর্ড পরীক্ষায় ঐতিহ্যগতভাবে ব্যবহৃত হয়)।</td>
+                  <td><code>color="red"</code>, <code>face="Arial"</code>, <code>size="5"</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;a&gt; ... &lt;/a&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>হাইপারলিংক বা অন্য পেজের সংযোগ তৈরিতে।</td>
+                  <td><code>href="URL"</code>, <code>target="_blank"</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;img&gt;</code></td>
+                  <td><span class="badge-tag-type badge-empty">Empty</span></td>
+                  <td>ওয়েব পেজে ছবি বা চিত্র প্রদর্শনের জন্য।</td>
+                  <td><code>src="path"</code>, <code>alt="text"</code>, <code>width</code>, <code>height</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;table&gt; ... &lt;/table&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেবিল বা সারণী তৈরির মূল কনটেইনার ট্যাগ।</td>
+                  <td><code>border="1"</code>, <code>cellpadding</code>, <code>cellspacing</code>, <code>bgcolor</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;tr&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেবিলের একটি নতুন সারি (Table Row) নির্দেশ করে।</td>
+                  <td><code>align</code>, <code>bgcolor</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;th&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেবিলের হেডার সেল (স্বাভাবিকভাবে বোল্ড ও সেন্টারে থাকে)।</td>
+                  <td><code>colspan</code>, <code>rowspan</code>, <code>align</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;td&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>টেবিলের সাধারণ ডেটা সেল (Table Data Cell)।</td>
+                  <td><code>colspan</code>, <code>rowspan</code>, <code>align</code>, <code>valign</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;ol&gt; ও &lt;ul&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>অর্ডারড বা ক্রমিক তালিকা (1, 2, 3 বা A, B) এবং আন-অর্ডারড বুলেট তালিকা তৈরিতে।</td>
+                  <td><code>type="1|A|a|I|i|disc|circle|square"</code>, <code>start</code></td>
+                </tr>
+                <tr>
+                  <td><code class="cheat-tag">&lt;li&gt;</code></td>
+                  <td><span class="badge-tag-type badge-container">Container</span></td>
+                  <td>তালিকার প্রতিটি আইটেম (List Item) নির্দেশ করে।</td>
+                  <td><code>value</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 7: অধ্যায় ৪ পূর্ণাঙ্গ গ্লসারি ও পরিভাষা -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৭. এইচএসসি আইসিটি ৪র্থ অধ্যায় পূর্ণাঙ্গ পরিভাষা ও গ্লসারি (HSC Glossary)</h2>
+        <div class="curriculum-text">
+          <p>
+            বোর্ড পরীক্ষার ‘ক’ নম্বর জ্ঞানমূলক প্রশ্ন এবং এমসিকিউ (MCQ)-এর জন্য নিচের ১২টি প্রধান পরিভাষা ও তত্ত্বীয় সংজ্ঞা অত্যন্ত গুরুত্বপূর্ণ:
+          </p>
+          <div class="glossary-grid">
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েব পেজ (Web Page)</span>
+                <span class="def-term-bn">ইলেকট্রনিক ডকুমেন্ট</span>
+              </div>
+              <p class="def-desc">A digital document hosted on a web server accessible via web browsers.</p>
+              <p class="def-desc-bn">ইন্টারনেটের সাথে যুক্ত কোনো ওয়েব সার্ভারে সংরক্ষিত বিশেষ ইলেকট্রনিক বা ডিজিটাল ডকুমেন্ট যা ব্রাউজার দিয়ে দেখা যায়।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েবসাইট (Website)</span>
+                <span class="def-term-bn">পেজের সমষ্টি</span>
+              </div>
+              <p class="def-desc">A collection of interlinked web pages under a shared domain name.</p>
+              <p class="def-desc-bn">একই ডোমেন নামের অধীনে কোনো ওয়েব সার্ভারে সংরক্ষিত পরস্পরের সাথে সম্পর্কযুক্ত একাধিক ওয়েব পেজের সমষ্টি।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েব পোর্টাল (Web Portal)</span>
+                <span class="def-term-bn">একক প্রবেশদ্বার</span>
+              </div>
+              <p class="def-desc">A gateway website offering diverse resources, services, and external links.</p>
+              <p class="def-desc-bn">একটি বিশেষ ওয়েবসাইট যা ব্যবহারকারীকে বিভিন্ন উৎস থেকে সংগৃহীত তথ্যের একক ও কেন্দ্রীয় প্রবেশদ্বার প্রদান করে (যেমন bangladesh.gov.bd)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েব ব্রাউজার (Web Browser)</span>
+                <span class="def-term-bn">ভিউয়ার সফটওয়্যার</span>
+              </div>
+              <p class="def-desc">Application software for retrieving, parsing, and rendering web pages.</p>
+              <p class="def-desc-bn">যে সফটওয়্যারের মাধ্যমে ব্যবহারকারী ওয়েব সার্ভার থেকে পেজ প্রদর্শন ও ব্রাউজ করতে পারেন (যেমন Chrome, Firefox, Edge)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েব সার্ভার (Web Server)</span>
+                <span class="def-term-bn">হোস্টিং কম্পিউটার</span>
+              </div>
+              <p class="def-desc">A dedicated internet computer storing and serving site files via HTTP.</p>
+              <p class="def-desc-bn">ইন্টারনেটে সার্বক্ষণিকভাবে যুক্ত শক্তিশালী কম্পিউটার যেখানে ওয়েব ফাইল সংরক্ষিত থাকে এবং ক্লায়েন্টের অনুরোধে তা পরিবেশন করে।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">আইপি অ্যাড্রেস (IP Address)</span>
+                <span class="def-term-bn">সংখ্যাভিত্তিক ঠিকানা</span>
+              </div>
+              <p class="def-desc">A unique numerical identifier assigned to every device connected to the internet.</p>
+              <p class="def-desc-bn">ইন্টারনেটে যুক্ত প্রতিটি কম্পিউটার বা ডিভাইসের একটি অনন্য সংখ্যাভিত্তিক গাণিতিক ঠিকানা (যেমন IPv4: 192.168.1.1, IPv6)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ডোমেইন নেম (Domain Name)</span>
+                <span class="def-term-bn">আলফানিউমেরিক নাম</span>
+              </div>
+              <p class="def-desc">A memorable textual web address mapped to numerical IP addresses via DNS.</p>
+              <p class="def-desc-bn">আইপি অ্যাড্রেসের কঠিন সংখ্যা মনে রাখার সুবিধার্থে প্রদত্ত সহজবোধ্য আলফানিউমেরিক বা বর্ণভিত্তিক নাম (যেমন google.com)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ডিএনএস (DNS)</span>
+                <span class="def-term-bn">ডোমেন নেম সিস্টেম</span>
+              </div>
+              <p class="def-desc">The internet directory system that translates domain names into numeric IPs.</p>
+              <p class="def-desc-bn">একটি সার্বজনীন ডিরেক্টরি ব্যবস্থা যা মানুষের বোধগম্য ডোমেন নামকে কম্পিউটারের উপযোগী আইপি অ্যাড্রেসে অনুবাদ করে।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ওয়েব হোস্টিং (Web Hosting)</span>
+                <span class="def-term-bn">সার্ভার স্পেস ভাড়া</span>
+              </div>
+              <p class="def-desc">Renting 24/7 internet-connected server storage and bandwidth for website files.</p>
+              <p class="def-desc-bn">তৈরিকৃত ওয়েবসাইটের ফাইলসমূহ ইন্টারনেটে সার্বক্ষণিকভাবে যুক্ত পাবলিক ওয়েব সার্ভারে সংরক্ষণ ও পরিচালনা করার ব্যবস্থা।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">সার্চ ইঞ্জিন (Search Engine)</span>
+                <span class="def-term-bn">অনুসন্ধানকারী প্রোগ্রাম</span>
+              </div>
+              <p class="def-desc">Software system designed to search information on the WWW using keywords.</p>
+              <p class="def-desc-bn">একটি বিশেষ সফটওয়্যার যা ব্যবহারকারীর প্রদত্ত কিওয়ার্ড অনুযায়ী ইন্টারনেটে থাকা হাজারো পেজ থেকে তথ্য খুঁজে বের করে (যেমন Google, Bing, পিপীলিকা)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">হাইপারলিংক (Hyperlink)</span>
+                <span class="def-term-bn">সংযোগ ব্যবস্থা</span>
+              </div>
+              <p class="def-desc">A clickable reference linking to another section, file, or external website.</p>
+              <p class="def-desc-bn">ওয়েব পেজের এমন একটি উপাদান (টেক্সট বা ছবি) যাতে ক্লিক করলে অন্য কোনো পেজ, ফাইল বা ঠিকানায় সরাসরি যাওয়া যায় (&lt;a&gt; ট্যাগ)।</p>
+            </div>
+
+            <div class="def-card">
+              <div class="def-card-header">
+                <span class="def-term">ব্যান্ডউইথ (Bandwidth)</span>
+                <span class="def-term-bn">ডেটা স্থানান্তর গতি</span>
+              </div>
+              <p class="def-desc">The maximum volume of data transferred through a network channel per second.</p>
+              <p class="def-desc-bn">একটি নির্দিষ্ট সময়ের মধ্যে (সাধারণত প্রতি সেকেন্ডে) কোনো মাধ্যম বা নেটওয়ার্ক চ্যানেলের মধ্য দিয়ে যে পরিমাণ ডেটা স্থানান্তরিত হয় (bps/Mbps)।</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 8: বিগত বোর্ড পরীক্ষার সৃজনশীল প্রশ্ন ও উত্তর (CQ & FAQ) -->
+      <section class="curriculum-card">
+        <h2 class="curriculum-card-title">৮. বিগত বোর্ড পরীক্ষার সৃজনশীল প্রশ্ন ও গুরুত্বপূর্ণ প্রশ্নোত্তর (HSC Board FAQ &amp; CQ)</h2>
+        <div class="curriculum-text">
+          <p>
+            এইচএসসি বোর্ড পরীক্ষায় বারবার আসা সৃজনশীল প্রশ্ন ও অনুধাবনমূলক ব্যাখ্যার নমুনা নিচে বিস্তারিত আলোচনা করা হলো:
+          </p>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>প্রশ্ন ১: HTML টেবিলে rowspan এবং colspan অ্যাট্রিবিউটের মধ্যে পার্থক্য কী এবং এদের ব্যবহার বিধি কী?</span>
+                <span>▼</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>উত্তর:</strong> HTML টেবিলে সেল মার্জ (Merge) বা একত্রীকরণের জন্য <code>rowspan</code> এবং <code>colspan</code> ব্যবহৃত হয়।
+                </p>
+                <ul>
+                  <li><strong>rowspan:</strong> একাধিক রো বা সারিকে উল্লম্বভাবে (উপর-নিচ) একত্রীকরণ করতে ব্যবহৃত হয়। যেমন: <code>&lt;td rowspan="2"&gt;বিজ্ঞান&lt;/td&gt;</code> লিখলে সেলটি পরপর দুইটি সারির জায়গা একাই দখল করবে। পরবর্তী সারিতে এই সেলের জন্য অতিরিক্ত <code>&lt;td&gt;</code> লেখার প্রয়োজন হয় না।</li>
+                  <li><strong>colspan:</strong> একাধিক কলামকে আনুভূমিকভাবে (পাশাপাশি) একত্রীকরণ করতে ব্যবহৃত হয়। যেমন: <code>&lt;td colspan="3"&gt;মোট শিক্ষার্থী&lt;/td&gt;</code> লিখলে সেলটি পাশাপাশি তিনটি কলামের সমান স্থান দখল করবে।</li>
+                </ul>
+              </div>
+            </details>
+
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>প্রশ্ন ২: HTML কি কোনো প্রোগ্রামিং ভাষা? ব্যাখ্যা করো।</span>
+                <span>▼</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>উত্তর:</strong> না, HTML কোনো প্রোগ্রামিং ভাষা নয়। প্রোগ্রামিং ভাষায় লজিক্যাল ডিসিশন (if-else), লুপিং (for, while), গাণিতিক গণনা ও মেমোরি ভ্যারিয়েবল থাকে। HTML-এ এসবের কোনো সুবিধা নেই। এটি মূলত একটি <strong>মার্কআপ ভাষা (Markup Language)</strong> যা ডকুমেন্টের টেক্সট, ছবি ও উপাদানের লেআউট বা ডিসপ্লে গঠন নির্দিষ্ট করতে একগুচ্ছ ট্যাগ ব্যবহার করে।
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>প্রশ্ন ৩: একটি ছবিকে ওয়েব পেজে যুক্ত করে তাতে ক্লিক করলে নির্দিষ্ট লিংকে যাওয়ার কোড কীভাবে লিখতে হয়?</span>
+                <span>▼</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>উত্তর:</strong> ছবিকে ক্লিকেবল হাইপারলিংকে রূপান্তর করতে এঙ্কর ট্যাগ <code>&lt;a&gt;</code>-এর ভেতরে ইমেজ ট্যাগ <code>&lt;img&gt;</code> নেস্ট করতে হয়। নিচে বোর্ড পরীক্ষার আদর্শ কোড প্রদান করা হলো:
+                </p>
+                <pre style="background: var(--editor-bg); padding: 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85rem; color: var(--editor-text); overflow-x: auto;"><code>&lt;a href="https://biggan.me" target="_blank"&gt;
+  &lt;img src="logo.png" alt="Biggan Logo" width="200" height="100"&gt;
+&lt;/a&gt;</code></pre>
+              </div>
+            </details>
+
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>প্রশ্ন ৪: হায়ারার্কিক্যাল বা ট্রি কাঠামো শিক্ষাপ্রতিষ্ঠানের ওয়েবসাইটের জন্য কেন সর্বাধিক উপযোগী?</span>
+                <span>▼</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>উত্তর:</strong> একটি শিক্ষাপ্রতিষ্ঠানে প্রশাসনিক তথ্য, একাডেমিক বিভাগ, ভর্তি তথ্য, নোটিশ বোর্ড, ফলাফল ইত্যাদি বহুবিধ শ্রেণিভুক্ত উপ-শাখা থাকে। ট্রি কাঠামোতে মূল হোম পেজ থেকে প্রধান ক্যাটাগরি এবং ক্যাটাগরি থেকে সুনির্দিষ্ট সাব-ক্যাটাগরিতে সুশৃঙ্খলভাবে নেভিগেট করা যায়। ফলে শিক্ষক, শিক্ষার্থী ও অভিভাবকরা বিভ্রান্তি ছাড়া অতি দ্রুত প্রয়োজনীয় পেজ খুঁজে পান।
+                </p>
+              </div>
+            </details>
+
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>প্রশ্ন ৫: বাংলা ফন্ট যুক্ত ওয়েব পেজ তৈরি করতে &lt;meta charset="UTF-8"&gt; কেন অপরিহার্য?</span>
+                <span>▼</span>
+              </summary>
+              <div class="faq-answer">
+                <p>
+                  <strong>উত্তর:</strong> কম্পিউটারের প্রথাগত ASCII কোড মাত্র ১২৮টি ইংরেজি বর্ণ প্রকাশ করতে পারে। অন্যদিকে <strong>Unicode (UTF-8)</strong> হলো একটি সার্বজনীন ক্যারেক্টার এনকোডিং ব্যবস্থা যাতে বাংলা বর্ণমালা, যুক্তবর্ণ ও চিহ্নসহ বিশ্বের সকল ভাষার অক্ষর অন্তর্ভুক্ত রয়েছে। এইচটিএমএল ফাইলের হেডার সেকশনে <code>&lt;meta charset="UTF-8"&gt;</code> উল্লেখ না করলে ব্রাউজারে বাংলা লেখা সঠিকভাবে প্রদর্শিত না হয়ে অপাঠ্য চিহ্ন (Garbage/Mojibake) হিসেবে দেখা দিতে পারে।
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bottom Google AdSense Leaderboard Slot -->
+      <aside class="ad-unit-container" id="ad-footer-slot" aria-label="Sponsored Advertisement">
+        <div class="ad-unit-label">Sponsored Advertisement</div>
+        <div class="ad-slot-leaderboard">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+               data-ad-slot="9988776655"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </aside>
+
+    </div>
+  </article>
+
+  <!-- Google AdSense Trust & Transparency Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div style="font-weight: 700; color: var(--text-main); font-size: 1rem; margin-bottom: 4px;">
+          Biggan.me — উন্মুক্ত বিজ্ঞান ও আইসিটি শিক্ষা প্ল্যাটফর্ম
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">
+          &copy; 2026 Biggan.me. সর্বস্বত্ব সংরক্ষিত। NCTB উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি সহায়িকা।
+        </div>
+      </div>
+      <nav class="footer-links" aria-label="Site Links">
+        <a href="https://biggan.me/" class="footer-link">Home</a>
+        <a href="https://biggan.me/about/" class="footer-link">About Us</a>
+        <a href="https://biggan.me/privacy-policy/" class="footer-link">Privacy Policy</a>
+        <a href="https://biggan.me/terms/" class="footer-link">Terms of Service</a>
+        <a href="https://biggan.me/contact/" class="footer-link">Contact</a>
+      </nav>
+    </div>
+  </footer>
 
   <!-- Main JavaScript Module Entry -->
   <script type="module" src="./app.js"></script>

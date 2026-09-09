@@ -4,6 +4,7 @@
 import { HTML_CATEGORIES, HTML_TAGS } from './data/html-tags.js';
 import { CSS_TOPICS } from './data/css-reference.js';
 import { TEMPLATES } from './data/templates.js';
+import { HSC_GLOSSARY, HSC_CHAPTER_INFO } from './data/hsc-glossary.js';
 
 class HtmlRunnerApp {
   constructor() {
@@ -416,7 +417,9 @@ class HtmlRunnerApp {
     if (this.state.sidebarTab === 'html') {
       let filtered = HTML_TAGS;
 
-      if (this.state.selectedCategory !== 'all') {
+      if (this.state.selectedCategory === 'hsc') {
+        filtered = filtered.filter((t) => t.isHscChapter4 === true);
+      } else if (this.state.selectedCategory !== 'all') {
         filtered = filtered.filter((t) => t.category === this.state.selectedCategory);
       }
 
@@ -439,7 +442,7 @@ class HtmlRunnerApp {
         card.innerHTML = `
           <div class="item-card-header">
             <span class="item-tag-title">${this.escapeHTML(item.tag)}</span>
-            <span class="item-category-badge">${item.category}</span>
+            <span class="item-category-badge">${item.isHscChapter4 ? 'HSC Ch4' : item.category}</span>
           </div>
           <div style="font-weight: 600; font-size: 0.75rem; color: var(--text-main);">${item.name}</div>
           <p class="item-desc">${item.description}</p>
@@ -489,15 +492,48 @@ class HtmlRunnerApp {
         });
         list.appendChild(card);
       });
+
+    } else if (this.state.sidebarTab === 'glossary') {
+      let filtered = HSC_GLOSSARY;
+      if (this.state.searchQuery) {
+        filtered = filtered.filter((g) =>
+          g.termEn.toLowerCase().includes(this.state.searchQuery) ||
+          g.termBn.toLowerCase().includes(this.state.searchQuery) ||
+          g.defEn.toLowerCase().includes(this.state.searchQuery) ||
+          g.defBn.toLowerCase().includes(this.state.searchQuery)
+        );
+      }
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div style="padding: 16px; text-align: center; color: var(--text-faint); font-size: 0.8125rem;">No glossary terms matching "${this.state.searchQuery}"</div>`;
+        return;
+      }
+
+      filtered.forEach((term) => {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.innerHTML = `
+          <div class="item-card-header">
+            <span class="item-tag-title">${term.termBn}</span>
+            <span class="item-category-badge">${term.category}</span>
+          </div>
+          <div style="font-weight: 600; font-size: 0.75rem; color: var(--text-main);">${term.termEn}</div>
+          <p class="item-desc">${term.defBn}</p>
+        `;
+        card.addEventListener('click', () => this.openDetailModal(term, 'glossary'));
+        list.appendChild(card);
+      });
     }
   }
 
   openDetailModal(item, type) {
     this.state.selectedItemDetail = item;
-    this.dom.modalTitle.textContent = item.tag || item.title;
-    this.dom.modalCategory.textContent = item.name ? `${item.name} • ${item.category}` : item.category;
+    this.dom.modalTitle.textContent = item.tag || item.termBn || item.title;
+    this.dom.modalCategory.textContent = item.name 
+      ? `${item.name} • ${item.category}` 
+      : (item.termEn ? `${item.termEn} • ${item.category}` : item.category);
 
-    let html = `<p style="line-height: 1.6; color: var(--text-muted); font-size: 0.9rem;">${item.description}</p>`;
+    let html = `<p style="line-height: 1.6; color: var(--text-muted); font-size: 0.9rem;">${item.description || item.defBn || ''}</p>`;
 
     if (type === 'html') {
       if (item.a11yNotes) {
@@ -540,6 +576,17 @@ class HtmlRunnerApp {
           </table>
         </div>
       `;
+    } else if (type === 'glossary') {
+      html = `
+        <div style="background: rgba(16, 185, 129, 0.08); border-left: 3px solid #10b981; padding: 12px 16px; border-radius: 4px; margin-bottom: 12px;">
+          <strong style="color: #10b981; font-size: 0.8rem; text-transform: uppercase;">বাংলা সংজ্ঞা (HSC Board Exam Standard):</strong>
+          <p style="margin: 6px 0 0; font-size: 0.925rem; color: var(--text-main); line-height: 1.6;">${item.defBn}</p>
+        </div>
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 12px 16px; border-radius: 4px;">
+          <strong style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">English Definition & Key Concept:</strong>
+          <p style="margin: 6px 0 0; font-size: 0.875rem; color: var(--text-muted); line-height: 1.5;">${item.defEn}</p>
+        </div>
+      `;
     }
 
     if (item.exampleCode) {
@@ -551,6 +598,7 @@ class HtmlRunnerApp {
       `;
     }
 
+    this.dom.modalLoadBtn.style.display = item.exampleCode ? 'inline-flex' : 'none';
     this.dom.modalBody.innerHTML = html;
     this.dom.detailModal.classList.add('open');
   }

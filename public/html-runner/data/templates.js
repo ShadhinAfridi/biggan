@@ -62,6 +62,92 @@ export const TEMPLATES = [
   },
 
   {
+    id: 'hsc-comprehensive-board',
+    title: 'HSC ICT Board Standard: Complete Exam Practice',
+    category: 'exam',
+    description: 'Combines Bangla UTF-8 encoding, merged table (rowspan/colspan), nested ordered/unordered lists, text formatting, and image hyperlinks.',
+    code: `<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <!-- ১. বাংলা বর্ণমালা সঠিকভাবে দেখানোর জন্য UTF-8 ক্যারেক্টার সেট -->
+  <meta charset="utf-8">
+  <title>HSC ICT Chapter 4 Board Solution</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 20px; background: #f8fafc; color: #1e293b; line-height: 1.6; }
+    h1 { color: #0284c7; border-bottom: 2px solid #0284c7; padding-bottom: 6px; }
+    table { width: 100%; max-width: 500px; border-collapse: collapse; margin: 15px 0; background: white; }
+    th, td { border: 2px solid #334155; padding: 8px 12px; text-align: center; }
+    th { background-color: #0284c7; color: white; }
+    .highlight { background-color: #e0f2fe; font-weight: bold; color: #0369a1; }
+  </style>
+</head>
+<body>
+  <h1>উচ্চ মাধ্যমিক তথ্য ও যোগাযোগ প্রযুক্তি (৪র্থ অধ্যায়)</h1>
+  <p>ওয়েব পেজ তৈরি এবং HTML ট্যাগ ব্যবহারের সমন্বিত বোর্ড স্ট্যান্ডার্ড সমাধান।</p>
+
+  <!-- ২. টেক্সট ফরম্যাটিং ও সমীকরণ -->
+  <p>
+    পানির রাসায়নিক সংকেত: <b>H<sub>2</sub>O</b> | 
+    বীজগণিতীয় সূত্র: (a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup>
+  </p>
+
+  <!-- ৩. এইচএসসি বোর্ড স্পেশাল জটিল টেবিল (Rowspan ও Colspan) -->
+  <h3>শিক্ষার্থী ফলাফল ও নম্বর বিভাজন:</h3>
+  <table border="2" cellpadding="6" cellspacing="0">
+    <tr bgcolor="#0284c7" style="color: white;">
+      <th rowspan="2">রোল</th>
+      <th rowspan="2">নাম</th>
+      <th colspan="2">প্রাপ্ত নম্বর</th>
+      <th rowspan="2">গ্রেড</th>
+    </tr>
+    <tr bgcolor="#38bdf8" style="color: black;">
+      <th>তত্ত্বীয়</th>
+      <th>ব্যবহারিক</th>
+    </tr>
+    <tr>
+      <td>১০১</td>
+      <td>আরিফুল ইসলাম</td>
+      <td>৬৮</td>
+      <td>২৪</td>
+      <td class="highlight">A+</td>
+    </tr>
+    <tr>
+      <td>১০২</td>
+      <td>নুসরাত জাহান</td>
+      <td>৭২</td>
+      <td>২৫</td>
+      <td class="highlight">A+</td>
+    </tr>
+  </table>
+
+  <!-- ৪. নেস্টেড অর্ডারড ও আনঅর্ডারড তালিকা -->
+  <h3>এইচএসসি বিজ্ঞান বিভাগ বিষয়সমূহ:</h3>
+  <ol type="1">
+    <li>আবশ্যিক বিষয়
+      <ul style="list-style-type: circle;">
+        <li>বাংলা ও ইংরেজি</li>
+        <li>তথ্য ও যোগাযোগ প্রযুক্তি (ICT)</li>
+      </ul>
+    </li>
+    <li>নৈর্বাচনিক বিষয়
+      <ol type="A">
+        <li>পদার্থবিজ্ঞান ও রসায়ন</li>
+        <li>উচ্চতর গণিত / জীববিজ্ঞান</li>
+      </ol>
+    </li>
+  </ol>
+
+  <!-- ৫. ইমেজ হাইপারলিংক -->
+  <h3>ওয়েবসাইট সংযোগ:</h3>
+  <p>নিচের লিংকে ক্লিক করে নতুন ট্যাবে বিজ্ঞান প্ল্যাটফর্মে যান:</p>
+  <a href="https://biggan.me" target="_blank" rel="noopener noreferrer">
+    <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=240" alt="Programming on Laptop" width="180" style="border: 2px solid #0284c7; border-radius: 6px;">
+  </a>
+</body>
+</html>`
+  },
+
+  {
     id: 'hsc-board-table',
     title: 'Board Exam Special: Complex Table (Rowspan & Colspan)',
     category: 'exam',
