@@ -11,6 +11,10 @@ export default defineConfig({
     react(),
     sitemap({
       filter: (page) => page !== 'https://biggan.me/' && !page.includes('/404'),
+      serialize(item) {
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
     }),
   ],
   vite: {

@@ -164,4 +164,74 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       expect(headMetaContent).not.toContain('127.0.0.1:');
     });
   });
+
+  describe('Comprehensive 100% Page Indexability Suite (dist output)', () => {
+    const distPath = path.join(ROOT, 'dist');
+
+    it('validates all production HTML pages are indexable without unintended noindex or missing metadata', () => {
+      if (!fs.existsSync(distPath)) return; // skip if not built yet
+
+      function getHtmlFiles(dir: string, list: string[] = []): string[] {
+        const entries = fs.readdirSync(dir);
+        for (const entry of entries) {
+          const full = path.join(dir, entry);
+          if (fs.statSync(full).isDirectory()) {
+            getHtmlFiles(full, list);
+          } else if (entry.endsWith('.html')) {
+            list.push(full);
+          }
+        }
+        return list;
+      }
+
+      const files = getHtmlFiles(distPath);
+      expect(files.length).toBeGreaterThanOrEqual(206);
+
+      for (const file of files) {
+        const rel = path.relative(distPath, file).replace(/\\/g, '/');
+        const content = fs.readFileSync(file, 'utf8');
+
+        // index.html redirect and 404.html are the ONLY files allowed to have noindex
+        if (rel === 'index.html' || rel === '404.html') {
+          expect(content).toContain('noindex');
+        } else {
+          expect(content, `${rel} has unintended noindex`).not.toContain('noindex');
+          expect(content, `${rel} missing index directive`).toContain('index, follow');
+
+          // Must have valid title
+          const titleMatch = content.match(/<title>([^<]+)<\/title>/);
+          expect(titleMatch, `${rel} missing title`).toBeTruthy();
+          expect(titleMatch![1].trim().length).toBeGreaterThan(5);
+
+          // Must have valid meta description
+          const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]+)"/);
+          expect(descMatch, `${rel} missing meta description`).toBeTruthy();
+          expect(descMatch![1].trim().length).toBeGreaterThan(15);
+
+          // Must have canonical matching exact URL
+          const expectedCanonical = `https://biggan.me/${rel.replace(/index\.html$/, '')}`;
+          expect(content, `${rel} canonical mismatch`).toContain(`rel="canonical" href="${expectedCanonical}"`);
+
+          // Must have reciprocal hreflang tags
+          expect(content, `${rel} missing hreflang bn`).toContain('hreflang="bn"');
+          expect(content, `${rel} missing hreflang en`).toContain('hreflang="en"');
+          expect(content, `${rel} missing hreflang x-default`).toContain('hreflang="x-default"');
+        }
+      }
+    });
+
+    it('verifies sitemap-0.xml contains exactly 204 indexable URLs, all with lastmod timestamps', () => {
+      const sitemapPath = path.join(distPath, 'sitemap-0.xml');
+      if (!fs.existsSync(sitemapPath)) return;
+
+      const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
+      const locs = (sitemapContent.match(/<loc>/g) || []).length;
+      const lastmods = (sitemapContent.match(/<lastmod>/g) || []).length;
+
+      expect(locs).toBe(204);
+      expect(lastmods).toBe(204);
+      expect(sitemapContent).not.toContain('<loc>https://biggan.me/</loc>');
+      expect(sitemapContent).not.toContain('404');
+    });
+  });
 });
