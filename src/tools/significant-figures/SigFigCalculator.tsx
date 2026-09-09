@@ -50,7 +50,7 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700/80 rounded-2xl p-6 shadow-2xl space-y-6">
+    <div className="bg-slate-900 border border-slate-700/80 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -65,12 +65,12 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         </div>
 
         {/* Tab Toggle */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 self-stretch sm:self-auto">
           <button
             onClick={() => setActiveTab('counter')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+            className={`px-3 py-2 rounded-lg text-xs font-medium transition flex items-center justify-center min-h-[36px] cursor-pointer ${
               activeTab === 'counter'
-                ? 'bg-amber-600 text-white shadow-sm'
+                ? 'bg-amber-600 text-white shadow-sm font-bold'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -78,13 +78,13 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </button>
           <button
             onClick={() => setActiveTab('arithmetic')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+            className={`px-3 py-2 rounded-lg text-xs font-medium transition flex items-center justify-center min-h-[36px] cursor-pointer ${
               activeTab === 'arithmetic'
-                ? 'bg-amber-600 text-white shadow-sm'
+                ? 'bg-amber-600 text-white shadow-sm font-bold'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            {lang === 'bn' ? 'গাণিতিক অপারেশন (+, -, ×, ÷)' : 'Precision Math'}
+            {lang === 'bn' ? 'গাণিতিক অপারেশন (+, -, ×, ÷)' : 'Precision Math (+, -, ×, ÷)'}
           </button>
         </div>
       </div>

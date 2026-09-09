@@ -195,98 +195,107 @@ const hscScienceTools = [
 
       <ThemeToggle />
 
-      <!-- Mobile Menu Button -->
+      <!-- Mobile Menu Button with 44x44px touch target -->
       <button
         type="button"
         id="mobile-menu-btn"
-        class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none"
+        class="md:hidden min-h-[44px] min-w-[44px] p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none flex items-center justify-center cursor-pointer transition"
         aria-label="Toggle Navigation Menu"
         aria-expanded="false"
+        aria-controls="mobile-menu"
       >
+        <!-- Hamburger Icon -->
         <svg id="hamburger-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+        <!-- Close (X) Icon -->
+        <svg id="close-icon" class="w-6 h-6 hidden text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- Mobile Dropdown Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-4 pt-3 pb-6 space-y-3 transition-all duration-300">
-    <div class="space-y-1">
+  <!-- Mobile Dropdown Menu with scroll containment -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-slate-800 bg-slate-950 px-4 pt-3 pb-8 space-y-4 max-h-[calc(100dvh-4rem)] overflow-y-auto transition-all duration-300"
+  >
+    <div class="space-y-2">
       <a
         href={getLocalizedPath('/tools', lang)}
-        class="block px-3 py-2 rounded-lg text-sm font-semibold text-cyan-400 bg-cyan-950/30 border border-cyan-800/40"
+        class="block px-3 py-2.5 rounded-xl text-sm font-semibold text-cyan-400 bg-cyan-950/40 border border-cyan-800/50 min-h-[44px] flex items-center"
       >
         🚀 {t('nav.tools')} ({lang === 'bn' ? '১৭টি টুলস' : '17 Tools'})
       </a>
 
       <!-- SSC Tools on Mobile -->
-      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 pt-2">
-        {lang === 'bn' ? 'এসএসসি বিজ্ঞান' : 'SSC Science'}
+      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-2 pt-2">
+        {lang === 'bn' ? 'এসএসসি বিজ্ঞান (৯ম-১০ম)' : 'SSC Science (Class 9-10)'}
       </div>
-      <div class="grid grid-cols-2 gap-1 px-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 px-1">
         {sscTools.map((tool) => (
           <a
             href={tool.href}
-            class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-900 flex items-center gap-1.5"
+            class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 flex items-center gap-2 min-h-[40px] transition"
           >
-            <span>{tool.icon}</span>
+            <span class="text-sm">{tool.icon}</span>
             <span class="truncate">{tool.name}</span>
           </a>
         ))}
       </div>
 
       <!-- HSC Science on Mobile -->
-      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 pt-2">
-        {lang === 'bn' ? 'এইচএসসি বিজ্ঞান' : 'HSC Science'}
+      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-2 pt-2">
+        {lang === 'bn' ? 'এইচএসসি বিজ্ঞান (১১শ-১২শ)' : 'HSC Science (Class 11-12)'}
       </div>
-      <div class="grid grid-cols-2 gap-1 px-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 px-1">
         {hscScienceTools.map((tool) => (
           <a
             href={tool.href}
-            class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-900 flex items-center gap-1.5"
+            class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 flex items-center gap-2 min-h-[40px] transition"
           >
-            <span>{tool.icon}</span>
+            <span class="text-sm">{tool.icon}</span>
             <span class="truncate">{tool.name}</span>
           </a>
         ))}
       </div>
 
       <!-- HSC ICT on Mobile -->
-      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-3 pt-2">
+      <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider px-2 pt-2">
         {lang === 'bn' ? 'এইচএসসি আইসিটি' : 'HSC ICT'}
       </div>
-      <div class="grid grid-cols-2 gap-1 px-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 px-1">
         {ictTools.map((tool) => (
           <a
             href={tool.href}
-            class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-900 flex items-center gap-1.5"
+            class="px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 flex items-center gap-2 min-h-[40px] transition"
           >
-            <span>{tool.icon}</span>
+            <span class="text-sm">{tool.icon}</span>
             <span class="truncate">{tool.name}</span>
           </a>
         ))}
       </div>
     </div>
 
-    <div class="border-t border-slate-900 pt-2 space-y-1">
+    <div class="border-t border-slate-900 pt-3 space-y-1">
       {navLinks.map((link) => (
         <a
           href={link.href}
-          class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900"
+          class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900 min-h-[44px] flex items-center transition"
         >
           {link.label}
         </a>
       ))}
       <a
         href={getLocalizedPath('/my-progress', lang)}
-        class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900"
+        class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900 min-h-[44px] flex items-center transition"
       >
         📊 {t('nav.progress')}
       </a>
       <a
         href={getLocalizedPath('/contact', lang)}
-        class="block px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900"
+        class="block px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-900 min-h-[44px] flex items-center transition"
       >
         📬 {t('nav.contact')}
       </a>
@@ -297,10 +306,41 @@ const hscScienceTools = [
 <script>
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  function toggleMobileMenu(forceClose = false) {
+    if (!btn || !menu) return;
+    const shouldClose = forceClose || !menu.classList.contains('hidden');
+
+    if (shouldClose) {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+      hamburgerIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    } else {
+      menu.classList.remove('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+      hamburgerIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+  }
+
   if (btn && menu) {
-    btn.addEventListener('click', () => {
-      const isHidden = menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', (!isHidden).toString());
+    btn.addEventListener('click', () => toggleMobileMenu());
+
+    // Close when clicking any navigation link inside the menu
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => toggleMobileMenu(true));
+    });
+
+    // Close on Escape key press
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+        toggleMobileMenu(true);
+      }
     });
   }
 </script>

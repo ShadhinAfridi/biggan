@@ -46,7 +46,7 @@ export const MolarMassCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-700/80 rounded-2xl p-6 shadow-2xl space-y-6">
+    <div className="bg-slate-900 border border-slate-700/80 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -162,8 +162,8 @@ export const MolarMassCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             <h3 className="text-sm font-semibold text-slate-200">
               {lang === 'bn' ? 'উপাদান মৌলসমূহের শতকরা সংযুতি ও বিশ্লেষণ' : 'Elemental Mass Percent Composition'}
             </h3>
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
-              <table className="w-full text-left border-collapse text-xs">
+            <div className="overflow-x-auto rounded-xl border border-slate-800 touch-pan-x">
+              <table className="w-full min-w-[460px] text-left border-collapse text-xs">
                 <thead>
                   <tr className="bg-slate-950/80 text-slate-400 border-b border-slate-800 font-medium">
                     <th className="py-2.5 px-3">{lang === 'bn' ? 'মৌল' : 'Element'}</th>

@@ -719,8 +719,14 @@ export const PeriodicTableIsland: React.FC<Props> = ({ lang = 'bn' }) => {
             )}
           </div>
 
+          {/* Mobile Swipe Hint */}
+          <div className="md:hidden flex items-center justify-between px-3 py-1.5 bg-slate-950/70 border border-slate-800 rounded-lg text-[11px] text-cyan-400 font-mono my-2">
+            <span>↔️ {lang === 'bn' ? '১৮টি গ্রুপ দেখতে ডানে-বামে স্ক্রোল করুন' : 'Swipe horizontally to view all 18 groups'}</span>
+            <span className="text-slate-500 text-[10px]">1 – 18</span>
+          </div>
+
           {/* 18-Column IUPAC Periodic Table Grid */}
-          <div className="overflow-x-auto pb-4 pt-1">
+          <div className="overflow-x-auto pb-4 pt-1 touch-pan-x">
             <div className="min-w-[880px]">
               {/* Group Numbers Header (1-18) */}
               <div className="grid grid-cols-18 gap-1 mb-1 text-center font-mono text-[9px] sm:text-[10px] text-slate-500">

@@ -1476,7 +1476,10 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
       {/* Mobile Sticky Floating Answer Bar */}
       {activeResult.success && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-amber-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div
+          className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-amber-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between"
+          style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+        >
           <div>
             <span className="text-[10px] text-amber-400 font-semibold block uppercase tracking-wider">
               {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}

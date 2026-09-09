@@ -1,4 +1,4 @@
-﻿---
+---
 import { getLangFromUrl, getLocalizedPath } from '../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -8,11 +8,12 @@ const privacyUrl = getLocalizedPath('/privacy', lang);
 <!-- Floating Privacy & Cookie Consent Banner -->
 <div
   id="cookie-consent-banner"
-  class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden opacity-0 transition-all duration-300 transform translate-y-4"
+  class="fixed left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-50 hidden opacity-0 transition-all duration-300 transform translate-y-4"
+  style="bottom: max(1rem, env(safe-area-inset-bottom, 1rem));"
   role="region"
   aria-label={lang === 'bn' ? 'কুকি ও গোপনীয়তা সম্মতি' : 'Cookie & Privacy Consent'}
 >
-  <div class="bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-2xl p-5 shadow-2xl shadow-cyan-950/40 text-slate-300 space-y-4">
+  <div class="bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-2xl p-4 sm:p-5 shadow-2xl shadow-cyan-950/40 text-slate-300 space-y-3.5">
     <div class="flex items-start gap-3">
       <div class="w-8 h-8 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0 text-cyan-400 text-lg">
         🍪
@@ -30,25 +31,25 @@ const privacyUrl = getLocalizedPath('/privacy', lang);
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-1">
+    <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-1">
       <a
         href={privacyUrl}
         class="text-[11px] font-mono text-cyan-400 hover:underline self-center sm:self-auto py-1"
       >
         {lang === 'bn' ? 'নীতিমালা পড়ুন →' : 'Read Policy →'}
       </a>
-      <div class="flex items-center gap-2">
+      <div class="grid grid-cols-2 sm:flex items-center gap-2">
         <button
           id="cookie-essential-btn"
           type="button"
-          class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition"
+          class="min-h-[40px] px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition flex items-center justify-center cursor-pointer"
         >
           {lang === 'bn' ? 'প্রয়োজনীয় শুধু' : 'Essential Only'}
         </button>
         <button
           id="cookie-accept-btn"
           type="button"
-          class="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-cyan-900/30"
+          class="min-h-[40px] px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-cyan-900/30 flex items-center justify-center cursor-pointer"
         >
           {lang === 'bn' ? 'সব অনুমোদন' : 'Accept All'}
         </button>

@@ -275,11 +275,11 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
       {/* ── Top Main Tabs Bar ───────────────────────────────────────────── */}
       <div className="bg-slate-950 border-b border-slate-800 p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1 sm:gap-2 bg-slate-900 p-1 rounded-xl border border-slate-800">
+        <div className="flex items-center gap-1 sm:gap-2 bg-slate-900 p-1 rounded-xl border border-slate-800 overflow-x-auto scrollbar-none max-w-full">
           <button
             type="button"
             onClick={() => setActiveTab('editor')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap shrink-0 ${
               activeTab === 'editor'
                 ? 'bg-cyan-600 text-white shadow'
                 : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
@@ -291,7 +291,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
           <button
             type="button"
             onClick={() => setActiveTab('tags')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap shrink-0 ${
               activeTab === 'tags'
                 ? 'bg-cyan-600 text-white shadow'
                 : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
@@ -306,7 +306,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
           <button
             type="button"
             onClick={() => setActiveTab('css')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap shrink-0 ${
               activeTab === 'css'
                 ? 'bg-cyan-600 text-white shadow'
                 : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
@@ -318,7 +318,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
           <button
             type="button"
             onClick={() => setActiveTab('glossary')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition whitespace-nowrap shrink-0 ${
               activeTab === 'glossary'
                 ? 'bg-cyan-600 text-white shadow'
                 : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
@@ -431,7 +431,7 @@ export const HtmlRunner: React.FC<HtmlRunnerProps> = ({ lang = 'bn' }) => {
       {activeTab === 'editor' && (
         <div className="bg-slate-950/60 border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs">
           {/* Preset Selector */}
-          <div className="flex items-center gap-2 flex-1 min-w-[260px]">
+          <div className="flex items-center gap-2 flex-1 min-w-0 w-full sm:w-auto sm:min-w-[240px]">
             <span className="text-slate-400 font-mono font-medium shrink-0">
               {lang === 'bn' ? 'নমুনা কোড:' : 'Presets:'}
             </span>

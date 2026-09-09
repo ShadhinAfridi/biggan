@@ -128,25 +128,6 @@ const ParabolaCurveDiagram: React.FC<{ a: number; b: number; c: number; lang?: '
           </text>
         </svg>
       </div>
-
-      {/* Mobile Sticky Floating Answer Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
-        <div>
-          <span className="text-[10px] text-indigo-400 font-semibold block uppercase tracking-wider">
-            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
-          </span>
-          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
-            {activeTab === 'geometry' && <span>d = {apolResult.medianLength.toFixed(2)}</span>}
-            {activeTab === 'equations' && eqSubTab === 'quadratic' && <span>{quadResult.natureBn}</span>}
-            {activeTab === 'series' && seriesSubTab === 'geometric' && <span>{geoResult.sum}</span>}
-            {activeTab === 'sets' && setsSubTab === 'venn' && <span>n(A∪B∪C) = {vennResult.totalUnion}</span>}
-            {activeTab === 'algebra' && algSubTab === 'remainder' && <span>R = {polyResult.remainder}</span>}
-            {activeTab === 'binomial' && <span>n={binN} ({binResult.totalTerms} terms)</span>}
-            {activeTab === 'coord_vec' && coordSubTab === 'line' && <span>d = {lineResult.distance.toFixed(2)}</span>}
-            {activeTab === 'solid_prob' && solidSubTab === 'prob' && <span>P = {probResult.fraction}</span>}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
@@ -283,7 +264,27 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
     <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl space-y-0">
       {/* Top Chapter Selector Bar */}
       <div className="bg-slate-950 border-b border-slate-800 p-3 sm:p-4 overflow-x-auto scrollbar-thin">
-        <div className="flex gap-2 min-w-max">
+        {/* Mobile Chapter Dropdown */}
+        <div className="md:hidden pb-1">
+          <select
+            value={activeTab}
+            onChange={(e) => {
+              setActiveTab(e.target.value as ModuleTab);
+              setErrorMsg(null);
+            }}
+            aria-label={lang === 'bn' ? 'উচ্চতর গণিত অধ্যায় নির্বাচন' : 'Select Higher Math Chapter'}
+            className="w-full bg-slate-900 text-white font-medium p-2.5 rounded-xl border border-slate-700 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+          >
+            {tabs.map((tab) => (
+              <option key={tab.id} value={tab.id}>
+                {lang === 'bn' ? tab.nameBn : tab.nameEn}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop Horizontal Tabs */}
+        <div className="hidden md:flex gap-2 min-w-max">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -1646,7 +1647,10 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
       </div>
 
       {/* Mobile Sticky Floating Answer Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+      <div
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between"
+        style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+      >
         <div>
           <span className="text-[10px] text-indigo-400 font-semibold block uppercase tracking-wider">
             {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}

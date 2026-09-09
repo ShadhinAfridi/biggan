@@ -114,34 +114,6 @@ const PHRainbowGauge: React.FC<{ ph: number; lang?: 'bn' | 'en' }> = ({ ph, lang
           <span>14 (ক্ষার)</span>
         </div>
       </div>
-
-      {/* Mobile Sticky Floating Answer Bar */}
-      {activeResult.success && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-teal-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
-          <div>
-            <span className="text-[10px] text-teal-400 font-semibold block uppercase tracking-wider">
-              {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}
-            </span>
-            <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
-              <span>
-                {typeof activeResult.value === 'number'
-                  ? Math.abs(activeResult.value) < 0.001 && activeResult.value !== 0
-                    ? activeResult.value.toExponential(4)
-                    : activeResult.value.toLocaleString(undefined, { maximumFractionDigits: 4 })
-                  : activeResult.value}
-              </span>
-              {activeResult.unit && <span className="text-xs text-teal-300 font-normal">{activeResult.unit}</span>}
-            </div>
-          </div>
-          <button
-            onClick={handleCopy}
-            className="px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 text-xs font-bold transition flex items-center gap-1 shadow-lg shadow-teal-500/20"
-          >
-            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? (lang === 'bn' ? 'কপি!' : 'Copied!') : (lang === 'bn' ? 'কপি' : 'Copy')}</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 };
@@ -1097,7 +1069,10 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
       {/* Mobile Sticky Floating Answer Bar */}
       {activeResult.success && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-teal-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+        <div
+          className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-teal-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between"
+          style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+        >
           <div>
             <span className="text-[10px] text-teal-400 font-semibold block uppercase tracking-wider">
               {lang === 'bn' ? 'ফলাফল (Result):' : 'Result:'}

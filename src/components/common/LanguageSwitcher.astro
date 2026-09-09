@@ -14,7 +14,7 @@ const targetUrl = switchLangUrl(Astro.url, targetLang);
 
 <a
   href={targetUrl}
-  class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-medium transition shadow-sm ${className}`}
+  class={`inline-flex items-center justify-center min-h-[40px] gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-medium transition shadow-sm ${className}`}
   title={targetLang === 'en' ? 'Switch to English' : 'বাংলায় দেখুন'}
   aria-label={`Switch language to ${languages[targetLang]}`}
 >

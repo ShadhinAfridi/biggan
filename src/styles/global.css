@@ -55,6 +55,8 @@ html:not(.dark) {
     scroll-behavior: smooth;
     font-family: var(--font-latin);
     -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   html[lang="bn"] {
@@ -69,6 +71,16 @@ html:not(.dark) {
     flex-direction: column;
     text-rendering: optimizeLegibility;
     transition: background-color 0.15s ease, color 0.15s ease;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Smooth momentum touch scrolling for all scrollable containers */
+  .overflow-x-auto,
+  .overflow-x-scroll,
+  .overflow-y-auto,
+  .overflow-y-scroll {
+    -webkit-overflow-scrolling: touch;
   }
 }
 
@@ -119,6 +131,15 @@ html:not(.dark) select:focus,
 html:not(.dark) textarea:focus {
   border-color: #0891b2 !important;
   box-shadow: 0 0 0 2px rgba(8, 145, 178, 0.2) !important;
+}
+
+/* Prevent iOS Safari from auto-zooming on focus in small screens */
+@media (max-width: 639px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }
 
 html:not(.dark) input::placeholder,
@@ -382,6 +403,8 @@ html:not(.dark) .prose-invert {
 .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
   padding: 0.75rem 0;
   margin: 0.5rem 0;
 }
@@ -411,7 +434,7 @@ html:not(.dark) .prose-invert {
 }
 
 /* ==========================================================================
-   ADSENSE AD CONTAINER
+   ADSENSE AD CONTAINER (RESPONSIVE & ZERO-BLOWOUT)
    ========================================================================== */
 .ad-slot-container {
   display: flex;
@@ -423,6 +446,7 @@ html:not(.dark) .prose-invert {
   overflow: hidden;
   margin: 1.5rem 0;
   contain: layout-size;
+  max-width: 100%;
 }
 
 .dark .ad-slot-container {
@@ -432,13 +456,23 @@ html:not(.dark) .prose-invert {
 
 .ad-slot-banner {
   min-height: 90px;
-  min-width: 320px;
+  min-width: 0;
   width: 100%;
   max-width: 728px;
 }
 
 .ad-slot-sidebar {
   min-height: 250px;
-  min-width: 300px;
+  min-width: 0;
+  max-width: 300px;
   width: 100%;
 }
+
+/* Safe Area Insets for Mobile Devices */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+.bottom-safe {
+  bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+

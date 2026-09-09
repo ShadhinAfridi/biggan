@@ -144,40 +144,6 @@ const RightTriangleDiagram: React.FC<{ angle: number; dist: number; height: numb
           <line x1="200" y1="110" x2="200" y2="30" stroke="#38bdf8" strokeWidth="3" />
         </svg>
       </div>
-
-      {/* Mobile Sticky Floating Answer Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-cyan-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
-        <div>
-          <span className="text-[10px] text-cyan-400 font-semibold block uppercase tracking-wider">
-            {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}
-          </span>
-          <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
-            {activeChapter === 'ch17' && statResult.success && (
-              <span>
-                {lang === 'bn' ? 'গড়' : 'Mean'}: {statResult.mean} | {lang === 'bn' ? 'মধ্যক' : 'Med'}: {statResult.median}
-              </span>
-            )}
-            {activeChapter === 'ch9_10' && trigSubTab === 'height' && (
-              <span>h = {(trigDist * Math.tan((trigAngle * Math.PI) / 180)).toFixed(2)} m</span>
-            )}
-            {activeChapter === 'ch3' && ch3Result.success && (
-              <span>{ch3Result.value}</span>
-            )}
-            {activeChapter === 'ch4' && ch4Result.success && (
-              <span>{ch4Result.value}</span>
-            )}
-            {activeChapter === 'ch16' && mensResult.success && (
-              <span>{mensResult.value}</span>
-            )}
-            {activeChapter === 'ch11' && compResult.success && (
-              <span>{compResult.value}</span>
-            )}
-            {activeChapter === 'ch2' && ch2Result.success && (
-              <span>{ch2Result.value}</span>
-            )}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
@@ -320,7 +286,24 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
     <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl space-y-0">
       {/* Chapter Selection Ribbon */}
       <div className="bg-slate-950 border-b border-slate-800 p-3 sm:p-4 overflow-x-auto scrollbar-thin">
-        <div className="flex gap-2 min-w-max">
+        {/* Mobile Chapter Dropdown */}
+        <div className="md:hidden pb-1">
+          <select
+            value={activeChapter}
+            onChange={(e) => setActiveChapter(e.target.value as ChapterId)}
+            aria-label={lang === 'bn' ? 'সাধারণ গণিত অধ্যায় নির্বাচন' : 'Select General Math Chapter'}
+            className="w-full bg-slate-900 text-white font-medium p-2.5 rounded-xl border border-slate-700 text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+          >
+            {chapters.map((ch) => (
+              <option key={ch.id} value={ch.id}>
+                {lang === 'bn' ? ch.nameBn : ch.nameEn}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Desktop Horizontal Tabs */}
+        <div className="hidden md:flex gap-2 min-w-max">
           {chapters.map((ch) => (
             <button
               key={ch.id}
@@ -1140,7 +1123,10 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
       </div>
 
       {/* Mobile Sticky Floating Answer Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-cyan-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between">
+      <div
+        className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-md border-t border-cyan-500/40 px-4 py-2.5 shadow-2xl flex items-center justify-between"
+        style={{ paddingBottom: 'max(0.625rem, env(safe-area-inset-bottom, 0.625rem))' }}
+      >
         <div>
           <span className="text-[10px] text-cyan-400 font-semibold block uppercase tracking-wider">
             {lang === 'bn' ? 'ফলাফল (Active Result):' : 'Active Result:'}

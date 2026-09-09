@@ -105,7 +105,7 @@ export const CircuitSimulator: React.FC<CircuitSimulatorProps> = ({ lang = 'bn' 
       </div>
 
       {activeTab === 'presets' ? (
-        <div className="p-6 space-y-6">
+        <div className="p-3.5 sm:p-6 space-y-4 sm:space-y-6">
           {/* Circuit Info Banner */}
           <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800 space-y-1">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
@@ -118,7 +118,7 @@ export const CircuitSimulator: React.FC<CircuitSimulatorProps> = ({ lang = 'bn' 
           </div>
 
           {/* Interactive Circuit Canvas */}
-          <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-6">
+          <div className="bg-slate-950 p-3.5 sm:p-6 rounded-2xl border border-slate-800 space-y-6">
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">
                 {lang === 'bn' ? '১. টাচ করে ইনপুট সিগন্যাল পরিবর্তন করুন (০ বা ১):' : '1. Tap Input Switches (0 or 1):'}
@@ -129,7 +129,7 @@ export const CircuitSimulator: React.FC<CircuitSimulatorProps> = ({ lang = 'bn' 
             </div>
 
             {/* Inputs Switches Bar */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               {activePreset.inputs.map((inp) => {
                 const val = Boolean(presetInputs[inp.id]);
                 return (
@@ -137,7 +137,7 @@ export const CircuitSimulator: React.FC<CircuitSimulatorProps> = ({ lang = 'bn' 
                     key={inp.id}
                     type="button"
                     onClick={() => togglePresetInput(inp.id)}
-                    className={`flex-1 min-w-[140px] p-4 rounded-xl border-2 transition-all duration-200 flex flex-col items-center justify-center gap-2 select-none active:scale-95 ${
+                    className={`flex-1 min-w-[110px] p-3 sm:p-4 rounded-xl border-2 transition-all duration-200 flex flex-col items-center justify-center gap-2 select-none active:scale-95 ${
                       val
                         ? 'bg-cyan-950/60 border-cyan-400 shadow-lg shadow-cyan-950/50'
                         : 'bg-slate-900 border-slate-800 hover:border-slate-700'
@@ -290,7 +290,7 @@ export const CircuitSimulator: React.FC<CircuitSimulatorProps> = ({ lang = 'bn' 
             </div>
           </div>
 
-          <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-around gap-6">
+          <div className="bg-slate-950 p-4 sm:p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-around gap-6">
             {/* Input Switches */}
             <div className="space-y-4 w-full md:w-auto">
               <button

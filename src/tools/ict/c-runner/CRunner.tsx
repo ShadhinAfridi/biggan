@@ -53,8 +53,8 @@ export const CRunner: React.FC<CRunnerProps> = ({ lang = 'bn' }) => {
       {/* Top Toolbar */}
       <div className="bg-slate-950 border-b border-slate-800 p-4 flex flex-wrap items-center justify-between gap-3">
         {/* Preset Selector */}
-        <div className="flex items-center gap-2 flex-1 min-w-[280px]">
-          <span className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider">
+        <div className="flex items-center gap-2 flex-1 min-w-0 w-full sm:w-auto sm:min-w-[240px]">
+          <span className="text-xs font-mono text-cyan-400 font-semibold uppercase tracking-wider shrink-0">
             {lang === 'bn' ? 'সি প্রোগ্রাম:' : 'C Preset:'}
           </span>
           <select
