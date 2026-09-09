@@ -20,6 +20,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
   i18n: {
     defaultLocale: 'bn',
     locales: ['bn', 'en'],

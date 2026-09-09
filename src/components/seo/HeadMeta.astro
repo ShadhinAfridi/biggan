@@ -112,26 +112,58 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 <!-- Bing Webmaster Verification -->
 {bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
 
-<!-- Google AdSense Tag (When configured) -->
-{adsenseClientId && (
-  <script
-    async
-    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-    crossorigin="anonymous"
-  ></script>
-)}
+<!-- Deferred Third-Party Services (GA4 & AdSense) to protect Critical Rendering & Fast Interaction -->
+{(adsenseClientId || gaId) && (
+  <script is:inline define:vars={{ adsenseClientId, gaId }}>
+    (() => {
+      let loaded = false;
+      function loadThirdParty() {
+        if (loaded) return;
+        loaded = true;
 
-<!-- Google Analytics 4 (When configured) -->
-{gaId && (
-  <>
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-    <script define:vars={{ gaId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', gaId);
-    </script>
-  </>
+        if (gaId) {
+          const gaScript = document.createElement('script');
+          gaScript.async = true;
+          gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+          document.head.appendChild(gaScript);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', gaId);
+        }
+
+        if (adsenseClientId) {
+          const adScript = document.createElement('script');
+          adScript.async = true;
+          adScript.crossOrigin = 'anonymous';
+          adScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`;
+          document.head.appendChild(adScript);
+        }
+      }
+
+      if (document.readyState === 'complete') {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadThirdParty, { timeout: 3000 });
+        } else {
+          setTimeout(loadThirdParty, 1500);
+        }
+      } else {
+        window.addEventListener('load', () => {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(loadThirdParty, { timeout: 3000 });
+          } else {
+            setTimeout(loadThirdParty, 1500);
+          }
+        }, { once: true });
+      }
+
+      ['pointerdown', 'keydown', 'scroll'].forEach((event) => {
+        window.addEventListener(event, loadThirdParty, { once: true, passive: true });
+      });
+    })();
+  </script>
 )}
 
 <!-- JSON-LD Structured Data -->

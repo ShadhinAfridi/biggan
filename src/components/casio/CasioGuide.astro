@@ -1,0 +1,167 @@
+---
+import { GUIDES_DATA, type CasioModel } from './data';
+
+interface Props {
+  topic: 'quadratic' | 'sigfigs' | 'kinematics' | 'molar-mass' | 'redox' | 'physics-general' | 'chemistry-general' | 'statistics' | 'biology-general' | 'higher-math';
+  lang?: 'en' | 'bn';
+}
+
+const { topic, lang = 'bn' } = Astro.props;
+const topicGuides = GUIDES_DATA[topic] || GUIDES_DATA['quadratic'];
+
+const modelsList: { id: CasioModel; label: string; badge: string }[] = [
+  { id: 'fx-991cw', label: 'fx-991CW', badge: lang === 'bn' ? 'নতুন ক্লাসউইজ' : 'New ClassWiz' },
+  { id: 'fx-991ex', label: 'fx-991EX', badge: lang === 'bn' ? 'ক্লাসউইজ' : 'ClassWiz' },
+  { id: 'fx-991es', label: 'fx-991ES PLUS', badge: lang === 'bn' ? 'জনপ্রিয়' : 'Most Popular' },
+  { id: 'fx-100ms', label: 'fx-100MS / 570MS', badge: lang === 'bn' ? 'টু-লাইন ডিসপ্লে' : '2-Line Display' },
+];
+
+const defaultModel: CasioModel = 'fx-991es';
+---
+
+<div class="casio-guide-container bg-slate-900 border border-slate-700/80 rounded-xl p-5 shadow-xl">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+    <div class="flex items-center gap-2.5">
+      <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-base font-semibold text-white flex items-center gap-2">
+          {lang === 'bn'
+            ? 'কাসিও সায়েন্টিফিক ক্যালকুলেটর কি-স্ট্রোক গাইড'
+            : 'Casio Scientific Calculator Keystroke Guide'}
+          <span class="text-xs bg-amber-500/20 text-amber-300 font-mono px-2 py-0.5 rounded-full">
+            Exam Ready
+          </span>
+        </h3>
+        <p class="text-xs text-slate-400">
+          {lang === 'bn'
+            ? 'বোর্ড ও ভর্তি পরীক্ষার হলে অনুমোদিত ফিজিক্যাল ক্যালকুলেটরে একই সমস্যা সমাধানের ধাপ:'
+            : 'Exact button sequences permitted in board and university entrance examination halls:'}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Selector Tabs -->
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 casio-tabs">
+    {modelsList.map((m) => {
+      const isDefault = m.id === defaultModel;
+      return (
+        <button
+          type="button"
+          data-model-tab={m.id}
+          class={`flex flex-col items-start px-3 py-2 rounded-lg border text-left transition-all cursor-pointer ${
+            isDefault
+              ? 'bg-blue-600/20 border-blue-500 text-white shadow-sm ring-1 ring-blue-500 active-tab'
+              : 'bg-slate-800/60 border-slate-700/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+          }`}
+        >
+          <span class="text-xs font-bold font-mono">{m.label}</span>
+          <span class="text-[10px] text-slate-400">{m.badge}</span>
+        </button>
+      );
+    })}
+  </div>
+
+  <!-- Model Guide Content Panels -->
+  <div class="mt-5 space-y-4">
+    {modelsList.map((m) => {
+      const guide = topicGuides[m.id];
+      if (!guide) return null;
+      const isDefault = m.id === defaultModel;
+      return (
+        <div data-model-panel={m.id} class={`casio-panel space-y-4 ${isDefault ? '' : 'hidden'}`}>
+          <div class="bg-slate-950/70 border border-slate-800 rounded-lg p-3">
+            <div class="text-sm font-medium text-slate-200">{guide.modelName}</div>
+            <div class="text-xs text-slate-400 mt-0.5">
+              {lang === 'bn' ? guide.descriptionBn : guide.descriptionEn}
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            {guide.steps.map((step) => (
+              <div class="bg-slate-800/40 border border-slate-800 rounded-lg p-3 flex flex-col gap-2">
+                <div class="text-xs font-semibold text-slate-300">
+                  {lang === 'bn' ? step.labelBn : step.labelEn}
+                </div>
+
+                {/* Keycaps */}
+                <div class="flex flex-wrap items-center gap-1.5 py-1">
+                  {step.keys.map((key) => (
+                    <span class="inline-flex items-center justify-center min-w-[28px] h-7 px-2 text-xs font-mono font-bold uppercase rounded bg-slate-700 text-amber-300 border border-slate-600 shadow-inner select-all">
+                      {key}
+                    </span>
+                  ))}
+                </div>
+
+                {(step.noteEn || step.noteBn) && (
+                  <div class="text-[11px] text-slate-400 italic">
+                    {lang === 'bn' ? step.noteBn : step.noteEn}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Pro Tip */}
+          {(guide.proTipEn || guide.proTipBn) && (
+            <div class="flex items-start gap-2 bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 text-xs text-amber-200">
+              <svg class="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              <div>
+                <span class="font-semibold text-amber-300">
+                  {lang === 'bn' ? 'গুরুত্বপূর্ণ টিপ: ' : 'Pro Tip: '}
+                </span>
+                {lang === 'bn' ? guide.proTipBn : guide.proTipEn}
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  function initCasioTabs() {
+    const containers = document.querySelectorAll('.casio-guide-container');
+    containers.forEach((container) => {
+      const tabs = container.querySelectorAll<HTMLButtonElement>('[data-model-tab]');
+      const panels = container.querySelectorAll<HTMLElement>('[data-model-panel]');
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const targetModel = tab.getAttribute('data-model-tab');
+          if (!targetModel) return;
+
+          // Switch active tab styling
+          tabs.forEach((t) => {
+            t.classList.remove('bg-blue-600/20', 'border-blue-500', 'text-white', 'shadow-sm', 'ring-1', 'ring-blue-500', 'active-tab');
+            t.classList.add('bg-slate-800/60', 'border-slate-700/60', 'text-slate-400');
+          });
+          tab.classList.remove('bg-slate-800/60', 'border-slate-700/60', 'text-slate-400');
+          tab.classList.add('bg-blue-600/20', 'border-blue-500', 'text-white', 'shadow-sm', 'ring-1', 'ring-blue-500', 'active-tab');
+
+          // Switch active panel
+          panels.forEach((panel) => {
+            if (panel.getAttribute('data-model-panel') === targetModel) {
+              panel.classList.remove('hidden');
+            } else {
+              panel.classList.add('hidden');
+            }
+          });
+        });
+      });
+    });
+  }
+
+  // Initialize on load and on view transitions
+  if (typeof document !== 'undefined') {
+    initCasioTabs();
+    document.addEventListener('astro:page-load', initCasioTabs);
+  }
+</script>

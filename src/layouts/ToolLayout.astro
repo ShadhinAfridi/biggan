@@ -1,8 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/ads/AdSlot.astro';
-import { CasioGuide } from '../components/casio/CasioGuide';
-import { Latex } from '../components/math/Latex';
+import CasioGuide from '../components/casio/CasioGuide.astro';
+import Latex from '../components/math/Latex.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
@@ -380,7 +380,7 @@ const breadcrumbSchema = {
     <section id="hardware-or-shortcuts" class="scroll-mt-20">
       {topicId && CASIO_TOPICS.includes(topicId) ? (
         <div id="casio-hardware-guide">
-          <CasioGuide client:visible topic={topicId as any} lang={lang} />
+          <CasioGuide topic={topicId as any} lang={lang} />
         </div>
       ) : (
         <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-5">

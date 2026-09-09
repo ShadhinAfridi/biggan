@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import AdSlot from '../../../../components/ads/AdSlot.astro';
-import { Latex } from '../../../../components/math/Latex';
+import Latex from '../../../../components/math/Latex.astro';
 import { CURRICULUM_DATA, type CurriculumSubject } from '../../../../data/curriculum';
 import { getLocalizedPath } from '../../../../i18n/utils';
 
@@ -230,7 +230,7 @@ const courseSchema = {
                         <span class="text-slate-400 font-mono text-[11px]">{formula.nameEn}</span>
                       </div>
                       <div class="overflow-x-auto py-1 text-center font-mono text-sm text-cyan-300">
-                        <Latex formula={formula.latex} displayMode client:visible />
+                        <Latex formula={formula.latex} displayMode />
                       </div>
                       {formula.notesBn && (
                         <p class="text-[11px] text-slate-400 border-t border-slate-900 pt-1.5 leading-snug">

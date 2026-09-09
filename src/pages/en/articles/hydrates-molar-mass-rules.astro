@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
-import { Latex } from '../../../components/math/Latex';
+import Latex from '../../../components/math/Latex.astro';
 import { getLocalizedPath } from '../../../i18n/utils';
 ---
 
@@ -24,7 +24,7 @@ import { getLocalizedPath } from '../../../i18n/utils';
       When certain inorganic salts crystallize from an aqueous solution, a stoichiometric number of water molecules become incorporated directly into the crystalline lattice framework. These bound water molecules are termed <strong>water of crystallization</strong> or <strong>water of hydration</strong>.
     </p>
     <div class="py-2 text-center bg-slate-900 rounded-lg border border-slate-800">
-      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} />
     </div>
   </section>
 
@@ -96,10 +96,10 @@ import { getLocalizedPath } from '../../../i18n/utils';
       4. Deriving Mass Percentage of Water of Crystallization
     </h2>
     <div class="py-3 text-center bg-slate-900 rounded-lg border border-slate-800">
-      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} client:visible />
+      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} />
     </div>
     <p class="text-sm text-slate-300">
-      For copper(II) sulfate pentahydrate: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} client:visible />.
+      For copper(II) sulfate pentahydrate: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} />.
     </p>
   </section>
 </ArticleLayout>

@@ -1,0 +1,25 @@
+---
+import katex from 'katex';
+
+interface Props {
+  formula?: string;
+  math?: string;
+  displayMode?: boolean;
+  className?: string;
+}
+
+const { formula, math, displayMode = false, className = '' } = Astro.props;
+const tex = formula || math || '';
+
+let html = tex;
+try {
+  html = katex.renderToString(tex, {
+    displayMode,
+    throwOnError: false,
+  });
+} catch (e) {
+  html = tex;
+}
+---
+
+<span class={`inline-block ${className}`} set:html={html} />

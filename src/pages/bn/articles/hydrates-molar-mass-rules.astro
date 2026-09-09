@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
-import { Latex } from '../../../components/math/Latex';
+import Latex from '../../../components/math/Latex.astro';
 import { getLocalizedPath } from '../../../i18n/utils';
 ---
 
@@ -27,7 +27,7 @@ import { getLocalizedPath } from '../../../i18n/utils';
       উদাহরণস্বরূপ, কপার সালফেটের কেলাসে প্রতি ১ মোল লবণের সাথে ৫ মোল পানির অণু যুক্ত থাকে, যাকে নীল ভিট্রিওল বা তুঁতে বলা হয়:
     </p>
     <div class="py-2 text-center bg-slate-900 rounded-lg border border-slate-800">
-      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+      <Latex formula={'\\text{CuSO}_4 \\cdot 5\\text{H}_2\\text{O}'} displayMode={true} />
     </div>
   </section>
 
@@ -99,10 +99,10 @@ import { getLocalizedPath } from '../../../i18n/utils';
       ৪. কেলাস পানির শতকরা পরিমাণ নির্ণয়ের সূত্র
     </h2>
     <div class="py-3 text-center bg-slate-900 rounded-lg border border-slate-800">
-      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} client:visible />
+      <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{n \\times M_{\\text{H}_2\\text{O}}}{M_{\\text{Hydrate}}} \\times 100\\%'} displayMode={true} />
     </div>
     <p class="text-sm text-slate-300">
-      তুঁতের ক্ষেত্রে: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} client:visible />। অর্থাৎ ১০০ গ্রাম তুঁতে উত্তপ্ত করলে ৩৬.০৮ গ্রাম পানি বাষ্পীভূত হবে এবং ৬৩.৯২ গ্রাম অনাহারী কপার সালফেট অবশিষ্ট থাকবে।
+      তুঁতের ক্ষেত্রে: <Latex formula={'\\% \\text{ H}_2\\text{O} = \\frac{5 \\times 18.015}{249.69} \\times 100\\% = 36.08\\%'} />। অর্থাৎ ১০০ গ্রাম তুঁতে উত্তপ্ত করলে ৩৬.০৮ গ্রাম পানি বাষ্পীভূত হবে এবং ৬৩.৯২ গ্রাম অনাহারী কপার সালফেট অবশিষ্ট থাকবে।
     </p>
   </section>
 </ArticleLayout>

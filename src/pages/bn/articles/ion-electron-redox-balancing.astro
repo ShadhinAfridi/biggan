@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
-import { Latex } from '../../../components/math/Latex';
+import Latex from '../../../components/math/Latex.astro';
 import { getLocalizedPath } from '../../../i18n/utils';
 ---
 
@@ -83,7 +83,7 @@ import { getLocalizedPath } from '../../../i18n/utils';
       <div>
         <span class="text-cyan-400 font-bold block mb-1">কঙ্কাল আয়নীয় সমীকরণ:</span>
         <div class="py-2 text-center bg-slate-950 rounded border border-slate-800">
-          <Latex formula={'\\text{MnO}_4^- + \\text{Fe}^{2+} \\rightarrow \\text{Mn}^{2+} + \\text{Fe}^{3+}'} displayMode={true} client:visible />
+          <Latex formula={'\\text{MnO}_4^- + \\text{Fe}^{2+} \\rightarrow \\text{Mn}^{2+} + \\text{Fe}^{3+}'} displayMode={true} />
         </div>
       </div>
 
@@ -91,7 +91,7 @@ import { getLocalizedPath } from '../../../i18n/utils';
         <span class="text-emerald-400 font-bold block mb-1">১. জারণ অর্ধ-বিক্রিয়া:</span>
         <p class="text-xs text-slate-300 font-sans mb-1">আয়রন(II) জারিত হয়ে আয়রন(III)-এ পরিণত হয় এবং ১টি ইলেকট্রন ত্যাগ করে:</p>
         <div class="py-2 text-center bg-slate-950 rounded border border-slate-800">
-          <Latex formula={'\\text{Fe}^{2+} \\rightarrow \\text{Fe}^{3+} + e^-'} displayMode={true} client:visible />
+          <Latex formula={'\\text{Fe}^{2+} \\rightarrow \\text{Fe}^{3+} + e^-'} displayMode={true} />
         </div>
       </div>
 
@@ -99,21 +99,21 @@ import { getLocalizedPath } from '../../../i18n/utils';
         <span class="text-purple-400 font-bold block mb-1">২. বিজারণ অর্ধ-বিক্রিয়া:</span>
         <p class="text-xs text-slate-300 font-sans mb-1">পারম্যাঙ্গানেট আয়নে Mn (+7) থেকে (+2)-এ বিজারিত হয়। ৪টি অক্সিজেনের জন্য ৪টি পানি এবং ৮টি প্রোটন যুক্ত হয়:</p>
         <div class="py-2 text-center bg-slate-950 rounded border border-slate-800">
-          <Latex formula={'\\text{MnO}_4^- + 8\\text{H}^+ + 5e^- \\rightarrow \\text{Mn}^{2+} + 4\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+          <Latex formula={'\\text{MnO}_4^- + 8\\text{H}^+ + 5e^- \\rightarrow \\text{Mn}^{2+} + 4\\text{H}_2\\text{O}'} displayMode={true} />
         </div>
       </div>
 
       <div>
         <span class="text-amber-400 font-bold block mb-1">৩. ইলেকট্রন সমতা ও যোগফল:</span>
         <div class="py-2 text-center bg-slate-950 rounded border border-slate-800">
-          <Latex formula={'\\text{MnO}_4^- + 5\\text{Fe}^{2+} + 8\\text{H}^+ \\rightarrow \\text{Mn}^{2+} + 5\\text{Fe}^{3+} + 4\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+          <Latex formula={'\\text{MnO}_4^- + 5\\text{Fe}^{2+} + 8\\text{H}^+ \\rightarrow \\text{Mn}^{2+} + 5\\text{Fe}^{3+} + 4\\text{H}_2\\text{O}'} displayMode={true} />
         </div>
       </div>
 
       <div>
         <span class="text-cyan-300 font-bold block mb-1">৪. পূর্ণ আণবিক সমীকরণ:</span>
         <div class="py-2 text-center bg-slate-950 rounded border border-slate-800 text-xs sm:text-sm overflow-x-auto">
-          <Latex formula={'2\\text{KMnO}_4 + 10\\text{FeSO}_4 + 8\\text{H}_2\\text{SO}_4 \\rightarrow 2\\text{MnSO}_4 + 5\\text{Fe}_2(\\text{SO}_4)_3 + \\text{K}_2\\text{SO}_4 + 8\\text{H}_2\\text{O}'} displayMode={true} client:visible />
+          <Latex formula={'2\\text{KMnO}_4 + 10\\text{FeSO}_4 + 8\\text{H}_2\\text{SO}_4 \\rightarrow 2\\text{MnSO}_4 + 5\\text{Fe}_2(\\text{SO}_4)_3 + \\text{K}_2\\text{SO}_4 + 8\\text{H}_2\\text{O}'} displayMode={true} />
         </div>
       </div>
     </div>
