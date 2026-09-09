@@ -1,0 +1,23 @@
+{
+  "name": "Biggan.me — বিজ্ঞান ও গণিত ক্যালকুলেটর",
+  "short_name": "Biggan.me",
+  "description": "Step-by-step STEM Solvers, NCTB Scientific Calculators & ICT Lab Simulators",
+  "start_url": "/bn/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "education",
+    "reference",
+    "utilities"
+  ]
+}

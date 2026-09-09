@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLocalizedPath } from '../i18n/utils';
+
+const topTools = [
+  { href: '/bn/tools/html-runner', nameBn: 'HTML5 এডিটর ও রানার', nameEn: 'HTML5 Live Runner', icon: '🌐' },
+  { href: '/bn/tools/c-runner', nameBn: 'সি প্রোগ্রামিং মেমরি ট্রেসার', nameEn: 'C Code Runner', icon: '💻' },
+  { href: '/bn/tools/circuit-simulator', nameBn: 'লজিক গেট সার্কিট', nameEn: 'Logic Circuits', icon: '🔌' },
+  { href: '/bn/tools/physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solvers', icon: '⚡' },
+  { href: '/bn/tools/molar-mass', nameBn: 'মোলার ভর ও সংযুতি', nameEn: 'Molar Mass Solver', icon: '⚗️' },
+  { href: '/bn/tools/vector-calculator', nameBn: 'ভেক্টর গুণন বিশ্লেষক', nameEn: '3D Vector Math', icon: '↗️' },
+];
+---
+
+<BaseLayout
+  title="পেজটি পাওয়া যায়নি (404 Page Not Found) — Biggan.me"
+  description="আপনি যে পেজটি খুঁজছেন তা স্থানান্তরিত বা মুছে ফেলা হয়েছে। বিগ্গান.মি এর অন্যান্য বিজ্ঞান ক্যালকুলেটর ও সূত্রমালা অন্বেষণ করুন।"
+  lang="bn"
+>
+  <div class="max-w-3xl mx-auto py-12 sm:py-20 text-center space-y-8">
+    <div class="space-y-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+        <span>⚠️</span>
+        <span>ERROR 404 • PAGE NOT FOUND</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight">
+        কাঙ্ক্ষিত পেজটি পাওয়া যায়নি
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+        আপনি যে লিংকটিতে প্রবেশ করার চেষ্টা করছেন তা হয়তো স্থানান্তরিত হয়েছে অথবা লিংকটিতে কোনো ভুল রয়েছে।
+      </p>
+    </div>
+
+    <!-- Quick Action Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <a
+        href="/bn/"
+        class="px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs sm:text-sm font-bold transition shadow-lg shadow-cyan-600/20 flex items-center gap-2"
+      >
+        <span>🏠</span>
+        <span>হোম পেজে ফিরে যান</span>
+      </a>
+      <a
+        href="/bn/tools/"
+        class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold transition flex items-center gap-2"
+      >
+        <span>🧮</span>
+        <span>সকল ক্যালকুলেটর ডিরেক্টরি</span>
+      </a>
+      <a
+        href="/bn/formulas/"
+        class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs sm:text-sm font-semibold transition flex items-center gap-2"
+      >
+        <span>📖</span>
+        <span>সূত্রমালা শীট</span>
+      </a>
+    </div>
+
+    <!-- Popular Tools Shortcut Grid -->
+    <div class="pt-8 border-t border-slate-800/80 space-y-4 text-left">
+      <h3 class="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold text-center">
+        জনপ্রিয় সায়েন্টিফিক টুলস ও সিমুলেটর
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+        {topTools.map((tool) => (
+          <a
+            href={tool.href}
+            class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800/80 border border-slate-800 hover:border-cyan-500/40 transition flex items-center gap-2.5 group"
+          >
+            <span class="text-xl">{tool.icon}</span>
+            <div class="min-w-0">
+              <div class="text-xs font-semibold text-slate-200 group-hover:text-cyan-400 truncate">
+                {tool.nameBn}
+              </div>
+              <div class="text-[10px] text-slate-500 truncate font-mono">
+                {tool.nameEn}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

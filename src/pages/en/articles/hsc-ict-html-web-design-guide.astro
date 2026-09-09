@@ -1,0 +1,164 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+---
+
+<ArticleLayout
+  title="HSC ICT Chapter 4: Complete HTML & Web Design Fundamentals Guide"
+  metaDescription="Comprehensive NCTB HSC ICT Chapter 4 Web Design guide: HTML5 document structure, container vs void tags, table rowspan and colspan, hyperlinks, and board exam solutions."
+  curriculum="NCTB HSC ICT (Chapter 4) / Grade 11-12"
+  readTime="7 min"
+  publishedDate="2026-09-09"
+  relatedTool={{
+    name: "HTML5 & CSS Live Runner",
+    href: getLocalizedPath("/tools/html-runner", "en"),
+    desc: "Interactive in-browser code editor with live preview, tag references, and HSC board exam templates."
+  }}
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      1. What is HTML and Document Anatomy
+    </h2>
+    <p>
+      <strong>HTML</strong> stands for <em>HyperText Markup Language</em>. Rather than being a traditional procedural programming language, it is a <strong>declarative markup system</strong> designed by Sir Tim Berners-Lee in 1990 to structure documents displayed in web browsers.
+    </p>
+    <p>
+      Every compliant HTML5 document follows a strict hierarchical tree structure:
+    </p>
+    <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 font-mono text-xs sm:text-sm text-slate-300 space-y-1 overflow-x-auto">
+      <div class="text-slate-500">&lt;!DOCTYPE html&gt; <span class="text-slate-400 font-sans text-xs">// Instructs browser to parse as modern HTML5</span></div>
+      <div>&lt;<span class="text-cyan-400">html</span> <span class="text-amber-400">lang</span>=<span class="text-emerald-400">"en"</span>&gt;</div>
+      <div class="pl-4">&lt;<span class="text-cyan-400">head</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">meta</span> <span class="text-amber-400">charset</span>=<span class="text-emerald-400">"UTF-8"</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">title</span>&gt;My First Web Page&lt;/<span class="text-cyan-400">title</span>&gt;</div>
+      <div class="pl-4">&lt;/<span class="text-cyan-400">head</span>&gt;</div>
+      <div class="pl-4">&lt;<span class="text-cyan-400">body</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">h1</span>&gt;Welcome to Web Design!&lt;/<span class="text-cyan-400">h1</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">p</span>&gt;This is a paragraph of text.&lt;/<span class="text-cyan-400">p</span>&gt;</div>
+      <div class="pl-4">&lt;/<span class="text-cyan-400">body</span>&gt;</div>
+      <div>&lt;/<span class="text-cyan-400">html</span>&gt;</div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      2. Container Tags vs Void / Empty Tags
+    </h2>
+    <p>
+      In board examination multiple-choice questions (MCQs), distinguishing between tag classifications is a frequent theme:
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h3 class="text-base font-bold text-cyan-400 flex items-center gap-2">
+          <span>📦</span> Container Tags
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Elements requiring both an opening tag and a closing tag (&lt;/...&gt;) enclosing content.
+        </p>
+        <div class="text-xs font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-slate-300">
+          &lt;p&gt;Content goes here&lt;/p&gt;<br />
+          &lt;h1&gt;Heading 1&lt;/h1&gt;<br />
+          &lt;table&gt;...&lt;/table&gt;
+        </div>
+      </div>
+
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+          <span>⚡</span> Void / Empty Tags
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Self-contained elements that cannot contain any child nodes or text content. No closing tags exist for them.
+        </p>
+        <div class="text-xs font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-amber-300">
+          &lt;br&gt; <span class="text-slate-400 font-sans text-[11px]">(Line break)</span><br />
+          &lt;hr&gt; <span class="text-slate-400 font-sans text-[11px]">(Horizontal rule)</span><br />
+          &lt;img src="..."&gt; <span class="text-slate-400 font-sans text-[11px]">(Image embed)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      3. Mastering Tables: rowspan and colspan Logic
+    </h2>
+    <p>
+      Approximately 80% of Creative Questions (CQ) in HSC ICT Chapter 4 require writing markup for a visual tabular grid. The essential tags are:
+    </p>
+    <ul class="list-disc list-inside space-y-1 text-sm text-slate-300">
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;table border="1"&gt;</code>: Declares the table grid</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;tr&gt;</code>: Table Row</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;th&gt;</code>: Table Header (bold and centered by default)</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;td&gt;</code>: Table Data cell</li>
+    </ul>
+
+    <div class="p-5 rounded-xl bg-cyan-950/30 border border-cyan-800/50 space-y-3">
+      <h3 class="text-base font-bold text-cyan-300">
+        Cell Merging Principles
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-cyan-400 font-mono text-sm">colspan="n"</div>
+          <p class="text-slate-300">
+            Merges <strong class="text-white">n adjacent columns horizontally</strong> into a single unified cell.
+          </p>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-amber-400 font-mono text-sm">rowspan="n"</div>
+          <p class="text-slate-300">
+            Merges <strong class="text-white">n rows vertically</strong> downward into a single unified cell.
+          </p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-400 italic">
+        *Exam Tip: When a cell uses rowspan="2", the subsequent table row (&lt;tr&gt;) must omit that column's &lt;td&gt; to avoid layout overflow!
+      </p>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      4. Hyperlinks and Media Embeds
+    </h2>
+    <div class="space-y-3 text-sm text-slate-300 leading-relaxed">
+      <p>
+        To link to external web pages or internal relative paths, use the <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">&lt;a&gt;</code> (Anchor) tag with the <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">href</code> attribute:
+      </p>
+      <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-slate-300 border border-slate-800">
+        &lt;a href="https://biggan.me" target="_blank"&gt;Visit Biggan.me&lt;/a&gt;
+      </div>
+      <p>
+        To display images, the <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">&lt;img&gt;</code> tag requires the <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">src</code> (source URL) and <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">alt</code> (alternative description) attributes:
+      </p>
+      <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-slate-300 border border-slate-800">
+        &lt;img src="diagram.png" alt="Circuit Diagram" width="300" height="150"&gt;
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      5. Common Board Exam Pitfalls Checklist
+    </h2>
+    <div class="space-y-2 text-xs sm:text-sm text-slate-300">
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-rose-400 font-bold">✕</span>
+        <div>
+          <strong class="text-white">Pitfall:</strong> Writing closing tags for void elements like &lt;/br&gt; or &lt;/img&gt;. Void elements must remain self-closing or unclosed in HTML5.
+        </div>
+      </div>
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-rose-400 font-bold">✕</span>
+        <div>
+          <strong class="text-white">Pitfall:</strong> Forgetting the <code class="text-cyan-400">border="1"</code> attribute on the &lt;table&gt; tag in handwritten CQ answers. Without it, borders default to invisible.
+        </div>
+      </div>
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-emerald-400 font-bold">✓</span>
+        <div>
+          <strong class="text-white">Pro Tip:</strong> Maintain consistent indentation during examination writing. It clearly signals element nesting hierarchy to the board examiner, preventing marks deduction.
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

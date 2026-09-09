@@ -19,16 +19,23 @@ interface Props {
 const { subject } = Astro.props;
 
 const toolMeta: Record<string, { nameBn: string; nameEn: string; icon: string }> = {
-  'molar-mass': { nameBn: 'মোলার ভর বিশ্লেষক', nameEn: 'Molar Mass Deconstructor', icon: '⚗️' },
+  'physics': { nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡' },
+  'chemistry': { nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️' },
+  'biology': { nameBn: 'জীববিজ্ঞান ক্যালকুলেটর', nameEn: 'Biology Calculator', icon: '🧬' },
+  'general-math': { nameBn: 'এসএসসি সাধারণ গণিত সমাধানকারী', nameEn: 'SSC General Math Solver', icon: '➕' },
+  'higher-math': { nameBn: 'উচ্চতর গণিত সমাধানকারী', nameEn: 'Higher Math Solver', icon: '📐' },
+  'molar-mass': { nameBn: 'মোলার ভর বিশ্লেষক', nameEn: 'Molar Mass Deconstructor', icon: '⚖️' },
   'redox-balancer': { nameBn: 'আয়ন-ইলেকট্রন সমতা ইঞ্জিন', nameEn: 'Redox Balancing Engine', icon: '⚡' },
   'significant-figures': { nameBn: 'তাৎপর্যপূর্ণ অঙ্ক নির্ণায়ক', nameEn: 'Significant Figures Engine', icon: '📏' },
   'projectile-motion': { nameBn: 'প্রাস ও গতিবিদ্যা সিমুলেটর', nameEn: 'Projectile Motion Solver', icon: '🎯' },
   'quadratic-solver': { nameBn: 'দ্বিঘাত সমীকরণ সমাধানকারী', nameEn: 'Quadratic Equation Solver', icon: '📐' },
+  'vector-calculator': { nameBn: 'ভেক্টর ৩ডি গুণন ও কোণ ক্যালকুলেটর', nameEn: '3D Vector Calculator', icon: '↗️' },
+  'gas-law-calculator': { nameBn: 'আদর্শ গ্যাস সূত্র ও গতিবিদ্যা ক্যালকুলেটর', nameEn: 'Ideal Gas Law Solver', icon: '💨' },
+  'solution-dilution': { nameBn: 'দ্রবণ লঘুকরণ ও ঘনমাত্রা ক্যালকুলেটর', nameEn: 'Solution Dilution & Molarity', icon: '🧪' },
   'html-runner': { nameBn: 'এইচটিএমএল এডিটর ও লাইভ রানার', nameEn: 'HTML5 Live Runner', icon: '🌐' },
   'circuit-simulator': { nameBn: 'ডিজিটাল লজিক সার্কিট সিমুলেটর', nameEn: 'Digital Logic Circuit Simulator', icon: '🔌' },
   'c-runner': { nameBn: 'সি প্রোগ্রামিং কোড ও মেমরি ট্রেসার', nameEn: 'C Code Runner & Memory Tracer', icon: '💻' },
   'database-simulator': { nameBn: 'রিলেশনাল ডাটাবেজ ও এসকিউএল সিমুলেটর', nameEn: 'Relational Database & SQL Simulator', icon: '🗄️' },
-  'general-math': { nameBn: 'এসএসসি সাধারণ গণিত সমাধানকারী', nameEn: 'SSC General Math Solver', icon: '➕' },
 };
 
 const levelLabel = subject.level === 'hsc' ? 'এইচএসসি (একাদশ-দ্বাদশ)' : 'এসএসসি (নবম-দশম)';

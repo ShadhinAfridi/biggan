@@ -1,0 +1,164 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import { getLocalizedPath } from '../../../i18n/utils';
+---
+
+<ArticleLayout
+  title="এইচএসসি আইসিটি ৪র্থ অধ্যায়: এইচটিএমএল ও ওয়েব ডিজাইন পরিচিতি সম্পূর্ণ গাইড"
+  metaDescription="NCTB এইচএসসি আইসিটি ৪র্থ অধ্যায়ের সম্পূর্ণ এইচটিএমএল গাইড: মৌলিক কাঠামো, ট্যাগ ও অ্যাট্রিবিউট, টেবিলের rowspan ও colspan, হাইপারলিংক এবং বোর্ড পরীক্ষার সাধারণ ভুলসমূহ।"
+  curriculum="NCTB এইচএসসি আইসিটি (অধ্যায় ৪) / একাদশ-দ্বাদশ শ্রেণি"
+  readTime="৭ মিনিট"
+  publishedDate="2026-09-09"
+  relatedTool={{
+    name: "এইচটিএমএল ও সিএসএস লাইভ রানার",
+    href: getLocalizedPath("/tools/html-runner", "bn"),
+    desc: "ব্রাউজারে সরাসরি এইচটিএমএল কোড লিখে টেবিল (rowspan/colspan), ফর্ম এবং ইমেজ ট্যাগ লাইভ টেস্ট ও প্রিভিউ করুন।"
+  }}
+>
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ১. এইচটিএমএল (HTML) কী ও এর মৌলিক কাঠামো
+    </h2>
+    <p>
+      <strong>HTML</strong> এর পূর্ণরূপ হলো <em>HyperText Markup Language</em>। এটি কোনো প্রোগ্রামিং ভাষা নয়, বরং একটি <strong>মার্কআপ ল্যাঙ্গুয়েজ</strong> যা ব্রাউজারে একটি ওয়েব পেজের কঙ্কাল বা মৌলিক গঠন (Structure) তৈরি করতে ব্যবহৃত হয়। ১৯৯০ সালে স্যার টিম বার্নার্স-লি (Tim Berners-Lee) এটি তৈরি করেন।
+    </p>
+    <p>
+      প্রতিটি আদর্শ এইচটিএমএল৫ ডকুমেন্টের একটি নির্দিষ্ট গঠন কাঠামো থাকে:
+    </p>
+    <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 font-mono text-xs sm:text-sm text-slate-300 space-y-1 overflow-x-auto">
+      <div class="text-slate-500">&lt;!DOCTYPE html&gt; <span class="text-slate-400 font-sans text-xs">// ব্রাউজারকে HTML5 ডকুমেন্ট বোঝায়</span></div>
+      <div>&lt;<span class="text-cyan-400">html</span> <span class="text-amber-400">lang</span>=<span class="text-emerald-400">"bn"</span>&gt;</div>
+      <div class="pl-4">&lt;<span class="text-cyan-400">head</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">meta</span> <span class="text-amber-400">charset</span>=<span class="text-emerald-400">"UTF-8"</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">title</span>&gt;আমার প্রথম ওয়েব পেজ&lt;/<span class="text-cyan-400">title</span>&gt;</div>
+      <div class="pl-4">&lt;/<span class="text-cyan-400">head</span>&gt;</div>
+      <div class="pl-4">&lt;<span class="text-cyan-400">body</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">h1</span>&gt;ওয়েব ডিজাইনে স্বাগতম!&lt;/<span class="text-cyan-400">h1</span>&gt;</div>
+      <div class="pl-8">&lt;<span class="text-cyan-400">p</span>&gt;এটি একটি অনুচ্ছেদ।&lt;/<span class="text-cyan-400">p</span>&gt;</div>
+      <div class="pl-4">&lt;/<span class="text-cyan-400">body</span>&gt;</div>
+      <div>&lt;/<span class="text-cyan-400">html</span>&gt;</div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ২. কন্টেইনার ট্যাগ বনাম এম্পটি ট্যাগ (Empty / Void Tag)
+    </h2>
+    <p>
+      বোর্ড পরীক্ষার নৈর্ব্যক্তিক (MCQ) প্রশ্নে প্রায়শই ট্যাগ প্রকারভেদ নিয়ে প্রশ্ন আসে। এইচটিএমএল ট্যাগ মূলত দুই প্রকার:
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h3 class="text-base font-bold text-cyan-400 flex items-center gap-2">
+          <span>📦</span> কন্টেইনার ট্যাগ (Container Tag)
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          যেসব ট্যাগের শুরুর ট্যাগ (Opening Tag), ভেতরের বিষয়বস্তু (Content) এবং শেষ ট্যাগ (Closing Tag) থাকে, সেগুলোকে কন্টেইনার ট্যাগ বলে।
+        </p>
+        <div class="text-xs font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-slate-300">
+          &lt;p&gt;বিষয়বস্তু&lt;/p&gt;<br />
+          &lt;h1&gt;শিরোনাম&lt;/h1&gt;<br />
+          &lt;table&gt;...&lt;/table&gt;
+        </div>
+      </div>
+
+      <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+        <h3 class="text-base font-bold text-amber-400 flex items-center gap-2">
+          <span>⚡</span> এম্পটি ট্যাগ (Empty / Void Tag)
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          যেসব ট্যাগের কেবল শুরুর ট্যাগ থাকে কিন্তু কোনো সমাপ্তি বা ক্লোজিং ট্যাগ (&lt;/...&gt;) থাকে না, সেগুলোকে এম্পটি ট্যাগ বলে।
+        </p>
+        <div class="text-xs font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-amber-300">
+          &lt;br&gt; <span class="text-slate-400 font-sans text-[11px]">(লাইন ব্রেক)</span><br />
+          &lt;hr&gt; <span class="text-slate-400 font-sans text-[11px]">(অনুভূমিক দাগ)</span><br />
+          &lt;img src="..."&gt; <span class="text-slate-400 font-sans text-[11px]">(ছবি সংযুক্তি)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ৩. বোর্ড পরীক্ষার সবচেয়ে গুরুত্বপূর্ণ অংশ: টেবিল, rowspan ও colspan
+    </h2>
+    <p>
+      এইচএসসি আইসিটি বোর্ড পরীক্ষার সৃজনশীল (CQ) প্রশ্নের প্রায় ৮০% ক্ষেত্রে টেবিল তৈরি করতে বলা হয়। টেবিলের মৌলিক ট্যাগসমূহ হলো:
+    </p>
+    <ul class="list-disc list-inside space-y-1 text-sm text-slate-300">
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;table border="1"&gt;</code>: পুরো টেবিল ডিক্লেয়ার করা</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;tr&gt;</code>: টেবিল রো বা অনুভূমিক সারি (Table Row)</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;th&gt;</code>: কলাম হেডার (Table Header - স্বয়ংক্রিয়ভাবে বোল্ড ও সেন্টারে থাকে)</li>
+      <li><code class="text-cyan-400 font-mono bg-slate-900 px-1.5 py-0.5 rounded">&lt;td&gt;</code>: টেবিল ডেটা বা ডাটা সেল (Table Data)</li>
+    </ul>
+
+    <div class="p-5 rounded-xl bg-cyan-950/30 border border-cyan-800/50 space-y-3">
+      <h3 class="text-base font-bold text-cyan-300">
+        Rowspan ও Colspan এর সূত্র ও নিয়ম
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-cyan-400 font-mono text-sm">colspan="n"</div>
+          <p class="text-slate-300">
+            পাশাপাশি <strong class="text-white">n সংখ্যক কলামকে</strong> একত্র করে একটি সেলে পরিণত করে। (অনুভূমিক মার্জ)
+          </p>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
+          <div class="font-bold text-amber-400 font-mono text-sm">rowspan="n"</div>
+          <p class="text-slate-300">
+            উপর-নিচে <strong class="text-white">n সংখ্যক সারিকে (row)</strong> একত্র করে একটি সেলে পরিণত করে। (উল্লম্ব মার্জ)
+          </p>
+        </div>
+      </div>
+      <p class="text-xs text-slate-400 italic">
+        *টিপস: যে সেলে rowspan="2" ব্যবহার করা হয়, তার ঠিক নিচের সারির (tr) মধ্যে ওই সংশ্লিষ্ট কলামের &lt;td&gt; টি বাদ দিতে হয়!
+      </p>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ৪. হাইপারলিংক ও ইমেজ সংযুক্তি
+    </h2>
+    <div class="space-y-3 text-sm text-slate-300 leading-relaxed">
+      <p>
+        ওয়েব পেজে অন্য কোনো পৃষ্ঠার সাথে সংযোগ স্থাপন করতে <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">&lt;a&gt;</code> (Anchor) ট্যাগ এবং <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">href</code> অ্যাট্রিবিউট ব্যবহৃত হয়:
+      </p>
+      <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-slate-300 border border-slate-800">
+        &lt;a href="https://biggan.me" target="_blank"&gt;বিজ্ঞান.মি ভিজিট করুন&lt;/a&gt;
+      </div>
+      <p>
+        ছবি প্রদর্শনের জন্য <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">&lt;img&gt;</code> ট্যাগে <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">src</code> ও <code class="text-cyan-400 font-mono bg-slate-900 px-1 rounded">alt</code> অ্যাট্রিবিউট ব্যবহার অপরিহার্য:
+      </p>
+      <div class="bg-slate-900 p-3 rounded-lg font-mono text-xs text-slate-300 border border-slate-800">
+        &lt;img src="logo.png" alt="লোগো" width="200" height="100"&gt;
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4">
+    <h2 class="text-2xl font-bold text-white border-l-4 border-cyan-500 pl-3">
+      ৫. বোর্ড পরীক্ষায় সাধারণ ভুল ও সতর্কবার্তা
+    </h2>
+    <div class="space-y-2 text-xs sm:text-sm text-slate-300">
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-rose-400 font-bold">✕</span>
+        <div>
+          <strong class="text-white">ভুল:</strong> &lt;br&gt; বা &lt;img&gt; এর জন্য &lt;/br&gt; বা &lt;/img&gt; ক্লোজিং ট্যাগ লেখা। এগুলো এম্পটি ট্যাগ, ক্লোজিং ট্যাগ দেওয়া যাবে না।
+        </div>
+      </div>
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-rose-400 font-bold">✕</span>
+        <div>
+          <strong class="text-white">ভুল:</strong> &lt;table&gt; ট্যাগে <code class="text-cyan-400">border="1"</code> অ্যাট্রিবিউট লিখতে ভুলে যাওয়া। এটি না লিখলে টেবিলে কোনো সীমানা দাগ প্রদর্শিত হয় না।
+        </div>
+      </div>
+      <div class="flex items-start gap-2.5 p-3 rounded-lg bg-slate-900 border border-slate-800">
+        <span class="text-emerald-400 font-bold">✓</span>
+        <div>
+          <strong class="text-white">টিপস:</strong> সৃজনশীল পরীক্ষায় উত্তর লেখার সময় ইন্ডেন্টেশন (ট্যাব স্পেস) বজায় রাখলে পরীক্ষক সহজে কোডের কাঠামো বুঝতে পারেন এবং পূর্ণ নম্বর পাওয়া যায়।
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>
