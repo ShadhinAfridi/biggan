@@ -1,3 +1,87 @@
+﻿---
+// Instant, seamless locale router for root /
 ---
-return Astro.redirect('/bn/');
----
+<!doctype html>
+<html lang="bn" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biggan.me — বিজ্ঞান সবার জন্য উন্মুক্ত ও স্বচ্ছ</title>
+    <meta http-equiv="refresh" content="0;url=/bn/" />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://biggan.me/bn/" />
+    <link rel="alternate" hreflang="bn" href="https://biggan.me/bn/" />
+    <link rel="alternate" hreflang="en" href="https://biggan.me/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://biggan.me/bn/" />
+    <style>
+      html, body {
+        background-color: #020617;
+        color: #94a3b8;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+      }
+      .loader-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .brand-badge {
+        width: 44px;
+        height: 44px;
+        background: #0891b2;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #020617;
+        font-weight: 800;
+        font-size: 22px;
+        box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
+      }
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border: 2px solid rgba(6, 182, 212, 0.2);
+        border-top-color: #06b6d4;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+    <script is:inline>
+      (() => {
+        try {
+          const storedLang = localStorage.getItem('lang');
+          if (storedLang === 'en') {
+            window.location.replace('/en/');
+            return;
+          }
+          if (storedLang === 'bn') {
+            window.location.replace('/bn/');
+            return;
+          }
+          const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+          if (browserLang.startsWith('en')) {
+            window.location.replace('/en/');
+            return;
+          }
+        } catch (e) {}
+        window.location.replace('/bn/');
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="loader-container">
+      <div class="brand-badge">B</div>
+      <div class="spinner"></div>
+    </div>
+  </body>
+</html>

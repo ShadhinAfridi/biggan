@@ -29,7 +29,7 @@ export default defineConfig({
     locales: ['bn', 'en'],
     routing: {
       prefixDefaultLocale: true,
-      redirectToDefaultLocale: true,
+      redirectToDefaultLocale: false,
     },
   },
 });
