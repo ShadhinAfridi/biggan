@@ -238,5 +238,12 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       expect(sitemapContent).not.toContain('<loc>https://biggan.me/</loc>');
       expect(sitemapContent).not.toContain('404');
     });
+
+    it('verifies Google Search Console verification HTML file exists with exact required token', () => {
+      const gscFilePath = path.join(ROOT, 'public', 'google9561371fa6c94bfa.html');
+      expect(fs.existsSync(gscFilePath)).toBe(true);
+      const content = fs.readFileSync(gscFilePath, 'utf8');
+      expect(content.trim()).toBe('google-site-verification: google9561371fa6c94bfa.html');
+    });
   });
 });
