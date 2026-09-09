@@ -23,6 +23,8 @@ export const ui = {
     'nav.progress': 'প্রোগ্রেস ট্র্যাকিং',
     'nav.about': 'অ্যাবাউট আস',
     'nav.methodology': 'মেথডোলজি',
+    'nav.contact': 'যোগাযোগ ও সাপোর্ট',
+    'footer.contact': 'যোগাযোগ ও সম্পাদকীয় সহায়তা',
 
     // Tools
     'tools.title': 'সায়েন্স ও ম্যাথ ক্যালকুলেটরস',
@@ -110,6 +112,8 @@ export const ui = {
     'nav.progress': 'My Progress',
     'nav.about': 'About Us',
     'nav.methodology': 'Methodology',
+    'nav.contact': 'Contact & Support',
+    'footer.contact': 'Contact & Editorial Support',
 
     // Tools
     'tools.title': 'Science & Math Calculators',

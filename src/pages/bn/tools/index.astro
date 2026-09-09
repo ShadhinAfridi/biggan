@@ -233,12 +233,50 @@ const allTools: ToolItem[] = [
     keywords: 'solution preparation dilution calculator w=smv/1000 v1s1=v2s2 molarity ppm ppb titration acid base primary standard hsc chemistry',
   },
 ];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'মূলপাতা',
+      item: 'https://biggan.me/bn/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'টুলস ও ক্যালকুলেটর ডিরেক্টরি',
+      item: 'https://biggan.me/bn/tools/',
+    },
+  ],
+};
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'সকল বৈজ্ঞানিক ক্যালকুলেটর ও আইসিটি সিমুলেটর — Biggan.me',
+  description: 'বোর্ড পরীক্ষা ও ভর্তি পরীক্ষার উপযোগী ধাপে ধাপে বিজ্ঞান ক্যালকুলেটর ও আইসিটি ল্যাব সিমুলেটর। মোলার ভর, লজিক গেট, সি প্রোগ্রামিং ড্রাই-রান, এইচটিএমএল ও এসকিউএল।',
+  url: 'https://biggan.me/bn/tools/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: allTools.map((t, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      name: t.name,
+      description: t.desc,
+      url: `https://biggan.me/bn/tools/${t.id}/`,
+    })),
+  },
+};
 ---
 
 <BaseLayout
   title="সকল বৈজ্ঞানিক ক্যালকুলেটর ও আইসিটি সিমুলেটর — Biggan.me"
   description="বোর্ড পরীক্ষা ও ভর্তি পরীক্ষার উপযোগী ধাপে ধাপে বিজ্ঞান ক্যালকুলেটর ও আইসিটি ল্যাব সিমুলেটর। মোলার ভর, লজিক গেট, সি প্রোগ্রামিং ড্রাই-রান, এইচটিএমএল ও এসকিউএল।"
   lang="bn"
+  jsonLd={[breadcrumbSchema, collectionSchema]}
 >
   <div class="space-y-10">
     <!-- Header -->

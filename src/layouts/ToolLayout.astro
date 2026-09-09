@@ -3,7 +3,7 @@ import BaseLayout from './BaseLayout.astro';
 import AdSlot from '../components/ads/AdSlot.astro';
 import { CasioGuide } from '../components/casio/CasioGuide';
 import { Latex } from '../components/math/Latex';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
 export interface SolvedExemplar {
@@ -44,6 +44,106 @@ const {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const pathname = Astro.url.pathname;
+const currentToolId = pathname.replace(/\/$/, '').split('/').pop() || '';
+const canonicalPageUrl = `https://biggan.me${pathname.endsWith('/') ? pathname : `${pathname}/`}`;
+
+const RELATED_MAP: Record<string, { id: string; nameBn: string; nameEn: string; icon: string; descBn: string; descEn: string }[]> = {
+  'physics': [
+    { id: 'vector-calculator', nameBn: 'ভেক্টর ৩ডি গুণন', nameEn: '3D Vector Solver', icon: '↗️', descBn: 'ডট ও ক্রস গুণন', descEn: 'Dot & Cross product' },
+    { id: 'projectile-motion', nameBn: 'প্রাস ও দ্বিমাত্রিক গতি', nameEn: 'Projectile Motion', icon: '🎯', descBn: 'পাল্লা ও গতিপথ', descEn: 'Range & trajectory' },
+    { id: 'gas-law-calculator', nameBn: 'আদর্শ গ্যাস সূত্র', nameEn: 'Gas Laws (PV=nRT)', icon: '💨', descBn: 'চাপ, আয়তন ও তাপমাত্রা', descEn: 'Pressure & Temp' },
+    { id: 'significant-figures', nameBn: 'তাৎপর্যপূর্ণ অঙ্ক', nameEn: 'Significant Figures', icon: '📏', descBn: 'রাউন্ডিং ও নির্ভুলতা', descEn: 'Precision rounding' },
+  ],
+  'chemistry': [
+    { id: 'molar-mass', nameBn: 'মোলার ভর ও শতকরা সংযুতি', nameEn: 'Molar Mass Solver', icon: '⚖️', descBn: 'কেলাস পানি ও যৌগ', descEn: 'Formula weight' },
+    { id: 'redox-balancer', nameBn: 'আয়ন-ইলেকট্রন রেডক্স সমতা', nameEn: 'Redox Balancer', icon: '⚡', descBn: 'জারণ-বিজারণ সমীকরণ', descEn: 'Half-reaction method' },
+    { id: 'solution-dilution', nameBn: 'দ্রবণ প্রস্তুতি ও লঘুকরণ', nameEn: 'Solution Dilution', icon: '🧪', descBn: 'W=SMV/1000 ও মোলারিটি', descEn: 'Molarity & PPM' },
+    { id: 'gas-law-calculator', nameBn: 'আদর্শ গ্যাস সূত্র', nameEn: 'Gas Laws (PV=nRT)', icon: '💨', descBn: 'পরিবেশ রসায়ন', descEn: 'Ideal Gas solver' },
+  ],
+  'biology': [
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'জৈব অণু ও শক্তি', descEn: 'Chemical foundations' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'শক্তি রূপান্তর', descEn: 'Energy transformations' },
+    { id: 'general-math', nameBn: 'সাধারণ গণিত সমাধানকারী', nameEn: 'General Math', icon: '➕', descBn: 'পরিসংখ্যান ও অনুপাত', descEn: 'Stats & Genetics ratio' },
+  ],
+  'general-math': [
+    { id: 'higher-math', nameBn: 'উচ্চতর গণিত ক্যালকুলেটর', nameEn: 'Higher Math Solver', icon: '📐', descBn: '১৪টি অধ্যায়ের সমাধান', descEn: '14 Chapters' },
+    { id: 'quadratic-solver', nameBn: 'দ্বিঘাত সমীকরণ সমাধান', nameEn: 'Quadratic Equation', icon: '📐', descBn: 'মূলের প্রকৃতি ও মান', descEn: 'Discriminant & Roots' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'গাণিতিক প্রয়োগ', descEn: 'Mathematical physics' },
+  ],
+  'higher-math': [
+    { id: 'quadratic-solver', nameBn: 'দ্বিঘাত সমীকরণ সমাধান', nameEn: 'Quadratic Equation', icon: '📐', descBn: 'মূল ও সহগের সম্পর্ক', descEn: 'Roots & Coefficients' },
+    { id: 'vector-calculator', nameBn: 'ভেক্টর ৩ডি গুণন', nameEn: '3D Vector Solver', icon: '↗️', descBn: 'ডট ও ক্রস গুণন', descEn: 'Dot & Cross product' },
+    { id: 'general-math', nameBn: 'সাধারণ গণিত সমাধানকারী', nameEn: 'General Math', icon: '➕', descBn: 'পরিমিতি ও ত্রিকোণমিতি', descEn: 'Trig & Mensuration' },
+  ],
+  'molar-mass': [
+    { id: 'solution-dilution', nameBn: 'দ্রবণ প্রস্তুতি ও লঘুকরণ', nameEn: 'Solution Dilution', icon: '🧪', descBn: 'W=SMV/1000 ও মোলারিটি', descEn: 'Molarity & PPM' },
+    { id: 'redox-balancer', nameBn: 'আয়ন-ইলেকট্রন রেডক্স সমতা', nameEn: 'Redox Balancer', icon: '⚡', descBn: 'জারণ-বিজারণ সমীকরণ', descEn: 'Half-reaction method' },
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'মোল ও পরিমাণগত রসায়ন', descEn: 'Quantitative chemistry' },
+    { id: 'gas-law-calculator', nameBn: 'আদর্শ গ্যাস সূত্র', nameEn: 'Gas Laws (PV=nRT)', icon: '💨', descBn: 'মোলার আয়তন ও গতিতত্ত্ব', descEn: 'Molar volume' },
+  ],
+  'redox-balancer': [
+    { id: 'molar-mass', nameBn: 'মোলার ভর ও শতকরা সংযুতি', nameEn: 'Molar Mass Solver', icon: '⚖️', descBn: 'আণবিক ভর নির্ণয়', descEn: 'Formula weight' },
+    { id: 'solution-dilution', nameBn: 'দ্রবণ প্রস্তুতি ও লঘুকরণ', nameEn: 'Solution Dilution', icon: '🧪', descBn: 'টাইট্রেশন সমতাকরণ', descEn: 'Titration equivalents' },
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'রাসায়নিক বিক্রিয়া ও বন্ধন', descEn: 'Chemical reactions' },
+  ],
+  'significant-figures': [
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'পরিমাপ ও ত্রুটি বিশ্লেষণ', descEn: 'Measurement & Error' },
+    { id: 'general-math', nameBn: 'সাধারণ গণিত সমাধানকারী', nameEn: 'General Math', icon: '➕', descBn: 'আসন্নমান ও বৈজ্ঞানিক রূপ', descEn: 'Scientific notation' },
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'ল্যাবরেটরি পরিমাপ', descEn: 'Lab precision' },
+  ],
+  'projectile-motion': [
+    { id: 'vector-calculator', nameBn: 'ভেক্টর ৩ডি গুণন', nameEn: '3D Vector Solver', icon: '↗️', descBn: 'দ্বিমাত্রিক বেগ উপাংশ', descEn: '2D Velocity vectors' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'গতিবিদ্যা ও বলবিদ্যা', descEn: 'Kinematics & Dynamics' },
+    { id: 'higher-math', nameBn: 'উচ্চতর গণিত ক্যালকুলেটর', nameEn: 'Higher Math Solver', icon: '📐', descBn: 'পরাবৃত্ত ও ট্র্যাজেক্টরি', descEn: 'Parabolic paths' },
+  ],
+  'quadratic-solver': [
+    { id: 'higher-math', nameBn: 'উচ্চতর গণিত ক্যালকুলেটর', nameEn: 'Higher Math Solver', icon: '📐', descBn: 'দ্বিঘাত সমীকরণ অধ্যায়', descEn: 'Quadratic chapter' },
+    { id: 'general-math', nameBn: 'সাধারণ গণিত সমাধানকারী', nameEn: 'General Math', icon: '➕', descBn: 'বীজগণিতীয় সমাধান', descEn: 'Algebraic equations' },
+    { id: 'projectile-motion', nameBn: 'প্রাস ও দ্বিমাত্রিক গতি', nameEn: 'Projectile Motion', icon: '🎯', descBn: 'পরাবৃত্তীয় সময় নির্ণয়', descEn: 'Quadratic time roots' },
+  ],
+  'vector-calculator': [
+    { id: 'projectile-motion', nameBn: 'প্রাস ও দ্বিমাত্রিক গতি', nameEn: 'Projectile Motion', icon: '🎯', descBn: 'বেগ উপাংশ ও গতিপথ', descEn: 'Velocity components' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'কাজ, শক্তি ও বলবিদ্যা', descEn: 'Work & Dynamics' },
+    { id: 'higher-math', nameBn: 'উচ্চতর গণিত ক্যালকুলেটর', nameEn: 'Higher Math Solver', icon: '📐', descBn: 'ত্রিমাত্রিক জ্যামিতি', descEn: '3D Geometry' },
+  ],
+  'gas-law-calculator': [
+    { id: 'solution-dilution', nameBn: 'দ্রবণ প্রস্তুতি ও লঘুকরণ', nameEn: 'Solution Dilution', icon: '🧪', descBn: 'ঘনমাত্রা ও মোলারিটি', descEn: 'Concentration & Molarity' },
+    { id: 'molar-mass', nameBn: 'মোলার ভর ও শতকরা সংযুতি', nameEn: 'Molar Mass Solver', icon: '⚖️', descBn: 'গ্যাসের ঘনত্ব ও ভর', descEn: 'Density & mass' },
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'পরিবেশ রসায়ন অধ্যায়', descEn: 'Environmental chemistry' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'তাপ ও তাপগতিবিদ্যা', descEn: 'Heat & Thermodynamics' },
+  ],
+  'solution-dilution': [
+    { id: 'molar-mass', nameBn: 'মোলার ভর ও শতকরা সংযুতি', nameEn: 'Molar Mass Solver', icon: '⚖️', descBn: 'আণবিক ভর ও গ্রাম-মোল', descEn: 'Formula mass' },
+    { id: 'gas-law-calculator', nameBn: 'আদর্শ গ্যাস সূত্র', nameEn: 'Gas Laws (PV=nRT)', icon: '💨', descBn: 'মোলার আয়তন ও এসটিপি', descEn: 'STP calculations' },
+    { id: 'redox-balancer', nameBn: 'আয়ন-ইলেকট্রন রেডক্স সমতা', nameEn: 'Redox Balancer', icon: '⚡', descBn: 'টাইট্রেশন বিক্রিয়া', descEn: 'Titration half-reactions' },
+    { id: 'chemistry', nameBn: 'রসায়ন ক্যালকুলেটর', nameEn: 'Chemistry Solver', icon: '⚗️', descBn: 'পরিমাণগত রসায়ন', descEn: 'Quantitative chemistry' },
+  ],
+  'html-runner': [
+    { id: 'circuit-simulator', nameBn: 'লজিক গেট সার্কিট সিমুলেটর', nameEn: 'Logic Gate Circuits', icon: '🔌', descBn: 'ডিজিটাল লজিক (অধ্যায় ৩)', descEn: 'Digital Logic Ch 3' },
+    { id: 'c-runner', nameBn: 'সি প্রোগ্রামিং মেমরি ট্রেসার', nameEn: 'C Code Runner', icon: '💻', descBn: 'প্রোগ্রামিং ভাষা (অধ্যায় ৫)', descEn: 'Programming Language Ch 5' },
+    { id: 'database-simulator', nameBn: 'এসকিউএল ও রিলেশনাল ডাটাবেজ', nameEn: 'SQL Database Simulator', icon: '🗄️', descBn: 'ডেটাবেজ ম্যানেজমেন্ট (অধ্যায় ৬)', descEn: 'DBMS Ch 6' },
+  ],
+  'circuit-simulator': [
+    { id: 'c-runner', nameBn: 'সি প্রোগ্রামিং মেমরি ট্রেসার', nameEn: 'C Code Runner', icon: '💻', descBn: 'প্রোগ্রামিং ও মেমরি', descEn: 'C Variables & Loops' },
+    { id: 'html-runner', nameBn: 'এইচটিএমএল৫ লাইভ রানার', nameEn: 'HTML5 Live Runner', icon: '🌐', descBn: 'ওয়েব ডিজাইন পরিচিতি', descEn: 'Web Design Lab' },
+    { id: 'database-simulator', nameBn: 'এসকিউএল ও রিলেশনাল ডাটাবেজ', nameEn: 'SQL Database Simulator', icon: '🗄️', descBn: 'আইসিটি ৬ষ্ঠ অধ্যায়', descEn: 'ICT Chapter 6' },
+    { id: 'physics', nameBn: 'পদার্থবিজ্ঞান ক্যালকুলেটর', nameEn: 'Physics Solver', icon: '⚡', descBn: 'চলতড়িৎ ও বর্তনী', descEn: 'Current Electricity' },
+  ],
+  'c-runner': [
+    { id: 'html-runner', nameBn: 'এইচটিএমএল৫ লাইভ রানার', nameEn: 'HTML5 Live Runner', icon: '🌐', descBn: 'ওয়েব পেজ ও মার্কআপ', descEn: 'Web Markup Lab' },
+    { id: 'circuit-simulator', nameBn: 'লজিক গেট সার্কিট সিমুলেটর', nameEn: 'Logic Gate Circuits', icon: '🔌', descBn: 'বুলিয়ান অ্যালজেব্রা', descEn: 'Boolean Algebra' },
+    { id: 'database-simulator', nameBn: 'এসকিউএল ও রিলেশনাল ডাটাবেজ', nameEn: 'SQL Database Simulator', icon: '🗄️', descBn: 'টেবিল ও কুয়েরি', descEn: 'Relational Queries' },
+  ],
+  'database-simulator': [
+    { id: 'c-runner', nameBn: 'সি প্রোগ্রামিং মেমরি ট্রেসার', nameEn: 'C Code Runner', icon: '💻', descBn: 'স্ট্রাকচার্ড প্রোগ্রামিং', descEn: 'C Logic Flow' },
+    { id: 'html-runner', nameBn: 'এইচটিএমএল৫ লাইভ রানার', nameEn: 'HTML5 Live Runner', icon: '🌐', descBn: 'ফর্ম ও ওয়েব ইনপুট', descEn: 'HTML Forms & Inputs' },
+    { id: 'circuit-simulator', nameBn: 'লজিক গেট সার্কিট সিমুলেটর', nameEn: 'Logic Gate Circuits', icon: '🔌', descBn: 'ডিজিটাল লজিক', descEn: 'Logic Circuits' },
+  ],
+};
+
+const relatedList = RELATED_MAP[currentToolId] || RELATED_MAP['physics'];
 
 // Supported Casio Guide topics
 const CASIO_TOPICS = [
@@ -95,19 +195,19 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: t('nav.home'),
-      item: `https://biggan.me/${lang}`,
+      item: `https://biggan.me/${lang}/`,
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: t('nav.tools'),
-      item: `https://biggan.me/${lang}/tools`,
+      item: `https://biggan.me/${lang}/tools/`,
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: toolName,
-      item: Astro.url.href,
+      item: canonicalPageUrl,
     },
   ],
 };
@@ -355,6 +455,67 @@ const breadcrumbSchema = {
             </div>
           </details>
         ))}
+      </div>
+    </section>
+
+    <!-- PART 7: Related Calculators & Curriculum Topics (Topic Cluster) -->
+    <section id="related-tools" class="space-y-4 scroll-mt-20 border-t border-slate-800/80 pt-8">
+      <div>
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+          {lang === 'bn' ? 'সম্পর্কিত অন্যান্য ক্যালকুলেটর ও সিমুলেটর' : 'Related Scientific Tools & Simulators'}
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          {lang === 'bn'
+            ? 'বোর্ড পরীক্ষা ও ভর্তি পরীক্ষার প্রস্তুতিতে প্রাসঙ্গিক সহায়ক টুলস'
+            : 'Complementary computational solvers for interconnected syllabus chapters.'}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {relatedList.map((rel) => (
+          <a
+            href={getLocalizedPath(`/tools/${rel.id}`, lang)}
+            class="group p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 hover:bg-slate-900 transition flex flex-col justify-between space-y-3"
+          >
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl p-2 rounded-xl bg-slate-950 border border-slate-800 group-hover:scale-110 transition">
+                {rel.icon}
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-xs font-bold text-white group-hover:text-cyan-400 transition truncate">
+                  {lang === 'bn' ? rel.nameBn : rel.nameEn}
+                </h3>
+                <p class="text-[11px] text-slate-400 truncate">
+                  {lang === 'bn' ? rel.descBn : rel.descEn}
+                </p>
+              </div>
+            </div>
+            <span class="text-[11px] font-semibold text-cyan-400 inline-flex items-center gap-1">
+              {lang === 'bn' ? 'ব্যবহার করুন →' : 'Open Tool →'}
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Syllabus & Formula Cross-Links -->
+      <div class="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <span class="text-slate-400">
+          {lang === 'bn' ? 'সংশ্লিষ্ট পাঠ্যক্রম ও সূত্রাবলী:' : 'Relevant Syllabus & Formula Resources:'}
+        </span>
+        <div class="flex items-center gap-3 font-mono text-cyan-400">
+          <a href={getLocalizedPath('/curriculum', lang)} class="hover:underline">
+            {lang === 'bn' ? '🎓 বোর্ড কারিকুলাম' : '🎓 Board Curriculum'}
+          </a>
+          <span>•</span>
+          <a href={getLocalizedPath('/formulas', lang)} class="hover:underline">
+            {lang === 'bn' ? '📑 সূত্রমালা তালিকা' : '📑 Formula Sheets'}
+          </a>
+          <span>•</span>
+          <a href={getLocalizedPath('/articles', lang)} class="hover:underline">
+            {lang === 'bn' ? '📚 শিক্ষামূলক গাইড' : '📚 Study Guides'}
+          </a>
+        </div>
       </div>
     </section>
   </div>

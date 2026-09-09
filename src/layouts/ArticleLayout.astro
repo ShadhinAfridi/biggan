@@ -48,9 +48,35 @@ const articleSchema = {
     url: 'https://biggan.me',
   },
 };
+
+const canonicalUrl = `https://biggan.me${Astro.url.pathname}`;
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: lang === 'bn' ? 'মূলপাতা' : 'Home',
+      item: `https://biggan.me/${lang}/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: lang === 'bn' ? 'টিউটোরিয়াল ও গাইড' : 'Guides & Articles',
+      item: `https://biggan.me/${lang}/articles/`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: title,
+      item: canonicalUrl,
+    },
+  ],
+};
 ---
 
-<BaseLayout title={`${title} | Biggan.me`} description={metaDescription} lang={lang} jsonLd={articleSchema}>
+<BaseLayout title={`${title} | Biggan.me`} description={metaDescription} lang={lang} jsonLd={[articleSchema, breadcrumbSchema]}>
   <article class="max-w-4xl mx-auto space-y-8">
     <!-- Breadcrumbs -->
     <nav class="flex items-center gap-2 text-xs text-slate-400 font-mono">

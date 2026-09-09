@@ -39,12 +39,51 @@ const toolMeta: Record<string, { nameBn: string; nameEn: string; icon: string }>
 };
 
 const levelLabel = subject.level === 'hsc' ? 'Higher Secondary (Classes 11–12)' : 'Secondary (Classes 9–10)';
+const canonicalUrl = `https://biggan.me/en/curriculum/${subject.level}/${subject.id}/`;
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://biggan.me/en/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Curriculum',
+      item: 'https://biggan.me/en/curriculum/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: subject.nameEn,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: `${subject.nameEn} (${levelLabel})`,
+  description: `Comprehensive NCTB syllabus roadmap for ${levelLabel} ${subject.nameEn}. Creative Question (CQ) & MCQ mark distribution, core KaTeX formulas, and live interactive simulators.`,
+  provider: {
+    '@type': 'EducationalOrganization',
+    name: 'Biggan.me',
+    url: 'https://biggan.me',
+  },
+  inLanguage: 'en-US',
+};
 ---
 
 <BaseLayout
   title={`${subject.nameEn} (${levelLabel}) — Syllabus & Topic Guide | Biggan.me`}
   description={`Comprehensive NCTB syllabus roadmap for ${levelLabel} ${subject.nameEn}. Creative Question (CQ) & MCQ mark distribution, core KaTeX formulas, and live interactive simulators.`}
   lang="en"
+  jsonLd={[breadcrumbSchema, courseSchema]}
 >
   <div class="space-y-10">
     <!-- Breadcrumbs -->

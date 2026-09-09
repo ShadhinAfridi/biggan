@@ -39,12 +39,51 @@ const toolMeta: Record<string, { nameBn: string; nameEn: string; icon: string }>
 };
 
 const levelLabel = subject.level === 'hsc' ? 'এইচএসসি (একাদশ-দ্বাদশ)' : 'এসএসসি (নবম-দশম)';
+const canonicalUrl = `https://biggan.me/bn/curriculum/${subject.level}/${subject.id}/`;
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'হোম',
+      item: 'https://biggan.me/bn/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'কারিকুলাম',
+      item: 'https://biggan.me/bn/curriculum/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: subject.nameBn,
+      item: canonicalUrl,
+    },
+  ],
+};
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: `${subject.nameBn} (${levelLabel})`,
+  description: `NCTB অনুমোদিত ${levelLabel} ${subject.nameBn} এর সম্পূর্ণ অধ্যায়ভিত্তিক বিশ্লেষণ, সৃজনশীল (CQ) ও নৈর্ব্যক্তিক (MCQ) নম্বর বণ্টন, মৌলিক সূত্রাবলী এবং সংশ্লিষ্ট সিমুলেটর।`,
+  provider: {
+    '@type': 'EducationalOrganization',
+    name: 'Biggan.me',
+    url: 'https://biggan.me',
+  },
+  inLanguage: 'bn-BD',
+};
 ---
 
 <BaseLayout
   title={`${subject.nameBn} (${levelLabel}) — অধ্যায় ও সিলেবাস গাইড | Biggan.me`}
   description={`NCTB অনুমোদিত ${levelLabel} ${subject.nameBn} এর সম্পূর্ণ অধ্যায়ভিত্তিক বিশ্লেষণ, সৃজনশীল (CQ) ও নৈর্ব্যক্তিক (MCQ) নম্বর বণ্টন, মৌলিক সূত্রাবলী এবং সংশ্লিষ্ট সিমুলেটর।`}
   lang="bn"
+  jsonLd={[breadcrumbSchema, courseSchema]}
 >
   <div class="space-y-10">
     <!-- Breadcrumbs -->

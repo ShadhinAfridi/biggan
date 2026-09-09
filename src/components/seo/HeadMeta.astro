@@ -7,19 +7,25 @@ interface Props {
   description: string;
   lang?: Lang;
   jsonLd?: Record<string, any> | Record<string, any>[];
+  noindex?: boolean;
 }
 
-const { title, description, jsonLd } = Astro.props;
+const { title, description, jsonLd, noindex = false } = Astro.props;
 const lang = Astro.props.lang || getLangFromUrl(Astro.url);
 
 const siteUrl = 'https://biggan.me';
 const pathname = Astro.url.pathname;
-const cleanPath = pathname.replace(/^\/(en|bn)/, '');
-const canonicalUrl = `${siteUrl}${pathname}`;
-const enUrl = `${siteUrl}/en${cleanPath}`;
-const bnUrl = `${siteUrl}/bn${cleanPath}`;
+let normalizedPath = pathname;
+if (normalizedPath !== '/' && !normalizedPath.endsWith('/') && !normalizedPath.includes('.')) {
+  normalizedPath = `${normalizedPath}/`;
+}
+const cleanPath = normalizedPath.replace(/^\/(en|bn)/, '') || '/';
+const canonicalUrl = `${siteUrl}${normalizedPath}`;
+const enUrl = `${siteUrl}/en${cleanPath === '/' ? '/' : cleanPath}`;
+const bnUrl = `${siteUrl}/bn${cleanPath === '/' ? '/' : cleanPath}`;
 
 const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION || '';
+const bingVerification = import.meta.env.PUBLIC_BING_VERIFICATION || '';
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || '';
 const adsenseClientId = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '';
 
@@ -56,7 +62,11 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+)}
 <meta name="theme-color" content="#020617" id="meta-theme-color" />
 <meta name="color-scheme" content="dark light" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -98,6 +108,9 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 
 <!-- Google Search Console Verification -->
 {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
+
+<!-- Bing Webmaster Verification -->
+{bingVerification && <meta name="msvalidate.01" content={bingVerification} />}
 
 <!-- Google AdSense Tag (When configured) -->
 {adsenseClientId && (

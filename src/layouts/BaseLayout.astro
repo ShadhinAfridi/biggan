@@ -11,9 +11,10 @@ interface Props {
   description: string;
   lang?: Lang;
   jsonLd?: Record<string, any> | Record<string, any>[];
+  noindex?: boolean;
 }
 
-const { title, description, jsonLd } = Astro.props;
+const { title, description, jsonLd, noindex = false } = Astro.props;
 const lang = Astro.props.lang || getLangFromUrl(Astro.url);
 ---
 
@@ -35,7 +36,7 @@ const lang = Astro.props.lang || getLangFromUrl(Astro.url);
         }
       })();
     </script>
-    <HeadMeta title={title} description={description} lang={lang} jsonLd={jsonLd} />
+    <HeadMeta title={title} description={description} lang={lang} jsonLd={jsonLd} noindex={noindex} />
   </head>
   <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white transition-colors duration-150">
     <Navbar />

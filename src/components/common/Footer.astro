@@ -134,6 +134,11 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
+            <a href={getLocalizedPath('/contact', lang)} class="hover:text-cyan-400 transition text-cyan-400 font-medium">
+              {lang === 'bn' ? '📬 যোগাযোগ ও সম্পাদকীয় সহায়তা' : '📬 Contact & Editorial Support'}
+            </a>
+          </li>
+          <li>
             <a href={getLocalizedPath('/curriculum', lang)} class="text-cyan-400 font-semibold hover:underline">
               {lang === 'bn' ? '🎓 কারিকুলাম ও সিলেবাস' : '🎓 Curriculum & Syllabus'}
             </a>

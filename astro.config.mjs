@@ -7,7 +7,12 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://biggan.me',
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => page !== 'https://biggan.me/' && !page.includes('/404'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
