@@ -1,0 +1,22 @@
+{
+  "name": "html-runner",
+  "version": "1.0.0",
+  "description": "Independent, zero-dependency HTML Runner & Comprehensive HTML/CSS Tutorial Platform",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes serve .",
+    "serve": "npx --yes http-server -p 8080 ."
+  },
+  "keywords": [
+    "html",
+    "css",
+    "code-runner",
+    "sandbox",
+    "playground",
+    "tutorial",
+    "reference"
+  ],
+  "author": "Biggan",
+  "license": "MIT"
+}

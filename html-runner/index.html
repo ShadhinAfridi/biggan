@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML & CSS Runner — Interactive Code Sandbox & Complete Tutorial</title>
+  <meta name="description" content="Independent, zero-dependency HTML runner, live preview playground, and exhaustive tutorial for all 110+ HTML elements and modern CSS properties.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- Top App Navigation Header -->
+  <header class="app-header">
+    <div class="brand-section">
+      <button class="btn btn-icon-only" id="sidebarToggleBtn" title="Toggle Reference Sidebar">
+        ☰
+      </button>
+      <div class="brand-logo">&lt;/&gt;</div>
+      <div class="brand-title">
+        HTML Runner
+        <span class="brand-badge">HTML5 + CSS3</span>
+      </div>
+    </div>
+
+    <!-- Template Selector -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Preset:</span>
+      <select id="templateSelect" class="template-dropdown" title="Choose a pre-built template"></select>
+    </div>
+
+    <!-- Actions & Theme Toggle -->
+    <div class="header-actions">
+      <button class="btn btn-primary" id="runBtn" title="Execute Code (Ctrl+Enter)">
+        ▶ Run
+      </button>
+      <button class="btn" id="formatBtn" title="Format Code">
+        🪄 Format
+      </button>
+      <button class="btn" id="copyBtn" title="Copy Code to Clipboard">
+        📋 Copy
+      </button>
+      <button class="btn" id="downloadBtn" title="Download as .html file (Ctrl+S)">
+        💾 Download
+      </button>
+      <button class="btn" id="themeToggleBtn" title="Toggle Light/Dark Theme">
+        ☀️ Light
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Split-Screen Container -->
+  <div class="app-container">
+    <!-- Left Drawer: Tutorial, Cheatsheet & Search -->
+    <aside class="sidebar" id="sidebar">
+      <!-- Tabs -->
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab-btn active" data-tab="html">HTML Elements</button>
+        <button class="sidebar-tab-btn" data-tab="css">CSS Guide</button>
+        <button class="sidebar-tab-btn" data-tab="templates">Templates</button>
+      </div>
+
+      <!-- Search Box -->
+      <div class="sidebar-search-box">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search tags, selectors, attributes...">
+        <button id="searchClearBtn" class="search-clear-btn" title="Clear Search">✕</button>
+      </div>
+
+      <!-- Category Filter Chips -->
+      <div class="category-chips" id="categoryChipsContainer"></div>
+
+      <!-- Tag & Concept Cards List -->
+      <div class="sidebar-items-list" id="sidebarItemsList"></div>
+    </aside>
+
+    <!-- Workspace Area (Editor & Runner) -->
+    <main class="workspace-area">
+      <!-- Editor Pane -->
+      <section class="pane pane-editor">
+        <div class="pane-toolbar">
+          <div class="pane-title">
+            <span>📝 Source Code</span>
+            <span style="font-size: 0.65rem; color: var(--text-faint); font-family: var(--font-mono); font-weight: normal;">(Auto-Runs on change)</span>
+          </div>
+          <div style="display: flex; gap: 4px;">
+            <button class="btn" id="resetBtn" title="Reset to template default" style="padding: 3px 8px; font-size: 0.75rem;">
+              ↺ Reset
+            </button>
+            <button class="btn" id="clearBtn" title="Clear editor" style="padding: 3px 8px; font-size: 0.75rem;">
+              🗑️ Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="editor-wrapper">
+          <div class="editor-line-numbers" id="editorLineNumbers"></div>
+          <textarea id="editorTextarea" class="editor-textarea" spellcheck="false" placeholder="Write your HTML and CSS here..."></textarea>
+        </div>
+      </section>
+
+      <!-- Preview Pane -->
+      <section class="pane pane-preview">
+        <div class="pane-toolbar">
+          <div class="pane-title">
+            <span>👁️ Live Preview</span>
+          </div>
+
+          <!-- Viewport Switcher -->
+          <div class="viewport-toolbar">
+            <button class="viewport-btn active" data-viewport="desktop" title="Desktop View (100%)">
+              💻 Desktop
+            </button>
+            <button class="viewport-btn" data-viewport="tablet" title="Tablet View (768px)">
+              📱 Tablet
+            </button>
+            <button class="viewport-btn" data-viewport="mobile" title="Mobile View (375px)">
+              📲 Mobile
+            </button>
+          </div>
+        </div>
+
+        <!-- IFrame Sandbox Wrapper -->
+        <div class="preview-container">
+          <div class="iframe-frame-wrapper desktop" id="iframeWrapper">
+            <iframe id="previewIframe" class="preview-iframe" sandbox="allow-scripts allow-modals" title="Live Preview Sandbox"></iframe>
+          </div>
+        </div>
+
+        <!-- Virtual Console Drawer -->
+        <div class="console-drawer collapsed" id="consoleDrawer">
+          <div class="console-header" id="consoleToggleHeader" title="Click to expand/collapse console">
+            <div class="console-title">
+              <span>🖥️ Virtual Console</span>
+              <span id="consoleCounter" class="console-counter">0 logs</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button id="consoleClearBtn" class="btn" style="padding: 2px 6px; font-size: 0.65rem;" title="Clear console logs">
+                Clear
+              </button>
+              <span style="font-size: 0.75rem; color: var(--text-faint);">▲ / ▼</span>
+            </div>
+          </div>
+          <div class="console-logs" id="consoleLogsContainer"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Detail Information Modal / Drawer -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle" style="margin: 0; font-family: var(--font-mono); color: var(--color-accent); font-size: 1.15rem;"></h3>
+          <span id="modalCategory" style="font-size: 0.75rem; color: var(--text-faint); text-transform: uppercase;"></span>
+        </div>
+        <button id="modalCloseBtn" class="btn btn-icon-only" title="Close dialog">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="modalLoadBtn">
+          🚀 Load into Runner
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main JavaScript Module Entry -->
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
