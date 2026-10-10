@@ -213,10 +213,12 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
           expect(titleMatch, `${rel} missing title`).toBeTruthy();
           expect(titleMatch![1].trim().length).toBeGreaterThan(5);
 
-          // Must have valid meta description
+          // Must have valid meta description within search engine bounds (50 to 160 chars)
           const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]+)"/);
           expect(descMatch, `${rel} missing meta description`).toBeTruthy();
-          expect(descMatch![1].trim().length).toBeGreaterThan(15);
+          const descLength = descMatch![1].trim().length;
+          expect(descLength, `${rel} meta description too short (< 50 chars)`).toBeGreaterThanOrEqual(50);
+          expect(descLength, `${rel} meta description too long (> 160 chars)`).toBeLessThanOrEqual(160);
 
           // Must have canonical matching exact URL
           const expectedCanonical = `https://biggan.me/${rel.replace(/index\.html$/, '')}`;

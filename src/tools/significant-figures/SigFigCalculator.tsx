@@ -7,6 +7,7 @@ import {
 } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Binary, Check, Copy, RefreshCw, Calculator, BookOpen } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -263,6 +264,9 @@ export const SigFigCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           )}
         </div>
       )}
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

@@ -29,6 +29,23 @@ const bingVerification = import.meta.env.PUBLIC_BING_VERIFICATION || '';
 const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || '';
 const adsenseClientId = import.meta.env.PUBLIC_ADSENSE_CLIENT_ID || '';
 
+// Helper to ensure meta description adheres strictly to search engine character limits (50 to 160 characters)
+function clampMetaDescription(text: string, maxLength: number = 155): string {
+  if (!text) return '';
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= maxLength) return clean;
+  const sub = clean.slice(0, maxLength);
+  const lastPunctuation = Math.max(sub.lastIndexOf('।'), sub.lastIndexOf('.'), sub.lastIndexOf('?'), sub.lastIndexOf('!'));
+  if (lastPunctuation >= 90) {
+    return sub.slice(0, lastPunctuation + 1).trim();
+  }
+  const lastSpace = sub.lastIndexOf(' ');
+  const trimmed = lastSpace >= 90 ? sub.slice(0, lastSpace) : sub.slice(0, maxLength - 1);
+  return `${trimmed.replace(/[\s,;:\-।.]+$/, '')}…`;
+}
+
+const metaDescription = clampMetaDescription(description, 155);
+
 // Build base schemas for WebSite and EducationalOrganization
 const baseSchemas = [
   {
@@ -37,7 +54,7 @@ const baseSchemas = [
     name: 'Biggan.me',
     url: siteUrl,
     inLanguage: lang === 'bn' ? 'bn-BD' : 'en-US',
-    description: description,
+    description: metaDescription,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -81,7 +98,7 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
-<meta name="description" content={description} />
+<meta name="description" content={metaDescription} />
 <link rel="canonical" href={canonicalUrl} />
 
 <!-- Bidirectional Hreflang Tags for SEO -->
@@ -93,7 +110,7 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={metaDescription} />
 <meta property="og:site_name" content="Biggan.me" />
 <meta property="og:locale" content={lang === 'bn' ? 'bn_BD' : 'en_US'} />
 <meta property="og:image" content={`${siteUrl}/og-image.png`} />
@@ -107,7 +124,7 @@ const combinedSchemas = [...baseSchemas, ...pageSchemas];
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={canonicalUrl} />
 <meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={metaDescription} />
 <meta name="twitter:image" content={`${siteUrl}/og-image.png`} />
 <meta name="twitter:image:alt" content="Biggan.me — Step-by-Step STEM Solvers & Scientific Calculators" />
 

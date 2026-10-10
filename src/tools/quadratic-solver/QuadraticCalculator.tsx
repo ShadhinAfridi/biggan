@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { solveQuadratic, type QuadraticResult } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Layers, CheckCircle, HelpCircle, ArrowRight, Copy, Check } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -227,6 +228,9 @@ Axis of Symmetry: x = ${result.axisOfSymmetry}`;
           </div>
         </div>
       )}
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

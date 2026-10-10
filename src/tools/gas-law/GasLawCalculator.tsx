@@ -12,6 +12,7 @@ import {
 } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Gauge, Copy, Check, RotateCcw, Sparkles, Wind, Flame, Layers } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -501,6 +502,9 @@ export const GasLawCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       )}
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

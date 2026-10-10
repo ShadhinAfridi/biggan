@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { calculateProjectile, type ProjectileResult } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Activity, Compass, Wind, ArrowUpRight, Check, Copy } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -324,6 +325,9 @@ Impact Velocity: ${result.impactVelocity} m/s`;
           </div>
         </div>
       )}
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

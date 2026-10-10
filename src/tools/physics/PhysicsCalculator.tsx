@@ -441,6 +441,294 @@ const CircuitSchematicDiagram: React.FC<{
   );
 };
 
+const VernierCaliperDiagram: React.FC<{
+  m: number;
+  v: number;
+  vc: number;
+  lang?: 'bn' | 'en';
+}> = ({ m, v, vc, lang = 'bn' }) => {
+  const total = m + v * vc;
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'স্লাইড ক্যালিপার্স স্কেল দৃশ্যমান রূপ' : 'Slide Calipers Scale Visualizer'}
+        </span>
+        <span className="font-mono text-[10px] text-emerald-400">
+          L = M + (V × VC) = {total.toFixed(2)} mm
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 80" className="w-full max-w-xs h-20 overflow-visible">
+          <rect x="20" y="10" width="280" height="26" fill="#1e293b" stroke="#475569" strokeWidth="1" rx="2" />
+          {Array.from({ length: 27 }).map((_, i) => (
+            <g key={i}>
+              <line
+                x1={25 + i * 10}
+                y1={36}
+                x2={25 + i * 10}
+                y2={i % 5 === 0 ? 20 : 26}
+                stroke="#94a3b8"
+                strokeWidth={i % 5 === 0 ? 1.5 : 0.8}
+              />
+              {i % 5 === 0 && (
+                <text x={25 + i * 10} y={17} fill="#cbd5e1" fontSize="7" textAnchor="middle" fontFamily="monospace">
+                  {i}
+                </text>
+              )}
+            </g>
+          ))}
+          <rect x="55" y="38" width="110" height="26" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.2" rx="2" />
+          {Array.from({ length: 11 }).map((_, i) => (
+            <line
+              key={i}
+              x1={60 + i * 9}
+              y1={38}
+              x2={60 + i * 9}
+              y2={48}
+              stroke={i === v ? '#f59e0b' : '#64748b'}
+              strokeWidth={i === v ? 2 : 1}
+            />
+          ))}
+          <circle cx={60 + v * 9} cy={38} r="3" fill="#f59e0b" />
+          <text x={60 + v * 9} y={58} fill="#f59e0b" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            V={v}
+          </text>
+          <text x="35" y="68" fill="#94a3b8" fontSize="8" fontFamily="monospace">
+            M = {m} mm
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const HydraulicPressDiagram: React.FC<{
+  f1: number;
+  d1?: number;
+  d2?: number;
+  a1?: number;
+  a2?: number;
+  lang?: 'bn' | 'en';
+}> = ({ f1, d1 = 2, d2 = 10, a1, a2, lang = 'bn' }) => {
+  const calcA1 = a1 || Math.PI * Math.pow(d1 / 2, 2);
+  const calcA2 = a2 || Math.PI * Math.pow(d2 / 2, 2);
+  const ratio = calcA1 > 0 ? calcA2 / calcA1 : 1;
+  const f2 = f1 * ratio;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'হাইড্রলিক প্রেস বল বৃদ্ধিকরণ (Pascal’s Hydraulic Press)' : 'Hydraulic Press Force Multiplier'}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">
+          F₂/F₁ = A₂/A₁ = {ratio.toFixed(1)}x
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 300 120" className="w-full max-w-xs h-28 overflow-visible">
+          <path
+            d="M 60 45 L 60 95 Q 60 105 70 105 L 230 105 Q 240 105 240 95 L 240 45 L 200 45 L 200 85 L 100 85 L 100 45 Z"
+            fill="#0284c7"
+            fillOpacity="0.4"
+            stroke="#0284c7"
+            strokeWidth="1.5"
+          />
+          <rect x="60" y="40" width="40" height="12" fill="#475569" stroke="#94a3b8" strokeWidth="1.5" rx="1" />
+          <line x1="80" y1="20" x2="80" y2="40" stroke="#f59e0b" strokeWidth="2.5" markerEnd="url(#arrow-f)" />
+          <text x="80" y="16" fill="#f59e0b" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            F₁={f1}N
+          </text>
+          <text x="80" y="65" fill="#bae6fd" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            A₁
+          </text>
+
+          <rect x="200" y="40" width="40" height="12" fill="#475569" stroke="#94a3b8" strokeWidth="1.5" rx="1" />
+          <line x1="220" y1="40" x2="220" y2="15" stroke="#10b981" strokeWidth="2.5" markerEnd="url(#arrow-f)" />
+          <text x="220" y="12" fill="#10b981" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            F₂={f2.toFixed(1)}N
+          </text>
+          <text x="220" y="65" fill="#bae6fd" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            A₂
+          </text>
+
+          <text x="150" y="100" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            P = F₁/A₁ = F₂/A₂
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const SoundEchoDiagram: React.FC<{
+  v: number;
+  t: number;
+  d: number;
+  lang?: 'bn' | 'en';
+}> = ({ v, t, d, lang = 'bn' }) => {
+  const minEchoD = (v * 0.1) / 2;
+  const canHearEcho = d >= minEchoD;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'প্রতিধ্বনি ও শব্দ প্রতিফলক দেয়াল (Echo Reflection Model)' : 'Sound Echo Reflection Model'}
+        </span>
+        <span className={`font-mono text-[10px] ${canHearEcho ? 'text-emerald-400' : 'text-rose-400'}`}>
+          {canHearEcho
+            ? (lang === 'bn' ? '✓ প্রতিধ্বনি শোনা যাবে' : '✓ Echo Audible')
+            : (lang === 'bn' ? '✗ প্রতিধ্বনি পৃথক নয়' : '✗ Echo Inaudible')}
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 100" className="w-full max-w-xs h-24 overflow-visible">
+          <line x1="20" y1="85" x2="300" y2="85" stroke="#475569" strokeWidth="1.5" />
+          <circle cx="50" cy="65" r="8" fill="#f59e0b" />
+          <path d="M 50 65 L 65 55 L 65 75 Z" fill="#f59e0b" />
+          <text x="50" y="80" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">উৎস</text>
+
+          <path d="M 75 52 A 20 20 0 0 1 75 78" fill="none" stroke="#38bdf8" strokeWidth="1.5" />
+          <path d="M 90 44 A 32 32 0 0 1 90 86" fill="none" stroke="#38bdf8" strokeWidth="1.5" />
+          <path d="M 105 38 A 45 45 0 0 1 105 92" fill="none" stroke="#38bdf8" strokeWidth="1.5" />
+
+          <path d="M 215 42 A 38 38 0 0 0 215 88" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 2" />
+          <path d="M 200 48 A 25 25 0 0 0 200 82" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3 2" />
+
+          <rect x="250" y="20" width="16" height="65" fill="#334155" stroke="#64748b" strokeWidth="1.5" rx="2" />
+          <text x="258" y="14" fill="#cbd5e1" fontSize="8" fontFamily="monospace" textAnchor="middle">প্রতিফলক</text>
+
+          <line x1="50" y1="92" x2="250" y2="92" stroke="#64748b" strokeWidth="1" strokeDasharray="2 2" />
+          <text x="150" y="99" fill="#38bdf8" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            d = vt/2 = {d.toFixed(1)} m (t={t}s, v={v}m/s)
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const TransformerCoilDiagram: React.FC<{
+  np: number;
+  ns: number;
+  vp: number;
+  vs: number;
+  lang?: 'bn' | 'en';
+}> = ({ np, ns, vp, vs, lang = 'bn' }) => {
+  const isStepUp = vs > vp;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'ট্রান্সফরমার কয়েল ও চৌম্বক আবেশ চিত্র' : 'Transformer Coils & Magnetic Core'}
+        </span>
+        <span className={`font-mono text-[10px] px-2 py-0.5 rounded font-bold ${isStepUp ? 'bg-amber-950/80 text-amber-300 border border-amber-800' : 'bg-cyan-950/80 text-cyan-300 border border-cyan-800'}`}>
+          {isStepUp
+            ? (lang === 'bn' ? 'উচ্চধাপী (Step-up)' : 'Step-up Transformer')
+            : (lang === 'bn' ? 'নিম্নধাপী (Step-down)' : 'Step-down Transformer')}
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 300 120" className="w-full max-w-xs h-28 overflow-visible">
+          <rect x="70" y="20" width="160" height="80" rx="8" fill="none" stroke="#475569" strokeWidth="14" />
+          <rect x="85" y="32" width="130" height="56" rx="4" fill="none" stroke="#f59e0b" strokeWidth="1" strokeDasharray="4 3" opacity="0.6" />
+
+          <g>
+            {[34, 46, 58, 70, 82].map((y) => (
+              <rect key={y} x="58" y={y} width="24" height="6" rx="2" fill="#38bdf8" stroke="#0284c7" strokeWidth="1" />
+            ))}
+            <text x="45" y="62" fill="#38bdf8" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="end">
+              Np={np}
+            </text>
+            <text x="45" y="74" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="end">
+              Vp={vp}V
+            </text>
+          </g>
+
+          <g>
+            {[30, 40, 50, 60, 70, 80, 88].map((y) => (
+              <rect key={y} x="218" y={y} width="24" height="5" rx="2" fill="#f59e0b" stroke="#d97706" strokeWidth="1" />
+            ))}
+            <text x="252" y="62" fill="#f59e0b" fontSize="8" fontWeight="bold" fontFamily="monospace">
+              Ns={ns}
+            </text>
+            <text x="252" y="74" fill="#94a3b8" fontSize="8" fontFamily="monospace">
+              Vs={vs.toFixed(1)}V
+            </text>
+          </g>
+
+          <text x="150" y="62" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            কাঁচা লোহা মজ্জা
+          </text>
+          <text x="150" y="73" fill="#cbd5e1" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            Vp/Vs = Np/Ns
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const RadioactiveDecayDiagram: React.FC<{
+  tHalf: number;
+  time: number;
+  n0?: number;
+  lang?: 'bn' | 'en';
+}> = ({ tHalf, time, n0 = 100, lang = 'bn' }) => {
+  const safeTh = Math.max(tHalf || 1, 0.001);
+  const halfLivesElapsed = time / safeTh;
+  const remainingPct = Math.pow(0.5, halfLivesElapsed) * 100;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'তেজস্ক্রিয় অর্ধায়ু ও ক্ষয় লেখচিত্র (Radioactive Half-Life Decay)' : 'Radioactive Decay Curve'}
+        </span>
+        <span className="font-mono text-[10px] text-emerald-400">
+          N(t) = {remainingPct.toFixed(1)}% ({halfLivesElapsed.toFixed(2)} T½)
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 110" className="w-full max-w-xs h-28 overflow-visible">
+          <line x1="35" y1="90" x2="295" y2="90" stroke="#475569" strokeWidth="1.5" />
+          <line x1="35" y1="15" x2="35" y2="90" stroke="#475569" strokeWidth="1.5" />
+          <text x="35" y="10" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">N (%)</text>
+          <text x="295" y="102" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="end">Time (t)</text>
+
+          <path
+            d="M 35 25 Q 75 55 100 68 T 165 82 T 230 87 T 290 89"
+            fill="none"
+            stroke="#f59e0b"
+            strokeWidth="2.5"
+          />
+
+          {[
+            { label: '0', x: 35, y: 25, pct: '100%' },
+            { label: '1 T½', x: 100, y: 58, pct: '50%' },
+            { label: '2 T½', x: 165, y: 74, pct: '25%' },
+            { label: '3 T½', x: 230, y: 82, pct: '12.5%' },
+          ].map((pt, i) => (
+            <g key={i}>
+              <circle cx={pt.x} cy={pt.y} r="3" fill="#38bdf8" />
+              <line x1={pt.x} y1={pt.y} x2={pt.x} y2="90" stroke="#334155" strokeWidth="1" strokeDasharray="2 2" />
+              <text x={pt.x} y="99" fill="#94a3b8" fontSize="7.5" fontFamily="monospace" textAnchor="middle">
+                {pt.label}
+              </text>
+              <text x={pt.x} y={pt.y - 5} fill="#38bdf8" fontSize="7.5" fontFamily="monospace" textAnchor="middle">
+                {pt.pct}
+              </text>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
 export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [activeChapter, setActiveChapter] = useState<ChapterId>('ch2');
   const [copied, setCopied] = useState(false);
@@ -829,24 +1117,27 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </div>
 
               {ch1SubTab === 'calipers' && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">মূল স্কেল পাঠ M (mm)</label>
-                    <input type="number" value={ch1M} onChange={(e) => setCh1M(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">মূল স্কেল পাঠ M (mm)</label>
+                      <input type="number" value={ch1M} onChange={(e) => setCh1M(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">ভার্নিয়ার সমপাতন V</label>
+                      <input type="number" value={ch1V} onChange={(e) => setCh1V(parseInt(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">ভার্নিয়ার ধ্রুবক VC (mm)</label>
+                      <input type="number" step="0.01" value={ch1VC} onChange={(e) => setCh1VC(parseFloat(e.target.value) || 0.1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">যান্ত্রিক ত্রুটি E (mm)</label>
+                      <input type="number" step="0.01" value={ch1E} onChange={(e) => setCh1E(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">ভার্নিয়ার সমপাতন V</label>
-                    <input type="number" value={ch1V} onChange={(e) => setCh1V(parseInt(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-slate-400">ভার্নিয়ার ধ্রুবক VC (mm)</label>
-                    <input type="number" step="0.01" value={ch1VC} onChange={(e) => setCh1VC(parseFloat(e.target.value) || 0.1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-slate-400">যান্ত্রিক ত্রুটি E (mm)</label>
-                    <input type="number" step="0.01" value={ch1E} onChange={(e) => setCh1E(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                </div>
+                  <VernierCaliperDiagram m={ch1M} v={ch1V} vc={ch1VC} lang={lang} />
+                </>
               )}
 
               {ch1SubTab === 'vernier' && (
@@ -1155,20 +1446,23 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </div>
 
               {ch5SubTab === 'hydraulic' && (
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">ছোট পিস্টনে বল F1 (N)</label>
-                    <input type="number" value={ch5F1} onChange={(e) => setCh5F1(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">ছোট পিস্টনে বল F1 (N)</label>
+                      <input type="number" value={ch5F1} onChange={(e) => setCh5F1(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">ছোট পিস্টন ব্যাস d1 (cm)</label>
+                      <input type="number" value={ch5D1} onChange={(e) => setCh5D1(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">বড় পিস্টন ব্যাস d2 (cm)</label>
+                      <input type="number" value={ch5D2} onChange={(e) => setCh5D2(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">ছোট পিস্টন ব্যাস d1 (cm)</label>
-                    <input type="number" value={ch5D1} onChange={(e) => setCh5D1(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-slate-400">বড় পিস্টন ব্যাস d2 (cm)</label>
-                    <input type="number" value={ch5D2} onChange={(e) => setCh5D2(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                </div>
+                  <HydraulicPressDiagram f1={ch5F1} d1={ch5D1} d2={ch5D2} lang={lang} />
+                </>
               )}
 
               {ch5SubTab === 'liquid' && (
@@ -1344,16 +1638,19 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               )}
 
               {ch7SubTab === 'echo' && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">শব্দের বেগ v (m/s)</label>
-                    <input type="number" value={ch7EchoSpeed} onChange={(e) => setCh7EchoSpeed(parseFloat(e.target.value) || 332)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">শব্দের বেগ v (m/s)</label>
+                      <input type="number" value={ch7EchoSpeed} onChange={(e) => setCh7EchoSpeed(parseFloat(e.target.value) || 332)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">প্রতিধ্বনি ফিরে আসার সময় t (s)</label>
+                      <input type="number" step="0.01" value={ch7EchoTime} onChange={(e) => setCh7EchoTime(parseFloat(e.target.value) || 0.1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">প্রতিধ্বনি ফিরে আসার সময় t (s)</label>
-                    <input type="number" step="0.01" value={ch7EchoTime} onChange={(e) => setCh7EchoTime(parseFloat(e.target.value) || 0.1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                </div>
+                  <SoundEchoDiagram v={ch7EchoSpeed} t={ch7EchoTime} d={(ch7EchoSpeed * ch7EchoTime) / 2} lang={lang} />
+                </>
               )}
             </div>
           )}
@@ -1664,6 +1961,7 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   <input type="number" value={ch12Ip} onChange={(e) => setCh12Ip(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
                 </div>
               </div>
+              <TransformerCoilDiagram np={ch12Np} ns={ch12Ns} vp={ch12Vp} vs={ch12Np > 0 ? (ch12Vp * ch12Ns) / ch12Np : 0} lang={lang} />
             </div>
           )}
 
@@ -1686,20 +1984,23 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </div>
 
               {ch13SubTab === 'decay' ? (
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">আদি পরিমাণ N0</label>
-                    <input type="number" value={ch13N0} onChange={(e) => setCh13N0(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">আদি পরিমাণ N0</label>
+                      <input type="number" value={ch13N0} onChange={(e) => setCh13N0(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">অর্ধায়ু T½ (বছর/দিন/সে)</label>
+                      <input type="number" value={ch13Thalf} onChange={(e) => setCh13Thalf(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">অতিবাহিত সময় t</label>
+                      <input type="number" value={ch13T} onChange={(e) => setCh13T(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">অর্ধায়ু T½ (বছর/দিন/সে)</label>
-                    <input type="number" value={ch13Thalf} onChange={(e) => setCh13Thalf(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-slate-400">অতিবাহিত সময় t</label>
-                    <input type="number" value={ch13T} onChange={(e) => setCh13T(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                </div>
+                  <RadioactiveDecayDiagram tHalf={ch13Thalf} time={ch13T} n0={ch13N0} lang={lang} />
+                </>
               ) : (
                 <div>
                   <label className="text-xs text-slate-400">বিলুপ্ত ভর m (kg)</label>

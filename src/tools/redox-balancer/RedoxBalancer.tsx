@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { REDOX_PRESETS, type RedoxPreset } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Zap, CheckCircle2, ShieldAlert, Sparkles } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -220,6 +221,9 @@ export const RedoxBalancer: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         )}
       </div>
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

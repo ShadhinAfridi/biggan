@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { calculateVectors, type Vector3D } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Compass, Copy, Check, RotateCcw, Sparkles, ArrowRight, ShieldCheck } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -305,32 +306,35 @@ Parallelogram Area = ${result.parallelogramArea}`;
           <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1.5">
             <span className="text-slate-400 font-medium">ভেক্টর যোগফল (A + B):</span>
             <div className="text-emerald-300 font-mono text-sm">
-              <Latex math={`\\vec{A} + \\vec{B} = ${result.sum.x}\\hat{i} + ${result.sum.y}\\hat{j} + ${result.sum.z}\\hat{k}`} />
+              <Latex formula={`\\vec{A} + \\vec{B} = ${result.sum.x}\\hat{i} + ${result.sum.y}\\hat{j} + ${result.sum.z}\\hat{k}`} />
             </div>
           </div>
 
           <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1.5">
             <span className="text-slate-400 font-medium">ভেক্টর বিয়োগফল (A - B):</span>
             <div className="text-rose-300 font-mono text-sm">
-              <Latex math={`\\vec{A} - \\vec{B} = ${result.diff.x}\\hat{i} + ${result.diff.y}\\hat{j} + ${result.diff.z}\\hat{k}`} />
+              <Latex formula={`\\vec{A} - \\vec{B} = ${result.diff.x}\\hat{i} + ${result.diff.y}\\hat{j} + ${result.diff.z}\\hat{k}`} />
             </div>
           </div>
 
           <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1.5">
             <span className="text-slate-400 font-medium">ভেক্টর গুণন বা ক্রস প্রোডাক্ট (A × B):</span>
             <div className="text-purple-300 font-mono text-sm">
-              <Latex math={`\\vec{A} \\times \\vec{B} = ${result.crossProduct.x}\\hat{i} + ${result.crossProduct.y}\\hat{j} + ${result.crossProduct.z}\\hat{k}`} />
+              <Latex formula={`\\vec{A} \\times \\vec{B} = ${result.crossProduct.x}\\hat{i} + ${result.crossProduct.y}\\hat{j} + ${result.crossProduct.z}\\hat{k}`} />
             </div>
           </div>
 
           <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1.5">
             <span className="text-slate-400 font-medium">B-এর ওপর A-এর স্কেলার অভিক্ষেপ:</span>
             <div className="text-amber-300 font-mono text-sm">
-              <Latex math={`\\text{proj}_{B}(A) = \\frac{\\vec{A} \\cdot \\vec{B}}{|\\vec{B}|} = ${result.scalarProjAonB}`} />
+              <Latex formula={`\\text{proj}_{B}(A) = \\frac{\\vec{A} \\cdot \\vec{B}}{|\\vec{B}|} = ${result.scalarProjAonB}`} />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

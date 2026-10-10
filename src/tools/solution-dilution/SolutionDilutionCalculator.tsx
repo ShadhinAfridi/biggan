@@ -9,6 +9,7 @@ import {
 } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { FlaskConical, Droplet, Sparkles, Copy, Check, RotateCcw, Scale, ArrowRight, Activity } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -824,6 +825,9 @@ export const SolutionDilutionCalculator: React.FC<Props> = ({ lang = 'bn' }) => 
           </div>
         </div>
       </div>
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

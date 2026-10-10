@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { calculateMolarMass, type MolarMassResult } from './engine';
 import { Latex } from '../../components/math/Latex';
 import { Atom, Copy, Check, RefreshCw, AlertTriangle } from 'lucide-react';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 
 interface Props {
   lang?: 'en' | 'bn';
@@ -213,6 +214,9 @@ export const MolarMassCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       )}
+
+      {/* Casio FX-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };
