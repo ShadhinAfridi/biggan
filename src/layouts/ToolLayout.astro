@@ -255,6 +255,29 @@ const breadcrumbSchema = {
       <p class="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
         {metaDescription}
       </p>
+
+      <!-- Quick Action Toolbar: Print/PDF & Share -->
+      <div class="flex items-center gap-2 pt-1 no-print">
+        <button
+          type="button"
+          onclick="window.print()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/80 transition shadow-sm cursor-pointer"
+          title={lang === 'bn' ? 'এই ক্যালকুলেটর ও সূত্র প্রিন্ট / পিডিএফ হিসেবে সংরক্ষণ করুন' : 'Print or save this calculator guide as PDF'}
+        >
+          <span>🖨️</span>
+          <span>{lang === 'bn' ? 'প্রিন্ট / পিডিএফ' : 'Print / PDF'}</span>
+        </button>
+
+        <button
+          type="button"
+          id="share-tool-btn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-950/60 hover:bg-cyan-900/80 text-cyan-400 hover:text-cyan-300 border border-cyan-800/60 transition shadow-sm cursor-pointer"
+          title={lang === 'bn' ? 'এই ক্যালকুলেটরের লিংক কপি করুন' : 'Copy link to this tool'}
+        >
+          <span id="share-tool-icon">🔗</span>
+          <span id="share-tool-text">{lang === 'bn' ? 'শেয়ার লিংক' : 'Share Link'}</span>
+        </button>
+      </div>
     </div>
 
     <!-- Quick Section Anchor Pills -->
@@ -392,15 +415,15 @@ const breadcrumbSchema = {
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-mono text-xs text-slate-300">
             <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-              <span class="text-cyan-400 font-bold block">✓ একক রূপান্তর (SI Units)</span>
+              <span class="text-cyan-400 font-bold block">{lang === 'bn' ? '✓ একক রূপান্তর (SI Units)' : '✓ Unit Conversion (SI)'}</span>
               <span class="text-slate-400">{lang === 'bn' ? 'গণনার পূর্বে সকল মানকে SI এককে নিয়ে নিন।' : 'Convert all inputs to SI units prior to calculation.'}</span>
             </div>
             <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-              <span class="text-cyan-400 font-bold block">✓ সূত্র ও পক্ষান্তর উল্লেখ</span>
+              <span class="text-cyan-400 font-bold block">{lang === 'bn' ? '✓ সূত্র ও পক্ষান্তর উল্লেখ' : '✓ Formula & Transposition'}</span>
               <span class="text-slate-400">{lang === 'bn' ? 'খাতায় মূল সূত্র লিখে লক্ষ্য চলককে আলাদা করুন।' : 'Explicitly isolate target variable before substitution.'}</span>
             </div>
             <div class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 space-y-1">
-              <span class="text-cyan-400 font-bold block">✓ তাৎপর্যপূর্ণ অঙ্ক ও রাউন্ডিং</span>
+              <span class="text-cyan-400 font-bold block">{lang === 'bn' ? '✓ তাৎপর্যপূর্ণ অঙ্ক ও রাউন্ডিং' : '✓ Precision & Rounding'}</span>
               <span class="text-slate-400">{lang === 'bn' ? 'চূড়ান্ত ফলাফলে ২ বা ৩ দশমিক স্থান পর্যন্ত রাউন্ড করুন।' : 'Preserve required precision without premature truncation.'}</span>
             </div>
           </div>
@@ -519,5 +542,27 @@ const breadcrumbSchema = {
       </div>
     </section>
   </div>
+
+  <script is:inline>
+    (() => {
+      const shareBtn = document.getElementById('share-tool-btn');
+      if (!shareBtn) return;
+      shareBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const textSpan = document.getElementById('share-tool-text');
+          const iconSpan = document.getElementById('share-tool-icon');
+          const origText = textSpan ? textSpan.innerText : '';
+          const origIcon = iconSpan ? iconSpan.innerText : '';
+          if (textSpan) textSpan.innerText = 'কপিড! ✓';
+          if (iconSpan) iconSpan.innerText = '✅';
+          setTimeout(() => {
+            if (textSpan) textSpan.innerText = origText;
+            if (iconSpan) iconSpan.innerText = origIcon;
+          }, 2000);
+        } catch (_) {}
+      });
+    })();
+  </script>
 </BaseLayout>
 

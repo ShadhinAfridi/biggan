@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import type { FormulaItem } from '../../data/formulaCatalog';
 import { Latex } from '../math/Latex';
-import { Copy, Check, Calculator, Link, Code2, ArrowRight } from 'lucide-react';
+import { Copy, Check, Calculator, Link, Code2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 interface FormulaCardProps {
   formula: FormulaItem;
   lang: 'bn' | 'en';
+  forceHidden?: boolean;
 }
 
-export const FormulaCard: React.FC<FormulaCardProps> = ({ formula, lang }) => {
+export const FormulaCard: React.FC<FormulaCardProps> = ({ formula, lang, forceHidden }) => {
   const isBn = lang === 'bn';
   const [copiedType, setCopiedType] = useState<'text' | 'latex' | 'link' | null>(null);
+  const [isRevealed, setIsRevealed] = useState(!forceHidden);
+
+  React.useEffect(() => {
+    if (forceHidden !== undefined) {
+      setIsRevealed(!forceHidden);
+    }
+  }, [forceHidden]);
 
   const copyToClipboard = async (text: string, type: 'text' | 'latex' | 'link') => {
     try {
@@ -53,18 +61,34 @@ export const FormulaCard: React.FC<FormulaCardProps> = ({ formula, lang }) => {
             </span>
           </div>
 
-          {/* Direct Anchor Permalink Button */}
-          <button
-            onClick={() => copyToClipboard(shareUrl, 'link')}
-            title={isBn ? 'এই সূত্রের সরাসরি লিংক কপি করুন' : 'Copy direct link to this formula'}
-            className="text-slate-500 hover:text-amber-400 p-1 rounded-md transition no-print cursor-pointer"
-          >
-            {copiedType === 'link' ? (
-              <Check className="w-3.5 h-3.5 text-emerald-400" />
-            ) : (
-              <Link className="w-3.5 h-3.5" />
-            )}
-          </button>
+          <div className="flex items-center gap-1">
+            {/* Active Recall Memory Test Toggle */}
+            <button
+              onClick={() => setIsRevealed(!isRevealed)}
+              title={isRevealed ? (isBn ? 'সূত্রটি লুকিয়ে স্মৃতি পরীক্ষা করুন (Active Recall)' : 'Hide formula to test recall') : (isBn ? 'সূত্র দেখান' : 'Show formula')}
+              className="text-slate-500 hover:text-amber-400 p-1.5 rounded-md transition no-print cursor-pointer"
+              aria-label={isRevealed ? 'Hide formula' : 'Show formula'}
+            >
+              {isRevealed ? (
+                <EyeOff className="w-3.5 h-3.5" />
+              ) : (
+                <Eye className="w-3.5 h-3.5 text-amber-400" />
+              )}
+            </button>
+
+            {/* Direct Anchor Permalink Button */}
+            <button
+              onClick={() => copyToClipboard(shareUrl, 'link')}
+              title={isBn ? 'এই সূত্রের সরাসরি লিংক কপি করুন' : 'Copy direct link to this formula'}
+              className="text-slate-500 hover:text-amber-400 p-1.5 rounded-md transition no-print cursor-pointer"
+            >
+              {copiedType === 'link' ? (
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+              ) : (
+                <Link className="w-3.5 h-3.5" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Formula Title */}
@@ -77,9 +101,28 @@ export const FormulaCard: React.FC<FormulaCardProps> = ({ formula, lang }) => {
           </p>
         </div>
 
-        {/* KaTeX Pre-rendered Display Container */}
-        <div className="p-3.5 bg-slate-950 rounded-xl border border-slate-800/80 overflow-x-auto text-center font-mono text-amber-200 text-base sm:text-lg">
-          <Latex formula={formula.latex} displayMode={true} />
+        {/* KaTeX Display Container with Active Recall Toggle */}
+        <div className="relative group/katex">
+          <div
+            onClick={() => !isRevealed && setIsRevealed(true)}
+            className={`p-3.5 bg-slate-950 rounded-xl border border-slate-800/80 overflow-x-auto text-center font-mono text-amber-200 text-base sm:text-lg transition-all duration-300 ${
+              !isRevealed ? 'blur-md select-none opacity-30 cursor-pointer' : ''
+            }`}
+          >
+            <Latex formula={formula.latex} displayMode={true} />
+          </div>
+
+          {!isRevealed && (
+            <div
+              onClick={() => setIsRevealed(true)}
+              className="absolute inset-0 flex items-center justify-center bg-slate-950/40 backdrop-blur-[2px] rounded-xl cursor-pointer"
+            >
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold shadow-md transition transform group-hover/katex:scale-105">
+                <Eye className="w-3.5 h-3.5" />
+                {isBn ? 'ক্লিক করে সূত্র দেখুন' : 'Click to Reveal Formula'}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Plain Text & Copy Utility Bar */}

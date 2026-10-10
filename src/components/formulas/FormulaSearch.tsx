@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import type { FormulaItem } from '../../data/formulaCatalog';
 import { FormulaCard } from './FormulaCard';
-import { Search, X, Layers, Filter } from 'lucide-react';
+import { Search, X, Layers, Filter, Printer, Eye, EyeOff } from 'lucide-react';
 
 interface FormulaSearchProps {
   formulas: FormulaItem[];
@@ -40,6 +40,7 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
   const [query, setQuery] = useState('');
   const [selectedSubject, setSelectedSubject] = useState(defaultSubject);
   const [selectedLevel, setSelectedLevel] = useState<'all' | 'ssc' | 'hsc'>('all');
+  const [quizMode, setQuizMode] = useState(false);
 
   // Available subjects from formula list
   const availableSubjects = useMemo(() => {
@@ -172,8 +173,8 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
           )}
         </div>
 
-        {/* Counter and Filter Reset */}
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/80 text-xs text-slate-400">
+        {/* Counter, Actions & Filter Reset */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80 text-xs text-slate-400">
           <div>
             {isBn ? (
               <span>
@@ -188,14 +189,44 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
             )}
           </div>
 
-          {(query || selectedSubject !== defaultSubject || selectedLevel !== 'all') && (
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Active Recall / Quiz Mode Toggle */}
             <button
-              onClick={clearFilters}
-              className="text-xs text-rose-400 hover:text-rose-300 underline font-medium cursor-pointer"
+              onClick={() => setQuizMode(!quizMode)}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                quizMode
+                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white'
+              }`}
+              title={
+                isBn
+                  ? 'সকল সূত্র লুকিয়ে নিজে নিজে স্মৃতি পরীক্ষা করার কুইজ মোড'
+                  : 'Hide all equations to test your active recall'
+              }
             >
-              {isBn ? 'ফিল্টার রিসেট করুন' : 'Reset filters'}
+              {quizMode ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+              <span>{isBn ? (quizMode ? 'কুইজ মোড চালু (সকল দৃশ্যমান)' : 'কুইজ মোড (সূত্র লুকান)') : (quizMode ? 'Quiz Mode ON' : 'Quiz Mode (Hide All)')}</span>
             </button>
-          )}
+
+            {/* Print / Save PDF Button */}
+            <button
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-200 hover:text-white text-xs font-semibold border border-slate-700/60 transition cursor-pointer"
+              title={isBn ? 'এই সূত্র তালিকাটি প্রিন্ট করুন অথবা পিডিএফ হিসেবে সংরক্ষণ করুন' : 'Print this formula sheet or save as PDF'}
+            >
+              <Printer className="w-3.5 h-3.5 text-cyan-400" />
+              <span>{isBn ? 'প্রিন্ট / PDF' : 'Print / PDF'}</span>
+            </button>
+
+            {(query || selectedSubject !== defaultSubject || selectedLevel !== 'all') && (
+              <button
+                onClick={clearFilters}
+                className="text-xs text-rose-400 hover:text-rose-300 underline font-medium cursor-pointer ml-1"
+              >
+                {isBn ? 'রিসেট' : 'Reset'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -225,7 +256,7 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
       {/* Grid of Formulas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((formula) => (
-          <FormulaCard key={formula.id} formula={formula} lang={lang} />
+          <FormulaCard key={formula.id} formula={formula} lang={lang} forceHidden={quizMode} />
         ))}
       </div>
     </div>

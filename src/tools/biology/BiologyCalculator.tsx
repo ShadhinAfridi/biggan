@@ -16,6 +16,7 @@ import {
   ShieldAlert,
 } from 'lucide-react';
 import { Latex } from '../../components/math/Latex';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 import {
   calculateBMI,
   calculateBMR,
@@ -1218,6 +1219,11 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </div>
         </div>
       )}
+
+      {/* Casio fx-991EX ClassWiz Virtual Scientific Calculator Widget */}
+      <div className="p-4 sm:p-6 bg-slate-950/90 border-t border-slate-800">
+        <CasioVirtualCalculator lang={lang} />
+      </div>
 
       {/* Mobile Sticky Floating Answer Bar */}
       <div

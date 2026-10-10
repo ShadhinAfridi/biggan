@@ -12,6 +12,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { Latex } from '../../../components/math/Latex';
+import { CasioVirtualCalculator } from '../../../components/casio/CasioVirtualCalculator';
 import {
   calcPowerSet,
   calcCartesianProduct,
@@ -1120,6 +1121,11 @@ export const GeneralMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         <span className="font-mono text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded-md border border-cyan-800/60 text-[11px]">
           STAT • TABLE • EQN
         </span>
+      </div>
+
+      {/* Casio fx-991EX ClassWiz Virtual Scientific Calculator Widget */}
+      <div className="p-4 sm:p-6 bg-slate-950/90 border-t border-slate-800">
+        <CasioVirtualCalculator lang={lang} />
       </div>
 
       {/* Mobile Sticky Floating Answer Bar */}

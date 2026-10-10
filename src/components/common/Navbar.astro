@@ -2,6 +2,7 @@
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '../../i18n/utils';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import { GlobalSearch } from '../search/GlobalSearch';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -182,6 +183,8 @@ const hscScienceTools = [
 
     <!-- Right Action Items -->
     <div class="flex items-center gap-2 sm:gap-3">
+      <GlobalSearch client:idle lang={lang} />
+
       <a
         href={getLocalizedPath('/my-progress', lang)}
         class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition"

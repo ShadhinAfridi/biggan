@@ -20,6 +20,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Latex } from '../../components/math/Latex';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 import {
   solveThreeSetVenn,
   solveFractionalInverse,
@@ -38,6 +39,10 @@ import {
   solveVector,
   solveSolidGeometry,
   solveProbability,
+  solveMatrix2x2,
+  solveMatrix3x3,
+  solveCramer2,
+  solveCramer3,
   type VennResult,
   type FractionalInverseResult,
   type RemainderResult,
@@ -55,6 +60,10 @@ import {
   type VectorResult,
   type SolidResult,
   type ProbabilityResult,
+  type Matrix2x2Result,
+  type Matrix3x3Result,
+  type Cramer2Result,
+  type Cramer3Result,
 } from './engine';
 
 interface Props {
@@ -62,6 +71,7 @@ interface Props {
 }
 
 type ModuleTab =
+  | 'matrix'
   | 'sets'
   | 'algebra'
   | 'geometry'
@@ -126,6 +136,137 @@ const ParabolaCurveDiagram: React.FC<{ a: number; b: number; c: number; lang?: '
           <text x="25" y="22" fill="#94a3b8" fontSize="9" fontFamily="monospace">
             {opensUp ? 'a > 0 (Upward ∪)' : 'a < 0 (Downward ∩)'}
           </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const ShoelacePolygonDiagram: React.FC<{
+  coords: { x: number; y: number }[];
+  area?: number;
+  lang?: 'bn' | 'en';
+}> = ({ coords, area, lang = 'bn' }) => {
+  if (coords.length < 3) return null;
+
+  const svgW = 280;
+  const svgH = 150;
+  const pad = 24;
+
+  const xs = coords.map((c) => c.x);
+  const ys = coords.map((c) => c.y);
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+
+  const rangeX = Math.max(maxX - minX, 1);
+  const rangeY = Math.max(maxY - minY, 1);
+
+  const scaleX = (svgW - 2 * pad) / rangeX;
+  const scaleY = (svgH - 2 * pad) / rangeY;
+  const scale = Math.min(scaleX, scaleY);
+
+  const screenPoints = coords.map((pt) => ({
+    x: pad + (pt.x - minX) * scale + (svgW - 2 * pad - rangeX * scale) / 2,
+    y: svgH - pad - (pt.y - minY) * scale - (svgH - 2 * pad - rangeY * scale) / 2,
+    orig: pt,
+  }));
+
+  const pathD =
+    screenPoints.reduce(
+      (acc, pt, i) => (i === 0 ? `M ${pt.x} ${pt.y}` : `${acc} L ${pt.x} ${pt.y}`),
+      ''
+    ) + ' Z';
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-emerald-300">
+          {lang === 'bn' ? 'বহুভুজ স্থানাঙ্ক চিত্র (Polygon Coordinate Plane)' : 'Polygon Coordinate Visualizer'}
+        </span>
+        {area !== undefined && (
+          <span className="text-[10px] font-mono text-emerald-400 font-bold">
+            {lang === 'bn' ? `ক্ষেত্রফল = ${area} বর্গ একক` : `Area = ${area} sq. units`}
+          </span>
+        )}
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox={`0 0 ${svgW} ${svgH}`} className="w-full max-w-xs h-36 overflow-visible">
+          <defs>
+            <linearGradient id="polyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#10b981" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#059669" stopOpacity="0.08" />
+            </linearGradient>
+          </defs>
+          <line x1="10" y1={svgH / 2} x2={svgW - 10} y2={svgH / 2} stroke="#334155" strokeWidth="0.8" strokeDasharray="3 3" />
+          <line x1={svgW / 2} y1="10" x2={svgW / 2} y2={svgH - 10} stroke="#334155" strokeWidth="0.8" strokeDasharray="3 3" />
+          <path d={pathD} fill="url(#polyGrad)" stroke="#10b981" strokeWidth="2" strokeLinejoin="round" />
+          {screenPoints.map((pt, i) => (
+            <g key={i}>
+              <circle cx={pt.x} cy={pt.y} r="3.5" fill="#34d399" stroke="#ffffff" strokeWidth="1.5" />
+              <text
+                x={pt.x + 6}
+                y={pt.y - 6}
+                fill="#a7f3d0"
+                fontSize="8.5"
+                fontFamily="monospace"
+                fontWeight="bold"
+              >
+                P{i + 1}({pt.orig.x},{pt.orig.y})
+              </text>
+            </g>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const VennDiagramVisual: React.FC<{
+  nA: number;
+  nB: number;
+  nC: number;
+  nAB: number;
+  nBC: number;
+  nCA: number;
+  nABC: number;
+  lang?: 'bn' | 'en';
+}> = ({ nA, nB, nC, nAB, nBC, nCA, nABC, lang = 'bn' }) => {
+  const onlyA = Math.max(0, nA - nAB - nCA + nABC);
+  const onlyB = Math.max(0, nB - nAB - nBC + nABC);
+  const onlyC = Math.max(0, nC - nBC - nCA + nABC);
+  const ab = Math.max(0, nAB - nABC);
+  const bc = Math.max(0, nBC - nABC);
+  const ca = Math.max(0, nCA - nABC);
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-sky-300">
+          {lang === 'bn' ? 'ভেন চিত্র দৃশ্যমান রূপ (3-Set Venn Visualizer)' : '3-Set Venn Visualizer'}
+        </span>
+        <span className="text-[10px] font-mono text-slate-400">
+          A∪B∪C = {onlyA + onlyB + onlyC + ab + bc + ca + nABC}
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 280 180" className="w-full max-w-xs h-40">
+          <circle cx="105" cy="75" r="54" fill="#38bdf8" fillOpacity="0.18" stroke="#38bdf8" strokeWidth="1.8" />
+          <circle cx="175" cy="75" r="54" fill="#a855f7" fillOpacity="0.18" stroke="#a855f7" strokeWidth="1.8" />
+          <circle cx="140" cy="120" r="54" fill="#f59e0b" fillOpacity="0.18" stroke="#f59e0b" strokeWidth="1.8" />
+
+          <text x="75" y="40" fill="#38bdf8" fontSize="11" fontWeight="bold">Set A</text>
+          <text x="185" y="40" fill="#c084fc" fontSize="11" fontWeight="bold">Set B</text>
+          <text x="140" y="172" fill="#fbbf24" fontSize="11" fontWeight="bold" textAnchor="middle">Set C</text>
+
+          <text x="88" y="75" fill="#bae6fd" fontSize="9" fontWeight="bold" textAnchor="middle">{onlyA}</text>
+          <text x="192" y="75" fill="#e9d5ff" fontSize="9" fontWeight="bold" textAnchor="middle">{onlyB}</text>
+          <text x="140" y="150" fill="#fef08a" fontSize="9" fontWeight="bold" textAnchor="middle">{onlyC}</text>
+          <text x="140" y="60" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">{ab}</text>
+          <text x="165" y="105" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">{bc}</text>
+          <text x="115" y="105" fill="#ffffff" fontSize="8.5" fontWeight="bold" textAnchor="middle">{ca}</text>
+          <text x="140" y="93" fill="#f43f5e" fontSize="9.5" fontWeight="bold" textAnchor="middle">{nABC}</text>
         </svg>
       </div>
     </div>
@@ -211,6 +352,28 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   const [probFav, setProbFav] = useState<number>(4);
   const [probTot, setProbTot] = useState<number>(52);
 
+  // Tab 10: HSC Matrix & Determinants State
+  const [matrixSubTab, setMatrixSubTab] = useState<'m2' | 'm3' | 'cramer2' | 'cramer3'>('m2');
+  const [m2A, setM2A] = useState<number>(1);
+  const [m2B, setM2B] = useState<number>(2);
+  const [m2C, setM2C] = useState<number>(3);
+  const [m2D, setM2D] = useState<number>(4);
+  const [m3, setM3] = useState<number[][]>([
+    [1, 2, 3],
+    [0, 1, 4],
+    [5, 6, 0],
+  ]);
+  const [cram2A1, setCram2A1] = useState<number>(2);
+  const [cram2B1, setCram2B1] = useState<number>(3);
+  const [cram2C1, setCram2C1] = useState<number>(8);
+  const [cram2A2, setCram2A2] = useState<number>(5);
+  const [cram2B2, setCram2B2] = useState<number>(-1);
+  const [cram2C2, setCram2C2] = useState<number>(3);
+  const [cram3, setCram3] = useState<{ a: number[]; c: number[] }>({
+    a: [1, 2, -1, 2, 1, 1, 1, -1, 2],
+    c: [2, 5, 3],
+  });
+
   // Handle Copy
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -220,6 +383,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
   // Module Tabs Metadata
   const tabs = [
+    { id: 'matrix', nameBn: 'HSC ১ম: ম্যাট্রিক্স ও নির্ণায়ক', nameEn: 'HSC Ch 1: Matrix & Det', icon: <Grid className="w-4 h-4" /> },
     { id: 'geometry', nameBn: '৩য়: এ্যাপোলোনিওস', nameEn: 'Ch 3: Geometry', icon: <Triangle className="w-4 h-4" /> },
     { id: 'equations', nameBn: '৫-৬: সমীকরণ ও অসমতা', nameEn: 'Ch 5-6: Equations', icon: <Divide className="w-4 h-4" /> },
     { id: 'series', nameBn: '৭ম: অসীম ধারা ও পৌনঃপুনিক', nameEn: 'Ch 7: Series', icon: <Infinity className="w-4 h-4" /> },
@@ -326,6 +490,16 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           {lang === 'bn' ? 'বোর্ড CQ প্রিসেট:' : 'Board CQ Presets:'}
         </span>
         <button
+          onClick={() => {
+            setActiveTab('matrix');
+            setMatrixSubTab('m2');
+            setM2A(2); setM2B(3); setM2C(1); setM2D(4);
+          }}
+          className="px-2.5 py-1 bg-slate-900 hover:bg-indigo-950/40 text-slate-300 hover:text-indigo-300 border border-slate-800 rounded-lg shrink-0 transition"
+        >
+          {lang === 'bn' ? 'ম্যাট্রিক্স A⁻¹ (HSC CQ)' : 'Matrix A⁻¹ (HSC CQ)'}
+        </button>
+        <button
           onClick={() => applyPreset('apollonius_board')}
           className="px-2.5 py-1 bg-slate-900 hover:bg-indigo-950/40 text-slate-300 hover:text-indigo-300 border border-slate-800 rounded-lg shrink-0 transition"
         >
@@ -362,6 +536,240 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         {/* Left Column: Interactive Inputs (5 cols) */}
         <div className="lg:col-span-5 space-y-4">
           {/* Module Sub-Tabs & Title */}
+          {activeTab === 'matrix' && (
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Grid className="w-4 h-4 text-indigo-400" />
+                  {lang === 'bn' ? 'HSC অধ্যায় ১: ম্যাট্রিক্স ও নির্ণায়ক' : 'HSC Ch 1: Matrix & Determinants'}
+                </h3>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {lang === 'bn'
+                    ? 'নির্ণায়ক, অনুরাশি, সহগুণক, অ্যাডজয়েন্ট, বিপরীত ম্যাট্রিক্স ও ক্র্যামারের নিয়ম'
+                    : "Determinants, Minors, Cofactors, Adjoint, Inverse & Cramer's Rule"}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setMatrixSubTab('m2')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                    matrixSubTab === 'm2' ? 'bg-indigo-600 text-white' : 'bg-slate-950 text-slate-400 border border-slate-800'
+                  }`}
+                >
+                  {lang === 'bn' ? '২×২ ম্যাট্রিক্স' : '2×2 Matrix'}
+                </button>
+                <button
+                  onClick={() => setMatrixSubTab('m3')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                    matrixSubTab === 'm3' ? 'bg-indigo-600 text-white' : 'bg-slate-950 text-slate-400 border border-slate-800'
+                  }`}
+                >
+                  {lang === 'bn' ? '৩×৩ ম্যাট্রিক্স' : '3×3 Matrix'}
+                </button>
+                <button
+                  onClick={() => setMatrixSubTab('cramer2')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                    matrixSubTab === 'cramer2' ? 'bg-indigo-600 text-white' : 'bg-slate-950 text-slate-400 border border-slate-800'
+                  }`}
+                >
+                  {lang === 'bn' ? 'ক্র্যামার (২ চলক)' : 'Cramer (2 Var)'}
+                </button>
+                <button
+                  onClick={() => setMatrixSubTab('cramer3')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                    matrixSubTab === 'cramer3' ? 'bg-indigo-600 text-white' : 'bg-slate-950 text-slate-400 border border-slate-800'
+                  }`}
+                >
+                  {lang === 'bn' ? 'ক্র্যামার (৩ চলক)' : 'Cramer (3 Var)'}
+                </button>
+              </div>
+
+              {matrixSubTab === 'm2' && (
+                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="text-xs text-indigo-300 font-mono">
+                    A = [[a, b], [c, d]] (২×২ ম্যাট্রিক্স ভুক্তি)
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 max-w-xs mx-auto">
+                    <div>
+                      <label className="text-[11px] text-slate-400 block mb-1">a ( সারি ১, কলাম ১ )</label>
+                      <input
+                        type="number"
+                        value={m2A}
+                        onChange={(e) => setM2A(parseFloat(e.target.value) || 0)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-center text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] text-slate-400 block mb-1">b ( সারি ১, কলাম ২ )</label>
+                      <input
+                        type="number"
+                        value={m2B}
+                        onChange={(e) => setM2B(parseFloat(e.target.value) || 0)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-center text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] text-slate-400 block mb-1">c ( সারি ২, কলাম ১ )</label>
+                      <input
+                        type="number"
+                        value={m2C}
+                        onChange={(e) => setM2C(parseFloat(e.target.value) || 0)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-center text-sm"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[11px] text-slate-400 block mb-1">d ( সারি ২, কলাম ২ )</label>
+                      <input
+                        type="number"
+                        value={m2D}
+                        onChange={(e) => setM2D(parseFloat(e.target.value) || 0)}
+                        className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-center text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {matrixSubTab === 'm3' && (
+                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="text-xs text-indigo-300 font-mono">
+                    A = ৩×৩ ম্যাট্রিক্স ভুক্তি (Entries):
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[0, 1, 2].map((r) =>
+                      [0, 1, 2].map((c) => (
+                        <div key={`${r}-${c}`}>
+                          <input
+                            type="number"
+                            value={m3[r][c]}
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value) || 0;
+                              const updated = m3.map((row, ri) =>
+                                ri === r ? row.map((entry, ci) => (ci === c ? val : entry)) : row
+                              );
+                              setM3(updated);
+                            }}
+                            className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-center text-xs"
+                            placeholder={`a${r + 1}${c + 1}`}
+                          />
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {matrixSubTab === 'cramer2' && (
+                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="text-xs text-indigo-300 font-mono">
+                    {lang === 'bn' ? 'সমীকরণ জোট: a₁x + b₁y = c₁ এবং a₂x + b₂y = c₂' : 'Linear System: a₁x + b₁y = c₁ & a₂x + b₂y = c₂'}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-[11px] text-slate-400">সমীকরণ ১: a₁x + b₁y = c₁</div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <input
+                        type="number"
+                        value={cram2A1}
+                        onChange={(e) => setCram2A1(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="a₁"
+                      />
+                      <input
+                        type="number"
+                        value={cram2B1}
+                        onChange={(e) => setCram2B1(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="b₁"
+                      />
+                      <input
+                        type="number"
+                        value={cram2C1}
+                        onChange={(e) => setCram2C1(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="c₁"
+                      />
+                    </div>
+
+                    <div className="text-[11px] text-slate-400 pt-2">সমীকরণ ২: a₂x + b₂y = c₂</div>
+                    <div className="grid grid-cols-3 gap-2">
+                      <input
+                        type="number"
+                        value={cram2A2}
+                        onChange={(e) => setCram2A2(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="a₂"
+                      />
+                      <input
+                        type="number"
+                        value={cram2B2}
+                        onChange={(e) => setCram2B2(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="b₂"
+                      />
+                      <input
+                        type="number"
+                        value={cram2C2}
+                        onChange={(e) => setCram2C2(parseFloat(e.target.value) || 0)}
+                        className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                        placeholder="c₂"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {matrixSubTab === 'cramer3' && (
+                <div className="p-4 bg-slate-950 rounded-2xl border border-slate-800 space-y-3">
+                  <div className="text-xs text-indigo-300 font-mono">
+                    {lang === 'bn' ? '৩ চলক সমীকরণ জোট: ax + by + cz = d' : '3-Variable System: ax + by + cz = d'}
+                  </div>
+                  <div className="space-y-2">
+                    {[0, 1, 2].map((eqIdx) => (
+                      <div key={eqIdx} className="space-y-1">
+                        <div className="text-[11px] text-slate-400">
+                          {lang === 'bn' ? `সমীকরণ ${eqIdx + 1} সহগ (x, y, z = ধ্রুবক):` : `Eq ${eqIdx + 1} (x, y, z = const):`}
+                        </div>
+                        <div className="grid grid-cols-4 gap-1.5">
+                          {[0, 1, 2].map((vIdx) => {
+                            const arrIdx = eqIdx * 3 + vIdx;
+                            return (
+                              <input
+                                key={vIdx}
+                                type="number"
+                                value={cram3.a[arrIdx]}
+                                onChange={(e) => {
+                                  const val = parseFloat(e.target.value) || 0;
+                                  const nextA = [...cram3.a];
+                                  nextA[arrIdx] = val;
+                                  setCram3({ ...cram3, a: nextA });
+                                }}
+                                className="bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono text-xs text-center"
+                                placeholder={vIdx === 0 ? 'x' : vIdx === 1 ? 'y' : 'z'}
+                              />
+                            );
+                          })}
+                          <input
+                            type="number"
+                            value={cram3.c[eqIdx]}
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value) || 0;
+                              const nextC = [...cram3.c];
+                              nextC[eqIdx] = val;
+                              setCram3({ ...cram3, c: nextC });
+                            }}
+                            className="bg-slate-900 border border-indigo-700 rounded-xl p-2 text-indigo-300 font-mono text-xs text-center font-bold"
+                            placeholder="="
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           {activeTab === 'geometry' && (
             <div className="space-y-4">
               <div>
@@ -378,7 +786,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
               <div className="grid grid-cols-3 gap-3 p-4 bg-slate-950 rounded-2xl border border-slate-800">
                 <div>
-                  <label className="text-xs text-slate-400 block mb-1">বাহু a</label>
+                  <label className="text-xs text-slate-400 block mb-1">{lang === 'bn' ? 'বাহু a' : 'Side a'}</label>
                   <input
                     type="number"
                     value={triA}
@@ -387,7 +795,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 block mb-1">বাহু b</label>
+                  <label className="text-xs text-slate-400 block mb-1">{lang === 'bn' ? 'বাহু b' : 'Side b'}</label>
                   <input
                     type="number"
                     value={triB}
@@ -396,7 +804,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 block mb-1">বাহু c</label>
+                  <label className="text-xs text-slate-400 block mb-1">{lang === 'bn' ? 'বাহু c' : 'Side c'}</label>
                   <input
                     type="number"
                     value={triC}
@@ -1155,6 +1563,166 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
 
           <div id="katex-output-box" className="space-y-4">
             {/* RENDER DYNAMIC ACTIVE MODULE OUTPUT */}
+            {activeTab === 'matrix' && (
+              matrixSubTab === 'm2' ? (
+                (() => {
+                  try {
+                    const res = solveMatrix2x2(m2A, m2B, m2C, m2D);
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+                          <div>
+                            <span className="text-xs font-mono uppercase text-indigo-400 block">
+                              {lang === 'bn' ? 'নির্ণায়ক |A| ও ট্রেস:' : 'Determinant |A| & Trace:'}
+                            </span>
+                            <span className="text-2xl font-black text-white font-mono">
+                              |A| = {res.det}, Tr(A) = {res.trace}
+                            </span>
+                          </div>
+                          <span
+                            className={`text-xs px-2.5 py-1 rounded-lg font-bold ${
+                              res.isSingular
+                                ? 'bg-red-950/60 border border-red-700 text-red-300'
+                                : 'bg-emerald-950/60 border border-emerald-700 text-emerald-300'
+                            }`}
+                          >
+                            {res.isSingular
+                              ? lang === 'bn'
+                                ? 'ব্যতিক্রমী (Singular - No Inverse)'
+                                : 'Singular'
+                              : lang === 'bn'
+                              ? 'অব্যতিক্রমী (Non-Singular)'
+                              : 'Non-Singular'}
+                          </span>
+                        </div>
+                        <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
+                          <Latex formula={res.stepsLatex} />
+                        </div>
+                      </div>
+                    );
+                  } catch (e: any) {
+                    return (
+                      <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-300 text-xs flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        <span>{e.message}</span>
+                      </div>
+                    );
+                  }
+                })()
+              ) : matrixSubTab === 'm3' ? (
+                (() => {
+                  try {
+                    const res = solveMatrix3x3(m3);
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+                          <div>
+                            <span className="text-xs font-mono uppercase text-indigo-400 block">
+                              {lang === 'bn' ? '৩×৩ নির্ণায়ক |A|:' : '3×3 Determinant |A|:'}
+                            </span>
+                            <span className="text-2xl font-black text-white font-mono">
+                              |A| = {res.det}, Tr(A) = {res.trace}
+                            </span>
+                          </div>
+                          <span
+                            className={`text-xs px-2.5 py-1 rounded-lg font-bold ${
+                              res.isSingular
+                                ? 'bg-red-950/60 border border-red-700 text-red-300'
+                                : 'bg-emerald-950/60 border border-emerald-700 text-emerald-300'
+                            }`}
+                          >
+                            {res.isSingular
+                              ? lang === 'bn'
+                                ? 'ব্যতিক্রমী (Singular - A⁻¹ নেই)'
+                                : 'Singular'
+                              : lang === 'bn'
+                              ? 'অব্যতিক্রমী (Non-Singular)'
+                              : 'Non-Singular'}
+                          </span>
+                        </div>
+                        <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
+                          <Latex formula={res.stepsLatex} />
+                        </div>
+                      </div>
+                    );
+                  } catch (e: any) {
+                    return (
+                      <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-300 text-xs flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        <span>{e.message}</span>
+                      </div>
+                    );
+                  }
+                })()
+              ) : matrixSubTab === 'cramer2' ? (
+                (() => {
+                  try {
+                    const res = solveCramer2(cram2A1, cram2B1, cram2C1, cram2A2, cram2B2, cram2C2);
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+                          <div>
+                            <span className="text-xs font-mono uppercase text-indigo-400 block">
+                              {lang === 'bn' ? 'ক্র্যামারের সমাধান (x, y):' : "Cramer's Solution (x, y):"}
+                            </span>
+                            <span className="text-2xl font-black text-white font-mono">
+                              x = {res.x !== null ? res.x : 'N/A'}, y = {res.y !== null ? res.y : 'N/A'}
+                            </span>
+                          </div>
+                          <div className="text-xs text-slate-300 font-mono">
+                            D = {res.D}, Dₓ = {res.Dx}, Dᵧ = {res.Dy}
+                          </div>
+                        </div>
+                        <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
+                          <Latex formula={res.stepsLatex} />
+                        </div>
+                      </div>
+                    );
+                  } catch (e: any) {
+                    return (
+                      <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-300 text-xs flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        <span>{e.message}</span>
+                      </div>
+                    );
+                  }
+                })()
+              ) : (
+                (() => {
+                  try {
+                    const res = solveCramer3(cram3.a, cram3.c);
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-4 bg-indigo-950/20 border border-indigo-500/30 rounded-2xl flex flex-wrap items-center justify-between gap-3">
+                          <div>
+                            <span className="text-xs font-mono uppercase text-indigo-400 block">
+                              {lang === 'bn' ? 'ক্র্যামারের সমাধান (x, y, z):' : "Cramer's Solution (x, y, z):"}
+                            </span>
+                            <span className="text-2xl font-black text-white font-mono">
+                              x = {res.x !== null ? res.x : 'N/A'}, y = {res.y !== null ? res.y : 'N/A'}, z = {res.z !== null ? res.z : 'N/A'}
+                            </span>
+                          </div>
+                          <div className="text-xs text-slate-300 font-mono">
+                            D = {res.D}, Dₓ = {res.Dx}, Dᵧ = {res.Dy}, D_z = {res.Dz}
+                          </div>
+                        </div>
+                        <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
+                          <Latex formula={res.stepsLatex} />
+                        </div>
+                      </div>
+                    );
+                  } catch (e: any) {
+                    return (
+                      <div className="p-4 bg-red-950/40 border border-red-800/60 rounded-xl text-red-300 text-xs flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        <span>{e.message}</span>
+                      </div>
+                    );
+                  }
+                })()
+              )
+            )}
+
             {activeTab === 'geometry' && (
               (() => {
                 try {
@@ -1214,6 +1782,7 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                         <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
                           <Latex formula={res.stepsLatex} />
                         </div>
+                        <ParabolaCurveDiagram a={quadA} b={quadB} c={quadC} lang={lang} />
                       </div>
                     );
                   } catch (e: any) {
@@ -1324,6 +1893,16 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                       <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
                         <Latex formula={res.stepsLatex} />
                       </div>
+                      <VennDiagramVisual
+                        nA={vennNA}
+                        nB={vennNB}
+                        nC={vennNC}
+                        nAB={vennNAB}
+                        nBC={vennNBC}
+                        nCA={vennNCA}
+                        nABC={vennNABC}
+                        lang={lang}
+                      />
                     </div>
                   );
                 })()
@@ -1548,6 +2127,11 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                         <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 text-indigo-200 overflow-x-auto">
                           <Latex formula={res.stepsLatex} />
                         </div>
+                        <ShoelacePolygonDiagram
+                          coords={pts.map(([x, y]) => ({ x, y }))}
+                          area={res.area}
+                          lang={lang}
+                        />
                       </div>
                     );
                   } catch (e: any) {
@@ -1658,6 +2242,22 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
             {(() => {
               try {
+                if (activeTab === 'matrix') {
+                  if (matrixSubTab === 'm2') {
+                    const r = solveMatrix2x2(m2A, m2B, m2C, m2D);
+                    return <span>|A| = {r.det}</span>;
+                  }
+                  if (matrixSubTab === 'm3') {
+                    const r = solveMatrix3x3(m3);
+                    return <span>|A| = {r.det}</span>;
+                  }
+                  if (matrixSubTab === 'cramer2') {
+                    const r = solveCramer2(cram2A1, cram2B1, cram2C1, cram2A2, cram2B2, cram2C2);
+                    return <span>(x, y) = ({r.x}, {r.y})</span>;
+                  }
+                  const r = solveCramer3(cram3.a, cram3.c);
+                  return <span>(x, y, z) = ({r.x}, {r.y}, {r.z})</span>;
+                }
                 if (activeTab === 'geometry') {
                   const r = solveApollonius(triA, triB, triC);
                   return <span>dₐ = {r.medianA}, dᵦ = {r.medianB}</span>;
@@ -1728,6 +2328,11 @@ export const HigherMathCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             })()}
           </div>
         </div>
+      </div>
+
+      {/* Casio fx-991EX ClassWiz Virtual Scientific Calculator Widget */}
+      <div className="p-4 sm:p-6 bg-slate-950/90 border-t border-slate-800">
+        <CasioVirtualCalculator lang={lang} />
       </div>
     </div>
   );

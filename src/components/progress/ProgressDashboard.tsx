@@ -6,12 +6,12 @@ import {
   RotateCcw,
   Sparkles,
   Zap,
-  FlaskConical,
-  Activity,
-  Layers,
   Flame,
   ArrowRight,
   BookOpen,
+  Calendar,
+  Printer,
+  Filter,
 } from 'lucide-react';
 
 interface ChapterDef {
@@ -23,6 +23,7 @@ interface ChapterDef {
 
 interface SubjectDef {
   id: string;
+  level: 'ssc' | 'hsc';
   nameBn: string;
   nameEn: string;
   icon: string;
@@ -35,8 +36,10 @@ interface SubjectDef {
 }
 
 const SUBJECTS_CONFIG: SubjectDef[] = [
+  // --- SSC Subjects ---
   {
     id: 'physics',
+    level: 'ssc',
     nameBn: 'এসএসসি পদার্থবিজ্ঞান',
     nameEn: 'SSC Physics',
     icon: '⚡',
@@ -63,6 +66,7 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
   },
   {
     id: 'higher-math',
+    level: 'ssc',
     nameBn: 'এসএসসি উচ্চতর গণিত',
     nameEn: 'SSC Higher Mathematics',
     icon: '📐',
@@ -85,6 +89,7 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
   },
   {
     id: 'chemistry',
+    level: 'ssc',
     nameBn: 'এসএসসি রসায়ন',
     nameEn: 'SSC Chemistry',
     icon: '⚗️',
@@ -107,6 +112,7 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
   },
   {
     id: 'general-math',
+    level: 'ssc',
     nameBn: 'এসএসসি সাধারণ গণিত',
     nameEn: 'SSC General Mathematics',
     icon: '🧮',
@@ -127,6 +133,7 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
   },
   {
     id: 'biology',
+    level: 'ssc',
     nameBn: 'এসএসসি জীববিজ্ঞান',
     nameEn: 'SSC Biology',
     icon: '🧬',
@@ -144,6 +151,67 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
       { id: 'trophic_energy', num: 13, nameBn: '১৩শ: খাদ্যশৃঙ্খল ১০% শক্তি পিরামিড', nameEn: 'Ch 13: 10% Trophic Energy' },
     ],
   },
+
+  // --- HSC Subjects ---
+  {
+    id: 'hsc-ict',
+    level: 'hsc',
+    nameBn: 'এইচএসসি আইসিটি (HSC 275)',
+    nameEn: 'HSC ICT (Code 275)',
+    icon: '💻',
+    color: 'from-cyan-500 to-sky-600',
+    badgeBg: 'bg-cyan-500/10',
+    badgeText: 'text-cyan-400 border-cyan-500/30',
+    toolUrlBn: '/bn/tools/c-runner/',
+    toolUrlEn: '/en/tools/c-runner/',
+    chapters: [
+      { id: 'hsc_ict_ch1', num: 1, nameBn: '১ম: বিশ্ব ও বাংলাদেশ প্রেক্ষিত', nameEn: 'Ch 1: Global & BD Perspective' },
+      { id: 'hsc_ict_ch2', num: 2, nameBn: '২য়: কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং', nameEn: 'Ch 2: Networking & Media' },
+      { id: 'hsc_ict_ch3', num: 3, nameBn: '৩য়: সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস', nameEn: 'Ch 3: Number Systems & Logic Gates' },
+      { id: 'hsc_ict_ch4', num: 4, nameBn: '৪র্থ: ওয়েব ডিজাইন ও এইচটিএমএল (HTML)', nameEn: 'Ch 4: Web Design & HTML' },
+      { id: 'hsc_ict_ch5', num: 5, nameBn: '৫ম: প্রোগ্রামিং ভাষা (সি প্রোগ্রামিং)', nameEn: 'Ch 5: C Programming Language' },
+      { id: 'hsc_ict_ch6', num: 6, nameBn: '৬ষ্ঠ: ডেটাবেজ ম্যানেজমেন্ট (SQL)', nameEn: 'Ch 6: Relational DBMS & SQL' },
+    ],
+  },
+  {
+    id: 'hsc-physics',
+    level: 'hsc',
+    nameBn: 'এইচএসসি পদার্থবিজ্ঞান',
+    nameEn: 'HSC Physics',
+    icon: '🚀',
+    color: 'from-blue-500 to-indigo-600',
+    badgeBg: 'bg-blue-500/10',
+    badgeText: 'text-blue-400 border-blue-500/30',
+    toolUrlBn: '/bn/tools/vector-calculator/',
+    toolUrlEn: '/en/tools/vector-calculator/',
+    chapters: [
+      { id: 'hsc_phy_vec', num: 2, nameBn: '১ম পত্র ২য়: ভেক্টর ও দ্বিমাত্রিক গুণন', nameEn: '1st Ch 2: Vectors & Angles' },
+      { id: 'hsc_phy_newton', num: 4, nameBn: '১ম পত্র ৪র্থ: নিউটনিয়ান বলবিদ্যা ও ঘর্ষণ', nameEn: '1st Ch 4: Newtonian Mechanics' },
+      { id: 'hsc_phy_work', num: 5, nameBn: '১ম পত্র ৫ম: কাজ, শক্তি ও ক্ষমতা', nameEn: '1st Ch 5: Work, Energy & Power' },
+      { id: 'hsc_phy_grav', num: 6, nameBn: '১ম পত্র ৬ষ্ঠ: মহাকর্ষ ও অভিকর্ষ', nameEn: '1st Ch 6: Gravitation & Orbits' },
+      { id: 'hsc_phy_gas', num: 10, nameBn: '১ম পত্র ১০ম: আদর্শ গ্যাস ও গতিতত্ত্ব', nameEn: '1st Ch 10: Ideal Gas Laws' },
+      { id: 'hsc_phy_thermo', num: '2-1', nameBn: '২য় পত্র ১ম: তাপগতিবিদ্যা ও এন্ট্রপি', nameEn: '2nd Ch 1: Thermodynamics' },
+    ],
+  },
+  {
+    id: 'hsc-chemistry',
+    level: 'hsc',
+    nameBn: 'এইচএসসি রসায়ন',
+    nameEn: 'HSC Chemistry',
+    icon: '🧪',
+    color: 'from-rose-500 to-pink-600',
+    badgeBg: 'bg-rose-500/10',
+    badgeText: 'text-rose-400 border-rose-500/30',
+    toolUrlBn: '/bn/tools/redox-balancer/',
+    toolUrlEn: '/en/tools/redox-balancer/',
+    chapters: [
+      { id: 'hsc_chem_qual', num: '1-2', nameBn: '১ম পত্র ২য়: গুণগত রসায়ন ও দ্রাব্যতা', nameEn: '1st Ch 2: Qualitative Chemistry' },
+      { id: 'hsc_chem_periodic', num: '1-3', nameBn: '১ম পত্র ৩য়: পর্যায়বৃত্ত ধর্ম ও বন্ধন', nameEn: '1st Ch 3: Periodic Properties' },
+      { id: 'hsc_chem_changes', num: '1-4', nameBn: '১ম পত্র ৪র্থ: রাসায়নিক পরিবর্তন ও pH', nameEn: '1st Ch 4: Chemical Changes & pH' },
+      { id: 'hsc_chem_env', num: '2-1', nameBn: '২য় পত্র ১ম: পরিবেশ রসায়ন ও গ্যাস সূত্র', nameEn: '2nd Ch 1: Environmental Chemistry' },
+      { id: 'hsc_chem_quant', num: '2-3', nameBn: '২য় পত্র ৩য়: পরিমাণগত রসায়ন ও রেডক্স', nameEn: '2nd Ch 3: Quantitative & Redox' },
+    ],
+  },
 ];
 
 interface Props {
@@ -151,9 +219,13 @@ interface Props {
 }
 
 export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
+  const isBn = lang === 'bn';
   const [progressState, setProgressState] = useState<Record<string, string[]>>({});
+  const [selectedLevel, setSelectedLevel] = useState<'all' | 'ssc' | 'hsc'>('all');
+  const [streakDays, setStreakDays] = useState<number>(1);
   const [mounted, setMounted] = useState(false);
 
+  // Load progress and update daily habit streak
   const loadAllProgress = () => {
     const newState: Record<string, string[]> = {};
     for (const sub of SUBJECTS_CONFIG) {
@@ -173,6 +245,37 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
       }
     }
     setProgressState(newState);
+
+    // Habit Streak Tracking
+    try {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const lastVisit = localStorage.getItem('biggan_last_visit_date');
+      let currentStreak = parseInt(localStorage.getItem('biggan_study_streak') || '1', 10);
+
+      if (lastVisit) {
+        const lastDate = new Date(lastVisit);
+        const todayDate = new Date(todayStr);
+        const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 3600 * 24));
+
+        if (diffDays === 1) {
+          // Visited yesterday -> increment streak
+          currentStreak += 1;
+          localStorage.setItem('biggan_study_streak', currentStreak.toString());
+          localStorage.setItem('biggan_last_visit_date', todayStr);
+        } else if (diffDays > 1) {
+          // Missed more than a day -> reset to 1
+          currentStreak = 1;
+          localStorage.setItem('biggan_study_streak', '1');
+          localStorage.setItem('biggan_last_visit_date', todayStr);
+        }
+      } else {
+        localStorage.setItem('biggan_last_visit_date', todayStr);
+        localStorage.setItem('biggan_study_streak', '1');
+      }
+      setStreakDays(currentStreak);
+    } catch {
+      // fallback
+    }
   };
 
   useEffect(() => {
@@ -201,10 +304,9 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
   };
 
   const resetAllProgress = () => {
-    const msg =
-      lang === 'bn'
-        ? 'আপনি কি নিশ্চিত যে আপনার সমস্ত বিষয়ের রিভিশন প্রগ্রেস মুছে ফেলতে চান?'
-        : 'Are you sure you want to reset all revision progress across all subjects?';
+    const msg = isBn
+      ? 'আপনি কি নিশ্চিত যে আপনার সমস্ত বিষয়ের রিভিশন প্রগ্রেস মুছে ফেলতে চান?'
+      : 'Are you sure you want to reset all revision progress across all subjects?';
     if (window.confirm(msg)) {
       for (const sub of SUBJECTS_CONFIG) {
         try {
@@ -218,36 +320,118 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
     }
   };
 
-  // Calculations
-  let totalAllChapters = 0;
-  let completedAllChapters = 0;
+  // Filtered Subjects based on Level Tab
+  const visibleSubjects = SUBJECTS_CONFIG.filter((s) =>
+    selectedLevel === 'all' ? true : s.level === selectedLevel
+  );
 
-  for (const sub of SUBJECTS_CONFIG) {
+  // Calculations
+  let totalVisibleChapters = 0;
+  let completedVisibleChapters = 0;
+
+  for (const sub of visibleSubjects) {
     const list = progressState[sub.id] || [];
-    totalAllChapters += sub.chapters.length;
-    completedAllChapters += list.filter((id) => sub.chapters.some((c) => c.id === id)).length;
+    totalVisibleChapters += sub.chapters.length;
+    completedVisibleChapters += list.filter((id) => sub.chapters.some((c) => c.id === id)).length;
   }
 
-  const overallPercent = totalAllChapters > 0 ? Math.round((completedAllChapters / totalAllChapters) * 100) : 0;
-  const remainingChapters = totalAllChapters - completedAllChapters;
+  const overallPercent = totalVisibleChapters > 0 ? Math.round((completedVisibleChapters / totalVisibleChapters) * 100) : 0;
+  const remainingChapters = totalVisibleChapters - completedVisibleChapters;
 
   if (!mounted) {
     return (
       <div className="p-8 text-center bg-slate-900 border border-slate-800 rounded-3xl animate-pulse text-slate-400 text-sm">
-        {lang === 'bn' ? 'রিভিশন প্রগ্রেস ড্যাশবোর্ড লোড হচ্ছে...' : 'Loading revision dashboard...'}
+        {isBn ? 'রিভিশন প্রগ্রেস ড্যাশবোর্ড লোড হচ্ছে...' : 'Loading revision dashboard...'}
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
+      {/* Top Banner: Daily Habit Streak & Board Motivation */}
+      <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-rose-500/10 to-cyan-500/15 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
+        <div className="flex items-center gap-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+            <Flame className="w-6 h-6 text-amber-400 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm sm:text-base font-bold text-white">
+                {isBn ? `🔥 ${streakDays} দিনের রিভিশন স্ট্রিক!` : `🔥 ${streakDays}-Day Study Streak!`}
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                {isBn ? 'অফলাইন সুরক্ষিত' : 'Offline Saved'}
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-0.5">
+              {isBn
+                ? 'নিয়মিত অধ্যায় রিভাইজ করুন এবং বোর্ড পরীক্ষায় A+ নিশ্চিতে এগিয়ে থাকুন।'
+                : 'Consistent daily revision secures top marks in secondary & higher secondary board exams.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Print Report Button */}
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700 shadow-sm transition no-print shrink-0 cursor-pointer"
+        >
+          <Printer className="w-3.5 h-3.5 text-cyan-400" />
+          <span>{isBn ? 'প্রগ্রেস রিপোর্ট প্রিন্ট' : 'Print Report'}</span>
+        </button>
+      </div>
+
+      {/* Level Tabs: All, SSC, HSC */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3 no-print">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4 text-cyan-400" />
+          <span className="text-xs font-semibold text-slate-400 mr-1">
+            {isBn ? 'কারিকুলাম স্তর:' : 'Curriculum Level:'}
+          </span>
+          {(['all', 'ssc', 'hsc'] as const).map((lvl) => {
+            const active = selectedLevel === lvl;
+            const label =
+              lvl === 'all'
+                ? isBn ? 'সকল বিষয় (৮টি)' : 'All Subjects (8)'
+                : lvl === 'ssc'
+                ? isBn ? 'এসএসসি (৫টি বিষয়)' : 'SSC (5 Subjects)'
+                : isBn ? 'এইচএসসি (৩টি বিষয়)' : 'HSC (3 Subjects)';
+
+            return (
+              <button
+                key={lvl}
+                onClick={() => setSelectedLevel(lvl)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+                  active
+                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20'
+                    : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
+        {completedVisibleChapters > 0 && (
+          <button
+            onClick={resetAllProgress}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-950/40 text-slate-400 hover:text-rose-300 text-xs font-semibold border border-slate-800 transition cursor-pointer"
+          >
+            <RotateCcw className="w-3 h-3" />
+            <span>{isBn ? 'প্রগ্রেস রিসেট' : 'Reset Progress'}</span>
+          </button>
+        )}
+      </div>
+
       {/* Overview Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Completion */}
         <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950/20 border border-slate-800 p-5 rounded-2xl space-y-2 relative overflow-hidden shadow-lg">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="font-semibold uppercase tracking-wider">
-              {lang === 'bn' ? 'সামগ্রিক অগ্রগতি' : 'Overall Completion'}
+              {isBn ? 'সামগ্রিক প্রস্তুতি' : 'Overall Mastery'}
             </span>
             <Trophy className="w-4 h-4 text-amber-400" />
           </div>
@@ -266,16 +450,16 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
         <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2 shadow-lg">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="font-semibold uppercase tracking-wider">
-              {lang === 'bn' ? 'রিভাইজড অধ্যায়' : 'Revised Chapters'}
+              {isBn ? 'রিভাইজড অধ্যায়' : 'Revised Chapters'}
             </span>
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-extrabold text-emerald-400">
-            {completedAllChapters}
-            <span className="text-sm font-sans font-normal text-slate-500 ml-1">/ {totalAllChapters}</span>
+            {completedVisibleChapters}
+            <span className="text-sm font-sans font-normal text-slate-500 ml-1">/ {totalVisibleChapters}</span>
           </div>
           <p className="text-[11px] text-slate-400">
-            {lang === 'bn' ? 'বোর্ড পরীক্ষার জন্য প্রস্তুত' : 'Ready for board exam'}
+            {isBn ? 'পরীক্ষার জন্য সম্পূর্ণ প্রস্তুত' : 'Ready for examination'}
           </p>
         </div>
 
@@ -283,64 +467,46 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
         <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2 shadow-lg">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="font-semibold uppercase tracking-wider">
-              {lang === 'bn' ? 'অবশিষ্ট অধ্যায়' : 'Remaining Chapters'}
+              {isBn ? 'বাকি অধ্যায়' : 'Chapters Remaining'}
             </span>
-            <Activity className="w-4 h-4 text-cyan-400" />
+            <Zap className="w-4 h-4 text-cyan-400" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-extrabold text-cyan-400">
             {remainingChapters}
           </div>
           <p className="text-[11px] text-slate-400">
-            {lang === 'bn' ? 'রিভিশন বাকি রয়েছে' : 'Chapters left to revise'}
+            {isBn ? 'রিভিশন সম্পন্ন করতে হবে' : 'Pending revision checklist'}
           </p>
         </div>
 
-        {/* Target STEM Subjects */}
+        {/* Active Subjects */}
         <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-2 shadow-lg">
           <div className="flex items-center justify-between text-xs text-slate-400">
             <span className="font-semibold uppercase tracking-wider">
-              {lang === 'bn' ? 'টার্গেট বিষয়সমূহ' : 'Target Subjects'}
+              {isBn ? 'নির্বাচিত বিষয়' : 'Active Subjects'}
             </span>
             <BookOpen className="w-4 h-4 text-purple-400" />
           </div>
           <div className="text-3xl sm:text-4xl font-mono font-extrabold text-purple-400">
-            5 <span className="text-sm font-sans font-normal text-slate-500">STEM</span>
+            {visibleSubjects.length}
+            <span className="text-sm font-sans font-normal text-slate-500 ml-1">
+              {isBn ? 'টি বিষয়' : 'Subjects'}
+            </span>
           </div>
           <p className="text-[11px] text-slate-400">
-            {lang === 'bn' ? 'পদার্থ, রসায়ন, গণিত, উচ্চতর গণিত, জীব' : 'Physics, Chem, Math, HM, Bio'}
+            {isBn ? 'বিজ্ঞান ও আইসিটি কোর্স' : 'Science & ICT courses'}
           </p>
         </div>
       </div>
 
-      {/* Action Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-slate-900/60 border border-slate-800 rounded-2xl">
-        <div className="text-xs text-slate-300 flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-amber-400" />
-          <span>
-            {lang === 'bn'
-              ? 'নিচের প্রতিটি বিষয়ের কার্ড থেকে সরাসরি অধ্যায় টিক দিন। তথ্য স্বয়ংক্রিয়ভাবে আপনার ব্রাউজারে সংরক্ষিত হয়।'
-              : 'Toggle completed chapters directly from subject cards below. Progress is saved locally.'}
-          </span>
-        </div>
-        {completedAllChapters > 0 && (
-          <button
-            onClick={resetAllProgress}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-red-950/50 text-slate-400 hover:text-red-300 text-xs font-semibold border border-slate-700 transition cursor-pointer"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>{lang === 'bn' ? 'সমস্ত প্রগ্রেস রিসেট করুন' : 'Reset All Progress'}</span>
-          </button>
-        )}
-      </div>
-
       {/* Per-Subject Detailed Cards */}
       <div className="space-y-6">
-        {SUBJECTS_CONFIG.map((sub) => {
+        {visibleSubjects.map((sub) => {
           const completedList = progressState[sub.id] || [];
           const totalCount = sub.chapters.length;
           const doneCount = completedList.filter((id) => sub.chapters.some((c) => c.id === id)).length;
           const percent = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
-          const toolUrl = lang === 'bn' ? sub.toolUrlBn : sub.toolUrlEn;
+          const toolUrl = isBn ? sub.toolUrlBn : sub.toolUrlEn;
 
           return (
             <div
@@ -356,7 +522,7 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
                   <div>
                     <div className="flex items-center gap-2">
                       <h2 className="text-lg font-bold text-white">
-                        {lang === 'bn' ? sub.nameBn : sub.nameEn}
+                        {isBn ? sub.nameBn : sub.nameEn}
                       </h2>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${sub.badgeBg} ${sub.badgeText}`}>
                         {doneCount}/{totalCount} ({percent}%)
@@ -364,8 +530,8 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
                     </div>
                     <p className="text-xs text-slate-400">
                       {percent === 100
-                        ? (lang === 'bn' ? '🎉 সম্পূর্ণ সিলেবাস রিভাইজড!' : '🎉 Syllabus 100% Completed!')
-                        : (lang === 'bn' ? `${totalCount - doneCount}টি অধ্যায় বাকি আছে` : `${totalCount - doneCount} chapters remaining`)}
+                        ? (isBn ? '🎉 সম্পূর্ণ সিলেবাস রিভাইজড!' : '🎉 Syllabus 100% Completed!')
+                        : (isBn ? `${totalCount - doneCount}টি অধ্যায় বাকি আছে` : `${totalCount - doneCount} chapters remaining`)}
                     </p>
                   </div>
                 </div>
@@ -375,7 +541,7 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
                   href={toolUrl}
                   className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold border border-slate-700 transition"
                 >
-                  <span>{lang === 'bn' ? 'ক্যালকুলেটর খুলুন' : 'Open Calculator'}</span>
+                  <span>{isBn ? 'ক্যালকুলেটর খুলুন' : 'Open Calculator'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -408,7 +574,7 @@ export const ProgressDashboard: React.FC<Props> = ({ lang = 'bn' }) => {
                         <Circle className="w-4 h-4 text-slate-500 shrink-0" />
                       )}
                       <span className={`truncate text-[11px] ${isDone ? 'line-through text-slate-400' : 'font-medium'}`}>
-                        {ch.num ? `${ch.num}. ` : ''}{lang === 'bn' ? ch.nameBn : ch.nameEn}
+                        {ch.num ? `${ch.num}. ` : ''}{isBn ? ch.nameBn : ch.nameEn}
                       </span>
                     </button>
                   );

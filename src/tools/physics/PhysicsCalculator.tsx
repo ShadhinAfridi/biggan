@@ -19,6 +19,7 @@ import {
   ArrowRightLeft,
 } from 'lucide-react';
 import { Latex } from '../../components/math/Latex';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 import {
   calcVernierConstant,
   calcSlideCalipers,
@@ -177,7 +178,265 @@ const ForceVectorDiagram: React.FC<{ m: number; a: number; lang?: 'bn' | 'en' }>
           <text x="160" y="116" textAnchor="middle" fill="#94a3b8" fontSize="8" fontFamily="monospace">W=mg</text>
         </svg>
       </div>
+    </div>
+  );
+};
 
+const KinematicsMotionDiagram: React.FC<{
+  mode: 'motion' | 'vertical';
+  u: number;
+  v?: number;
+  a?: number;
+  t?: number;
+  s?: number;
+  vertU?: number;
+  g?: number;
+  lang?: 'bn' | 'en';
+}> = ({ mode, u, v = 0, a = 0, t = 1, s = 0, vertU = 19.6, g = 9.8, lang = 'bn' }) => {
+  if (mode === 'motion') {
+    const safeT = Math.max(t || 1, 0.1);
+    const calculatedV = v || u + (a || 0) * safeT;
+    const maxV = Math.max(Math.abs(u), Math.abs(calculatedV), 10);
+    const originX = 40;
+    const originY = 95;
+    const graphW = 230;
+    const graphH = 70;
+
+    const yU = originY - (u / maxV) * graphH;
+    const yV = originY - (calculatedV / maxV) * graphH;
+    const xT = originX + graphW;
+
+    return (
+      <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+        <div className="flex items-center justify-between text-[11px] text-slate-400">
+          <span className="font-semibold text-amber-300">
+            {lang === 'bn' ? 'বেগ-সময় লেখচিত্র ও সরণ ক্ষেত্রফল (v-t Graph)' : 'Velocity-Time Graph & Displacement Area'}
+          </span>
+          <span className="font-mono text-[10px] text-cyan-400">s = ut + ½at²</span>
+        </div>
+        <div className="flex justify-center">
+          <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+            <defs>
+              <linearGradient id="vtAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.05" />
+              </linearGradient>
+            </defs>
+            <polygon
+              points={`${originX},${originY} ${originX},${yU} ${xT},${yV} ${xT},${originY}`}
+              fill="url(#vtAreaGrad)"
+            />
+            <line x1={originX} y1={originY} x2={originX + graphW + 20} y2={originY} stroke="#475569" strokeWidth="1.5" />
+            <line x1={originX} y1={originY + 5} x2={originX} y2="15" stroke="#475569" strokeWidth="1.5" />
+            <text x={originX + graphW + 15} y={originY + 12} fill="#94a3b8" fontSize="8" fontFamily="monospace">t (s)</text>
+            <text x={originX - 6} y="18" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="end">v (m/s)</text>
+            <text x={originX - 6} y={originY + 10} fill="#64748b" fontSize="8" fontFamily="monospace">0</text>
+            <line x1={originX} y1={yU} x2={xT} y2={yV} stroke="#38bdf8" strokeWidth="2.5" />
+            <circle cx={originX} cy={yU} r="3.5" fill="#f59e0b" />
+            <circle cx={xT} cy={yV} r="3.5" fill="#38bdf8" />
+            <text x={originX - 6} y={yU + 3} fill="#f59e0b" fontSize="8" fontFamily="monospace" textAnchor="end">u={u}</text>
+            <text x={xT + 4} y={yV + 3} fill="#38bdf8" fontSize="8" fontFamily="monospace">v={calculatedV.toFixed(1)}</text>
+            <text x={xT} y={originY + 12} fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">t={safeT}s</text>
+            <text x={(originX + xT) / 2} y={(originY + Math.min(yU, yV)) / 2 + 8} fill="#fbbf24" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+              Area s = {s ? s.toFixed(1) : (((u + calculatedV) / 2) * safeT).toFixed(1)} m
+            </text>
+          </svg>
+        </div>
+      </div>
+    );
+  }
+
+  const vertMaxH = (vertU * vertU) / (2 * g);
+  const totalFlightT = (2 * vertU) / g;
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'খাড়া নিক্ষিপ্ত বস্তুর গতিপথ ও সর্বোচ্চ উচ্চতা' : 'Vertical Projectile Trajectory & Apex'}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">H = u²/2g</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+          <line x1="30" y1="100" x2="290" y2="100" stroke="#475569" strokeWidth="2" />
+          <path d="M 60 100 Q 160 20 260 100" fill="none" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 2" />
+          <circle cx="160" cy="20" r="4" fill="#38bdf8" />
+          <line x1="160" y1="20" x2="160" y2="100" stroke="#38bdf8" strokeWidth="1" strokeDasharray="2 2" />
+          <text x="160" y="14" fill="#38bdf8" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            H_max = {vertMaxH.toFixed(2)} m
+          </text>
+          <text x="60" y="85" fill="#10b981" fontSize="8" fontWeight="bold" fontFamily="monospace">u = {vertU} m/s</text>
+          <text x="260" y="112" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            T = {totalFlightT.toFixed(2)}s
+          </text>
+          <text x="160" y="112" fill="#64748b" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            g = {g} m/s²
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const EnergyConservationDiagram: React.FC<{
+  mass: number;
+  height: number;
+  g?: number;
+  lang?: 'bn' | 'en';
+}> = ({ mass, height, g = 9.8, lang = 'bn' }) => {
+  const [sliderRatio, setSliderRatio] = useState<number>(0.6);
+  const currentH = (height || 5) * sliderRatio;
+  const safeM = mass || 1;
+  const ep = safeM * g * currentH;
+  const ek = safeM * g * ((height || 5) - currentH);
+  const totalE = safeM * g * (height || 5);
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2.5 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'যান্ত্রিক শক্তি সংরক্ষণশীলতা নীতি (Energy Conservation)' : 'Conservation of Mechanical Energy'}
+        </span>
+        <span className="font-mono text-[10px] text-emerald-400">Ep + Ek = E = {totalE.toFixed(1)} J</span>
+      </div>
+
+      <div className="space-y-1">
+        <div className="flex justify-between text-[10px] text-slate-400 font-mono">
+          <span>{lang === 'bn' ? 'উচ্চতা অবস্থান (Height):' : 'Height Position:'} {currentH.toFixed(1)}m / {height || 5}m</span>
+          <span>{Math.round(sliderRatio * 100)}%</span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          value={sliderRatio}
+          onChange={(e) => setSliderRatio(parseFloat(e.target.value))}
+          className="w-full accent-amber-500 h-1.5 bg-slate-800 rounded-lg cursor-pointer"
+        />
+      </div>
+
+      <div className="space-y-1.5">
+        <div className="flex h-4 rounded-full overflow-hidden border border-slate-800 bg-slate-900">
+          <div
+            style={{ width: `${totalE > 0 ? (ep / totalE) * 100 : 50}%` }}
+            className="bg-gradient-to-r from-amber-600 to-amber-400 transition-all duration-150 flex items-center justify-center text-[9px] font-bold text-slate-950"
+          >
+            {ep > 0.08 * totalE && `Ep: ${ep.toFixed(0)}J`}
+          </div>
+          <div
+            style={{ width: `${totalE > 0 ? (ek / totalE) * 100 : 50}%` }}
+            className="bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-150 flex items-center justify-center text-[9px] font-bold text-white"
+          >
+            {ek > 0.08 * totalE && `Ek: ${ek.toFixed(0)}J`}
+          </div>
+        </div>
+        <div className="flex justify-between text-[10px] font-mono">
+          <span className="text-amber-400 font-semibold">● Ep (বিভব শক্তি) = {ep.toFixed(1)} J</span>
+          <span className="text-cyan-400 font-semibold">● Ek (গতিশক্তি) = {ek.toFixed(1)} J</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const OpticsRayDiagram: React.FC<{
+  opticalType: 'mirror' | 'lens';
+  subType: 'concave' | 'convex';
+  u: number;
+  f: number;
+  ho?: number;
+  lang?: 'bn' | 'en';
+}> = ({ opticalType, subType, u, f, ho = 15, lang = 'bn' }) => {
+  const invV = 1 / (f || 1) - 1 / (u || 1);
+  const v = Math.abs(invV) > 1e-4 ? 1 / invV : 999;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'আলোকরশ্মি চিত্র ও প্রতিবিম্ব গঠন (Ray Diagram)' : 'Optics Ray-Tracing Diagram'}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">1/f = 1/u + 1/v</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+          <line x1="20" y1="60" x2="300" y2="60" stroke="#475569" strokeWidth="1.5" />
+          {opticalType === 'mirror' ? (
+            <path
+              d={subType === 'concave' ? 'M 160 15 Q 150 60 160 105' : 'M 160 15 Q 170 60 160 105'}
+              fill="none"
+              stroke="#06b6d4"
+              strokeWidth="3"
+            />
+          ) : (
+            <path
+              d="M 160 15 Q 170 60 160 105 Q 150 60 160 15"
+              fill="#06b6d4"
+              fillOpacity="0.25"
+              stroke="#06b6d4"
+              strokeWidth="2"
+            />
+          )}
+          <circle cx="110" cy="60" r="3" fill="#f59e0b" />
+          <text x="110" y="74" fill="#f59e0b" fontSize="8" fontFamily="monospace" textAnchor="middle">F</text>
+          <circle cx="60" cy="60" r="3" fill="#64748b" />
+          <text x="60" y="74" fill="#64748b" fontSize="8" fontFamily="monospace" textAnchor="middle">C</text>
+          <line x1="50" y1="60" x2="50" y2="28" stroke="#10b981" strokeWidth="2.5" markerEnd="url(#arrow-f)" />
+          <text x="50" y="22" fill="#10b981" fontSize="8" fontFamily="monospace" textAnchor="middle">Obj (u={u})</text>
+          <line x1="50" y1="28" x2="160" y2="28" stroke="#fbbf24" strokeWidth="1.2" />
+          <line x1="160" y1="28" x2="110" y2="60" stroke="#fbbf24" strokeWidth="1.2" />
+          <line x1="110" y1="60" x2="70" y2="85" stroke="#fbbf24" strokeWidth="1.2" strokeDasharray="2 2" />
+          <line x1="50" y1="28" x2="160" y2="60" stroke="#38bdf8" strokeWidth="1.2" />
+          <line x1="160" y1="60" x2="220" y2="76" stroke="#38bdf8" strokeWidth="1.2" />
+          <line x1="85" y1="60" x2="85" y2="85" stroke="#ec4899" strokeWidth="2.5" />
+          <text x="85" y="96" fill="#ec4899" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            Img (v={Math.abs(v).toFixed(1)})
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const CircuitSchematicDiagram: React.FC<{
+  v: number;
+  r: number;
+  i: number;
+  circuitType?: 'series' | 'parallel';
+  lang?: 'bn' | 'en';
+}> = ({ v, r, i, circuitType = 'parallel', lang = 'bn' }) => {
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px] text-slate-400">
+        <span className="font-semibold text-amber-300">
+          {lang === 'bn' ? 'বর্তনী স্কিম্যাটিক ও তড়িৎপ্রবাহ (Circuit Schematic)' : 'Circuit Schematic & Current Flow'}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">V = IR | I = {i.toFixed(2)} A</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+          <rect x="40" y="20" width="240" height="75" rx="8" fill="none" stroke="#475569" strokeWidth="2" />
+          <rect x="36" y="42" width="8" height="30" fill="#020617" />
+          <line x1="40" y1="46" x2="40" y2="68" stroke="#f59e0b" strokeWidth="4" />
+          <line x1="34" y1="52" x2="34" y2="62" stroke="#64748b" strokeWidth="2" />
+          <text x="20" y="58" fill="#f59e0b" fontSize="8" fontWeight="bold" fontFamily="monospace">
+            {v}V
+          </text>
+          <polygon points="120,17 130,20 120,23" fill="#38bdf8" />
+          <text x="135" y="16" fill="#38bdf8" fontSize="8" fontWeight="bold" fontFamily="monospace">
+            I = {i.toFixed(2)}A ➔
+          </text>
+          <rect x="200" y="14" width="45" height="12" rx="2" fill="#1e293b" stroke="#f59e0b" strokeWidth="1.5" />
+          <text x="222" y="23" fill="#f8fafc" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            R={r}Ω
+          </text>
+          <circle cx="160" cy="95" r="10" fill="#0f172a" stroke="#10b981" strokeWidth="1.5" />
+          <text x="160" y="98" fill="#10b981" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            A
+          </text>
+        </svg>
+      </div>
     </div>
   );
 };
@@ -467,26 +726,32 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         {/* Global toggles: Gravity and Kelvin precision */}
         <div className="flex flex-wrap items-center gap-3 text-xs">
           <div className="flex items-center gap-1.5 bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700">
-            <span className="text-slate-400 font-medium">অভিকর্ষজ ত্বরণ g:</span>
+            <span className="text-slate-400 font-medium">
+              {lang === 'bn' ? 'অভিকর্ষজ ত্বরণ g:' : 'Gravity (g):'}
+            </span>
             <select
               value={gValue}
               onChange={(e) => setGValue(parseFloat(e.target.value))}
-              aria-label="Acceleration due to gravity"
+              aria-label={lang === 'bn' ? 'অভিকর্ষজ ত্বরণ' : 'Acceleration due to gravity'}
               className="bg-slate-900 text-amber-300 font-bold border-0 rounded px-1.5 py-0.5 cursor-pointer focus:ring-1 focus:ring-amber-400"
             >
-              <option value={9.8}>9.8 m/s² (NCTB)</option>
-              <option value={9.81}>9.81 m/s² (High Precision)</option>
+              <option value={9.8}>{lang === 'bn' ? '9.8 m/s² (NCTB)' : '9.8 m/s² (Standard)'}</option>
+              <option value={9.81}>{lang === 'bn' ? '9.81 m/s² (নিখুঁত)' : '9.81 m/s² (Exact)'}</option>
             </select>
           </div>
 
           <div className="flex items-center gap-1.5 bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700">
-            <span className="text-slate-400 font-medium">কেলভিন স্কেল:</span>
+            <span className="text-slate-400 font-medium">
+              {lang === 'bn' ? 'কেলভিন স্কেল:' : 'Kelvin Scale:'}
+            </span>
             <button
               onClick={() => setUseSimpleK(!useSimpleK)}
-              className="font-bold text-amber-300 hover:text-amber-200 transition"
-              title="Toggle between C + 273 and C + 273.15"
+              className="font-bold text-amber-300 hover:text-amber-200 transition cursor-pointer"
+              title={lang === 'bn' ? 'C + 273 এবং C + 273.15 এর মধ্যে পরিবর্তন করুন' : 'Toggle between C + 273 and C + 273.15'}
             >
-              {useSimpleK ? '+273 (পাঠ্যবই)' : '+273.15 (নিখুঁত)'}
+              {useSimpleK
+                ? (lang === 'bn' ? '+273 (পাঠ্যবই)' : '+273 (Textbook)')
+                : (lang === 'bn' ? '+273.15 (নিখুঁত)' : '+273.15 (Exact)')}
             </button>
           </div>
         </div>
@@ -692,6 +957,17 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   <input type="number" value={ch2VertU} onChange={(e) => setCh2VertU(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
                 </div>
               )}
+              <KinematicsMotionDiagram
+                mode={ch2SubTab}
+                u={ch2U}
+                v={ch2V}
+                a={ch2A}
+                t={ch2T}
+                s={ch2S}
+                vertU={ch2VertU}
+                g={gValue}
+                lang={lang}
+              />
             </div>
           )}
 
@@ -849,6 +1125,12 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   </div>
                 </div>
               )}
+              <EnergyConservationDiagram
+                mass={ch4MassP || ch4MassK || 1}
+                height={ch4HeightP || 5}
+                g={gValue}
+                lang={lang}
+              />
             </div>
           )}
 
@@ -1105,6 +1387,14 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   <input type="number" value={ch8Ho} onChange={(e) => setCh8Ho(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
                 </div>
               </div>
+              <OpticsRayDiagram
+                opticalType="mirror"
+                subType={ch8Type}
+                u={ch8U}
+                f={ch8F}
+                ho={ch8Ho}
+                lang={lang}
+              />
             </div>
           )}
 
@@ -1128,28 +1418,38 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               </div>
 
               {ch9SubTab === 'lens' && (
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">লেন্সের ধরন</label>
-                    <select
-                      value={ch9LensType}
-                      onChange={(e) => setCh9LensType(e.target.value as any)}
-                      aria-label="Lens type"
-                      className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-lg p-2 text-sm"
-                    >
-                      <option value="convex">উত্তল (Convex)</option>
-                      <option value="concave">অবতল (Concave)</option>
-                    </select>
+                <>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">লেন্সের ধরন</label>
+                      <select
+                        value={ch9LensType}
+                        onChange={(e) => setCh9LensType(e.target.value as any)}
+                        aria-label="Lens type"
+                        className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-lg p-2 text-sm"
+                      >
+                        <option value="convex">উত্তল (Convex)</option>
+                        <option value="concave">অবতল (Concave)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">ফোকাস দূরত্ব |f| (cm)</label>
+                      <input type="number" value={ch9LensF} onChange={(e) => setCh9LensF(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">বস্তুর দূরত্ব u (cm)</label>
+                      <input type="number" value={ch9LensU} onChange={(e) => setCh9LensU(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">ফোকাস দূরত্ব |f| (cm)</label>
-                    <input type="number" value={ch9LensF} onChange={(e) => setCh9LensF(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                  <div>
-                    <label className="text-xs text-slate-400">বস্তুর দূরত্ব u (cm)</label>
-                    <input type="number" value={ch9LensU} onChange={(e) => setCh9LensU(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
-                </div>
+                  <OpticsRayDiagram
+                    opticalType="lens"
+                    subType={ch9LensType}
+                    u={ch9LensU}
+                    f={ch9LensF}
+                    ho={10}
+                    lang={lang}
+                  />
+                </>
               )}
 
               {ch9SubTab === 'snell' && (
@@ -1290,15 +1590,24 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
               )}
 
               {ch11SubTab === 'ohm' && (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-xs text-slate-400">বিভব পার্থক্য V (Volts)</label>
-                    <input type="number" value={ch11V} onChange={(e) => setCh11V(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-xs text-slate-400">বিভব পার্থক্য V (Volts)</label>
+                      <input type="number" value={ch11V} onChange={(e) => setCh11V(parseFloat(e.target.value) || 0)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-400">রোধ R (Ohms Ω)</label>
+                      <input type="number" value={ch11R} onChange={(e) => setCh11R(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-xs text-slate-400">রোধ R (Ohms Ω)</label>
-                    <input type="number" value={ch11R} onChange={(e) => setCh11R(parseFloat(e.target.value) || 1)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white text-sm" />
-                  </div>
+                  <CircuitSchematicDiagram
+                    v={ch11V}
+                    r={ch11R}
+                    i={ch11V / (ch11R || 1)}
+                    circuitType={ch11EqType}
+                    lang={lang}
+                  />
                 </div>
               )}
 
@@ -1504,6 +1813,9 @@ export const PhysicsCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </button>
         </div>
       )}
+
+      {/* Interactive Casio fx-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

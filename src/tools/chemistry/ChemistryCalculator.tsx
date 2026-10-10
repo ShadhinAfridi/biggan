@@ -16,6 +16,7 @@ import {
   Droplet,
 } from 'lucide-react';
 import { Latex } from '../../components/math/Latex';
+import { CasioVirtualCalculator } from '../../components/casio/CasioVirtualCalculator';
 import {
   parseChemicalFormula,
   calcGrahamDiffusion,
@@ -113,6 +114,230 @@ const PHRainbowGauge: React.FC<{ ph: number; lang?: 'bn' | 'en' }> = ({ ph, lang
           <span className="text-cyan-400 font-bold">11</span>
           <span>14 (ক্ষার)</span>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const BohrAtomDiagram: React.FC<{
+  atomicNumber: number;
+  symbol?: string;
+  lang?: 'bn' | 'en';
+}> = ({ atomicNumber = 11, symbol = 'Na', lang = 'bn' }) => {
+  const safeZ = Math.min(Math.max(atomicNumber || 1, 1), 20);
+  const shells: number[] = [];
+  let remaining = safeZ;
+  const capacities = [2, 8, 8, 2];
+  for (const cap of capacities) {
+    if (remaining <= 0) break;
+    const count = Math.min(remaining, cap);
+    shells.push(count);
+    remaining -= count;
+  }
+
+  const cx = 160;
+  const cy = 68;
+  const radii = [22, 36, 50, 62];
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-teal-300">
+          {lang === 'bn' ? 'বোর পরমাণু মডেল ও ইলেকট্রন বিন্যাস' : 'Bohr Atomic Model & Orbital Shells'}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">
+          Z = {safeZ} ({shells.join(', ')})
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 136" className="w-full max-w-xs h-32 overflow-visible">
+          {shells.map((_, i) => (
+            <circle
+              key={i}
+              cx={cx}
+              cy={cy}
+              r={radii[i]}
+              fill="none"
+              stroke="#334155"
+              strokeWidth="1.2"
+              strokeDasharray="3 3"
+            />
+          ))}
+          <circle cx={cx} cy={cy} r="13" fill="#0f766e" stroke="#14b8a6" strokeWidth="2" />
+          <text
+            x={cx}
+            y={cy + 4}
+            fill="#ffffff"
+            fontSize="9"
+            fontWeight="bold"
+            fontFamily="monospace"
+            textAnchor="middle"
+          >
+            +{safeZ}p
+          </text>
+          {shells.map((numElectrons, shellIdx) => {
+            const r = radii[shellIdx];
+            return Array.from({ length: numElectrons }).map((_, eIdx) => {
+              const angle = (2 * Math.PI * eIdx) / numElectrons - Math.PI / 2;
+              const ex = cx + r * Math.cos(angle);
+              const ey = cy + r * Math.sin(angle);
+              return (
+                <circle
+                  key={`${shellIdx}-${eIdx}`}
+                  cx={ex}
+                  cy={ey}
+                  r="3.2"
+                  fill="#38bdf8"
+                  stroke="#0284c7"
+                  strokeWidth="1"
+                />
+              );
+            });
+          })}
+          {['K', 'L', 'M', 'N'].slice(0, shells.length).map((label, idx) => (
+            <text
+              key={label}
+              x={cx + radii[idx] + 2}
+              y={cy - 2}
+              fill="#94a3b8"
+              fontSize="7"
+              fontFamily="monospace"
+            >
+              {label}
+            </text>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const EnthalpyDiagram: React.FC<{
+  deltaH: number;
+  lang?: 'bn' | 'en';
+}> = ({ deltaH = -890, lang = 'bn' }) => {
+  const isExo = deltaH < 0;
+  const reactantY = isExo ? 50 : 80;
+  const productY = isExo ? 85 : 45;
+  const peakY = 20;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-teal-300">
+          {lang === 'bn' ? 'বিক্রিয়া এনথ্যালপি ও শক্তি চিত্র (ΔH Profile)' : 'Reaction Enthalpy & Energy Profile'}
+        </span>
+        <span
+          className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+            isExo
+              ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+              : 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40'
+          }`}
+        >
+          {isExo
+            ? (lang === 'bn' ? 'তাপোৎপাদী (ΔH < 0)' : 'Exothermic (ΔH < 0)')
+            : (lang === 'bn' ? 'তাপহারী (ΔH > 0)' : 'Endothermic (ΔH > 0)')}
+        </span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 120" className="w-full max-w-xs h-28 overflow-visible">
+          <line x1="30" y1="105" x2="290" y2="105" stroke="#475569" strokeWidth="1.5" />
+          <line x1="30" y1="105" x2="30" y2="15" stroke="#475569" strokeWidth="1.5" />
+          <text x="290" y="116" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="end">
+            {lang === 'bn' ? 'বিক্রিয়ার অগ্রগতি' : 'Reaction Coordinate'}
+          </text>
+          <text x="24" y="20" fill="#94a3b8" fontSize="8" fontFamily="monospace" textAnchor="end">
+            H (kJ)
+          </text>
+          <path
+            d={`M 40 ${reactantY} L 90 ${reactantY} Q 150 ${peakY} 210 ${peakY + (productY - peakY) * 0.3} L 270 ${productY}`}
+            fill="none"
+            stroke={isExo ? '#10b981' : '#06b6d4'}
+            strokeWidth="2.5"
+          />
+          <line x1="40" y1={reactantY} x2="90" y2={reactantY} stroke="#f59e0b" strokeWidth="3" />
+          <text x="65" y={reactantY - 6} fill="#f59e0b" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            {lang === 'bn' ? 'বিক্রিয়ক' : 'Reactants'}
+          </text>
+          <line x1="210" y1={productY} x2="270" y2={productY} stroke="#38bdf8" strokeWidth="3" />
+          <text x="240" y={productY - 6} fill="#38bdf8" fontSize="8" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            {lang === 'bn' ? 'উৎপাদ' : 'Products'}
+          </text>
+          <line
+            x1="280"
+            y1={reactantY}
+            x2="280"
+            y2={productY}
+            stroke={isExo ? '#ef4444' : '#10b981'}
+            strokeWidth="2"
+          />
+          <text
+            x="285"
+            y={(reactantY + productY) / 2 + 3}
+            fill={isExo ? '#f87171' : '#34d399'}
+            fontSize="8"
+            fontWeight="bold"
+            fontFamily="monospace"
+          >
+            ΔH = {deltaH} kJ
+          </text>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+const GasDiffusionTubeVisual: React.FC<{
+  gas1: string;
+  gas2: string;
+  m1: number;
+  m2: number;
+  lang?: 'bn' | 'en';
+}> = ({ gas1, gas2, m1, m2, lang = 'bn' }) => {
+  const ratio = Math.sqrt((m2 || 1) / (m1 || 1));
+  const totalRatio = 1 + ratio;
+  const d1Pct = (ratio / totalRatio) * 100;
+
+  return (
+    <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 space-y-2 mt-3">
+      <div className="flex items-center justify-between text-[11px]">
+        <span className="font-semibold text-teal-300">
+          {lang === 'bn' ? 'গ্রাহামের ব্যাপন নল চিত্র (Diffusion Tube Visual)' : "Graham's Diffusion Tube Visual"}
+        </span>
+        <span className="font-mono text-[10px] text-cyan-400">r₁/r₂ = √(M₂/M₁) = {ratio.toFixed(2)}</span>
+      </div>
+      <div className="flex justify-center">
+        <svg viewBox="0 0 320 80" className="w-full max-w-xs h-20 overflow-visible">
+          <rect x="30" y="24" width="260" height="24" rx="4" fill="#0f172a" stroke="#475569" strokeWidth="2" />
+          <rect x="30" y="24" width="16" height="24" fill="#cbd5e1" opacity="0.8" />
+          <rect x="274" y="24" width="16" height="24" fill="#cbd5e1" opacity="0.8" />
+          <text x="38" y="16" fill="#38bdf8" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            {gas1} ({m1.toFixed(1)})
+          </text>
+          <text x="282" y="16" fill="#f59e0b" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            {gas2} ({m2.toFixed(1)})
+          </text>
+          <circle cx={46 + (228 * d1Pct) / 100} cy="36" r="8" fill="#ffffff" fillOpacity="0.85" filter="blur(1px)" />
+          <line
+            x1={46 + (228 * d1Pct) / 100}
+            y1="24"
+            x2={46 + (228 * d1Pct) / 100}
+            y2="48"
+            stroke="#10b981"
+            strokeWidth="2"
+          />
+          <text
+            x={46 + (228 * d1Pct) / 100}
+            y="64"
+            fill="#10b981"
+            fontSize="8"
+            fontWeight="bold"
+            fontFamily="monospace"
+            textAnchor="middle"
+          >
+            {lang === 'bn' ? 'ধোঁয়ার বলয়' : 'Smoke Ring'} ({d1Pct.toFixed(1)} cm)
+          </text>
+        </svg>
       </div>
     </div>
   );
@@ -349,14 +574,14 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
             href={`/${lang}/tools/molar-mass/`}
             className="flex items-center gap-1 bg-slate-800/80 hover:bg-slate-800 text-teal-300 px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
           >
-            <span>কেলাস পানি ও মোলার ভর</span>
+            <span>{lang === 'bn' ? 'কেলাস পানি ও মোলার ভর' : 'Molar Mass & Hydrates'}</span>
             <ArrowRight className="w-3 h-3" />
           </a>
           <a
             href={`/${lang}/tools/redox-balancer/`}
             className="flex items-center gap-1 bg-slate-800/80 hover:bg-slate-800 text-teal-300 px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
           >
-            <span>আয়ন-ইলেকট্রন রেডক্স সমতাকরণ</span>
+            <span>{lang === 'bn' ? 'আয়ন-ইলেকট্রন রেডক্স সমতাকরণ' : 'Redox Balancing'}</span>
             <ArrowRight className="w-3 h-3" />
           </a>
         </div>
@@ -369,12 +594,12 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           <select
             value={activeTab}
             onChange={(e) => setActiveTab(e.target.value as ChemistryTab)}
-            aria-label="Select Chemistry Module"
+            aria-label={lang === 'bn' ? 'রসায়ন মডিউল নির্বাচন' : 'Select Chemistry Module'}
             className="w-full bg-slate-800 text-white font-medium p-2.5 rounded-xl border border-slate-700"
           >
             {tabs.map((tb) => (
               <option key={tb.id} value={tb.id}>
-                {tb.num}ম অধ্যায়: {lang === 'bn' ? tb.titleBn : tb.titleEn}
+                {lang === 'bn' ? `${tb.num}ম অধ্যায়: ${tb.titleBn}` : `Chapter ${tb.num}: ${tb.titleEn}`}
               </option>
             ))}
           </select>
@@ -730,6 +955,10 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                 <span className="text-teal-400 font-bold block">পাঠ্যবইয়ের প্রমিত বন্ধন শক্তিসমূহ (kJ/mol):</span>
                 <p>C-H: 414 • Cl-Cl: 244 • C-Cl: 326 • H-Cl: 431 • C=C: 615 • C-C: 344 • H-H: 436 • N≡N: 946 • N-H: 391</p>
               </div>
+              <EnthalpyDiagram
+                deltaH={typeof activeResult.value === 'number' ? activeResult.value : -890}
+                lang={lang}
+              />
             </div>
           )}
 
@@ -764,6 +993,13 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   </select>
                 </div>
               </div>
+              <GasDiffusionTubeVisual
+                gas1={gas1}
+                gas2={gas2}
+                m1={PRESET_GASES[gas1]?.molarMass || 17}
+                m2={PRESET_GASES[gas2]?.molarMass || 36.5}
+                lang={lang}
+              />
             </div>
           )}
 
@@ -990,6 +1226,11 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
                   />
                 </div>
               )}
+              <BohrAtomDiagram
+                atomicNumber={bohrN === 1 ? 1 : bohrN === 2 ? 6 : bohrN === 3 ? 11 : 19}
+                symbol={bohrN === 1 ? 'H' : bohrN === 2 ? 'C' : bohrN === 3 ? 'Na' : 'K'}
+                lang={lang}
+              />
             </div>
           )}
         </div>
@@ -1097,6 +1338,9 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </button>
         </div>
       )}
+
+      {/* Interactive Casio fx-991EX Scientific Calculator Widget */}
+      <CasioVirtualCalculator lang={lang} />
     </div>
   );
 };

@@ -18,6 +18,10 @@ import {
   solveVector,
   solveSolidGeometry,
   solveProbability,
+  solveMatrix2x2,
+  solveMatrix3x3,
+  solveCramer2,
+  solveCramer3,
 } from '../src/tools/higher-math/engine';
 
 describe('SSC Higher Mathematics 14-Chapter Calculation Engine', () => {
@@ -191,6 +195,75 @@ describe('SSC Higher Mathematics 14-Chapter Calculation Engine', () => {
       const res = solveProbability(3, 6);
       expect(res.probability).toBe(0.5);
       expect(res.percentage).toBe(50);
+    });
+  });
+
+  describe('HSC Chapter 1: Matrix and Determinants', () => {
+    it('evaluates 2x2 matrix determinant and inverse', () => {
+      // A = [[4, 7], [2, 6]] -> det = 24 - 14 = 10
+      const res = solveMatrix2x2(4, 7, 2, 6);
+      expect(res.det).toBe(10);
+      expect(res.trace).toBe(10);
+      expect(res.isSingular).toBe(false);
+      expect(res.inverse).toEqual([
+        [0.6, -0.7],
+        [-0.2, 0.4],
+      ]);
+    });
+
+    it('identifies singular 2x2 matrix', () => {
+      const res = solveMatrix2x2(2, 4, 1, 2);
+      expect(res.det).toBe(0);
+      expect(res.isSingular).toBe(true);
+      expect(res.inverse).toBeUndefined();
+    });
+
+    it('evaluates 3x3 matrix determinant and trace', () => {
+      // Identity matrix
+      const resI = solveMatrix3x3([
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1],
+      ]);
+      expect(resI.det).toBe(1);
+      expect(resI.trace).toBe(3);
+      expect(resI.isSingular).toBe(false);
+
+      // [[1, 2, 3], [0, 1, 4], [5, 6, 0]]
+      // det = 1*(0-24) - 2*(0-20) + 3*(0-5) = -24 + 40 - 15 = 1
+      const res = solveMatrix3x3([
+        [1, 2, 3],
+        [0, 1, 4],
+        [5, 6, 0],
+      ]);
+      expect(res.det).toBe(1);
+      expect(res.trace).toBe(2);
+      expect(res.isSingular).toBe(false);
+    });
+
+    it('solves 2-variable linear equations using Cramer rule', () => {
+      // 2x + 3y = 8
+      // x - y = -1
+      // D = -2 - 3 = -5
+      // Dx = -8 - (-3) = -5 -> x = 1
+      // Dy = -2 - 8 = -10 -> y = 2
+      const res = solveCramer2(2, 3, 8, 1, -1, -1);
+      expect(res.d).toBe(-5);
+      expect(res.x).toBe(1);
+      expect(res.y).toBe(2);
+      expect(res.hasUniqueSolution).toBe(true);
+    });
+
+    it('solves 3-variable linear equations using Cramer rule', () => {
+      // x + y + z = 6
+      // x - y + z = 2
+      // 2x + y - z = 1
+      // Solution is x=1, y=2, z=3
+      const res = solveCramer3([1, 1, 1, 6], [1, -1, 1, 2], [2, 1, -1, 1]);
+      expect(res.x).toBe(1);
+      expect(res.y).toBe(2);
+      expect(res.z).toBe(3);
+      expect(res.hasUniqueSolution).toBe(true);
     });
   });
 });

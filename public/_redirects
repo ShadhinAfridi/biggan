@@ -2,4 +2,4 @@
 /sitemap.xml    /sitemap-index.xml    301
 /html-runner    /bn/tools/html-runner/ 301
 /html-runner/*  /bn/tools/html-runner/ 301
-/               /bn/                  301
+/               /bn/                  302

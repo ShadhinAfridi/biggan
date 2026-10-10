@@ -715,3 +715,244 @@ P(E) &= \\frac{n(E)}{n(S)} = \\frac{\\text{অনুকূল ফলাফল ($
     stepsLatex,
   };
 }
+
+// ==========================================
+// HSC CHAPTER 1: MATRIX & DETERMINANTS (ম্যাট্রিক্স ও নির্ণায়ক)
+// ==========================================
+
+export interface Matrix2x2Result {
+  det: number;
+  trace: number;
+  isSingular: boolean;
+  inverse?: [[number, number], [number, number]];
+  stepsLatex: string;
+}
+
+export function solveMatrix2x2(a: number, b: number, c: number, d: number): Matrix2x2Result {
+  const det = Number((a * d - b * c).toFixed(4));
+  const trace = a + d;
+  const isSingular = Math.abs(det) < 1e-9;
+
+  let inverse: [[number, number], [number, number]] | undefined = undefined;
+  if (!isSingular) {
+    inverse = [
+      [Number((d / det).toFixed(4)), Number((-b / det).toFixed(4))],
+      [Number((-c / det).toFixed(4)), Number((a / det).toFixed(4))],
+    ];
+  }
+
+  const stepsLatex = `\\begin{aligned}
+\\text{ম্যাট্রিক্স } A &= \\begin{pmatrix} ${a} & ${b} \\\\ ${c} & ${d} \\end{pmatrix} \\\\[4pt]
+\\text{নির্ণায়ক } |A| &= (${a})(${d}) - (${b})(${c}) = ${a * d} - (${b * c}) = \\mathbf{${det}} \\\\[4pt]
+\\text{ট্রেস (Trace)} &= ${a} + ${d} = \\mathbf{${trace}} \\\\[4pt]
+${
+  isSingular
+    ? '\\text{যেহেতু } |A| = 0, \\text{ তাই } A \\text{ একটি ব্যতিক্রমী (Singular) ম্যাট্রিক্স এবং এর বিপরীত ম্যাট্রিক্স নেই।}'
+    : `\\text{অ্যাডজয়েন্ট } \\text{adj}(A) &= \\begin{pmatrix} ${d} & ${-b} \\\\ ${-c} & ${a} \\end{pmatrix} \\\\[4pt]
+\\text{বিপরীত ম্যাট্রিক্স } A^{-1} &= \\frac{1}{|A|} \\text{adj}(A) = \\frac{1}{${det}} \\begin{pmatrix} ${d} & ${-b} \\\\ ${-c} & ${a} \\end{pmatrix} \\\\[4pt]
+&= \\mathbf{\\begin{pmatrix} ${(d / det).toFixed(3)} & ${(-b / det).toFixed(3)} \\\\ ${(-c / det).toFixed(3)} & ${(a / det).toFixed(3)} \\end{pmatrix}}`
+}
+\\end{aligned}`;
+
+  return {
+    det,
+    trace,
+    isSingular,
+    inverse,
+    stepsLatex,
+  };
+}
+
+export interface Matrix3x3Result {
+  det: number;
+  trace: number;
+  isSingular: boolean;
+  inverse?: [[number, number, number], [number, number, number], [number, number, number]];
+  stepsLatex: string;
+}
+
+export function solveMatrix3x3(m: number[][]): Matrix3x3Result {
+  if (m.length !== 3 || m.some((row) => row.length !== 3)) {
+    throw new Error('Matrix must be 3x3.');
+  }
+
+  const [a, b, c] = m[0];
+  const [d, e, f] = m[1];
+  const [g, h, i] = m[2];
+
+  const trace = a + e + i;
+
+  const c11 = e * i - f * h;
+  const c12 = -(d * i - f * g);
+  const c13 = d * h - e * g;
+
+  const det = Number((a * c11 + b * c12 + c * c13).toFixed(4));
+  const isSingular = Math.abs(det) < 1e-9;
+
+  const c21 = -(b * i - c * h);
+  const c22 = a * i - c * g;
+  const c23 = -(a * h - b * g);
+
+  const c31 = b * f - c * e;
+  const c32 = -(a * f - c * d);
+  const c33 = a * e - b * d;
+
+  let inverse: [[number, number, number], [number, number, number], [number, number, number]] | undefined = undefined;
+  if (!isSingular) {
+    inverse = [
+      [Number((c11 / det).toFixed(4)), Number((c21 / det).toFixed(4)), Number((c31 / det).toFixed(4))],
+      [Number((c12 / det).toFixed(4)), Number((c22 / det).toFixed(4)), Number((c32 / det).toFixed(4))],
+      [Number((c13 / det).toFixed(4)), Number((c23 / det).toFixed(4)), Number((c33 / det).toFixed(4))],
+    ];
+  }
+
+  const stepsLatex = `\\begin{aligned}
+\\text{ম্যাট্রিক্স } A &= \\begin{pmatrix}
+${a} & ${b} & ${c} \\\\
+${d} & ${e} & ${f} \\\\
+${g} & ${h} & ${i}
+\\end{pmatrix} \\\\[4pt]
+\\text{নির্ণায়ক } |A| &= ${a} \\begin{vmatrix} ${e} & ${f} \\\\ ${h} & ${i} \\end{vmatrix} - ${b} \\begin{vmatrix} ${d} & ${f} \\\\ ${g} & ${i} \\end{vmatrix} + ${c} \\begin{vmatrix} ${d} & ${e} \\\\ ${g} & ${h} \\end{vmatrix} \\\\[4pt]
+&= ${a}(${c11}) - ${b}(${-(c12)}) + ${c}(${c13}) \\\\[4pt]
+&= ${a * c11} + ${b * c12} + ${c * c13} = \\mathbf{${det}} \\\\[4pt]
+\\text{ট্রেস } &= ${a} + ${e} + ${i} = \\mathbf{${trace}} \\\\[4pt]
+${
+  isSingular
+    ? '\\text{যেহেতু } |A| = 0, \\text{ তাই ম্যাট্রিক্সটি ব্যতিক্রমী এবং এর কোনো বিপরীত ম্যাট্রিক্স নেই।}'
+    : `\\text{অ্যাডজয়েন্ট ম্যাট্রিক্স } \\text{adj}(A) &= \\begin{pmatrix}
+${c11} & ${c21} & ${c31} \\\\
+${c12} & ${c22} & ${c32} \\\\
+${c13} & ${c23} & ${c33}
+\\end{pmatrix} \\\\[4pt]
+\\text{বিপরীত ম্যাট্রিক্স } A^{-1} &= \\frac{1}{|A|}\\text{adj}(A) = \\frac{1}{${det}} \\begin{pmatrix}
+${c11} & ${c21} & ${c31} \\\\
+${c12} & ${c22} & ${c32} \\\\
+${c13} & ${c23} & ${c33}
+\\end{pmatrix}`
+}
+\\end{aligned}`;
+
+  return {
+    det,
+    trace,
+    isSingular,
+    inverse,
+    stepsLatex,
+  };
+}
+
+export interface Cramer2Result {
+  d: number;
+  dx: number;
+  dy: number;
+  x?: number;
+  y?: number;
+  hasUniqueSolution: boolean;
+  stepsLatex: string;
+}
+
+export function solveCramer2(
+  a1: number,
+  b1: number,
+  c1: number,
+  a2: number,
+  b2: number,
+  c2: number
+): Cramer2Result {
+  const d = a1 * b2 - a2 * b1;
+  const dx = c1 * b2 - c2 * b1;
+  const dy = a1 * c2 - a2 * c1;
+
+  const hasUniqueSolution = Math.abs(d) > 1e-9;
+  const x = hasUniqueSolution ? Number((dx / d).toFixed(4)) : undefined;
+  const y = hasUniqueSolution ? Number((dy / d).toFixed(4)) : undefined;
+
+  const stepsLatex = `\\begin{aligned}
+\\text{সমীকরণ ১: } & ${a1}x + ${b1}y = ${c1} \\\\[2pt]
+\\text{সমীকরণ ২: } & ${a2}x + ${b2}y = ${c2} \\\\[4pt]
+D &= \\begin{vmatrix} ${a1} & ${b1} \\\\ ${a2} & ${b2} \\end{vmatrix} = (${a1})(${b2}) - (${a2})(${b1}) = \\mathbf{${d}} \\\\[4pt]
+D_x &= \\begin{vmatrix} ${c1} & ${b1} \\\\ ${c2} & ${b2} \\end{vmatrix} = (${c1})(${b2}) - (${c2})(${b1}) = \\mathbf{${dx}} \\\\[4pt]
+D_y &= \\begin{vmatrix} ${a1} & ${c1} \\\\ ${a2} & ${c2} \\end{vmatrix} = (${a1})(${c2}) - (${a2})(${c1}) = \\mathbf{${dy}} \\\\[4pt]
+${
+  hasUniqueSolution
+    ? `x &= \\frac{D_x}{D} = \\frac{${dx}}{${d}} = \\mathbf{${x}} \\\\[4pt]
+y &= \\frac{D_y}{D} = \\frac{${dy}}{${d}} = \\mathbf{${y}}`
+    : '\\text{যেহেতু } D = 0, \\text{ সমীকরণজোটের কোনো অনন্য (Unique) সমাধান নেই।}'
+}
+\\end{aligned}`;
+
+  return { d, dx, dy, x, y, hasUniqueSolution, stepsLatex };
+}
+
+export interface Cramer3Result {
+  d: number;
+  dx: number;
+  dy: number;
+  dz: number;
+  x?: number;
+  y?: number;
+  z?: number;
+  hasUniqueSolution: boolean;
+  stepsLatex: string;
+}
+
+export function solveCramer3(
+  eq1: [number, number, number, number],
+  eq2: [number, number, number, number],
+  eq3: [number, number, number, number]
+): Cramer3Result {
+  const [a1, b1, c1, d1] = eq1;
+  const [a2, b2, c2, d2] = eq2;
+  const [a3, b3, c3, d3] = eq3;
+
+  const det3 = (m: number[][]) => {
+    return (
+      m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) -
+      m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) +
+      m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0])
+    );
+  };
+
+  const d = det3([
+    [a1, b1, c1],
+    [a2, b2, c2],
+    [a3, b3, c3],
+  ]);
+
+  const dx = det3([
+    [d1, b1, c1],
+    [d2, b2, c2],
+    [d3, b3, c3],
+  ]);
+
+  const dy = det3([
+    [a1, d1, c1],
+    [a2, d2, c2],
+    [a3, d3, c3],
+  ]);
+
+  const dz = det3([
+    [a1, b1, d1],
+    [a2, b2, d2],
+    [a3, b3, d3],
+  ]);
+
+  const hasUniqueSolution = Math.abs(d) > 1e-9;
+  const x = hasUniqueSolution ? Number((dx / d).toFixed(4)) : undefined;
+  const y = hasUniqueSolution ? Number((dy / d).toFixed(4)) : undefined;
+  const z = hasUniqueSolution ? Number((dz / d).toFixed(4)) : undefined;
+
+  const stepsLatex = `\\begin{aligned}
+D &= \\mathbf{${d}}, \\quad D_x = \\mathbf{${dx}}, \\quad D_y = \\mathbf{${dy}}, \\quad D_z = \\mathbf{${dz}} \\\\[4pt]
+${
+  hasUniqueSolution
+    ? `x &= \\frac{D_x}{D} = \\frac{${dx}}{${d}} = \\mathbf{${x}} \\\\[4pt]
+y &= \\frac{D_y}{D} = \\frac{${dy}}{${d}} = \\mathbf{${y}} \\\\[4pt]
+z &= \\frac{D_z}{D} = \\frac{${dz}}{${d}} = \\mathbf{${z}}`
+    : '\\text{যেহেতু } D = 0, \\text{ সমীকরণজোটের কোনো অনন্য (Unique) সমাধান নেই।}'
+}
+\\end{aligned}`;
+
+  return { d, dx, dy, dz, x, y, z, hasUniqueSolution, stepsLatex };
+}
+
