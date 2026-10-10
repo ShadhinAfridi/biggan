@@ -43,9 +43,9 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       expect(content).toMatch(/\/html-runner\s+\/bn\/tools\/html-runner\/\s+301/);
     });
 
-    it('contains clean edge 302 redirect for root / to /bn/', () => {
+    it('contains clean edge 301 permanent redirect for root / to /bn/', () => {
       const content = fs.readFileSync(redirectsPath, 'utf8');
-      expect(content).toMatch(/^\/\s+\/bn\/\s+302/m);
+      expect(content).toMatch(/^\/\s+\/bn\/\s+301/m);
     });
   });
 
