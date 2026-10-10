@@ -5,7 +5,7 @@ import { FORMULA_CATALOG, SUBJECT_METADATA } from '../../../data/formulaCatalog'
 import { FormulaSearch } from '../../../components/formulas/FormulaSearch';
 
 const siteUrl = 'https://biggan.me';
-const canonicalUrl = `${siteUrl}/en/formulas`;
+const canonicalUrl = `${siteUrl}/en/formulas/`;
 
 // Breadcrumb & CollectionPage Structured Data for Google Indexing
 const breadcrumbSchema = {
@@ -16,7 +16,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: `${siteUrl}/en`,
+      item: `${siteUrl}/en/`,
     },
     {
       '@type': 'ListItem',
@@ -38,7 +38,7 @@ const collectionSchema = {
   hasPart: Object.values(SUBJECT_METADATA).map((sub) => ({
     '@type': 'WebPage',
     name: `${sub.nameEn} Formula Sheet`,
-    url: `${canonicalUrl}/${sub.id}`,
+    url: `${canonicalUrl}${sub.id}/`,
     description: sub.descriptionEn,
   })),
 };
@@ -78,7 +78,7 @@ const subjectsList = Object.values(SUBJECT_METADATA);
           <span>Print / Save as PDF</span>
         </button>
         <a
-          href="/en/my-progress"
+          href="/en/my-progress/"
           class="inline-flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl text-xs sm:text-sm border border-slate-700 transition"
         >
           <span>📊</span>
@@ -101,7 +101,7 @@ const subjectsList = Object.values(SUBJECT_METADATA);
           const count = FORMULA_CATALOG.filter((f) => f.subjectId === sub.id).length;
           return (
             <a
-              href={`/en/formulas/${sub.id}`}
+              href={`/en/formulas/${sub.id}/`}
               class="bg-slate-900 border border-slate-800 hover:border-amber-500/40 p-3.5 rounded-xl transition group flex flex-col justify-between space-y-2 hover:bg-slate-850"
             >
               <div class="flex items-center justify-between">

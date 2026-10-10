@@ -45,8 +45,8 @@ function formatMathInText(text: string): string {
 }
 
 const siteUrl = 'https://biggan.me';
-const canonicalUrl = `${siteUrl}/en/formulas/${meta.id}`;
-const parentFormulasUrl = `${siteUrl}/en/formulas`;
+const canonicalUrl = `${siteUrl}/en/formulas/${meta.id}/`;
+const parentFormulasUrl = `${siteUrl}/en/formulas/`;
 
 // Group formulas by chapter
 const chaptersMap = new Map<string, FormulaItem[]>();
@@ -68,7 +68,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: `${siteUrl}/en`,
+      item: `${siteUrl}/en/`,
     },
     {
       '@type': 'ListItem',
@@ -138,9 +138,9 @@ const allSubjects = Object.values(SUBJECT_METADATA);
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
     {/* Breadcrumb Navigation */}
     <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-400 no-print">
-      <a href="/en" class="hover:text-amber-400 transition">Home</a>
+      <a href="/en/" class="hover:text-amber-400 transition">Home</a>
       <span>/</span>
-      <a href="/en/formulas" class="hover:text-amber-400 transition">Formulas</a>
+      <a href="/en/formulas/" class="hover:text-amber-400 transition">Formulas</a>
       <span>/</span>
       <span class="text-white font-medium">{meta.nameEn}</span>
     </nav>
@@ -193,7 +193,7 @@ const allSubjects = Object.values(SUBJECT_METADATA);
           const isCurrent = sub.id === meta.id;
           return (
             <a
-              href={`/en/formulas/${sub.id}`}
+              href={`/en/formulas/${sub.id}/`}
               class={`px-3 py-1 rounded-lg text-xs font-medium transition ${
                 isCurrent
                   ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/20'
@@ -267,7 +267,7 @@ const allSubjects = Object.values(SUBJECT_METADATA);
     {/* Bottom Back Button */}
     <div class="text-center pt-4 no-print">
       <a
-        href="/en/formulas"
+        href="/en/formulas/"
         class="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-xl text-sm font-semibold border border-slate-800 transition"
       >
         ← Back to All Formula Reference Sheets

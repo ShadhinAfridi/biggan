@@ -26,11 +26,14 @@ export const FormulaCard: React.FC<FormulaCardProps> = ({ formula, lang }) => {
     ? `${window.location.origin}/${lang}/formulas/${formula.subjectId}#${formula.id}`
     : `/${lang}/formulas/${formula.subjectId}#${formula.id}`;
 
-  const toolUrl = formula.toolUrl
+  let toolUrl = formula.toolUrl
     ? formula.toolUrl.startsWith(`/${lang}`)
       ? formula.toolUrl
       : `/${lang}${formula.toolUrl.replace(/^\/(bn|en)/, '')}`
     : undefined;
+  if (toolUrl && !toolUrl.endsWith('/') && !toolUrl.includes('.')) {
+    toolUrl = `${toolUrl}/`;
+  }
 
   return (
     <article

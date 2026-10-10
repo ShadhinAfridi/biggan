@@ -42,7 +42,7 @@ const baseSchemas = [
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${siteUrl}/${lang}/formulas?q={search_term_string}`,
+        urlTemplate: `${siteUrl}/${lang}/formulas/?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },

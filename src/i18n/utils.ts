@@ -14,7 +14,10 @@ export function useTranslations(lang: Lang) {
 
 export function switchLangUrl(url: URL, targetLang: Lang): string {
   const currentLang = getLangFromUrl(url);
-  const pathname = url.pathname;
+  let pathname = url.pathname;
+  if (!pathname.endsWith('/') && !pathname.includes('.')) {
+    pathname = `${pathname}/`;
+  }
   
   // Replace leading /{currentLang} with /{targetLang}
   if (pathname.startsWith(`/${currentLang}`)) {
@@ -25,5 +28,18 @@ export function switchLangUrl(url: URL, targetLang: Lang): string {
 
 export function getLocalizedPath(path: string, lang: Lang): string {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return `/${lang}${cleanPath}`;
+  if (cleanPath === '/') {
+    return `/${lang}/`;
+  }
+
+  // Preserve query parameters or hashes if present
+  const [basePath, ...rest] = cleanPath.split(/([?#].*)/);
+  const suffix = rest.join('');
+
+  const endsWithSlash = basePath.endsWith('/');
+  const hasExtension = /\.[a-zA-Z0-9]+$/.test(basePath);
+  const normalizedBase = (!endsWithSlash && !hasExtension) ? `${basePath}/` : basePath;
+
+  return `/${lang}${normalizedBase}${suffix}`;
 }
+

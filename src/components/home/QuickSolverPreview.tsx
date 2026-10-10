@@ -213,8 +213,8 @@ export const QuickSolverPreview: React.FC<Props> = ({ lang = 'bn' }) => {
         <a
           href={
             mode === 'force' || mode === 'energy'
-              ? `/${lang}/tools/physics`
-              : `/${lang}/tools/chemistry`
+              ? `/${lang}/tools/physics/`
+              : `/${lang}/tools/chemistry/`
           }
           className="text-cyan-400 hover:text-cyan-300 hover:underline font-medium flex items-center gap-1"
         >

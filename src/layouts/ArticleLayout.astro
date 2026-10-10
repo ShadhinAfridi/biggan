@@ -40,16 +40,20 @@ const articleSchema = {
   author: {
     '@type': 'Organization',
     name: 'Biggan.me Scientific Editorial Board',
-    url: 'https://biggan.me/about',
+    url: `https://biggan.me/${lang}/about/`,
   },
   publisher: {
     '@type': 'Organization',
     name: 'Biggan.me',
-    url: 'https://biggan.me',
+    url: 'https://biggan.me/',
   },
 };
 
-const canonicalUrl = `https://biggan.me${Astro.url.pathname}`;
+let normalizedPath = Astro.url.pathname;
+if (!normalizedPath.endsWith('/') && !normalizedPath.includes('.')) {
+  normalizedPath = `${normalizedPath}/`;
+}
+const canonicalUrl = `https://biggan.me${normalizedPath}`;
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

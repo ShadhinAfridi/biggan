@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /404
+Disallow: /404/
+Disallow: /404.html
 
 Sitemap: https://biggan.me/sitemap-index.xml
 Sitemap: https://biggan.me/sitemap-0.xml

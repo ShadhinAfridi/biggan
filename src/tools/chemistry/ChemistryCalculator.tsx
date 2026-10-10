@@ -346,14 +346,14 @@ export const ChemistryCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
         {/* Quick Links to Standalone Tools */}
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <a
-            href={`/${lang}/tools/molar-mass`}
+            href={`/${lang}/tools/molar-mass/`}
             className="flex items-center gap-1 bg-slate-800/80 hover:bg-slate-800 text-teal-300 px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
           >
             <span>কেলাস পানি ও মোলার ভর</span>
             <ArrowRight className="w-3 h-3" />
           </a>
           <a
-            href={`/${lang}/tools/redox-balancer`}
+            href={`/${lang}/tools/redox-balancer/`}
             className="flex items-center gap-1 bg-slate-800/80 hover:bg-slate-800 text-teal-300 px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
           >
             <span>আয়ন-ইলেকট্রন রেডক্স সমতাকরণ</span>

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Trophy,
   CheckCircle2,
@@ -43,8 +43,8 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
     color: 'from-amber-500 to-amber-600',
     badgeBg: 'bg-amber-500/10',
     badgeText: 'text-amber-400 border-amber-500/30',
-    toolUrlBn: '/bn/tools/physics',
-    toolUrlEn: '/en/tools/physics',
+    toolUrlBn: '/bn/tools/physics/',
+    toolUrlEn: '/en/tools/physics/',
     chapters: [
       { id: 'ch1', num: 1, nameBn: 'ভৌত রাশি ও পরিমাপ', nameEn: 'Physical Quantities & Measurement' },
       { id: 'ch2', num: 2, nameBn: 'গতি (Motion)', nameEn: 'Motion & Kinematics' },
@@ -69,8 +69,8 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
     color: 'from-indigo-500 to-purple-600',
     badgeBg: 'bg-indigo-500/10',
     badgeText: 'text-indigo-400 border-indigo-500/30',
-    toolUrlBn: '/bn/tools/higher-math',
-    toolUrlEn: '/en/tools/higher-math',
+    toolUrlBn: '/bn/tools/higher-math/',
+    toolUrlEn: '/en/tools/higher-math/',
     chapters: [
       { id: 'geometry', num: 3, nameBn: '৩য়: এ্যাপোলোনিওসের উপপাদ্য', nameEn: 'Ch 3: Geometry (Apollonius)' },
       { id: 'equations', num: '5-6', nameBn: '৫-৬: দ্বিঘাত সমীকরণ ও অসমতা', nameEn: 'Ch 5-6: Equations & Inequalities' },
@@ -91,8 +91,8 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
     color: 'from-teal-500 to-emerald-600',
     badgeBg: 'bg-teal-500/10',
     badgeText: 'text-teal-400 border-teal-500/30',
-    toolUrlBn: '/bn/tools/chemistry',
-    toolUrlEn: '/en/tools/chemistry',
+    toolUrlBn: '/bn/tools/chemistry/',
+    toolUrlEn: '/en/tools/chemistry/',
     chapters: [
       { id: 'diffusion', num: 2, nameBn: '২য়: গ্রাহামের ব্যাপন সূত্র', nameEn: 'Ch 2: Graham\'s Law of Diffusion' },
       { id: 'atomic_structure', num: 3, nameBn: '৩য়: বোর মডেল ও পারমাণবিক ভর', nameEn: 'Ch 3: Bohr Atomic Model & Isotopes' },
@@ -113,8 +113,8 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
     color: 'from-cyan-500 to-blue-600',
     badgeBg: 'bg-cyan-500/10',
     badgeText: 'text-cyan-400 border-cyan-500/30',
-    toolUrlBn: '/bn/tools/general-math',
-    toolUrlEn: '/en/tools/general-math',
+    toolUrlBn: '/bn/tools/general-math/',
+    toolUrlEn: '/en/tools/general-math/',
     chapters: [
       { id: 'ch2', num: 2, nameBn: '২য়: সেট ও শক্তি সেট', nameEn: 'Ch 2: Sets & Power Set' },
       { id: 'ch3', num: 3, nameBn: '৩য়: বীজগাণিতিক সূত্র ও মান নির্ণয়', nameEn: 'Ch 3: Algebraic Expansions' },
@@ -133,8 +133,8 @@ const SUBJECTS_CONFIG: SubjectDef[] = [
     color: 'from-emerald-500 to-teal-600',
     badgeBg: 'bg-emerald-500/10',
     badgeText: 'text-emerald-400 border-emerald-500/30',
-    toolUrlBn: '/bn/tools/biology',
-    toolUrlEn: '/en/tools/biology',
+    toolUrlBn: '/bn/tools/biology/',
+    toolUrlEn: '/en/tools/biology/',
     chapters: [
       { id: 'bioenergetics', num: 4, nameBn: '৪র্থ: শ্বসন জৈবশক্তি ও ATP হিসাব', nameEn: 'Ch 4: Respiration ATP Yield' },
       { id: 'bmi_bmr', num: 5, nameBn: '৫ম: বিএমআই (BMI) ও বিএমআর (BMR)', nameEn: 'Ch 5: BMI & BMR Caloric Needs' },

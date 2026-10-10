@@ -5,7 +5,7 @@ import { GLOSSARY_TERMS } from '../../../data/glossaryTerms';
 import { GlossarySearch } from '../../../components/glossary/GlossarySearch';
 
 const siteUrl = 'https://biggan.me';
-const canonicalUrl = `${siteUrl}/en/glossary`;
+const canonicalUrl = `${siteUrl}/en/glossary/`;
 
 // DefinedTermSet Schema for SEO
 const definedTermSetSchema = {
@@ -18,12 +18,12 @@ const definedTermSetSchema = {
   url: canonicalUrl,
   hasDefinedTerm: GLOSSARY_TERMS.map((term) => ({
     '@type': 'DefinedTerm',
-    '@id': `${canonicalUrl}/${term.id}`,
+    '@id': `${canonicalUrl}${term.id}/`,
     name: term.termEn,
     alternateName: [term.termBn, term.pronunciationBn],
     description: term.definitionEn,
     inDefinedTermSet: canonicalUrl,
-    url: `${canonicalUrl}/${term.id}`,
+    url: `${canonicalUrl}${term.id}/`,
   })),
 };
 
@@ -35,7 +35,7 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: `${siteUrl}/en`,
+      item: `${siteUrl}/en/`,
     },
     {
       '@type': 'ListItem',

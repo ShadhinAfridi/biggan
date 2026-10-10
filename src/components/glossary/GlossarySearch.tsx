@@ -214,12 +214,13 @@ export const GlossarySearch: React.FC<GlossarySearchProps> = ({ terms, lang }) =
             ? QUANTITY_TYPE_LABELS_BN[term.quantityType] || term.quantityType
             : QUANTITY_TYPE_LABELS_EN[term.quantityType] || term.quantityType;
 
-          const termUrl = `/${lang}/glossary/${term.id}`;
-          const toolUrl = term.relatedToolUrl
+          const termUrl = `/${lang}/glossary/${term.id}/`;
+          const rawTool = term.relatedToolUrl
             ? term.relatedToolUrl.startsWith(`/${lang}`)
               ? term.relatedToolUrl
               : `/${lang}${term.relatedToolUrl.replace(/^\/(bn|en)/, '')}`
             : undefined;
+          const toolUrl = rawTool ? (rawTool.endsWith('/') ? rawTool : `${rawTool}/`) : undefined;
 
           return (
             <article
