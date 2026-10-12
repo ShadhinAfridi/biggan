@@ -1,5 +1,13 @@
 # Cloudflare Pages Redirects
-/sitemap.xml    /sitemap-index.xml    301
-/html-runner    /bn/tools/html-runner/ 301
-/html-runner/*  /bn/tools/html-runner/ 301
-/               /bn/                  301
+/sitemap.xml             /sitemap-index.xml             301
+/html-runner             /bn/tools/html-runner/          301
+/html-runner/*           /bn/tools/html-runner/          301
+/bn/tools/logic-gates    /bn/tools/circuit-simulator/   301
+/bn/tools/logic-gates/*  /bn/tools/circuit-simulator/   301
+/en/tools/logic-gates    /en/tools/circuit-simulator/   301
+/en/tools/logic-gates/*  /en/tools/circuit-simulator/   301
+/bn/tools/periodic-table /bn/periodic-table/            301
+/bn/tools/periodic-table/* /bn/periodic-table/          301
+/en/tools/periodic-table /en/periodic-table/            301
+/en/tools/periodic-table/* /en/periodic-table/          301
+/                        /bn/                           301

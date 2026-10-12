@@ -36,9 +36,16 @@ const toolMeta: Record<string, { nameBn: string; nameEn: string; icon: string }>
   'circuit-simulator': { nameBn: 'ডিজিটাল লজিক সার্কিট সিমুলেটর', nameEn: 'Digital Logic Circuit Simulator', icon: '🔌' },
   'c-runner': { nameBn: 'সি প্রোগ্রামিং কোড ও মেমরি ট্রেসার', nameEn: 'C Code Runner & Memory Tracer', icon: '💻' },
   'database-simulator': { nameBn: 'রিলেশনাল ডাটাবেজ ও এসকিউএল সিমুলেটর', nameEn: 'Relational Database & SQL Simulator', icon: '🗄️' },
+  'periodic-table': { nameBn: 'পর্যায় সারণি সিমুলেটর', nameEn: 'Periodic Table Explorer', icon: '🧪' },
 };
 
 const levelLabel = subject.level === 'hsc' ? 'Higher Secondary (Classes 11–12)' : 'Secondary (Classes 9–10)';
+const cleanSubjectNameEn = subject.nameEn
+  .replace(/\s*\(Classes [0-9–-]+\)/, '')
+  .replace(/^SSC\s+/, '')
+  .replace('Information & Communication Technology (ICT)', 'ICT');
+const levelShortEn = subject.level.toUpperCase();
+const pageTitle = `${levelShortEn} ${cleanSubjectNameEn} Syllabus Guide | Biggan.me`;
 const canonicalUrl = `https://biggan.me/en/curriculum/${subject.level}/${subject.id}/`;
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
@@ -80,7 +87,7 @@ const courseSchema = {
 ---
 
 <BaseLayout
-  title={`${subject.nameEn} (${levelLabel}) — Syllabus & Topic Guide | Biggan.me`}
+  title={pageTitle}
   description={`Comprehensive NCTB syllabus roadmap for ${levelLabel} ${subject.nameEn}. Creative Question (CQ) & MCQ mark distribution, core KaTeX formulas, and live interactive simulators.`}
   lang="en"
   jsonLd={[breadcrumbSchema, courseSchema]}
@@ -266,7 +273,7 @@ const courseSchema = {
                 <div class="flex gap-2">
                   {chapter.linkedToolIds.map((toolId) => (
                     <a
-                      href={getLocalizedPath(`/tools/${toolId}`, 'en')}
+                      href={toolId === 'periodic-table' ? getLocalizedPath('/periodic-table', 'en') : getLocalizedPath(`/tools/${toolId}`, 'en')}
                       class="inline-flex items-center gap-1.5 py-2 px-4 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition shadow-lg shadow-cyan-950/50"
                     >
                       Launch Simulator →

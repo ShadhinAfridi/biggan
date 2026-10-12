@@ -46,9 +46,22 @@ function clampMetaDescription(text: string, maxLength: number = 155): string {
 
 const metaDescription = clampMetaDescription(description, 155);
 
-// Build base schemas for WebSite and EducationalOrganization
-const baseSchemas = [
+// Determine if the current page is a homepage
+const isHomePage = normalizedPath === '/bn/' || normalizedPath === '/en/' || normalizedPath === '/';
+
+// Build base schemas
+const baseSchemas: Record<string, any>[] = [
   {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: 'Biggan.me',
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+  },
+];
+
+if (isHomePage) {
+  baseSchemas.unshift({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Biggan.me',
@@ -63,15 +76,22 @@ const baseSchemas = [
       },
       'query-input': 'required name=search_term_string',
     },
-  },
-  {
+  });
+} else {
+  baseSchemas.push({
     '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
-    name: 'Biggan.me',
-    url: siteUrl,
-    logo: `${siteUrl}/favicon.svg`,
-  },
-];
+    '@type': 'WebPage',
+    name: title,
+    url: canonicalUrl,
+    inLanguage: lang === 'bn' ? 'bn-BD' : 'en-US',
+    description: metaDescription,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Biggan.me',
+      url: siteUrl,
+    },
+  });
+}
 
 const pageSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const combinedSchemas = [...baseSchemas, ...pageSchemas];

@@ -268,7 +268,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "NOT(A + B) = NOT(A) * NOT(B)",
     "notesBn": "",
     "notesEn": "",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-de-morgan-s-second-law",
@@ -283,7 +283,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "NOT(A * B) = NOT(A) + NOT(B)",
     "notesBn": "",
     "notesEn": "",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-half-adder-sum",
@@ -298,7 +298,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "S = A XOR B = NOT(A)B + ANOT(B)",
     "notesBn": "",
     "notesEn": "",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-half-adder-carry",
@@ -313,7 +313,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "C = A * B",
     "notesBn": "",
     "notesEn": "",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-full-adder-sum",
@@ -328,7 +328,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "S = A XOR B XOR C_in",
     "notesBn": "তিনটি ইনপুট বিট (A, B ও পূর্ববর্তী ক্যারি Cin) যোগ করার পর লব্ধ যোগফল বিট। দুটি হাফ অ্যাডার এবং একটি OR গেট দিয়ে বাস্তবায়ন করা যায়।",
     "notesEn": "Sum output bit when adding three binary inputs (A, B, Cin) in a Full Adder circuit.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-full-adder-carry-out",
@@ -343,7 +343,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "C_out = AB + BC_in + C_inA = AB + C_in(A XOR B)",
     "notesBn": "ফুল অ্যাডারে পরবর্তী স্তরে প্রেরিত ক্যারি আউটপুট বিট। দুটি প্রোডাক্ট টার্ম ও এক্স-অর গেটের আউটপুটের সাহায্যে সরলীকরণ করা হয়।",
     "notesEn": "Carry output generated to higher bit positions in Full Adder addition.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-positional-number-system-expansion",
@@ -358,7 +358,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "N = Σ_i=-m^n-1 d_i * r^i = d_n-1r^n-1 + dots + d_0 r^0 + d_-1r^-1 + dots + d_-mr^-m",
     "notesBn": "যেকোনো ভিত্তি r (যেমন বাইনারিতে r=2, অক্টালে r=8, হেক্সাডেসিমেলে r=16) বিশিষ্ট সংখ্যার দশমিক মান নির্ণয়ের বহুপদী সূত্র।",
     "notesEn": "General base-r polynomial expansion formula to compute the decimal equivalent value.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-n-bit-two-s-complement-range",
@@ -373,7 +373,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "Range = -2^n-1 to +(2^n-1 - 1)",
     "notesBn": "কম্পিউটার মেমরিতে n-বিট রেজিস্টারে ২-এর পরিপূরক পদ্ধতিতে সংরক্ষিত হতে পারা সর্বনিম্ন ও সর্বোচ্চ পূর্ণসংখ্যার সীমা (যেমন ৮-বিটের জন্য -১২৮ থেকে +১২৭)।",
     "notesEn": "Represents the range of signed integers representable in n bits (e.g., -128 to +127 for 8-bit registers).",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-boolean-absorption-laws",
@@ -388,7 +388,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "A + AB = A, A(A + B) = A, A + NOT(A)B = A + B",
     "notesBn": "ডিজিটাল সার্কিটের গেট সংখ্যা কমাতে এবং বুলিয়ান সমীকরণ দ্রুততম উপায়ে সরলীকরণে বহুল ব্যবহৃত শোষণ সূত্র।",
     "notesEn": "Reduces logic expression complexity by eliminating redundant literals.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-consensus-theorem",
@@ -403,7 +403,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "AB + NOT(A)C + BC = AB + NOT(A)C",
     "notesBn": "বুলিয়ান এক্সপ্রেশনের অপ্রয়োজনীয় পদ বাদ দিতে কনসেনসাস উপপাদ্য ব্যবহৃত হয়, যেখানে BC পদটি স্বয়ংক্রিয়ভাবে বাদ পড়ে।",
     "notesEn": "Eliminates redundant terms in SOP logic expressions where the BC term is redundant.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-encoder-and-decoder-line-relations",
@@ -418,7 +418,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "Encoder: 2^n to n, Decoder: n to 2^n",
     "notesBn": "এনকোডারে 2^n সংখ্যক ইনপুট থেকে n সংখ্যক আউটপুট পাওয়া যায়; অপরদিকে ডিকোডারে n সংখ্যক ইনপুট থেকে 2^n সংখ্যক আউটপুট পাওয়া যায়।",
     "notesEn": "Input-to-output channel ratios for standard binary Encoders and Decoders.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "ict-ch3-multiplexer-select-line-formula",
@@ -433,7 +433,7 @@ export const FORMULA_CATALOG: FormulaItem[] = [
     "cleanText": "2^n Data Inputs implies n Select Lines to 1 Output",
     "notesBn": "অনেকগুলো ডেটা লাইনের মধ্যে নির্দিষ্ট একটি লাইন আউটপুটে পাঠাতে n সংখ্যক সিলেক্ট লাইনের প্রয়োজন হয়।",
     "notesEn": "Determines the number of select lines needed to route 2^n input data channels to 1 output.",
-    "toolUrl": "/bn/tools/logic-gates"
+    "toolUrl": "/bn/tools/circuit-simulator"
   },
   {
     "id": "physics-ch2-resultant-magnitude",

@@ -47,6 +47,14 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
       const content = fs.readFileSync(redirectsPath, 'utf8');
       expect(content).toMatch(/^\/\s+\/bn\/\s+301/m);
     });
+
+    it('contains 301 redirects for legacy logic-gates and periodic-table paths', () => {
+      const content = fs.readFileSync(redirectsPath, 'utf8');
+      expect(content).toMatch(/\/bn\/tools\/logic-gates\s+\/bn\/tools\/circuit-simulator\/\s+301/);
+      expect(content).toMatch(/\/en\/tools\/logic-gates\s+\/en\/tools\/circuit-simulator\/\s+301/);
+      expect(content).toMatch(/\/bn\/tools\/periodic-table\s+\/bn\/periodic-table\/\s+301/);
+      expect(content).toMatch(/\/en\/tools\/periodic-table\s+\/en\/periodic-table\/\s+301/);
+    });
   });
 
   describe('Cloudflare Pages security and cache headers (_headers)', () => {
@@ -173,21 +181,21 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
   describe('Comprehensive 100% Page Indexability Suite (dist output)', () => {
     const distPath = path.join(ROOT, 'dist');
 
+    function getHtmlFiles(dir: string, list: string[] = []): string[] {
+      const entries = fs.readdirSync(dir);
+      for (const entry of entries) {
+        const full = path.join(dir, entry);
+        if (fs.statSync(full).isDirectory()) {
+          getHtmlFiles(full, list);
+        } else if (entry.endsWith('.html')) {
+          list.push(full);
+        }
+      }
+      return list;
+    }
+
     it('validates all production HTML pages are indexable without unintended noindex or missing metadata', () => {
       if (!fs.existsSync(distPath)) return; // skip if not built yet
-
-      function getHtmlFiles(dir: string, list: string[] = []): string[] {
-        const entries = fs.readdirSync(dir);
-        for (const entry of entries) {
-          const full = path.join(dir, entry);
-          if (fs.statSync(full).isDirectory()) {
-            getHtmlFiles(full, list);
-          } else if (entry.endsWith('.html')) {
-            list.push(full);
-          }
-        }
-        return list;
-      }
 
       const files = getHtmlFiles(distPath);
       expect(files.length).toBeGreaterThanOrEqual(206);
@@ -208,10 +216,17 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
           expect(content, `${rel} has unintended noindex`).not.toContain('noindex');
           expect(content, `${rel} missing index directive`).toContain('index, follow');
 
-          // Must have valid title
+          // Must have valid title within search snippet display bounds (<= 60 chars)
           const titleMatch = content.match(/<title>([^<]+)<\/title>/);
           expect(titleMatch, `${rel} missing title`).toBeTruthy();
-          expect(titleMatch![1].trim().length).toBeGreaterThan(5);
+          const rawTitle = titleMatch![1].trim()
+            .replace(/&amp;/g, '&')
+            .replace(/&#39;/g, "'")
+            .replace(/&quot;/g, '"')
+            .replace(/&lt;/g, '<')
+            .replace(/&gt;/g, '>');
+          expect(rawTitle.length, `${rel} title too short (< 5 chars)`).toBeGreaterThan(5);
+          expect(rawTitle.length, `${rel} title too long (> 60 chars): "${rawTitle}"`).toBeLessThanOrEqual(60);
 
           // Must have valid meta description within search engine bounds (50 to 160 chars)
           const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]+)"/);
@@ -219,6 +234,10 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
           const descLength = descMatch![1].trim().length;
           expect(descLength, `${rel} meta description too short (< 50 chars)`).toBeGreaterThanOrEqual(50);
           expect(descLength, `${rel} meta description too long (> 160 chars)`).toBeLessThanOrEqual(160);
+
+          // Must not exceed search engine HTML document weight threshold (1.5MB; Ahrefs warns at 2MB)
+          const fileSize = fs.statSync(file).size;
+          expect(fileSize, `${rel} HTML file size exceeds 1.5MB (${(fileSize / 1024).toFixed(0)} KB)`).toBeLessThan(1.5 * 1024 * 1024);
 
           // Must have canonical matching exact URL
           const expectedCanonical = `https://biggan.me/${rel.replace(/index\.html$/, '')}`;
@@ -229,6 +248,18 @@ describe('Technical SEO & Crawl Architecture Suite', () => {
           expect(content, `${rel} missing hreflang en`).toContain('hreflang="en"');
           expect(content, `${rel} missing hreflang x-default`).toContain('hreflang="x-default"');
         }
+      }
+    });
+
+    it('verifies zero broken internal links to logic-gates or tools/periodic-table in dist HTML', () => {
+      if (!fs.existsSync(distPath)) return;
+      const files = getHtmlFiles(distPath);
+      for (const file of files) {
+        const content = fs.readFileSync(file, 'utf8');
+        expect(content).not.toContain('href="/bn/tools/logic-gates');
+        expect(content).not.toContain('href="/en/tools/logic-gates');
+        expect(content).not.toContain('href="/bn/tools/periodic-table');
+        expect(content).not.toContain('href="/en/tools/periodic-table');
       }
     });
 

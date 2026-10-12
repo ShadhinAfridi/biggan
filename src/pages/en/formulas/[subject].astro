@@ -127,10 +127,14 @@ const faqSchema = {
 const jsonLd = [breadcrumbSchema, creativeWorkSchema, itemListSchema, faqSchema];
 
 const allSubjects = Object.values(SUBJECT_METADATA);
+const shortSubjectNameEn = meta.nameEn
+  .replace('Information & Communication Technology (ICT)', 'ICT')
+  .replace('Mathematics', 'Math');
+const pageTitle = `${shortSubjectNameEn} Formula Sheet & Equations | Biggan.me`;
 ---
 
 <BaseLayout
-  title={`${meta.nameEn} Formula Sheet & Complete Equation Bank — Biggan.me`}
+  title={pageTitle}
   description={`${meta.nameEn}: ${meta.descriptionEn} Chapter-by-chapter NCTB secondary and higher secondary formulas, LaTeX notation, physical boundary conditions, and exam FAQs.`}
   lang="en"
   jsonLd={jsonLd}

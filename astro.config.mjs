@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
+import sitemap, { ChangeFreqEnum } from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -13,23 +13,23 @@ export default defineConfig({
     sitemap({
       filter: (page) => page !== 'https://biggan.me/' && !page.includes('/404'),
       serialize(item) {
-        item.lastmod = new Date();
+        item.lastmod = new Date().toISOString();
         const url = item.url;
         if (url === 'https://biggan.me/bn/' || url === 'https://biggan.me/en/') {
           item.priority = 1.0;
-          item.changefreq = 'daily';
+          item.changefreq = ChangeFreqEnum.DAILY;
         } else if (url.includes('/tools/') || url.includes('/formulas/') || url.includes('/periodic-table/')) {
           item.priority = 0.9;
-          item.changefreq = 'weekly';
+          item.changefreq = ChangeFreqEnum.WEEKLY;
         } else if (url.includes('/curriculum/') || url.includes('/articles/') || url.includes('/my-progress/')) {
           item.priority = 0.8;
-          item.changefreq = 'monthly';
+          item.changefreq = ChangeFreqEnum.MONTHLY;
         } else if (url.includes('/glossary/')) {
           item.priority = 0.7;
-          item.changefreq = 'monthly';
+          item.changefreq = ChangeFreqEnum.MONTHLY;
         } else {
           item.priority = 0.4;
-          item.changefreq = 'monthly';
+          item.changefreq = ChangeFreqEnum.MONTHLY;
         }
 
         const isBn = url.includes('/bn/');

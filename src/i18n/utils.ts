@@ -19,6 +19,10 @@ export function switchLangUrl(url: URL, targetLang: Lang): string {
     pathname = `${pathname}/`;
   }
   
+  if (pathname.includes('/404')) {
+    return `/${targetLang}/`;
+  }
+
   // Replace leading /{currentLang} with /{targetLang}
   if (pathname.startsWith(`/${currentLang}`)) {
     return pathname.replace(`/${currentLang}`, `/${targetLang}`);

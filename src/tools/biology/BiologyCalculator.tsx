@@ -1236,10 +1236,10 @@ export const BiologyCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
           </span>
           <div className="text-base font-mono font-bold text-white flex items-baseline gap-1.5">
             {activeTab === 'bmi_bmr' && bmiRes && <span>BMI: {bmiRes.bmi} ({lang === 'bn' ? bmiRes.category.categoryBn : bmiRes.category.categoryEn})</span>}
-            {activeTab === 'bioenergetics' && respRes && <span>{respRes.netTotalAtp} ATP ({respRes.totalKcal} kcal)</span>}
+            {activeTab === 'bioenergetics' && respRes && <span>{respRes.totalAtp} ATP ({respRes.totalKcal} kcal)</span>}
             {activeTab === 'monohybrid' && monoRes && <span>{monoRes.dominantPercentage}% : {monoRes.recessivePercentage}%</span>}
-            {activeTab === 'sex_linked' && sexRes && <span>{sexRes.traitName}</span>}
-            {activeTab === 'trophic_energy' && trophicRes && <span>{trophicRes.apexPredatorEnergy} {trophicUnit} (0.1%)</span>}
+            {activeTab === 'sex_linked' && sexRes && <span>{sexRes.condition === 'colorblindness' ? (lang === 'bn' ? 'বর্ণান্ধতা' : 'Colorblindness') : (lang === 'bn' ? 'হিমোফিলিয়া' : 'Hemophilia')}</span>}
+            {activeTab === 'trophic_energy' && trophRes && <span>{trophRes.apexPredatorEnergy} {trophicUnit} (0.1%)</span>}
             {activeTab === 'blood_matching' && bloodRes && <span>{bloodRes.isCompatible ? '✓ Compatible' : '✗ Incompatible'}</span>}
           </div>
         </div>

@@ -41,6 +41,20 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
   const [selectedSubject, setSelectedSubject] = useState(defaultSubject);
   const [selectedLevel, setSelectedLevel] = useState<'all' | 'ssc' | 'hsc'>('all');
   const [quizMode, setQuizMode] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(24);
+
+  React.useEffect(() => {
+    const onBeforePrint = () => setVisibleCount(formulas.length);
+    window.addEventListener('beforeprint', onBeforePrint);
+    return () => window.removeEventListener('beforeprint', onBeforePrint);
+  }, [formulas.length]);
+
+  const handlePrint = () => {
+    setVisibleCount(formulas.length);
+    setTimeout(() => {
+      window.print();
+    }, 100);
+  };
 
   // Available subjects from formula list
   const availableSubjects = useMemo(() => {
@@ -210,7 +224,7 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
 
             {/* Print / Save PDF Button */}
             <button
-              onClick={() => window.print()}
+              onClick={handlePrint}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-200 hover:text-white text-xs font-semibold border border-slate-700/60 transition cursor-pointer"
               title={isBn ? 'এই সূত্র তালিকাটি প্রিন্ট করুন অথবা পিডিএফ হিসেবে সংরক্ষণ করুন' : 'Print this formula sheet or save as PDF'}
             >
@@ -254,11 +268,38 @@ export const FormulaSearch: React.FC<FormulaSearchProps> = ({
       )}
 
       {/* Grid of Formulas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map((formula) => (
-          <FormulaCard key={formula.id} formula={formula} lang={lang} forceHidden={quizMode} />
-        ))}
-      </div>
+      {(() => {
+        const displayedFormulas = (query.trim() || quizMode)
+          ? filtered
+          : filtered.slice(0, visibleCount);
+        return (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {displayedFormulas.map((formula) => (
+                <FormulaCard key={formula.id} formula={formula} lang={lang} forceHidden={quizMode} />
+              ))}
+            </div>
+
+            {/* Load More Pagination Controls (visible when more items exist and not searching) */}
+            {filtered.length > visibleCount && !query.trim() && !quizMode && (
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 no-print">
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + 24)}
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>{isBn ? `আরও সূত্র দেখুন (${filtered.length - visibleCount}টি বাকি)` : `Load More Formulas (${filtered.length - visibleCount} remaining)`}</span>
+                </button>
+                <button
+                  onClick={() => setVisibleCount(filtered.length)}
+                  className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold text-xs border border-slate-700 transition cursor-pointer"
+                >
+                  <span>{isBn ? 'সবগুলো সূত্র একসাথে দেখুন' : 'Show All Formulas'}</span>
+                </button>
+              </div>
+            )}
+          </>
+        );
+      })()}
     </div>
   );
 };

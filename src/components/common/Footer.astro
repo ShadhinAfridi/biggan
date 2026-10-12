@@ -144,6 +144,11 @@ const currentYear = new Date().getFullYear();
             </a>
           </li>
           <li>
+            <a href={getLocalizedPath('/articles', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.articles')}
+            </a>
+          </li>
+          <li>
             <a href={getLocalizedPath('/formulas', lang)} class="hover:text-cyan-400 transition">
               {t('nav.formulas')}
             </a>
@@ -156,6 +161,11 @@ const currentYear = new Date().getFullYear();
           <li>
             <a href={getLocalizedPath('/glossary', lang)} class="hover:text-cyan-400 transition">
               {t('nav.glossary')}
+            </a>
+          </li>
+          <li>
+            <a href={getLocalizedPath('/my-progress', lang)} class="hover:text-cyan-400 transition">
+              {t('nav.progress')}
             </a>
           </li>
           <li>

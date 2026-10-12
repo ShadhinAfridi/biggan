@@ -117,10 +117,17 @@ let toolUrl = term.relatedToolUrl
 if (toolUrl && !toolUrl.endsWith('/') && !toolUrl.includes('.')) {
   toolUrl = `${toolUrl}/`;
 }
+let pageTitle = `${term.termBn} — সংজ্ঞা, সূত্র ও একক | Biggan.me`;
+if (pageTitle.length > 60) {
+  pageTitle = `${term.termBn} — সংজ্ঞা ও সূত্র | Biggan.me`;
+}
+if (pageTitle.length > 60) {
+  pageTitle = `${term.termBn} | Biggan.me`;
+}
 ---
 
 <BaseLayout
-  title={`${term.termBn} (${term.termEn}) কাকে বলে? সূত্র, একক ও মাত্রা — Biggan.me`}
+  title={pageTitle}
   description={`${term.termBn} (${term.termEn}): ${term.definitionBn} এসআই একক: ${term.siUnitBn}, মাত্রা: ${term.dimensionalFormula}। সংজ্ঞাকারী সমীকরণ, ব্যাখ্যা ও বোর্ড পরীক্ষার প্রশ্নোত্তর।`}
   lang="bn"
   jsonLd={jsonLd}

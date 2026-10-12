@@ -3,6 +3,8 @@ export const languages = {
   en: 'English',
 } as const;
 
+export type Lang = keyof typeof languages;
+
 export const defaultLang = 'bn' as const;
 
 export const ui = {

@@ -117,10 +117,20 @@ let toolUrl = term.relatedToolUrl
 if (toolUrl && !toolUrl.endsWith('/') && !toolUrl.includes('.')) {
   toolUrl = `${toolUrl}/`;
 }
+let pageTitle = `${term.termEn}: Formula & Definition | Biggan.me`;
+if (pageTitle.length > 60) {
+  pageTitle = `${term.termEn}: Formula & Units | Biggan.me`;
+}
+if (pageTitle.length > 60) {
+  pageTitle = `${term.termEn}: STEM Guide | Biggan.me`;
+}
+if (pageTitle.length > 60) {
+  pageTitle = `${term.termEn} | Biggan.me`;
+}
 ---
 
 <BaseLayout
-  title={`${term.termEn} (${term.termBn}): Formula, SI Unit & Dimensions — Biggan.me`}
+  title={pageTitle}
   description={`${term.termEn} (${term.termBn}): ${term.definitionEn} SI Unit: ${term.siUnitEn}, Dimension: ${term.dimensionalFormula}. Mathematical equation, physical derivation, and exam FAQs.`}
   lang="en"
   jsonLd={jsonLd}
