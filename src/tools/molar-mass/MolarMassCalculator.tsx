@@ -34,7 +34,15 @@ export const MolarMassCalculator: React.FC<Props> = ({ lang = 'bn' }) => {
   };
 
   useEffect(() => {
-    handleCalculate(formulaInput);
+    let initialInput = formulaInput;
+    if (typeof window !== 'undefined') {
+      const q = new URLSearchParams(window.location.search).get('q');
+      if (q && q.trim()) {
+        initialInput = q.trim();
+        setFormulaInput(initialInput);
+      }
+    }
+    handleCalculate(initialInput);
   }, []);
 
   const handleCopy = () => {

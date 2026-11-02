@@ -67,7 +67,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     "mnemonicBn": "৭টি মৌলিক রাশি মনে রাখার কৌশল: ভদ স ত তা দী প (ভর, দৈর্ঘ্য, সময়, তাপমাত্রা, তড়িৎ প্রবাহ, দীপন তীব্রতা, পদার্থের পরিমাণ)",
     "mnemonicEn": "7 SI Base units: Length (m), Mass (kg), Time (s), Current (A), Temp (K), Intensity (cd), Amount (mol)",
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity",
       "acceleration",
@@ -118,7 +118,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Distance is scalar, whereas displacement is a vector.",
       "A complete circular round trip results in zero net displacement."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity",
       "acceleration"
@@ -168,7 +168,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Uniform circular motion has constant speed but changing velocity.",
       "SI unit is m/s; dimensional formula is [L T^-1]."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "displacement",
       "acceleration",
@@ -219,7 +219,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Negative acceleration is termed deceleration or retardation.",
       "SI unit is m/s^2; dimension is [L T^-2]."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity",
       "force"
@@ -271,7 +271,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     "mnemonicBn": "নিউটনের ৩টি গতিসূত্র: ১ম - জড়তা ও বলের সংজ্ঞা; ২য় - F = ma (বলের মান); ৩য় - ক্রিয়া ও প্রতিক্রিয়া সমান ও বিপরীত।",
     "mnemonicEn": "Newton's 3 laws: 1st - Inertia, 2nd - F = ma, 3rd - Action & Reaction",
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "momentum",
       "friction",
@@ -322,7 +322,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Conserved in isolated systems according to the law of conservation of momentum.",
       "SI unit is kg*m/s; dimension is [M L T^-1]."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity",
       "force",
@@ -367,7 +367,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Proportional to the normal contact force (f = mu * R).",
       "Referred to as a 'necessary evil' in applied mechanics."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "force",
       "work"
@@ -411,7 +411,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Follows an inverse-square law with respect to separation distance.",
       "Attraction between Earth and an object is specifically called gravity."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "force",
       "acceleration"
@@ -457,7 +457,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Zero work when force is perpendicular to displacement (theta = 90 deg).",
       "1 Joule = 10^7 ergs."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "power",
       "kinetic-energy",
@@ -508,7 +508,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Kinetic energy is strictly non-negative.",
       "Doubling speed increases kinetic energy by a factor of 4."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "momentum",
       "work",
@@ -553,7 +553,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Increases linearly with elevation (Ep = mgh).",
       "Stored elastic spring energy is Ep = 1/2 * k * x^2."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "work",
       "kinetic-energy"
@@ -597,7 +597,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "1 Watt = 1 Joule per second.",
       "1 Horsepower (HP) = 746 Watts."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "work",
       "kinetic-energy"
@@ -641,7 +641,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Hydrostatic pressure at depth h is P = h*rho*g.",
       "SI unit is Pascal (Pa); dimension is [M L^-1 T^-2]."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "force",
       "density",
@@ -686,7 +686,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Density of water peaks at 4 deg C at 1000 kg/m^3.",
       "SI unit is kg/m^3; dimension is [M L^-3]."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "pressure",
       "archimedes-principle"
@@ -730,7 +730,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Determines laws of floatation and sinking.",
       "Heavy steel ships float because displaced water weight balances total ship weight."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "density",
       "pressure"
@@ -774,7 +774,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Dimensionless ratio with no physical units.",
       "Higher refractive index implies an optically denser medium."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity"
     ],
@@ -817,7 +817,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "1 Volt = 1 Joule per Coulomb.",
       "Potential difference drives electric current."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "resistance",
       "work"
@@ -863,7 +863,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     "mnemonicBn": "ওহমস ল ট্রায়াঙ্গল: V উপরে, নিচে I এবং R (ভোল্টেজ = কারেন্ট × রোধ)",
     "mnemonicEn": "V = I * R (Voltage = Current * Resistance)",
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "electric-potential",
       "power"
@@ -907,7 +907,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Governs photon energy via E = h*f.",
       "Shares the exact same dimension as angular momentum ([M L^2 T^-1])."
     ],
-    "relatedToolUrl": "/bn/tools/physics",
+    "relatedToolUrl": "/bn/tools/physics/",
     "relatedTermIds": [
       "velocity",
       "kinetic-energy"
@@ -951,7 +951,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Electrically neutral because proton count balances electron count.",
       "The vast majority of an atom's volume is empty space."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "molecule",
       "isotope",
@@ -996,7 +996,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Held together via covalent chemical bonds.",
       "Can be decomposed into their constituent atoms."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "atom",
       "mole",
@@ -1043,7 +1043,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     "mnemonicBn": "আইসোটোপ-এ 'প' আছে = প্রোটন সংখ্যা সমান; আইসোবার-এ 'ব' আছে = ভর সংখ্যা সমান; আইসোটোন-এ 'ন' আছে = নিউট্রন সংখ্যা সমান।",
     "mnemonicEn": "IsotoPe = same Protons, IsoBar = same mass (Bhor), IsotoNe = same Neutrons",
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "atom",
       "molar-mass"
@@ -1087,7 +1087,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Standard molar volume at STP is 22.4 L/mol.",
       "Unified mole formula: n = w/M = V/22.4 = N/NA."
     ],
-    "relatedToolUrl": "/bn/tools/molar-mass",
+    "relatedToolUrl": "/bn/tools/molar-mass/",
     "relatedTermIds": [
       "molar-mass",
       "molarity",
@@ -1132,7 +1132,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Crucial for calculating solution molarity and limiting reactants.",
       "Accounts for waters of crystallization in hydrates."
     ],
-    "relatedToolUrl": "/bn/tools/molar-mass",
+    "relatedToolUrl": "/bn/tools/molar-mass/",
     "relatedTermIds": [
       "mole",
       "molarity",
@@ -1177,7 +1177,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Decimolar = 0.1 M; Semi-molar = 0.5 M.",
       "Decreases as temperature rises due to thermal expansion of solution volume."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "mole",
       "molar-mass",
@@ -1222,7 +1222,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Noble gases have zero valency.",
       "Transition metals exhibit variable valencies (e.g., Fe: 2 and 3)."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "chemical-bond",
       "oxidation-state"
@@ -1266,7 +1266,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Ionic solids exhibit high melting points and electrical conductivity in solution.",
       "Bond formation is exothermic, releasing stabilizing energy."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "electronegativity",
       "valency",
@@ -1313,7 +1313,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     ],
     "mnemonicBn": "তড়িৎ ঋণাত্মকতার সক্রিয়তা ক্রম: FONClBrI (ফোন কল ব্রাই) -> F > O > N > Cl > Br > I",
     "mnemonicEn": "FONClBrI: F (4.0) > O (3.5) > N (3.0) = Cl (3.0) > Br (2.8) > I (2.5)",
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "chemical-bond",
       "oxidation-state"
@@ -1357,7 +1357,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "The sum of oxidation numbers in neutral compounds equals zero.",
       "Increase in oxidation number = oxidation; decrease = reduction."
     ],
-    "relatedToolUrl": "/bn/tools/redox-balancer",
+    "relatedToolUrl": "/bn/tools/redox-balancer/",
     "relatedTermIds": [
       "valency",
       "chemical-bond"
@@ -1401,7 +1401,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Graham's law: Rate is inversely proportional to the square root of molar mass.",
       "Lighter molecules diffuse faster than heavier molecules."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "molar-mass",
       "mole"
@@ -1445,7 +1445,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Endothermic reactions: Delta H > 0 (absorbs heat).",
       "Calculated via bond energies: Delta H = Broken bonds - Formed bonds."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "chemical-bond",
       "molar-mass"
@@ -1489,7 +1489,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "pH < 7 is acidic, pH = 7 is neutral, pH > 7 is basic.",
       "Water self-ionization guarantees pH + pOH = 14 at 25 deg C."
     ],
-    "relatedToolUrl": "/bn/tools/chemistry",
+    "relatedToolUrl": "/bn/tools/chemistry/",
     "relatedTermIds": [
       "molarity",
       "mole"
@@ -1533,7 +1533,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Classified into prokaryotic and eukaryotic architectures.",
       "Plant cells feature cell walls, chloroplasts, and large central vacuoles."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "dna",
       "mitosis",
@@ -1578,7 +1578,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Complementary base pairing: A=T (2 H-bonds) and G=C (3 H-bonds).",
       "Helix diameter is 2.0 nm, with a pitch of 3.4 nm per complete turn."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "cell",
       "mitosis",
@@ -1623,7 +1623,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Drives tissue growth, maintenance, and wound repair.",
       "Unchecked mitotic proliferation triggers cancer."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "cell",
       "dna"
@@ -1667,7 +1667,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Takes place within leaf mesophyll chloroplasts.",
       "Releases breathable oxygen as an essential metabolic byproduct."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "cellular-respiration",
       "atp"
@@ -1711,7 +1711,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Krebs cycle occurs in mitochondrial matrix, dubbing mitochondria the powerhouse of the cell.",
       "Anaerobic pathway yields only 2 net ATP."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "atp",
       "photosynthesis"
@@ -1755,7 +1755,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Hydrolysis of terminal phosphate yields 7.3 kcal/mol.",
       "Regenerated via cellular respiration and photophosphorylation."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "cellular-respiration",
       "photosynthesis"
@@ -1799,7 +1799,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "F2 generation produces a 3:1 phenotypic and 1:2:1 genotypic distribution.",
       "Demonstrates Mendel's Law of Segregation."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "dna"
     ],
@@ -1842,7 +1842,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Energy flow is strictly unidirectional; nutrient cycling is circular.",
       "Lindeman's rule: only 10% of energy transfers between successive trophic tiers."
     ],
-    "relatedToolUrl": "/bn/tools/biology",
+    "relatedToolUrl": "/bn/tools/biology/",
     "relatedTermIds": [
       "photosynthesis",
       "cellular-respiration"
@@ -1886,7 +1886,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Proper subsets count equals 2^n - 1.",
       "The empty set is an element of every power set."
     ],
-    "relatedToolUrl": "/bn/tools/general-math",
+    "relatedToolUrl": "/bn/tools/general-math/",
     "relatedTermIds": [
       "cartesian-product"
     ],
@@ -1929,7 +1929,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Cardinality: n(A x B) = n(A) * n(B).",
       "Non-commutative: A x B != B x A in general."
     ],
-    "relatedToolUrl": "/bn/tools/general-math",
+    "relatedToolUrl": "/bn/tools/general-math/",
     "relatedTermIds": [
       "power-set"
     ],
@@ -1974,7 +1974,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "D = 0: single repeated real root.",
       "D < 0: complex conjugate roots."
     ],
-    "relatedToolUrl": "/bn/tools/quadratic-solver",
+    "relatedToolUrl": "/bn/tools/quadratic-solver/",
     "relatedTermIds": [
       "vector"
     ],
@@ -2017,7 +2017,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Used to compute median lengths directly from side dimensions.",
       "Proves 3 * sum(sides^2) = 4 * sum(medians^2)."
     ],
-    "relatedToolUrl": "/bn/tools/higher-math",
+    "relatedToolUrl": "/bn/tools/higher-math/",
     "relatedTermIds": [
       "vector"
     ],
@@ -2060,7 +2060,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Magnitude: |v| = sqrt(x^2 + y^2).",
       "Unit vector: vector divided by its scalar magnitude."
     ],
-    "relatedToolUrl": "/bn/tools/higher-math",
+    "relatedToolUrl": "/bn/tools/higher-math/",
     "relatedTermIds": [
       "velocity",
       "force"
@@ -2104,7 +2104,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Certain events have P = 1; impossible events have P = 0.",
       "Calculated as favorable events over sample space size."
     ],
-    "relatedToolUrl": "/bn/tools/higher-math",
+    "relatedToolUrl": "/bn/tools/higher-math/",
     "relatedTermIds": [
       "discriminant"
     ],
@@ -2147,7 +2147,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "3 core logic operators: AND, OR, and NOT.",
       "De Morgan's laws enable circuit minimization."
     ],
-    "relatedToolUrl": "/bn/tools/circuit-simulator",
+    "relatedToolUrl": "/bn/tools/circuit-simulator/",
     "relatedTermIds": [
       "logic-gate",
       "truth-table"
@@ -2191,7 +2191,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Universal gates: NAND and NOR.",
       "Special arithmetic gates: XOR and XNOR."
     ],
-    "relatedToolUrl": "/bn/tools/circuit-simulator",
+    "relatedToolUrl": "/bn/tools/circuit-simulator/",
     "relatedTermIds": [
       "boolean-algebra",
       "truth-table"
@@ -2235,7 +2235,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Primary diagnostic tool for validating digital logic functions.",
       "Constructed using permutations of 0 and 1."
     ],
-    "relatedToolUrl": "/bn/tools/circuit-simulator",
+    "relatedToolUrl": "/bn/tools/circuit-simulator/",
     "relatedTermIds": [
       "logic-gate",
       "boolean-algebra"
@@ -2279,7 +2279,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
       "Primary Keys are strictly unique and cannot contain NULL values.",
       "Foreign Keys establish cross-table relational integrity."
     ],
-    "relatedToolUrl": "/bn/tools/database-simulator",
+    "relatedToolUrl": "/bn/tools/database-simulator/",
     "relatedTermIds": [
       "boolean-algebra"
     ],

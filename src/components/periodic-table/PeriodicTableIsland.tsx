@@ -903,6 +903,7 @@ export const PeriodicTableIsland: React.FC<Props> = ({ lang = 'bn' }) => {
               <div className="flex flex-wrap items-center gap-3">
                 <a
                   href={`/${lang}/tools/molar-mass/?q=${selectedElement.symbol}`}
+                  rel="nofollow"
                   className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-lg"
                 >
                   <Zap className="w-3.5 h-3.5" />
